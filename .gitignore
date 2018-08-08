@@ -1,0 +1,11 @@
+*.aux
+*.
+build/
+*.html
+*.blg
+*.bbl
+*.toc
+*.out
+*.gz
+*.planner
+*.blend1

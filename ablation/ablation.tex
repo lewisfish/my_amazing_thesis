@@ -7,7 +7,7 @@
 %What medical procedures are done with laser ablation? 
 %What are the outstanding issues/questions that your model can be used to answer? mention pig skin
 
-%Details of laser pulsing.
+%Details of laser pulsing. now add this in experimental results section
 %Time steps, convergence tests, etc
 %Time for holes to be drilled by laser.
 %Low intensity damage
@@ -47,9 +47,6 @@ The MCRT portion of the algorithm begins with determining where the photon enter
 
 Once the packet enters the simulation, a propagation distance for the packets is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption. This process is repeated until the photon has either been absorbed or exits the medium.
 
-%Equation 1 is for a uniform density (opacity) medium, but you have a grid, so need some description of how you track packets on a grid.
-
-
 \begin{equation}
 L = -\tfrac{ln(\xi)}{\mu_a}
 \label{eqn:propdist}
@@ -60,13 +57,10 @@ L = -\tfrac{ln(\xi)}{\mu_a}
 \indent $\mu_a$ is the absorption coefficient;\\
 \indent L is the physical distance.\\
 
-\Cref{eqn:propdist} is the equation for a uniform medium. As the medium we are simulating changes over time due to thermal damage this equation has to be adapted for a 3D Cartesian grid. This is achieved as below:
+\Cref{eqn:propdist} is the equation for a uniform medium. As the medium we are simulating changes over time due to thermal damage this equation has to be adapted for a 3D Cartesian grid. Each voxel 
+can have different optical properties, thus the photon packet is moved on a voxel by voxel basis. To start the movement process, a random number is generated, which is used to sample an optical depth the photon packet will travel. Next the photon enters the voxel and the maximum distance the photon can travel in the new voxel is calculated along the photons trajectory. If this optical distance is less than the optical depth sampled, then the photon enters the next voxel. If the distance is larger than the sampled optical distance then the photon has an interaction event in that voxel. The photon packet moves to the interaction event in the voxel and then undergoes scattering or absorption. The whole process is repeated until the photon `dies' via absorption or leaving the medium.
 
-\begin{equation}
-
-\end{equation}
-
-The above process is repeated until all the photons have been absorbed or have escaped the tissue medium. We use 5 million photons per MCRT simulation run.
+This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 5 million photons per MCRT simulation run.\\
 
 \begin{figure}
 \centering
@@ -176,13 +170,12 @@ T_{i+1}^{n+1} =  \Delta t\alpha \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + 
 \Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. We use a simple explicit scheme here, due to its ease of implementation. This yields for the more general 3D case:
 
 
-\begin{align*}
-U_{xx} &= \frac{\alpha}{\Delta x^2} (T^N_{i-1,j,k} - 2T^N_{i,j,k} + T^N_{i+1,j,k}) \\
-U_{yy} &= \frac{\alpha}{\Delta y^2} (T^N_{i,j-1,k} - 2T^N_{i,j,k} + T^N_{i,j+1,k}) \\
-U_{zz} &= \frac{\alpha}{\Delta z^2} (T^N_{i,j,k-1} - 2T^N_{i,j,k} + T^N_{i,j,k+1}) \\
-T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac{\alpha \Delta t}{\kappa}\dot{q_L}
-\label{eqn:FDMheat}
-\end{align*}
+\begin{align}
+U_{xx} &= \frac{\alpha}{\Delta x^2} (T^N_{i-1,j,k} - 2T^N_{i,j,k} + T^N_{i+1,j,k}) \label{eqn:FDMheat1}\\
+U_{yy} &= \frac{\alpha}{\Delta y^2} (T^N_{i,j-1,k} - 2T^N_{i,j,k} + T^N_{i,j+1,k}) \label{eqn:FDMheat2}\\
+U_{zz} &= \frac{\alpha}{\Delta z^2} (T^N_{i,j,k-1} - 2T^N_{i,j,k} + T^N_{i,j,k+1}) \label{eqn:FDMheat3}\\
+T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac{\alpha \Delta t}{\kappa}\dot{q_L} \label{eqn:FDMheat4}
+\end{align}
 
 \noindent Where:\\
 	\indent $T^{N+1}_{i,j,k}$ is the new temperature at node $i,j,k$ [$K$];\\
@@ -196,6 +189,18 @@ Incorporating B.Cs on the top air exposed face:
 \begin{equation}
 U_{zz} = \tfrac{\alpha}{\Delta z^2} (\tfrac{2 \Delta z}{\kappa} (-h(T^N_{i,j,k}-T^N_\infty) ) -2 T^N_{i,j,k} + 2T^N_{i,j,k+1}) 
 \end{equation}
+
+As the lasers *maybe remove s?* operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This addiational variable, laserOn, is a boolean value, which is defined as:
+
+\[   
+laserOn = 
+     \begin{cases}
+       \text{1,} &\quad\text{if time}\le\text{pulse length}\\
+       \text{0,} &\quad\text{if time}>\text{pulse length}.\\
+     \end{cases}
+\]
+
+Thus allowing the simulation to simulate pulsed lasers.\\
 
 As we are using a simple explicit FDM, the time step is constrained in order to make the solution stable. For a cubic 3D FDM without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{\alpha \Delta x^2}{2\beta}$. However as we have a flux prescribed boundary condition, the constraint on the time is more severe. Along with this time restraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be an order of magnitude smaller than the shortest laser pulse.
 

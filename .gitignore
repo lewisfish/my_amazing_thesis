@@ -9,3 +9,4 @@ build/
 *.gz
 *.planner
 *.blend1
+*.log

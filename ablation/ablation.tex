@@ -282,7 +282,7 @@ T(x,y,z,t)=\sum^\infty_{n=1,3,..}\sum^\infty_{m=1,3,..}\sum^\infty_{p=1,3,..}\fr
 At time, $t=*input*$s, a slice through the middle of the cube, $L=1~cm$,  yields \cref{fig:validation-heat}.
 
 \begin{figure}	
-\vspace{-20pt}
+\vspace{-10pt}
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/validation.pdf}
 	\caption{Comparison between analytical solution and numerical method.}
@@ -349,15 +349,22 @@ We define the ablation temperature ($T_a$) as occurring between 173 and 450$^{\c
 
 The tissue structure is then fed back to the MCRT model and the whole process repeats until the average temperature of the model is under 43$^{\circ}$C. This process is outlined in \cref{fig:algo}.
 
-\section{\textit{In silca} results}
- 
+\section{\textit{In silca} results} 
+
+\subsection{Introduction}
+
+In order to match the experimental results, we must first create as accurate model of the experimental setup \textit{in silica}. However due to computational constraints, such as memory and time available, we must make some approximations to the experiment. The porcine skin in reality was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, we model the porcine skin as a cuboid, dimensions: 1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice. 
+As mentioned in the previous sections, there are several unknowns in the model: $T_a$, water content, temperature of air after ablation. Therefore we run several models so that the full parameter space of these unknowns can be explored.
+Results from these \textit{in silica} experiments are presented in this section along with a comparison of the model to the experimental work carried out in collaboration with the University of Dundee and the photobiology department at Ninewells hospital.
+
+
 \subsubsection{Optical \& thermal properties}
 
-As both of the lasers used in the experimental work are infrared lasers, this means that the optical properties are dominated by water absorption (see \cref{fig:waterabsor}). Er:YAG has a wavelength 2940$~nm$ which corresponds to an absorption coefficient of water: $\sim 11200~cm^{-1}$. The CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelength.
+Both of the lasers used in the experimental work are infrared lasers, this means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The lasers used in the experiment are the Lynton lumina 576 Er:YAG, and the Pixel CO$_2$. The Er:YAG laser has a wavelength 2940$~nm$ which corresponds to an absorption coefficient of water: $\sim 11200~cm^{-1}$. The CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelength.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 \begin{figure}	
-\vspace{-20pt}
+\vspace{-10pt}
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/water.pdf}
 	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing at large wavelengths.}
@@ -377,12 +384,10 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 \end{tabular}
 \caption{blah blah}\label{table:values}
 \end{table}  
- 
 
-\subsection{Results}
+Both lasers were used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The Er:YAG laser used a pattern of 5 x 5 lasers, with the corners missing, giving a total of 21 `Pixel beams'. The CO$_2$ laser used an array of 81 pixel beams with no missing `Pixels'.
+The power of these lasers was varied through the experiment. For the Er:YAG laser, it delivered multiple pulses of either 350~$mJ$ or 700~$mJ$ depending on which operating mode it was in (low or high), up to an energy of 3500~$mJ$. This energy is split evenly over all the pixel beams. The CO$_2$ laser used single pulses (`Super pulsed mode') of varying energy from 50~$mJ$ to 400~$mJ$ in increments of 25~$mJ$. This was for \textit{each} individual `Pixel beam'.
 
-We model the porcine skin as a cuboid dimensions: 1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice. 
-As mentioned in the previous sections, there are several unknowns in the model: $T_a$, water content, temperature of air after ablation. Therefore we run several models so that the full parameter space of these unknowns can be explored.
 
 \subsubsection{Investigating ablation temperature, $T_a$}
 
@@ -398,8 +403,8 @@ Various literature sources report the ablation temperature ranging from 173$^{\c
 \end{figure}
  
 
-\subsubsection*{Investigating water content}
+\subsubsection{Investigating water content}
  
-\subsubsection*{Investigating temperature of air after ablation} 
+\subsubsection{Investigating temperature of air after ablation} 
  
 \section{Conclusion}

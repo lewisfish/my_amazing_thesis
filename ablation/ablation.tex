@@ -107,16 +107,14 @@ In order to model the transport of heat in porcine skin, we use the standard par
 	\indent $\rho$ is the density [$Kg \cdot m^{-3}$];\\
 	\indent $c_p$ the specific heat capacity [$J\cdot K^{-1}$];\\
 	\indent $\dot{q}(x,y,z,t)$ is the source/sink term as a function of time and space [$W\cdot m^{-3}$].\\
-	
-We assume that $\kappa$	is constant during heat transport and only changes between heat transport and MCRT portions of the simulation (see Section Tissue damage), thus:
+
+As the medium changes as a function of temperature and time, we cannot make the assumption that $\kappa, \rho, \text{and}\  c_p$ are constant and thus we have to solve the non-linear heat equation (\cref{eqn:nonlinearheat}).
 
 \begin{equation}
-\frac{\partial T}{\partial t}= \alpha \nabla^2 T + \dot{q}
-\label{eqn:heatreal}
+\frac{\partial T}{\partial t} = \frac{1}{(\rho c_p)_{\xi}}(\nabla kT + k\nabla^2T)+\dot{q}\quad \xi=(i,j,k)
+\label{eqn:nonlinearheat}
 \end{equation}
-	
-Where $\alpha = \tfrac{\kappa}{\rho c_p}$ is the thermal diffusivity [$m^2 s^-{1}$]	\\
-	
+
 The $\dot{q}$ term is a heat source/sink term. The heat source in this simulation is due to the laser, and we assume the only loss of heat to the surrounding medium is via convection and conduction.
 	
 These boundary conditions must be considered. All faces of the cube, bar the laser facing face, are considered to be pinned at 5$^{\circ}$C, as the porcine skin was kept cooled prior to experimental work. The laser facing face has a simple convective BC:	
@@ -130,11 +128,10 @@ These boundary conditions must be considered. All faces of the cube, bar the las
 	\indent \textit{h} is the heat transfer coefficient [$W m^{-2} K$];\\
 	\indent and \textit{A} is the area of the grid element, that is radiating/convicting heat away [$m^-{2}$].\\
 
-As \cref{eqn:heatreal} is generally hard to solve in arbitrary geometries with complex boundary conditions we employ a numerical method to solve \cref{eqn:heatreal}.
+As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions we employ a numerical method to solve \cref{eqn:nonlinearheat}.
 The numerical method we employ in order to solve \cref{eqn:heat} is a the finite difference method (FDM)\cite{ozisik1994finite}. FDM is derived from the Taylor series approximation for derivatives. A function $f(x)$ is discretised onto a grid with \textit{N} nodes (see~\cref{fig:fdmexplain}). Then at node \textit{i} we can use the Taylor series approximation in the forward ($+\text{ive}\ x$ direction) and backward ($-\text{ive}\ x$ direction), and combine the 1$^{st}$ and 2$^{nd}$ derivatives in 1D, where: \textit{i} is the grid point at $x_o$, $i$+1 is the point at $x_0+\Delta x$, and \textit{i}-1 is the grid point at $x_{o}-\Delta x$.
 
 \begin{figure}
-  \vspace{-10pt}
   \begin{center}
     \includegraphics[width=0.48\textwidth]{./ablation/images/fdm.pdf}
   \end{center}
@@ -152,7 +149,7 @@ The numerical method we employ in order to solve \cref{eqn:heat} is a the finite
 \end{subequations}
 
 
-Thus \cref{eqn:heatreal}, in 1D, becomes:
+Thus the linear heat equation~\cref{eqn:heat}, in 1D, becomes:
 
 \begin{equation}
 T_{i+1}^{n+1} =  \Delta t\alpha \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + T_i^n + \dot{q}
@@ -167,13 +164,33 @@ T_{i+1}^{n+1} =  \Delta t\alpha \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + 
     \vspace{-20pt}
 \end{figure}
 
-\Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. We use a simple explicit scheme here, due to its ease of implementation. This yields for the more general 3D case:
-
+\Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. We use a simple explicit scheme here, due to its ease of implementation. For the more complicated non-linear heat equation we have to account for the change of the medium between points in the space and time. The simplest method of achieving this is to average $\kappa, \rho, and c_p$ using a half difference scheme.
 
 \begin{align}
-U_{xx} &= \frac{\alpha}{\Delta x^2} (T^N_{i-1,j,k} - 2T^N_{i,j,k} + T^N_{i+1,j,k}) \label{eqn:FDMheat1}\\
-U_{yy} &= \frac{\alpha}{\Delta y^2} (T^N_{i,j-1,k} - 2T^N_{i,j,k} + T^N_{i,j+1,k}) \label{eqn:FDMheat2}\\
-U_{zz} &= \frac{\alpha}{\Delta z^2} (T^N_{i,j,k-1} - 2T^N_{i,j,k} + T^N_{i,j,k+1}) \label{eqn:FDMheat3}\\
+\kappa^{\pm}&=\frac{\kappa_i+\kappa_{i\pm 1}}{2}\\
+\rho^{\pm}&=\frac{\rho_i+\rho_{i\pm 1}}{2}\\
+c_p^{\pm}&=\frac{c_{p,i}+c_{p,i\pm 1}}{2}
+\end{align}
+
+Yielding:
+
+\begin{equation}
+T^{N+1}=\Delta t (AT^N_{i-1}-2BT^N_{i}+DT^N_{i+1})+ T_i^N + \dot{q}
+\end{equation}
+
+Where:
+\begin{align}
+A=&\frac{\kappa^{-}}{\rho^{-}c_{p}^{-}2\Delta x^2} \nonumber \\
+B=&\frac{\kappa^{+}}{\rho^{+}c_{p}^{+}2\Delta x^2} \label{eqn:coeffsABD}\\
+D=&\frac{(A+B)}{2} \nonumber
+\end{align}
+
+For the more general 3D case, this yields:
+
+\begin{align}
+U_{xx} &=  (A T^N_{i-1,j,k} - 2B T^N_{i,j,k} + D T^N_{i+1,j,k}) \label{eqn:FDMheat1}\\
+U_{yy} &=  (A T^N_{i,j-1,k} - 2B T^N_{i,j,k} + D T^N_{i,j+1,k}) \label{eqn:FDMheat2}\\
+U_{zz} &=  (A T^N_{i,j,k-1} - 2B T^N_{i,j,k} + D T^N_{i,j,k+1}) \label{eqn:FDMheat3}\\
 T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac{\alpha \Delta t}{\kappa}\dot{q_L} \label{eqn:FDMheat4}
 \end{align}
 
@@ -182,15 +199,16 @@ T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac
 	\indent $T^N_{i,j,k}$ is the temperature at node $i,j,k$ at the current time step [$K$];\\
 	\indent $\alpha$ is the thermal diffusivity [$m^2\cdot s^{-1}$];\\
 	\indent $\kappa$ is the thermal conductivity [$W/m\cdot K$];\\
-	\indent $\Delta x\ etc.$ is the size of the grid element in the $p^{th}$ direction [$m$].\\
-
+	\indent $\Delta x\ etc.$ is the size of the grid element in the $p^{th}$ direction [$m$];\\
+	\indent and $A, B,D$ are the coefficients in their respective dimension (\cref{eqn:coeffsABD}.)\\
+	
 Incorporating B.Cs on the top air exposed face:
 
 \begin{equation}
 U_{zz} = \tfrac{\alpha}{\Delta z^2} (\tfrac{2 \Delta z}{\kappa} (-h(T^N_{i,j,k}-T^N_\infty) ) -2 T^N_{i,j,k} + 2T^N_{i,j,k+1}) 
 \end{equation}
 
-As the lasers *maybe remove s?* operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This addiational variable, laserOn, is a boolean value, which is defined as:
+As the lasers *maybe remove s?* operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, laserOn, is a boolean value, which is defined as:
 
 \[   
 laserOn = 

@@ -333,7 +333,25 @@ As the code developed in this chapter simulates the diffusion of heat in a mediu
 	
 \subsection{Tissue Damage}
 \label{sec:tissuedamage}
-The final portion of the simulation is the tissue damage model. We use the Arrhenius damage model, originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage \cite{hendriques1947studies,jiang2002effects}.
+
+The final portion of the simulation is the tissue damage model. To be able to model damage to the tissue we first need to be able to describe what happens when a high powered laser is incident on tissue, and what damage processes the tissue undergoes.
+
+Once the laser is turned on, the temperature starts to rise with in the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}$.*ref here*. From the temperature, $T_d$, we define four main areas of tissue damage\\
+
+
+\[   
+T = 
+     \begin{cases}
+       \text{coagulation,} &\quad T_c\leq T \leq 100\\
+       \text{water boils,} &\quad T=100\\
+       \text{carbonisation,} &\quad 100 \leq T \leq T_a\\
+       \text{ablation,} &\quad T=T_a.\\
+     \end{cases}
+\]
+
+
+
+We use the Arrhenius damage model, originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage \cite{hendriques1947studies,jiang2002effects}.
 
 \begin{equation}
 \Omega(t)=\int^{t_{f}}_{t_i} Ae^{(-\tfrac{\Delta E}{RT})}d\tau
@@ -396,12 +414,14 @@ The tissue structure is then fed back to the MCRT model and the whole process re
 
 \subsection{Introduction}
 
-In order to match the experimental results, we must first create as accurate model of the experimental setup \textit{in silica}. However due to computational constraints, such as memory and time available, we must make some approximations to the experiment. The porcine skin in reality was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, we model the porcine skin as a cuboid, dimensions: 1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice. 
-As mentioned in the previous sections, there are several unknowns in the model: $T_a$, water content, temperature of air after ablation. Therefore we run several models so that the full parameter space of these unknowns can be explored.
+In order to match the experimental results, we must first create as accurate model of the experimental setup \textit{in silica}. However due to computational constraints, such as memory and time available, we must make some approximations to the experimental setup. The porcine skin in reality was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, we model the porcine skin as a cuboid, dimensions: *this will probably change* 1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice. 
+As mentioned in the previous sections, there are several unknowns in the model: $T_a$, water content, temperature of air after ablation, and the exact thermal and optical properties of the porcine tissue. Therefore we run several models so that the full parameter space of these unknowns can be explored.
 Results from these \textit{in silica} experiments are presented in this section along with a comparison of the model to the experimental work carried out in collaboration with the University of Dundee and the photobiology department at Ninewells hospital.
 
 
 \subsubsection{Optical \& thermal properties}
+
+As mentioned, the thermal and optical properties of porcine tissue are not known exactly for a given tissue sample. This is due to no one tissue sample being exactly the same as another sample, due to various factors. As such the thermal and optical properties used in this section are taken from various literature source and are modified over a range that is deemed acceptable according to various sources.
 
 Both of the lasers used in the experimental work are infrared lasers, this means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The lasers used in the experiment are the Lynton lumina 576 Er:YAG, and the Pixel CO$_2$. The Er:YAG laser has a wavelength 2940$~nm$ which corresponds to an absorption coefficient of water: $\sim 11200~cm^{-1}$. The CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelength.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
@@ -434,7 +454,7 @@ The power of these lasers was varied through the experiment. For the Er:YAG lase
 
 \subsubsection{Investigating ablation temperature, $T_a$}
 
-Various literature sources report the ablation temperature ranging from 173$^{\circ}$ to 450$^{\circ}$*cite this*. Thus, we run several models over this range. \cref{fig:ta} shows how $T_a$ affects the crater depth as a function of pixel beam energy. At lower pixel beam energies, the tissue ablation temperature has little to no effect on the crater depth. At higher energies, $\geq 125~mJ$, the value of $T_a$ ha a larger effect. For example at $400~mJ$ there is a difference in the crater depth of $\sim0.05~mm$  between the lowest and highest $T_a$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three}. Thus, we run several models over this range. \cref{fig:ta} shows how $T_a$ affects the crater depth as a function of pixel beam energy. At lower pixel beam energies, the tissue ablation temperature has little to no effect on the crater depth. At higher energies, $\geq 125~mJ$, the value of $T_a$ ha a larger effect. For example at $400~mJ$ there is a difference in the crater depth of $\sim0.05~mm$  between the lowest and highest $T_a$.
 
 %Jump straight to fig 9, but would be good to show movie where you see the holes being drilled and medium heating up.
 
@@ -446,8 +466,16 @@ Various literature sources report the ablation temperature ranging from 173$^{\c
 \end{figure}
  
 
+\subsubsection{Effect of thermal and optical properties on crater depth}
+
+As mentioned in the introduction to this section, the thermal and optical properties vary over a wide range in the literature. Thus there is no one `correct' value we can choose for out simulations. In order to better understand how the thermal and optical properties affect the crater depth reached by the fractional laser, we vary the properties by $20\%$.
+
+
+
 \subsubsection{Investigating water content}
  
 \subsubsection{Investigating temperature of air after ablation} 
+ 
+\subsubsection{Comparison to experimental work} 
  
 \section{Conclusion}

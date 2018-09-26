@@ -111,7 +111,7 @@ In order to model the transport of heat in porcine skin, we use the standard par
 As the medium changes as a function of temperature and time, we cannot make the assumption that $\kappa, \rho, \text{and}\  c_p$ are constant and thus we have to solve the non-linear heat equation (\cref{eqn:nonlinearheat}).
 
 \begin{equation}
-\frac{\partial T}{\partial t} = \frac{1}{(\rho c_p)_{\xi}}(\nabla kT + k\nabla^2T)+\dot{q}\quad \xi=(i,j,k)
+\frac{\partial T}{\partial t} = \frac{1}{(\rho c_p)_{\xi}}(\nabla k_\xi T + k_\xi\nabla^2T)+\dot{q}\quad \xi=(i,j,k)
 \label{eqn:nonlinearheat}
 \end{equation}
 
@@ -164,7 +164,7 @@ T_{i+1}^{n+1} =  \Delta t\alpha \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + 
     \vspace{-20pt}
 \end{figure}
 
-\Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. We use a simple explicit scheme here, due to its ease of implementation. For the more complicated non-linear heat equation we have to account for the change of the medium between points in the space and time. The simplest method of achieving this is to average $\kappa, \rho, and c_p$ using a half difference scheme.
+\Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. We use a simple explicit scheme here, due to its ease of implementation. For the more complicated non-linear heat equation we have to account for the change of the medium between points in the space and time. The simplest method of achieving this is to average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme.
 
 \begin{align}
 \kappa^{\pm}&=\frac{\kappa_i+\kappa_{i\pm 1}}{2}\\
@@ -227,7 +227,7 @@ As the timestep is small, and the grid resolution large, the resultant simulatio
 Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that MCRT belongs to. This is due to the heat simulation needing to know the temperature of adjacent nodes. Thus information will have to be passed from each individual core during computation, as opposed to doing the information passing at the end of the simulation \textit{\`a la} MCRT parallelisation.\\
 The heat simulation is parallelised using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).\\
 
-On a workstation computer these simulations were carried out on (Intel Xeon E3-1245 v5, 8 core @3.5GHz) led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
+On a workstation computer these simulations were carried out on (Intel Xeon E3-1245 v5, 8 core @ 3.5GHz) led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
 
 
 \begin{figure}
@@ -334,27 +334,49 @@ As the code developed in this chapter simulates the diffusion of heat in a mediu
 \subsection{Tissue Damage}
 \label{sec:tissuedamage}
 
-The final portion of the simulation is the tissue damage model. To be able to model damage to the tissue we first need to be able to describe what happens when a high powered laser is incident on tissue, and what damage processes the tissue undergoes.
+\subsubsection{Introduction}
+The final portion of the simulation is the tissue damage model. To be able to model damage to the tissue we first need to be able to describe the tissue damage process due to heating from a laser.
 
-Once the laser is turned on, the temperature starts to rise with in the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}$.*ref here*. From the temperature, $T_d$, we define four main areas of tissue damage\\
+When the laser is turned on, the temperature starts to rise within the tissue due to the absorption of photons by the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}C$~\cite{welch2011optical}*p539*. From the temperature, $T_d$, we define four main areas of tissue damage:
 
 
-\[   
+\begin{equation}
 T = 
      \begin{cases}
-       \text{coagulation,} &\quad T_c\leq T \leq 100\\
+       \text{coagulation,} &\quad T_d\leq T \leq 100\\
        \text{water boils,} &\quad T=100\\
        \text{carbonisation,} &\quad 100 \leq T \leq T_a\\
        \text{ablation,} &\quad T=T_a.\\
      \end{cases}
-\]
+\end{equation}
 
 
+The area of tissue damage we term `coagulation' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures, and some cell death~\cite{welch2011optical}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to more cell death. Temperatures of 60$^{\circ}$C +, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with no function at all.  A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~\cite{niemz2013laser}. \\
 
-We use the Arrhenius damage model, originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage \cite{hendriques1947studies,jiang2002effects}.
+The next stage in the tissue damage process is the vaporisation of water. As the temperature of the tissue starts to approach 100${^{\circ}}$C (at 1 atm), water starts to vaporise. If the vaporised water cannot escape the tissue it forms steam vacuoles, little pockets of steam. These vacuoles can easily been seen when viewing tissue samples after tissue has been treated with a high powered laser (see \cref{fig:histology}). In certain conditions these steam pockets can explode, with these `explosions' being audible by the human ear~\cite{petrella2013popcorn}.\\
+
+
+The third stage of tissue damage is carbonisation or carmelisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical}.\\
+
+The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed~\cite{vogel2003mechanisms}. The tissue ablation process is not a simple process, with various unknowns which depend on everything from tissue composition to laser power and pulse length. The literature however, does suggest that it takes place when the tissue temperature is between 177 and 500${^{\circ}}$C\cite{gerstmann1994char,mckenzie1986three}.\\
+
+\begin{figure}	
+\vspace{-10pt}
+	\centering
+	\includegraphics[width=\columnwidth]{./ablation/images/steam_vacoule.png}
+	\caption{Tissue ablations, as viewed under a microscope. Steam vacuoles are clearly visible either side of the ablation area. Carbonisation is also evident at the edges of the ablation fronts. Adapted from~\cite{welch2011optical}.}
+	\label{fig:histology}
+	\vspace{-10pt}
+\end{figure}
+
+\subsubsection{Modelling coagulation damage}
+
+With the description of the various process that tissue undergoes during ablation, we can now create a numerical model of these processes.
+First, in order to model the full extent of the damage done under 100${^{\circ}}$C, i.e in the coagulation regime, we use the Arrhenius damage model. The Arrhenius damage model was originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage \cite{hendriques1947studies,jiang2002effects}. These authors and various others, adapted this model by fitting \cref{eqn:arrhenius} to experimental data for burn damage. The two paramters fitted in this way are the A, the frequency factor, and $\Delta E$, the activation energy.
 
 \begin{equation}
 \Omega(t)=\int^{t_{f}}_{t_i} Ae^{(-\tfrac{\Delta E}{RT})}d\tau
+\label{eqn:arrhenius}
 \end{equation}
 
 
@@ -368,13 +390,14 @@ We use the Arrhenius damage model, originally used as a kinetic model of reactio
 
 It is reported that a value of $\Omega$ of 0.53, 1.0, and 10$^4$ relate to first, second, and third degree burns respectively~\cite{diller1983finite}. We use the Arrhenius damage model in order to better understand the amount of damage caused by the laser in the non-ablated areas of tissue. This can give us an insight into the various physical phenomena encountered in the OCT results.\\
 
-We model tissue damage in three main sections: coagulated, dehydrated, and finally ablated sections.\\
 
-Coagulated tissue is the the areas of the tissue where the temperature is above 43$^{\circ}$C, the threshold for damage but below 100$^{\circ}$C.
-When areas of the tissue reach 100$^{\circ}$C water begins to boil off. This acts as a large heat sink for the absorbed laser energy, slowing down the rate of ablation. The energy required to boil the water is $Q_{vapor}=m_v\cdot L$, where $m_v$ is the mass of a voxel, and $L$ is the latent heat of vaporisation. The energy to boil off the water is provided via the laser and heat diffusing into the voxel:
+
+\subsubsection{Modelling physical tissue damage}
+
+As tissue is generally mostly consists of water *ref* when the temperature of the tissue approaches 100$^{\circ}$C (at 1 atm), water in the tissue begins to boil off. This acts as a large heat sink for the absorbed laser energy, slowing down the rate of ablation. The energy required to boil the water is $Q_{vapor}=m_v\cdot L$, where $m_v$ is the mass of a voxel, and $L$ is the latent heat of vaporisation. The energy to boil off the water is provided via the laser and heat diffusing into the voxel:
 
 \begin{equation}
-Q_{vapor}=laserOn\cdot\dot{q}\cdot \Delta t\cdot V_{i,j,k} + c\cdot M_{i,j,k}\cdot\Delta T
+Q_{vapor}=\underbrace{laserOn\cdot\dot{q}\cdot \Delta t\cdot V_{i,j,k}}_\text{laser heating} + \underbrace{c\cdot M_{i,j,k}\cdot\Delta T}_\text{heat diffusion}
 \end{equation}
 
 \noindent Where:\\
@@ -406,9 +429,9 @@ c_p &= 4.2\cdot 10^{3}\cdot W + 1.09\cdot 10^{3}\cdot P \\
 \indent $c_p$ is the heat capacity [$J\cdot Kg^{-1}\cdot K^{-1}$];\\
 \indent and $\mu_a$ is the total absorption coefficient, and $\mu_{water}\ \text{and}\ \mu_{protein}$ are the absorption coefficients of water and protein respectively.\\
 
-We define the ablation temperature ($T_a$) as occurring between 173 and 450$^{\circ}$C\cite{gerstmann1994char}. At the $T_a$ the tissue is removed and set the thermal and density properties to that of air.
+We define the ablation temperature ($T_a$) as occurring between 177 and 500$^{\circ}$C\cite{gerstmann1994char,mckenzie1986three}. At the $T_a$ the tissue is removed and set the thermal and density properties to that of air.
 
-The tissue structure is then fed back to the MCRT model and the whole process repeats until the average temperature of the model is under 43$^{\circ}$C. This process is outlined in \cref{fig:algo}.
+The tissue structure is then fed back to the MCRT model and the whole process repeats until the predefined time limit is reached. This process is outlined in \cref{fig:algo}.
 
 \section{\textit{In silca} results} 
 

@@ -28,7 +28,6 @@
 
 
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}%gives clickable links
-\usepackage{nomencl}
 \usepackage[capitalize]{cleveref}%needs to be after hyperref
 \usepackage[font=it,labelfont=bf]{caption}
 
@@ -38,6 +37,11 @@
 \fancyhead[LO,RE]{\textsl{\leftmark}}
 \fancyfoot[C]{\thepage}
 
+\usepackage{glossaries}%abbreviations
+\makenoidxglossaries
+
+\setacronymstyle{long-short}
+\newacronym{fdm}{FDM}{finite difference method}
 
 \usepackage{lipsum}%used to fill space for now
 
@@ -80,8 +84,9 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill \\
 
 \chapter*{Abstract}
 \lipsum[1-2]
-\tableofcontents
 
+\tableofcontents
+\printnoidxglossaries
 %arabic numbers
 \mainmatter
 

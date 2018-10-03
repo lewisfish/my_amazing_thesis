@@ -19,9 +19,12 @@ Lasers are used in wide variety of medical procedures not limited to: coagulatin
 One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. They have also recently been investigated as a means of better drug delivery in the skin for photo-dynamic therapy (PDT) treatments~\cite{haedersdal2010fractional}.\\
 
 One downside to using lasers to remove tissue, it that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  unwanted thermal damage to the surrounding areas, leading to unwanted effects.
-Ablative lasers, and fractionated ablative lasers (ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}). Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. We propose to use optical coherence tomography (OCT) to measure the ablative crater non-invasively \textit{in-vivo}. The OCT measurements are then backed up by a computational model. This computational model could then be used to predict the depth of the ablative crater when using a certain power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
 
-This chapter examines using Monte Carlo radiation transport techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. We present experimental work carried out by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital. This experimental work was carried out on porcine tissue, using CO$_2$ and Er:YAG lasers.
+
+
+ Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. We propose to use optical coherence tomography (OCT) to measure the ablative crater non-invasively \textit{in-vivo}. The OCT measurements are then backed up by a computational model. This computational model could then be used to predict the depth of the ablative crater when using a certain power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.\\
+
+This chapter examines using Monte Carlo radiation transport techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
 
 \section{Methods}
 
@@ -29,9 +32,9 @@ In order to replicate the experimental work \textit{in silica}, our numerical mo
 
 \subsection{Monte Carlo radiation transport (MCRT)}
 
-MCRT is the `gold standard' for simulating the transport of light through biological tissue *ref*. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. MCRT has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte}*more refs*. MCRT is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.\\
+MCRT is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient}. This is due to its flexibility in modelling non standard geometries, and its ability to model various light sources and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. MCRT has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. MCRT is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.\\
 
-The tissue medium for the MCRT and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  n x n x n voxels *still changing this*, representing a tissue sample size of 1.1 $\times$ 1.1 $\times$ 0.5 cm. We assume the porcine skin is uniform, so that initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is that of water, see \cref{fig:waterabsor}.\\
+The tissue medium for the MCRT and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  80 x 80 x 80 voxels *still changing this*, representing a tissue sample size of 1.1 $\times$ 1.1 $\times$ 0.5 cm. We assume the porcine skin is uniform, so that initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein, see \cref{fig:waterabsor}.\\
 
 
 \begin{figure}
@@ -43,9 +46,9 @@ The tissue medium for the MCRT and heat transport simulations is a 3D voxel mode
 The original MCRT code was developed for astronomy applications \cite{wood1999model,wood2005estimating}, and has since been adapted for medical applications~\cite{campbell2015monte,barnard2018quantifying}.
 
 \Cref{fig:algo}. shows the overall algorithm for the simulation, including the MCRT portion. 
-The MCRT portion of the algorithm begins with determining where the photon enters the medium. This is calculated by randomly selecting one of the pixel beams, from the 9x9 array of pixel beams. Next the position on the surface of the medium is calculated. As the profile of the pixel beams are unknown, they are assumed to be uniformly circular *maybe change to gaussian??*. Thus, the packets position is uniformly sampled on a circle the width of the pixel beam.
+The MCRT portion of the algorithm begins with determining where the photon enters the medium. This is calculated by randomly selecting one of the pixel beams, from the 9 x 9 array of pixel beams. Next the position on the surface of the medium is calculated. As the profile of the pixel beams are unknown, they are assumed to be uniformly circular *maybe change to gaussian??*. Thus, the packets position is uniformly sampled on a circle the width of the pixel beam.
 
-Once the packet enters the simulation, a propagation distance for the packets is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption. This process is repeated until the photon has either been absorbed or exits the medium.
+Once the packet enters the simulation, a propagation distance for the packets is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption, however in this simulation absorption dominates, and thus we assume no scattering takes place. This process is repeated until the photon has either been absorbed or exits the medium.
 
 \begin{equation}
 L = -\tfrac{ln(\xi)}{\mu_a}
@@ -60,7 +63,7 @@ L = -\tfrac{ln(\xi)}{\mu_a}
 \Cref{eqn:propdist} is the equation for a uniform medium. As the medium we are simulating changes over time due to thermal damage this equation has to be adapted for a 3D Cartesian grid. Each voxel 
 can have different optical properties, thus the photon packet is moved on a voxel by voxel basis. To start the movement process, a random number is generated, which is used to sample an optical depth the photon packet will travel. Next the photon enters the voxel and the maximum distance the photon can travel in the new voxel is calculated along the photons trajectory. If this optical distance is less than the optical depth sampled, then the photon enters the next voxel. If the distance is larger than the sampled optical distance then the photon has an interaction event in that voxel. The photon packet moves to the interaction event in the voxel and then undergoes scattering or absorption. The whole process is repeated until the photon `dies' via absorption or leaving the medium.
 
-This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 5 million photons per MCRT simulation run.\\
+This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 1 million photons per MCRT simulation run.\\
 
 \begin{figure}
 \centering
@@ -69,7 +72,7 @@ This in turn is again repeated for all the photons, until all the photons have b
 \label{fig:algo}
 \end{figure}
 
-We calculate the absorbed energy using the path length counter method devised by Lucy \cite{lucy1999computing}. The energy absorbed per voxel is calculated as:
+To calculate the energy absorbed in the porcine tissue via the laser we use the path length counter method devised by Lucy \cite{lucy1999computing}. Thus energy absorbed per voxel is calculated as:
 
 \begin{equation}
 E_{i}^{abs} = \frac{L}{N \Delta V_i}\sum\mu_a s
@@ -90,7 +93,7 @@ E_{i}^{abs} = \frac{L}{N \Delta V_i}\sum\mu_a s
 \label{fig:jmea-explain}
 \end{figure}	
 		
-This grid of absorbed energy is then passed to the heat transport portion of the simulation.
+This grid of absorbed energy is then passed to the heat transport portion of the simulation, so that the heat diffusion can be calculated.
 
 \subsection{Heat transport}
 
@@ -117,7 +120,7 @@ As the medium changes as a function of temperature and time, we cannot make the 
 
 The $\dot{q}$ term is a heat source/sink term. The heat source in this simulation is due to the laser, and we assume the only loss of heat to the surrounding medium is via convection and conduction.
 	
-These boundary conditions must be considered. All faces of the cube, bar the laser facing face, are considered to be pinned at 5$^{\circ}$C, as the porcine skin was kept cooled prior to experimental work. The laser facing face has a simple convective BC:	
+These boundary conditions must be considered. All faces of the cube, bar the laser facing face, are considered to be pinned at 5$^{\circ}$C, as the porcine skin was kept cooled prior to experimental work and the simulation volume is smaller than the porcine tissue samples in the experimental work. The laser facing face has a simple convective BC:	
 
 \begin{equation}
 \dot{q}_c = -hA(T - T_\infty)
@@ -125,11 +128,15 @@ These boundary conditions must be considered. All faces of the cube, bar the las
 \end{equation}
 
 \noindent Where:\\
-	\indent \textit{h} is the heat transfer coefficient [$W m^{-2} K$];\\
-	\indent and \textit{A} is the area of the grid element, that is radiating/convicting heat away [$m^-{2}$].\\
+	\indent \textit{h} is the heat transfer coefficient [$W\cdot m^{-2}\cdot K$];\\
+	\indent \textit{A} is the area of the grid element, that is radiating/convicting heat away [$m^{-2}$];\\
+	\indent and $T$, and $T_\infty$ are the temperature in a voxel and the surrounding medium temperature respectively~[$K$].\\
 
 As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions we employ a numerical method to solve \cref{eqn:nonlinearheat}.
-The numerical method we employ in order to solve \cref{eqn:heat} is a the finite difference method (FDM)\cite{ozisik1994finite}. FDM is derived from the Taylor series approximation for derivatives. A function $f(x)$ is discretised onto a grid with \textit{N} nodes (see~\cref{fig:fdmexplain}). Then at node \textit{i} we can use the Taylor series approximation in the forward ($+\text{ive}\ x$ direction) and backward ($-\text{ive}\ x$ direction), and combine the 1$^{st}$ and 2$^{nd}$ derivatives in 1D, where: \textit{i} is the grid point at $x_o$, $i$+1 is the point at $x_0+\Delta x$, and \textit{i}-1 is the grid point at $x_{o}-\Delta x$.
+The numerical method we employ is a \gls{fdm}. the \gls{fdm}.\\
+
+
+finite difference method (FDM). The FDM is derived from the Taylor series approximation for derivatives. A function $f(x)$ is discretised onto a grid with \textit{N} nodes (see~\cref{fig:fdmexplain}). Then at node \textit{i} we can use the Taylor series approximation in the forward ($+\text{ive}\ x$ direction) and backward ($-\text{ive}\ x$ direction), and combine the 1$^{st}$ and 2$^{nd}$ derivatives in 1D, where: \textit{i} is the grid point at $x_o$, $i$+1 is the point at $x_0+\Delta x$, and \textit{i}-1 is the grid point at $x_{o}-\Delta x$.
 
 \begin{figure}
   \begin{center}
@@ -453,7 +460,7 @@ Both of the lasers used in the experimental work are infrared lasers, this means
 \vspace{-10pt}
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/water.pdf}
-	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing at large wavelengths.}
+	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing in the infra-red portion of the spectrum.}
 	\label{fig:waterabsor}
 	\vspace{-10pt}
 \end{figure}

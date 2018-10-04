@@ -1,13 +1,12 @@
 \chapter{Monte Carlo radiation transport technique theory, code and validation}
 
 \section{Introduction and Background of the Monte Carlo method}
-This chapter will provide an overview of the Monte Carlo method and how it is used within the context of Monte Carlo radiation transport (MCRT). The chapter will then present the details of the MCRT code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.\\
-
+This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the MCRT code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
 
 \subsection{Monte Carlo method}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems. 
 
-The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$ century*ref*. Buffon asked the question; \\
+The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$ century*ref*. Buffon asked the question;
 
 
 ``Suppose we have a floor made of parallel strips of wood, each the same width, and we drop a needle onto the floor. What is the probability that the needle will lie across a line between two strips?"
@@ -16,7 +15,7 @@ The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$
 The solution to this question is as:
 for a needle length \textit{l}, line separation \textit{s}, and where \textit{x} is the distance from the needle to the closest line. Then using a simple geometrical argument, a needle crosses a line if $x \leq \tfrac{l}{2} sin \theta$.
 
-x is distributed uniformly in [0, $\tfrac{s}{2}$], and $\theta$ in [0, $\tfrac{\pi}{2}$]. Therefore the probability density function for x is $p(x)=\tfrac{2}{s}$, and $\theta$ is $p(\theta) = \tfrac{2}{\pi}$. The probability density function (PDF), is a function of a variable that gives probability for a variable to a take a given value. The PDF is normalised over the whole range of the variable, in this case $x$, and $\theta$.
+x is distributed uniformly in [0, $\tfrac{s}{2}$], and $\theta$ in [0, $\tfrac{\pi}{2}$]. Therefore the probability density function for x is $p(x)=\tfrac{2}{s}$, and $\theta$ is $p(\theta) = \tfrac{2}{\pi}$. The \gls{pdf}, is a function of a variable that gives probability for a variable to a take a given value. The \gls{pdf} is normalised over the whole range of the variable, in this case $x$, and $\theta$.
 Thus, as \textit{x} and $\theta$ are independent variables, giving a joint probability of $p(x,\theta) = \tfrac{4}{s \pi}$.
 So the probability of a needle of length l ($l<s$) is:
 
@@ -45,6 +44,6 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 
 \section{Monte Carlo radiation transport algorithm}
 
-The technique that makes up the bulk of this thesis, is the Monte Carlo radiation transport technique. This method was created *correct word?* at the tail end of world war 2 at Los Alamos, for the purpose of calculating neutron diffusion though shielding material *ref*. It has since found amyriad of applications from light transport through dusty clouds, modelling the propagation of proton through tissue for radiotherapy to light transport through tissue.
+The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was created *correct word?* at the tail end of world war 2 at Los Alamos, for the purpose of calculating neutron diffusion though shielding material *ref*. It has since found a myriad of applications from light transport through dusty clouds, modelling the propagation of proton through tissue for radiotherapy to light transport through tissue.
 
 \section{Validation of MCRT code}

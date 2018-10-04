@@ -1,7 +1,6 @@
 \documentclass[10pt,a4paper,twoside]{book}
-\setcounter{tocdepth}{3}
-\setcounter{secnumdepth}{3}
-%\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{3}%depth of table of contents
+\setcounter{secnumdepth}{3}%depth of section numbering
 \usepackage{amsmath}%standard packages
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -12,11 +11,9 @@
 \savegeometry{origin}%save original geometry
 %fancy page headings
 \usepackage{fancyhdr}
-\pagestyle{fancy}
+\pagestyle{plain}
 
 %***********
-
-
 \usepackage{pgf}%images
 \usepackage{import}
 \usepackage{cite}
@@ -26,22 +23,16 @@
 \usepackage[strings]{underscore}
 \usepackage{wrapfig}
 
-
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}%gives clickable links
 \usepackage[capitalize]{cleveref}%needs to be after hyperref
 \usepackage[font=it,labelfont=bf]{caption}
-
 %***********
 
-\fancyhead[LE,RO]{\textsl{\rightmark}}
-\fancyhead[LO,RE]{\textsl{\leftmark}}
-\fancyfoot[C]{\thepage}
-
-\usepackage{glossaries}%abbreviations
+\usepackage[acronym,toc,shortcuts]{glossaries}%abbreviations
 \makenoidxglossaries
-
+\renewcommand*{\acronymname}{Abbreviations}
 \setacronymstyle{long-short}
-\newacronym{fdm}{FDM}{finite difference method}
+\include{abbr}
 
 \usepackage{lipsum}%used to fill space for now
 
@@ -67,23 +58,33 @@ University of St Andrews}
 \chapter*{Declaration}
 I, Lewis McMillan, hereby certify that this thesis, which is approximately ***** words in length,
 has been written by me, that it is the record of work carried out by me, or principally by myself in collaboration with others as acknowledged, and that it has not been submitted in any
-previous application for a higher degree. \\
+previous application for a higher degree.
+\medskip
 
 I was admitted as a research student in September 2015 and as a candidate for the degree
 of PhD in September 2015; the higher study for which this is a record was carried out in the
-University of St Andrews between 2015 and 2019.\\
+University of St Andrews between 2015 and 2019.
 
-Date\dotfill \hspace{1cm} Signature of candidate \dotfill \\
+\medskip
+
+Date\dotfill \hspace{1cm} Signature of candidate \dotfill
+
+\medskip
 
 I hereby certify that the candidate has fulfilled the conditions of the Resolution and Regulations appropriate for the degree of PhD in the University of St Andrews and that the candidate
-is qualified to submit this thesis in application for that degree. \\
+is qualified to submit this thesis in application for that degree.
 
-Date\dotfill \hspace{1cm} Signature of supervisor \dotfill \\
+\medskip
+
+Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
+
+\medskip
 
 \indent Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 
 \chapter*{Abstract}
 \lipsum[1-2]
+
 
 \tableofcontents
 \printnoidxglossaries
@@ -98,7 +99,6 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill \\
 %\include{fluro}
 %\include{conclusion}
 
-\bibliography{./ablation/ablation}
+\bibliography{./ablation/ablation,./MCRT/mcrt}
 \bibliographystyle{unsrt}
-
 \end{document}

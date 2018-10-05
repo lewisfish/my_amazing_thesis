@@ -186,7 +186,7 @@ T_{i}^{n+1} &=  \alpha\Delta t \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + \
 
 \medskip
 
-For the more complicated non-linear heat equation we have to account for the change of the medium between points in the space and time. The simplest method of achieving this is to average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme:
+For the more complicated non-linear heat equation we have to account for the change of the medium between points in the space and time. The two easiest methods~\cite{ozisik1994finite} of achieving this is: One, lag the value behind by one step, i.e $c_{p}^{n+1}=c_{p}^{n}$. Two, average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme:
 
 \begin{align}
 \kappa^{\pm}&=\frac{\kappa_i+\kappa_{i\pm 1}}{2}\\
@@ -194,10 +194,10 @@ For the more complicated non-linear heat equation we have to account for the cha
 c_p^{\pm}&=\frac{c_{p,i}+c_{p,i\pm 1}}{2}
 \end{align}
 
-Thus for the simple 1D case as in~\cref{eqn:simplefdm}:
+Thus for the simple 1D case as in~\cref{eqn:simplefdm}, we average the thermal properties when computing the coefficients of the temperature nodes, and lag the thermal properties when adding the heat from the laser:
 
 \begin{equation}
-T^{N+1}=\Delta t (AT^N_{i-1}-2BT^N_{i}+DT^N_{i+1})+ T_i^N + \frac{\dot{q}}{\rho c_p}
+T^{N+1}=\Delta t (AT^N_{i-1}-2BT^N_{i}+DT^N_{i+1})+ T_i^N + \frac{\dot{q_L}}{\rho c_p}\label{eqn:heatnonlin1d}
 \end{equation}
 
 Where:
@@ -207,13 +207,13 @@ B=&\frac{\kappa^{+}}{\rho^{+}c_{p}^{+}2\Delta x^2} \label{eqn:coeffsABD}\\
 D=&\frac{(A+B)}{2} \nonumber
 \end{align}
 
-For the more general 3D case, this yields:
+\Cref{eqn:heatnonlin1d} can be generalised to higher dimensions easily. The 3D case gives:
 
 \begin{align}
 U_{xx} &=  (A T^N_{i-1,j,k} - 2B T^N_{i,j,k} + D T^N_{i+1,j,k}) \label{eqn:FDMheat1}\\
 U_{yy} &=  (A T^N_{i,j-1,k} - 2B T^N_{i,j,k} + D T^N_{i,j+1,k}) \label{eqn:FDMheat2}\\
 U_{zz} &=  (A T^N_{i,j,k-1} - 2B T^N_{i,j,k} + D T^N_{i,j,k+1}) \label{eqn:FDMheat3}\\
-T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac{\alpha \Delta t}{\kappa}\dot{q_L} \label{eqn:FDMheat4}
+T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac{\Delta t}{\rho c_p}\dot{q_L} \label{eqn:FDMheat4}
 \end{align}
 
 \noindent Where:
@@ -254,7 +254,7 @@ In the instance where there is more than one pulse, the laser is turned on and o
 
 As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{\alpha \Delta x^2}{2\beta}$. However as we have a flux prescribed boundary condition, the constraint on the time is more severe. Along with this time restraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be an order of magnitude smaller than the shortest laser pulse.
 
-As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in \cref{sec:mcrt-para}, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
+As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in *ref here*, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
 
 \medskip
 
@@ -290,17 +290,15 @@ After the heat transport has been completed, the grid of temperatures is passed 
 
 \subsubsection{Heat transport validation}
 
-In order to thoroughly validate the numerical method we employ to solve the heat equation, we compare the numerical method against an easily solvable case. We solve the heat equation on a cube, side L, in a surrounding medium of 0$^{\circ}$C. The cube is initially at temperature 37$^{\circ}$C and we calculate the temperature at time \textit{t=0.1s}. Thus the boundary conditions are:\\
+In order to thoroughly validate the numerical method we employ to solve the heat equation, we compare the numerical method against an easily solvable case. We solve the heat equation on a cube, side L, in a surrounding medium of 0$^{\circ}$C. The cube is initially at temperature 37$^{\circ}$C and we calculate the temperature at time \textit{t=0.1s}. Thus the boundary conditions are:
 
 \begin{align}
 T(0,y,z,t)&=T(x,0,z,t)=T(x,y,0,t)=0^{\circ}\text{C} \label{eqn:bc1}\\
 T(L,y,z,t)&=T(x,L,z,t)=T(x,y,L,t)=0^{\circ}\text{C} \label{eqn:bc2}\\
 \end{align}
 
-The thermal diffusivity~($\alpha$), density~($\rho$), and heat capacity~($c_p$) are all set to 1.\\
+The thermal diffusivity~($\alpha$), density~($\rho$), and heat capacity~($c_p$) are all set to 1. Assuming a separable solution in Cartesian coordinates for the heat equation yields:
 
-
-Assuming a separable solution in Cartesian coordinates for the heat equation yields:
 \begin{equation}
 \begin{split}
 T(x,y,z,t)=&(A_1Cos(\alpha x) + A_1Sin(\alpha x))\cdot\\
@@ -368,7 +366,7 @@ u &= \frac{P}{\rho(c_p\Delta T+ L_v)} \label{eqn:ablationvelo}
 \end{align}
 
 Assuming the ablation front moves with constant velocity during the ablation, and using $L_v=2.53\cdot 10^6\ J\cdot Kg^{-1},\ c_p=4181\ J\cdot Kg^{-1}\cdot K^{-1}$ and the medium is a cube side $2\ mm$, with a starting temperature is 37~$^{\circ}$C with a water content of 70\% giving a density of 700~$Kg\cdot m^{-3}$. For these parameter this gives an ablation velocity, $u\simeq 0.77\ cm\cdot s^{-1}$, and a time to ablate through 2~$mm$ of $t \simeq 0.26~s$.
-As the code developed in this chapter simulates the diffusion of heat in a medium due to an incident laser, the expected time to ablate through the same medium should be slightly less as heat diffuses away from the voxel while it is heated being heated. When the full heat + \gls{mcrt} code is used to simulate this experiment, it gives a time, $t \simeq 0.33~s$.\\	
+As the code developed in this chapter simulates the diffusion of heat in a medium due to an incident laser, the expected time to ablate through the same medium should be slightly less as heat diffuses away from the voxel while it is heated being heated. When the full heat + \gls{mcrt} code is used to simulate this experiment, it gives a time, $t \simeq 0.33~s$.	
 	
 \subsection{Tissue Damage}%************************************************************************************************************************************************************************
 \label{sec:tissuedamage}
@@ -390,14 +388,14 @@ T =
 \end{equation}
 
 
-The area of tissue damage we term `coagulation' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures, and some cell death~\cite{welch2011optical}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to more cell death. Temperatures of 60$^{\circ}$C +, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with no function at all.  A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~\cite{niemz2013laser}. \\
+The area of tissue damage we term `coagulation' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures, and some cell death~\cite{welch2011optical}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to more cell death. Temperatures of 60$^{\circ}$C +, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with no function at all.  A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~\cite{niemz2013laser}.
 
-The next stage in the tissue damage process is the vaporisation of water. As the temperature of the tissue starts to approach 100${^{\circ}}$C (at 1 atm), water starts to vaporise. If the vaporised water cannot escape the tissue it forms steam vacuoles, little pockets of steam. These vacuoles can easily been seen when viewing tissue samples after tissue has been treated with a high powered laser (see \cref{fig:histology}). In certain conditions these steam pockets can explode, with these `explosions' being audible by the human ear~\cite{petrella2013popcorn}.\\
+The next stage in the tissue damage process is the vaporisation of water. As the temperature of the tissue starts to approach 100${^{\circ}}$C (at 1 atm), water starts to vaporise. If the vaporised water cannot escape the tissue it forms steam vacuoles, little pockets of steam. These vacuoles can easily been seen when viewing tissue samples after tissue has been treated with a high powered laser (see \cref{fig:histology}). In certain conditions these steam pockets can explode, with these `explosions' being audible by the human ear~\cite{petrella2013popcorn}.
 
 
-The third stage of tissue damage is carbonisation or carmelisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical}.\\
+The third stage of tissue damage is carbonisation or carmelisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical}.
 
-The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed~\cite{vogel2003mechanisms}. The tissue ablation process is not a simple process, with various unknowns which depend on everything from tissue composition to laser power and pulse length. The literature however, does suggest that it takes place when the tissue temperature is between 177 and 500${^{\circ}}$C\cite{gerstmann1994char,mckenzie1986three}.\\
+The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed~\cite{vogel2003mechanisms}. The tissue ablation process is not a simple process, with various unknowns which depend on everything from tissue composition to laser power and pulse length. The literature however, does suggest that it takes place when the tissue temperature is between 177 and 500${^{\circ}}$C\cite{gerstmann1994char,mckenzie1986three}.
 
 \begin{figure}	
 \vspace{-10pt}
@@ -435,9 +433,7 @@ First, in order to model the full extent of the damage done under 100${^{\circ}}
 	
 	\medskip
 
-It is reported that a value of $\Omega$ of 0.53, 1.0, and 10$^4$ relate to first, second, and third degree burns respectively~\cite{diller1983finite}. We use the Arrhenius damage model in order to better understand the amount of damage caused by the laser in the non-ablated areas of tissue. This can give us an insight into the various physical phenomena encountered in the \gls{oct} results.\\
-
-
+It is reported that a value of $\Omega$ of 0.53, 1.0, and 10$^4$ relate to first, second, and third degree burns respectively~\cite{diller1983finite}. We use the Arrhenius damage model in order to better understand the amount of damage caused by the laser in the non-ablated areas of tissue. This can give us an insight into the various physical phenomena encountered in the \gls{oct} results.
 
 \subsubsection{Modelling physical tissue damage}
 

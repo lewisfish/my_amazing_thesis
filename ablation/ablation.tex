@@ -21,6 +21,7 @@ In order to replicate the experimental work \textit{in silico}, our numerical mo
 
 \subsection{Monte Carlo radiation transport (MCRT)}%**************************************************************************************************************************************************
 
+*This part is here as it will be needed for paper. probably not needed in chapter though...*
 \gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient}. This is due to its flexibility in modelling non standard geometries, and its ability to model various light sources and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
 
 The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  80 x 80 x 80 voxels *still changing this*, representing a tissue sample size of 1.1 $\times$ 1.1 $\times$ 0.5 cm. We assume the porcine skin is uniform, so that initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein, see \cref{fig:waterabsor}.
@@ -354,7 +355,7 @@ At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cr
 	\vspace{-10pt}
 \end{figure}	
 
-\subsubsection{MCRT + heat transport validation}
+\subsubsection{MCRT $\&$ heat transport validation}
 
 As a first test of our code, both \gls{mcrt} and heat simulation, we compare to a simple analytical model of ablation. The simple model of ablation is as this: We define the ablation energy ($E_a$) as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in 1 dimension we have~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of power density ($Wcm^{-2}$) this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
 
@@ -495,11 +496,11 @@ We define the \gls{ta} as occurring between 177 and 500$^{\circ}$C\cite{gerstman
 
 The tissue structure is then fed back to the \gls{mcrt} model and the whole process repeats until the predefined time limit is reached. This process is outlined in \cref{fig:algo}.
 
-\section{\textit{In silca} results} 
+\section{\textit{In silco} results} 
 
 \subsection{Introduction}%************************************************************************************************************************************************************************
 
-In order to match the experimental results, we must first create as accurate model of the experimental setup \textit{in silico}. However due to computational constraints, such as memory and time available, we must make some approximations to the experimental setup. The porcine skin in reality was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, we model the porcine skin as a cuboid, dimensions: *this will probably change* 1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice or was kept cooled. 
+In order to match the experimental results, we must first create as accurate model of the experimental setup \textit{in silico}. However due to computational constraints, such as memory and time available, we must make some approximations to the experimental setup. The porcine skin was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, we initially  model the porcine skin as a cuboid, dimensions:  1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice or was kept cooled. 
 As mentioned in the previous sections, there are several unknowns in the model: \gls{ta}, water content, temperature of air after ablation, and the exact thermal and optical properties of the porcine tissue. Therefore we run several models so that the full parameter space of these unknowns can be explored.
 Results from these \textit{in silico} experiments are presented in this section along with a comparison of the model to the experimental work carried out in collaboration with the University of Dundee and the photobiology department at Ninewells hospital.
 
@@ -537,12 +538,25 @@ Both lasers were used in `Pixel beam' mode. This means that the laser beam is sp
 
 Both lasers operated in different modes; the Er:YAG delivered multiples pulses of either 350~$mJ$ or 700~$mJ$, and the CO$_2$ delivered one single pulse of varying energy over the range 50~$mJ$ to 400~$mJ$. The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by either stacking multiple pulses on top of each other for the Er:YAG laser over a range of 350~$mJ$ to 3500~$mJ$. For the CO$_2$ the pulse length of each pulse was adjusted, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the CO$_2$ laser was kept the same pre and post-upgrade.
 
+\subsubsection{Computational speed up:}
+As mentioned in the introduction, the volume of interest is the are around the ablation craters. The volume is 1.1 $\times$ 1.1 $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser.
+As a sanity check to ensure that we are not omitting any phenomena by focusing on just one ablation crater, an initial simulation that simulates the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives us validation that the shrinking of the volume of interest is a valid approximation to make.
+
+\begin{figure}
+	\centering
+    \includegraphics[width=\columnwidth]{./ablation/images/slice.pdf}
+    \caption{Simulation of 81 pixel beams. Figure is a slice through the optical properties at the end of the simulation. Yellow is unchanged tissue, and purple is completly ablated tissue.}\label{fig:sizecheck}
+\end{figure}
+
+\subsection{Results}
+
 \subsubsection{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three}. Thus, we run several models over this range in order to establish a `good' \gls{ta} to use for the rest of the simulations. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=260~^{\circ}C$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three}. Thus, we run several models over this range in order to establish a `good' \gls{ta} to use for the rest of the simulations. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=400~^{\circ}C$.
 
-Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. As more energy is required to heat the porcine tissue upto the ablation temperature before it can be ablated.
-%Jump straight to fig 9, but would be good to show movie where you see the holes being drilled and medium heating up.
+Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. As more energy is required to heat the porcine tissue up to the ablation temperature before it can be ablated. Decreasing the ablation temperature has the converse affect.
+
+Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth tapers off.  
 
 
 \begin{figure}
@@ -552,16 +566,23 @@ Increasing the ablation temperature, has the obvious affect of requiring more en
 \end{figure}
  
 
+\subsubsection{Investigating Thermal damage} 
+ 
+\subsubsection{Comparison to experimental work} 
+ 
+*The work below will possibly be done. If so it will be in 2019*
 \subsubsection{Effect of thermal and optical properties on crater depth}
 
-As mentioned in the introduction to this section, the thermal and optical properties vary over a wide range in the literature. Thus there is no one `correct' value we can choose for out simulations. In order to better understand how the thermal and optical properties affect the crater depth reached by the fractional laser, we vary the properties by $20\%$.
+As mentioned in the introduction to this section, the thermal and optical properties vary over a wide range in the literature. Thus there is no one `correct' value we can choose for out simulations. In order to better understand how the thermal and optical properties affect the crater depth reached by the fractional laser, we vary the properties by $20\%$. This section presents the results of changing the thermal optical properties: heat capacity, thermal conductivity, protein and water absorption, and density.
 
+\paragraph{Heat capacity, $c_p$}
+\paragraph{Thermal conductivity, $\kappa$}
+\paragraph{Absorption coefficient, $\mu_a$}
+\paragraph{Density, $\rho$}
 
 
 \subsubsection{Investigating water content}
  
-\subsubsection{Investigating temperature of air after ablation} 
- 
-\subsubsection{Comparison to experimental work} 
- 
+\subsubsection{Investigating temperature of air after ablation}  
+*****************************************************************
 \section{Conclusion}

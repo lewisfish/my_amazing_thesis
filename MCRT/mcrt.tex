@@ -3,7 +3,7 @@
 \section{Introduction and Background}
 This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the MCRT code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
 
-\subsection{Monte Carlo method}
+\subsection{Monte Carlo method}\label{sec:mcmethod}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems. 
 
 The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$ century~\cite{badger1994lazzarini,beckmann2015history,buffon1785histoire}. Buffon asked the question;
@@ -49,4 +49,103 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \subsection{Introduction $\&$ background}
 The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of World War two at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.
 
+\subsection{MCRT algorithm}
+
+The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide a detailed description a simple \gls{mcrt} algorithm for a 3D voxel based grid.
+
+\subsubsection{Grid set-up}\label{sec:photsetup}
+
+The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels of which each voxel has it's own optical properties. This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this).
+
+
+\begin{figure}
+\centering
+\caption{test}\label{fig:voxeldemo}
+\end{figure}
+
+\subsubsection{Photon launch}\label{sec:photlaunch}
+
+The initial step of any \gls{mcrt} algorithm is to launch a photon packet. Depending on the source of photon packets for a given simulation, this step varies from simulation to simulation. The general idea of launching a photon packet is that the packet is given an initial direction vector and position (which consists of a physical position and a voxel position)\footnote{all variables given in this section are the same as they are in the code.}:
+
+\begin{align}
+	direction &= \begin{bmatrix}
+		n_{xp}\\
+		n_{yp}\\
+		n_{zp}
+	\end{bmatrix}\\
+	position &= \begin{bmatrix}
+		x_p, y_p, z_p\\
+	\end{bmatrix}\\
+	voxel &= \begin{bmatrix}
+		x_{cell}, y_{cell}, z_{cell}
+	\end{bmatrix}	 
+\end{align}
+
+In order to set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\cref{sec:photscatter}), the direction vectors are computed in a spherical system thus the direction vectors are: 
+
+\begin{align}
+n_{xp} &= sin(\theta) \cdot cos(\phi) \\
+n_{yp} &= sin(\theta) \cdot sin(\phi) \\
+n_{zp} &= cos(\theta)
+\end{align}
+
+$\theta$ and $\phi$ are generated dependant on the photon source used.
+
+\subsubsection{Photon move}\label{sec:photmove}
+
+The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the interaction probability (see~\cref{sec:optprop}). Thus the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
+
+\begin{align}
+P(L) &= (1-\mu_t\frac{L}{N})^N\cdot (1-\mu_t\frac{L}{N})^N ...\ (1-\mu_t\frac{L}{N})^N \\
+P(L) &= \lim_{N \to \infty}(1-\mu_t\frac{L}{N})^N=e^{-\mu_tL}=e^{-\tau}\label{eqn:pdfdist}
+\end{align}
+
+Where $\tau$ is the number of mean free paths over a distance L. We now have a \gls{pdf}, \cref{eqn:pdfdist}, for the distance a packet will travel before an interaction occurs. For this to be of use we need to be able to sample from this \gls{pdf} in order to get a random optical depth. Using the Monte Carlo method described in~\cref{sec:mcmethod}, with $\xi$ as our random variable, we get:
+
+\begin{equation}
+\xi=\int_{0}^{\tau}e^{-\tau'}=1-e^{-\tau}\rightarrow \tau=-log(1-\xi)
+\end{equation}
+
+As $\xi$ is symmetric about 0.5 we can substitute $1-\xi$ for $\xi$ yielding:
+
+\begin{equation}
+\tau=-log(\xi)\label{eqn:taueqn}
+\end{equation} 
+
+We now have an optical distance, however we need to convert this into a physical distance so that we can move our photon packet. From our definition of $\tau$ we know that $\tau=\int_0^L\mu_tdS$, and if we have a smooth, homogeneous medium (i.e not a gridded medium) thus 
+
+\begin{equation}
+L=\frac{\tau}{\mu_t}\label{eqn:physicaldist}
+\end{equation}
+
+Therefore in order to update the packets position is simply:
+
+\begin{align}
+x_p &= x_p+L\cdot n_{xp}\\
+y_p &= y_p+L\cdot n_{yp}\\
+z_p &= z_p+L\cdot n_{zp}
+\end{align}
+
+However as the code in this thesis is a 3D gridded Cartesian code, we have to slightly adjust how we move and update the packets position. As stated in~\cref{sec:photsetup}, the medium has been discretised onto a grid, so that each voxel can have a different $\mu_t$, thus~\cref{eqn:physicaldist} becomes:
+
+\begin{equation}
+L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
+\end{equation}
+
+with $\mu_t,\zeta$ the $\mu_t$ for the $\zeta^{th}$ voxel.
+
+
+
+\subsubsection{Photon scatter}\label{sec:photscatter}
+
+\subsubsection{Photon absorb}\label{sec:photabsorb}
+
+
+
+\subsection{Code details}
+
+This section details some of the code details, which may not be apparent from the description in the previous section on how the \gls{mcrt} algorithm works.
+
 \section{Validation of MCRT code}
+\section{Optical properties}\label{sec:optprop}
+\section{Further extensions to the code}\label{sec:codefurther}

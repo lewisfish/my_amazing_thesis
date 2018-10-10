@@ -55,13 +55,13 @@ The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as comp
 
 \subsubsection{Grid set-up}\label{sec:photsetup}
 
-The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels of which each voxel has it's own optical properties. This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this).
+The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has it's own optical properties. This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this). Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
 
 
-\begin{figure}
-\centering
-\caption{test}\label{fig:voxeldemo}
-\end{figure}
+%\begin{figure}
+%\centering
+%\caption{test}\label{fig:voxeldemo}
+%\end{figure}
 
 \subsubsection{Photon launch}\label{sec:photlaunch}
 
@@ -81,7 +81,7 @@ The initial step of any \gls{mcrt} algorithm is to launch a photon packet. Depen
 	\end{bmatrix}	 
 \end{align}
 
-In order to set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\cref{sec:photscatter}), the direction vectors are computed in a spherical system thus the direction vectors are: 
+In order to set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\cref{sec:photscatterabsop}), the direction vectors are computed in a spherical system thus the direction vectors are: 
 
 \begin{align}
 n_{xp} &= sin(\theta) \cdot cos(\phi) \\
@@ -96,7 +96,7 @@ $\theta$ and $\phi$ are generated dependant on the photon source used.
 The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the interaction probability (see~\cref{sec:optprop}). Thus the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
 
 \begin{align}
-P(L) &= (1-\mu_t\frac{L}{N})^N\cdot (1-\mu_t\frac{L}{N})^N ...\ (1-\mu_t\frac{L}{N})^N \\
+P(L) &= (1-\mu_t\frac{L}{N}) \cdot (1-\mu_t\frac{L}{N}) ...\ (1-\mu_t\frac{L}{N}) = (1-\mu_t\frac{L}{N})^N \\
 P(L) &= \lim_{N \to \infty}(1-\mu_t\frac{L}{N})^N=e^{-\mu_tL}=e^{-\tau}\label{eqn:pdfdist}
 \end{align}
 
@@ -121,9 +121,9 @@ L=\frac{\tau}{\mu_t}\label{eqn:physicaldist}
 Therefore in order to update the packets position is simply:
 
 \begin{align}
-x_p &= x_p+L\cdot n_{xp}\\
-y_p &= y_p+L\cdot n_{yp}\\
-z_p &= z_p+L\cdot n_{zp}
+x_p &= x_p+L\cdot n_{xp}\label{eqn:update1}\\
+y_p &= y_p+L\cdot n_{yp}\label{eqn:update2}\\
+z_p &= z_p+L\cdot n_{zp}\label{eqn:update3}
 \end{align}
 
 However as the code in this thesis is a 3D gridded Cartesian code, we have to slightly adjust how we move and update the packets position. As stated in~\cref{sec:photsetup}, the medium has been discretised onto a grid, so that each voxel can have a different $\mu_t$, thus~\cref{eqn:physicaldist} becomes:
@@ -132,19 +132,33 @@ However as the code in this thesis is a 3D gridded Cartesian code, we have to sl
 L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
 \end{equation}
 
-with $\mu_t,\zeta$ the $\mu_t$ for the $\zeta^{th}$ voxel.
+with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. The position is then updated as before using~\cref{eqn:update1,eqn:update2,eqn:update3}. The next step in the algorithm is the interaction event, which can consist of either: scattering, absorbing or fluorescing.
+
+\subsubsection{Photon scatter and absorbing}\label{sec:photscatterabsorb}
+
+The first part of this section of the algorithm is to decide what kind of interaction the packet has with the medium. This section will focus on scattering and absorbing with other interaction events left for the chapters that detail these behaviours.
+\medskip
+
+To decide whether a packet scatters or absorbs involves `throwing' a random number and comparing it against the albedo. As detailed in~\cref{sec:optprop} the albedo is the scattering probability $a=\tfrac{\mu_a}{\mu_a+\mu_s}$. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
+
+\paragraph{Packet absorption}\hspace{0pt}\\
+\\
+If the interaction event is a photon packet absorption, then the algorithm terminates the photon packets and starts the next photon packet,~\cref{sec:terminator}.
+
+\paragraph{Packet scattering}\hspace{0pt}\\
+\\
+If the interaction event is a packet scattering, then the packet is scattered into a new direction and the above process are carried out until a termination clause is met, see~\cref{sec:terminator}.
+
+Depending of the medium being simulated, it can either be isotropically scattering or preferentially scattering in a direction. In the case of simulating photon propagation in tissue, tissue is highly forward scattering.
+
+Anisotropy is the degree of deviation in the photon packets path at each interaction event. The measure of anisotropy is the g value, $g$. With $g$ taking any value from $-1$ to $1$, $-1$ is highly backward scattering, $0$ is isotropic scattering and $1$ is highly forward scattering. 
 
 
-
-\subsubsection{Photon scatter}\label{sec:photscatter}
-
-\subsubsection{Photon absorb}\label{sec:photabsorb}
-
-
+\subsubsection{Termination}\label{sec:terminator}
 
 \subsection{Code details}
 
-This section details some of the code details, which may not be apparent from the description in the previous section on how the \gls{mcrt} algorithm works.
+This section details the the actual implementation of the \gls{mcrt} algorithm detailed in the previous section, along with any computational necessities and speed ups on the original algorithm.
 
 \section{Validation of MCRT code}
 \section{Optical properties}\label{sec:optprop}

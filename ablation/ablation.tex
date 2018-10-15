@@ -1,19 +1,14 @@
 \chapter{Computational modelling of tissue ablation}
-%More background on why developing the laser ablation model. 
-%What is the medical reason to want this. %What medical procedures are done with laser ablation? 
-%What are the outstanding issues/questions that your model can be used to answer? mention pig skin
-%Details of laser pulsing. now add this in experimental results section
-%Time steps, convergence tests, etc%Time for holes to be drilled by laser.
-%Low intensity damage%in equation 9, could A and Delta-E be functions of temperature?
+
 \section{Introduction and background}%*********************************************************************************************************************************************************
 Lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
 One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. They have also recently been investigated as a means of better drug delivery in the skin for \gls{pdt} treatments~\cite{haedersdal2010fractional}.
 
-One downside to using lasers to remove tissue, it that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  unwanted thermal damage to the surrounding areas, leading to unwanted effects.
+One downside to using lasers to remove tissue, it that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  thermal damage to the surrounding areas, leading to unwanted effects.
 
  Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. We propose to use \gls{oct} to measure the ablative crater non-invasively \textit{in-vivo}. The \gls{oct} measurements are then backed up by a computational model. This computational model could then be used to predict the depth of the ablative crater when using a certain power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
 
-This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
+This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
 
 \section{Methods}
 
@@ -24,21 +19,21 @@ In order to replicate the experimental work \textit{in silico}, our numerical mo
 *This part is here as it will be needed for paper. probably not needed in chapter though...*
 \gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient}. This is due to its flexibility in modelling non standard geometries, and its ability to model various light sources and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
 
-The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  80 x 80 x 80 voxels *still changing this*, representing a tissue sample size of 1.1 $\times$ 1.1 $\times$ 0.5 cm. We assume the porcine skin is uniform, so that initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein, see \cref{fig:waterabsor}.
+The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  240 $\times$ 240 $\times$ 240 voxels, representing a tissue sample size of 1.1 $\times$ 1.1 $\times$ 0.5 cm. We assume the porcine skin is uniform, so initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein, see \cref{fig:waterabsor}.
 
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.25]{./ablation/images/voxel-model-render.png}
-\caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel represents a different optical/thermal propertty of the tissue medium.}\label{fig:voxel-model}
+\caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel can represent a different optical/thermal propertty of the tissue medium.}\label{fig:voxel-model}
 \end{figure}
 
 The original \gls{mcrt} code was developed for astronomy applications \cite{wood1999model,wood2005estimating}, and has since been adapted for medical applications~\cite{campbell2015monte,barnard2018quantifying}.
 
 \Cref{fig:algo}. shows the overall algorithm for the simulation, including the \gls{mcrt} portion. 
-The \gls{mcrt} portion of the algorithm begins with determining where the photon enters the medium. This is calculated by randomly selecting one of the pixel beams, from the 9 x 9 array of pixel beams. Next the position on the surface of the medium is calculated. As the profile of the pixel beams are unknown, they are assumed to be uniformly circular *maybe change to gaussian??*. Thus, the packets position is uniformly sampled on a circle the width of the pixel beam.
+The \gls{mcrt} portion of the algorithm begins with determining where the photon enters the medium. This is calculated by randomly selecting one of the pixel beams, from the 9 x 9 array of pixel beams. Next the position on the surface of the medium is calculated. As the exact profile of the pixel beams are unknown, they are assumed to be uniformly circular. Thus, the packets position is uniformly sampled on a circle the width of the pixel beam.
 
-Once the packet enters the simulation, a propagation distance for the packets is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption, however in this simulation absorption dominates, and thus we assume no scattering takes place. This process is repeated until the photon has either been absorbed or exits the medium.
+Once the packet enters the simulation, a propagation distance for the packet is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption, however in this simulation absorption dominates, and thus we assume no scattering takes place. This process is repeated until the photon has either been absorbed or exits the medium.
 
 \begin{equation}
 L = -\tfrac{ln(\xi)}{\mu_a}
@@ -57,7 +52,7 @@ L = -\tfrac{ln(\xi)}{\mu_a}
 
 \Cref{eqn:propdist} is the equation for a uniform medium. As the medium we are simulating changes over time due to thermal damage this equation has to be adapted for a 3D Cartesian grid. Each voxel 
 can have different optical properties, thus the photon packet is moved on a voxel by voxel basis. To start the movement process, a random number is generated, which is used to sample an optical depth the photon packet will travel. Next the photon enters the voxel and the maximum distance the photon can travel in the new voxel is calculated along the photons trajectory. If this optical distance is less than the optical depth sampled, then the photon enters the next voxel. If the distance is larger than the sampled optical distance then the photon has an interaction event in that voxel. The photon packet moves to the interaction event in the voxel and then undergoes scattering or absorption. The whole process is repeated until the photon `dies' via absorption or leaving the medium.
-This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 1 million photons per \gls{mcrt} simulation run.
+This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 1 million photon packets per \gls{mcrt} simulation run.
 
 \begin{figure}
 \centering
@@ -66,10 +61,10 @@ This in turn is again repeated for all the photons, until all the photons have b
 \label{fig:algo}
 \end{figure}
 
-To calculate the energy absorbed in the porcine tissue via the laser we use the path length counter method devised by Lucy \cite{lucy1999computing}. Thus energy absorbed per voxel is calculated as:
+To calculate the energy absorbed in the porcine tissue via the laser we use the path length counter method devised by Lucy \cite{lucy1999computing} (see~\cref{fig:jmea-explain}). The energy absorbed per voxel is therefore calculated as:
 
 \begin{equation}
-E_{i}^{abs} = \frac{L}{N \Delta V_i}\sum\mu_a s
+E_{i}^{abs} = \frac{L}{N \Delta V_i}\sum\mu_{a,i} s
 \label{eqn:Eabs}
 \end{equation}
 
@@ -94,8 +89,8 @@ E_{i}^{abs} = \frac{L}{N \Delta V_i}\sum\mu_a s
 \label{fig:jmea-explain}
 \end{figure}	
 		
-This grid of absorbed energy is then passed to the heat transport portion of the simulation, so that the heat diffusion can be calculated.
-
+This grid of absorbed energy is then passed to the heat transport portion of the simulation, so that the heat diffusion in the porcine tissue can be calculated.
+\newpage
 \subsection{Heat transport}%************************************************************************************************************************************************************************
 
 In order to model the transport of heat in porcine skin, we use the standard parabolic heat equation:
@@ -236,16 +231,20 @@ T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac
 Incorporating B.Cs on the top air exposed face:
 
 \begin{equation}
-U_{zz} = \tfrac{\alpha}{\Delta z^2} (\tfrac{2 \Delta z}{\kappa} (-h(T^N_{i,j,k}-T^N_\infty) ) -2 T^N_{i,j,k} + 2T^N_{i,j,k+1}) 
+U_{zz} = \tfrac{\alpha}{\Delta z^2} (\tfrac{2 \Delta z}{\kappa} (-h(T^N_{i,j,k}-T^N_\infty) ) -2 T^N_{i,j,k} + 2T^N_{i,j,k+1})\label{eqn:bceqn} 
 \end{equation}
 
-As the lasers *maybe remove s?* operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, laserOn, is a boolean value, which is defined as:
+\Cref{eqn:FDMheat4,eqn:bceqn} give the full numerical solution to the non-linear heat equation with a convection boundary term and laser heat source. This will allow us to calculate the heat diffusion in the porcine tissue due to laser heating.
+
+\medskip
+
+As the lasers operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, laserOn, is a boolean value, which is defined as:
 
 \[   
 laserOn = 
      \begin{cases}
-       \text{1,} &\quad\text{if time}\le\text{pulse length}\\
-       \text{0,} &\quad\text{if time}>\text{pulse length}.\\
+       \text{1,} &\quad\text{Laser on}\\
+       \text{0,} &\quad\text{Laser off}.\\
      \end{cases}
 \]
 
@@ -253,13 +252,13 @@ In the instance where there is more than one pulse, the laser is turned on and o
 
 \medskip
 
-As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{\alpha \Delta x^2}{2\beta}$. However as we have a flux prescribed boundary condition, the constraint on the time is more severe. Along with this time restraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be an order of magnitude smaller than the shortest laser pulse.
+As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. However as we have a convection prescribed boundary condition, the constraint on the time is more severe. Along with this time restraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be an order of magnitude smaller than the shortest laser pulse.
 
-As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in *ref here*, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
+As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in *ref here to MCRT chapter*, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
 
 \medskip
 
-Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation needing to know the temperature of adjacent nodes. Thus information will have to be passed from each individual core during computation, as opposed to doing the information passing at the end of the simulation \textit{\`a la} \gls{mcrt} parallelisation.
+Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation being dependant on the temperature of adjacent nodes. Thus information will have to be passed from each individual core during computation, as opposed to doing the information passing at the end of the simulation \textit{\`a la} \gls{mcrt} parallelisation.
 The heat simulation is parallelised using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
 On a workstation computer these simulations were carried out on (Intel Xeon E3-1245 v5, 8 core @ 3.5GHz) led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -269,7 +268,7 @@ On a workstation computer these simulations were carried out on (Intel Xeon E3-1
 \vspace{-45pt}
 \centering
 \includegraphics[scale=.35]{./ablation/images/grid-decomp.pdf}
-\caption{Computational domain decomposition. Total computational domain is evenly divided between cores in the CPU. This is done via layers of the domain in the z direction. Information is passed to/from cores via the `halo swap' process (see~\cref{fig:haloswap}).}
+\caption{Computational domain decomposition. Total computational domain (red outline) is evenly divided between cores in the CPU. This is done via layers of the domain in the z direction. Information is passed to/from cores via the `halo swap' process (see~\cref{fig:haloswap}).}
 \label{fig:griddecomp}
 \vspace{-10pt}
 \end{figure}
@@ -284,91 +283,7 @@ On a workstation computer these simulations were carried out on (Intel Xeon E3-1
 
 
 After the heat transport has been completed, the grid of temperatures is passed to the tissue damage portion of the simulation.
-\newpage
-\subsection{Validation}%************************************************************************************************************************************************************************
 
-
-
-\subsubsection{Heat transport validation}
-
-In order to thoroughly validate the numerical method we employ to solve the heat equation, we compare the numerical method against an easily solvable case. We solve the heat equation on a cube, side L, in a surrounding medium of 0$^{\circ}$C. The cube is initially at temperature 37$^{\circ}$C and we calculate the temperature at time \textit{t=0.1s}. Thus the boundary conditions are:
-
-\begin{align}
-T(0,y,z,t)&=T(x,0,z,t)=T(x,y,0,t)=0^{\circ}\text{C} \label{eqn:bc1}\\
-T(L,y,z,t)&=T(x,L,z,t)=T(x,y,L,t)=0^{\circ}\text{C} \label{eqn:bc2}\\
-\end{align}
-
-The thermal diffusivity~($\alpha$), density~($\rho$), and heat capacity~($c_p$) are all set to 1. Assuming a separable solution in Cartesian coordinates for the heat equation yields:
-
-\begin{equation}
-\begin{split}
-T(x,y,z,t)=&(A_1Cos(\alpha x) + A_1Sin(\alpha x))\cdot\\
-&(B_1Cos(\beta y) + B_1Sin(\beta y))\cdot\\
-&(C_1Cos(\gamma z) + C_1Sin(\gamma z))\cdot e^{-\alpha\mu^2t}\\
-\end{split} 
-\end{equation}
-
-\begin{equation}
-\mu^2=\alpha^2+\beta^2+\gamma^2
-\end{equation}
-
-Applying the boundary conditions (\cref{eqn:bc1,eqn:bc2}) gives:
-
-\begin{equation}
-A_1=B_1=C_1=0\
-\text{and}\ \alpha=\frac{\pi n}{L}\ \beta=\frac{\pi m}{L}\ \gamma=\frac{\pi p}{L}
-\end{equation}
-
-\begin{equation}
-\therefore  T_{nmp}(x,y,z,t)=A_{nmp}Sin\left(\frac{\pi n x}{L}\right)\cdot Sin\left(\frac{\pi m y}{L}\right)\cdot Sin\left(\frac{\pi p z}{L}\right)
-\end{equation}
-
-This yields the following solution for the heat equation using the principle of superposition, and solving \cref{eqn:heatfactoranalytic} with $f(x,y,z)$ as the initial temperature profile of the cube:
-
-\begin{equation}
-A_{nmp}=\frac{8}{L^3}\int_0^L\int_0^L\int_0^L f(x,y,z)\cdot sin(\frac{\pi n x}{L})\cdot sin(\frac{\pi n y}{L})\cdot sin(\frac{\pi n z}{L})\ dx\cdot dy\cdot dz
-\label{eqn:heatfactoranalytic}
-\end{equation}
-
-\begin{equation}
-T(x,y,z,t)=\sum^\infty_{n=1,3,..}\sum^\infty_{m=1,3,..}\sum^\infty_{p=1,3,..}\frac{2368}{\pi^3nmp}Sin(\frac{\pi n x}{L})Sin(\frac{\pi m y}{L})Sin(\frac{\pi p z}{L})e^{(-\lambda^2t)}
-\end{equation}
-
-\noindent Where:
-
-	\indent $\lambda^2=\alpha\pi^2(\tfrac{n^2}{L^2}+\tfrac{m^2}{L^2}+\tfrac{p^2}{L^2})$;
-	
-	\indent $n,m,p$ are odd integers;
-	
-	\indent and $L$ is the length of the cube.
-	
-	\medskip
-	
-At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cref{fig:validation-heat}.
-
-\begin{figure}	
-\vspace{-10pt}
-	\centering
-	\includegraphics[width=\columnwidth]{./ablation/images/validation.pdf}
-	\caption{Comparison between analytical solution and numerical method.}
-	\label{fig:validation-heat}
-	\vspace{-10pt}
-\end{figure}	
-
-\subsubsection{MCRT $\&$ heat transport validation}
-
-As a first test of our code, both \gls{mcrt} and heat simulation, we compare to a simple analytical model of ablation. The simple model of ablation is as this: We define the ablation energy ($E_a$) as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in 1 dimension we have~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of power density ($Wcm^{-2}$) this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
-
-
-\begin{align}
-E_a &= c_p \rho dx \Delta T + L_v \rho dx \label{eqn:ablationenergy}\\
-P\cdot dt &= \rho dx (c_p \Delta T + L_v) \label{eqn:midequationablation} \\
-u &= \frac{P}{\rho(c_p\Delta T+ L_v)} \label{eqn:ablationvelo}
-\end{align}
-
-Assuming the ablation front moves with constant velocity during the ablation, and using $L_v=2.53\cdot 10^6\ J\cdot Kg^{-1},\ c_p=4181\ J\cdot Kg^{-1}\cdot K^{-1}$ and the medium is a cube side $2\ mm$, with a starting temperature is 37~$^{\circ}$C with a water content of 70\% giving a density of 700~$Kg\cdot m^{-3}$. For these parameter this gives an ablation velocity, $u\simeq 0.77\ cm\cdot s^{-1}$, and a time to ablate through 2~$mm$ of $t \simeq 0.26~s$.
-As the code developed in this chapter simulates the diffusion of heat in a medium due to an incident laser, the expected time to ablate through the same medium should be slightly less as heat diffuses away from the voxel while it is heated being heated. When the full heat + \gls{mcrt} code is used to simulate this experiment, it gives a time, $t \simeq 0.33~s$.	
-	
 \subsection{Tissue Damage}%************************************************************************************************************************************************************************
 \label{sec:tissuedamage}
 
@@ -407,6 +322,8 @@ The final stage of tissue damage is the removal of the remaining tissue, i.e tis
 	\vspace{-10pt}
 \end{figure}
 
+In order to model all these tissue damage processes we split our tissue damage model into two sections: `physical' damage and coagulation damage. Where `physical' damage changes the tissue optical and thermal properties, where the coagulation damage has no effect on the tissue's optical or thermal properties.
+
 \subsubsection{Modelling coagulation damage}
 
 With the description of the various process that tissue undergoes during ablation, we can now create a numerical model of these processes.
@@ -438,7 +355,7 @@ It is reported that a value of $\Omega$ of 0.53, 1.0, and 10$^4$ relate to first
 
 \subsubsection{Modelling physical tissue damage}
 
-As tissue is generally mostly consists of water *ref* when the temperature of the tissue approaches 100$^{\circ}$C (at 1 atm), water in the tissue begins to boil off. This acts as a large heat sink for the absorbed laser energy, slowing down the rate of ablation. The energy required to boil the water is $Q_{vapor}=m_v\cdot L$, where $m_v$ is the mass of a voxel, and $L$ is the latent heat of vaporisation. The energy to boil off the water is provided via the laser and heat diffusing into the voxel:
+As tissue mostly consists of water *ref* when the temperature of the tissue approaches 100$^{\circ}$C (at 1 atm), water in the tissue begins to boil off. This acts as a large heat sink for the absorbed laser energy, slowing down the rate of ablation. The energy required to boil the water is $Q_{vapor}=m_v\cdot L$, where $m_v$ is the mass of a voxel, and $L$ is the latent heat of vaporisation. The energy to boil off the water is provided via the laser and heat diffusing into the voxel:
 
 \begin{equation}
 Q_{vapor}=\underbrace{laserOn\cdot\dot{q}\cdot \Delta t\cdot V_{i,j,k}}_\text{laser heating} + \underbrace{c\cdot M_{i,j,k}\cdot\Delta T}_\text{heat diffusion}
@@ -494,7 +411,94 @@ c_p &= 4.2\cdot 10^{3}\cdot W + 1.09\cdot 10^{3}\cdot P \\
 
 We define the \gls{ta} as occurring between 177 and 500$^{\circ}$C\cite{gerstmann1994char,mckenzie1986three}. At \gls{ta} the tissue is removed and the thermal, optical, and physical properties set to that of air.
 
-The tissue structure is then fed back to the \gls{mcrt} model and the whole process repeats until the predefined time limit is reached. This process is outlined in \cref{fig:algo}.
+The updated damaged tissue structure is then fed back to the \gls{mcrt} model and the whole process repeats until the predefined time limit is reached. This whole process of photon propagation, heat diffusion and tissue damage is outlined in \cref{fig:algo}.
+
+\subsection{Validation}%************************************************************************************************************************************************************************
+
+\subsubsection{Heat transport validation}
+
+In order to thoroughly validate the numerical method we employ to solve the heat equation, we compare the numerical method against an easily solvable case. We solve the heat equation on a cube, side L, in a surrounding medium of 0$^{\circ}$C. The cube is initially at temperature 37$^{\circ}$C and we calculate the temperature at time \textit{t=0.1s}. Thus the boundary conditions are:
+
+\begin{align}
+T(0,y,z,t)&=T(x,0,z,t)=T(x,y,0,t)=0^{\circ}\text{C} \label{eqn:bc1}\\
+T(L,y,z,t)&=T(x,L,z,t)=T(x,y,L,t)=0^{\circ}\text{C} \label{eqn:bc2}\\
+\end{align}
+
+The thermal diffusivity~($\alpha$), density~($\rho$), and heat capacity~($c_p$) are all set to 1. Assuming a separable solution in Cartesian coordinates for the heat equation yields:
+
+\begin{equation}
+\begin{split}
+T(x,y,z,t)=&(A_1 cos(\alpha x) + A_1 sin(\alpha x))\cdot\\
+&(B_1 cos(\beta y) + B_1 sin(\beta y))\cdot\\
+&(C_1 cos(\gamma z) + C_1 sin(\gamma z))\cdot e^{-\alpha\mu^2t}\\
+\end{split} 
+\end{equation}
+
+\begin{equation}
+\mu^2=\alpha^2+\beta^2+\gamma^2
+\end{equation}
+
+Applying the boundary conditions (\cref{eqn:bc1,eqn:bc2}) gives:
+
+\begin{equation}
+A_1=B_1=C_1=0\
+\text{and}\ \alpha=\frac{\pi n}{L}\ \beta=\frac{\pi m}{L}\ \gamma=\frac{\pi p}{L}
+\end{equation}
+
+\begin{equation}
+\therefore  T_{nmp}(x,y,z,t)=A_{nmp} sin\left(\frac{\pi n x}{L}\right)\cdot sin\left(\frac{\pi m y}{L}\right)\cdot sin\left(\frac{\pi p z}{L}\right)
+\end{equation}
+
+This yields the following solution for the heat equation using the principle of superposition, and solving \cref{eqn:heatfactoranalytic} with $f(x,y,z)$ as the initial temperature profile of the cube:
+
+\begin{equation}
+A_{nmp}=\frac{8}{L^3}\int_0^L\int_0^L\int_0^L f(x,y,z)\cdot sin(\frac{\pi n x}{L})\cdot sin(\frac{\pi n y}{L})\cdot sin(\frac{\pi n z}{L})\ dx\cdot dy\cdot dz
+\label{eqn:heatfactoranalytic}
+\end{equation}
+
+\begin{equation}
+T(x,y,z,t)=\sum^\infty_{n=1,3,..}\sum^\infty_{m=1,3,..}\sum^\infty_{p=1,3,..}\frac{2368}{\pi^3nmp} sin(\frac{\pi n x}{L}) sin(\frac{\pi m y}{L}) sin(\frac{\pi p z}{L})e^{(-\lambda^2t)}
+\end{equation}
+
+\noindent Where:
+
+	\indent $\lambda^2=\alpha\pi^2(\tfrac{n^2}{L^2}+\tfrac{m^2}{L^2}+\tfrac{p^2}{L^2})$;
+	
+	\indent $n,m,p$ are odd integers;
+	
+	\indent and $L$ is the length of the cube.
+	
+	\medskip
+	
+At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cref{fig:validation-heat}.
+
+\begin{figure}	
+\vspace{-10pt}
+	\centering
+	\includegraphics[width=\columnwidth]{./ablation/images/validation.pdf}
+	\caption{Comparison between analytical solution and numerical method.}
+	\label{fig:validation-heat}
+	\vspace{-10pt}
+\end{figure}	
+
+\subsubsection{MCRT $\&$ heat transport validation}
+
+As a first test of our code, both \gls{mcrt} and heat simulation, we compare to a simple analytical model of ablation. The simple model of ablation is as this: We define the ablation energy ($E_a$) as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in 1 dimension we have~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of power density ($Wcm^{-2}$) this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
+
+
+\begin{align}
+E_a &= c_p \rho dx \Delta T + L_v \rho dx \label{eqn:ablationenergy}\\
+P\cdot dt &= \rho dx (c_p \Delta T + L_v) \label{eqn:midequationablation} \\
+u &= \frac{P}{\rho(c_p\Delta T+ L_v)} \label{eqn:ablationvelo}
+\end{align}
+
+Assuming the ablation front moves with constant velocity during the ablation, and using $L_v=2.53\cdot 10^6\ J\cdot Kg^{-1},\ c_p=4181\ J\cdot Kg^{-1}\cdot K^{-1}$ and the medium is a cube side $2\ mm$, with a starting temperature is 37~$^{\circ}$C with a water content of 70\% giving a density of 700~$Kg\cdot m^{-3}$. For these parameter this gives an ablation velocity, $u\simeq 0.77\ cm\cdot s^{-1}$, and a time to ablate through 2~$mm$ of $t \simeq 0.26~s$.
+As the code developed in this chapter simulates the diffusion of heat in a medium due to an incident laser, the expected time to ablate through the same medium should be slightly less as heat diffuses away from the voxel while it is heated being heated. When the full heat + \gls{mcrt} code is used to simulate this experiment, it gives a time, $t \simeq 0.33~s$.	
+
+\medskip
+
+***maybe more? Could compare to https://doi.org/10.1117/1.2204615. They use MCRT + FDM but no ablation. So would be good test***
+
 
 \section{\textit{In silco} results} 
 
@@ -513,12 +517,12 @@ Both of the lasers used in the experimental work are infrared lasers, this means
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 \begin{figure}	
-\vspace{-10pt}
+%\vspace{-10pt}
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/water.pdf}
-	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing in the infra-red portion of the spectrum.}
+	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing in the infra-red portion of the spectrum  compared to the visible portion.}
 	\label{fig:waterabsor}
-	\vspace{-10pt}
+	%\vspace{-10pt}
 \end{figure}
 
 \begin{table}
@@ -531,7 +535,7 @@ Tissue & $\rho \cdot (6.28\cdot 10^{-4}\cdot W + 1.17\cdot 10^{-4} \cdot P)$ & $
 Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\ 
 \hline 
 \end{tabular}
-\caption{blah blah}\label{table:values}
+\caption{Optical and thermal properties for porcine tissue and air in SI.}\label{table:values}
 \end{table}  
 
 Both lasers were used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The Er:YAG laser used a pattern of 5 x 5 lasers, with the corners missing, giving a total of 21 `Pixel beams'. The CO$_2$ laser used an array of 81 pixel beams with no missing `Pixels'. As the CO$_2$ laser was upgraded during the period in which the experimental data was taken, we present both sets of data, pre-upgrade and post-upgrade. The upgrade consisted of an update to the laser power, from 30~$W$ to 70~$W$.
@@ -545,7 +549,7 @@ As a sanity check to ensure that we are not omitting any phenomena by focusing o
 \begin{figure}
 	\centering
     \includegraphics[width=\columnwidth]{./ablation/images/slice.pdf}
-    \caption{Simulation of 81 pixel beams. Figure is a slice through the optical properties at the end of the simulation. Yellow is unchanged tissue, and purple is completly ablated tissue.}\label{fig:sizecheck}
+    \caption{Simulation of 81 pixel beams. Figure is a slice through the optical properties at the end of the simulation. Yellow is unchanged tissue, and purple is completly ablated tissue. Figure shows that the ablation craters do not overlap one another.}\label{fig:sizecheck}
 \end{figure}
 
 \subsection{Results}
@@ -562,15 +566,18 @@ Over the full range of \gls{ta}, as the energy per pixel beam increases, there i
 \begin{figure}
 	\centering
     \includegraphics[width=\columnwidth]{./ablation/images/both.pdf}
-    \caption{Simulations of 30~$W$ and 70~$W$ CO$_2$ ablative laser. Crater depths as a function of pixel beam energy for various \gls{ta}'s. *placeholder until I get 70W dundee data. need to rerun the upper 177 points on larger z depth as it crashes currently*}\label{fig:ta}
+    \caption{Simulations of 30~$W$ and 70~$W$ CO$_2$ ablative laser. Crater depths as a function of pixel beam energy for various \gls{ta}'s. *placeholder until I get 70W dundee data. need to rerun the upper 177 points on larger z depth as it crashes currently due to known error*}\label{fig:ta}
 \end{figure}
  
 
 \subsubsection{Investigating Thermal damage} 
  
+*arrhenius subroutine broken for some reason need to fix before this section can be completed* 
+ 
 \subsubsection{Comparison to experimental work} 
  
 *The work below will possibly be done. If so it will be in 2019 if not needed for the paper*
+\subsubsection{Effect of beam shape}
 \subsubsection{Effect of thermal and optical properties on crater depth}
 
 As mentioned in the introduction to this section, the thermal and optical properties vary over a wide range in the literature. Thus there is no one `correct' value we can choose for out simulations. In order to better understand how the thermal and optical properties affect the crater depth reached by the fractional laser, we vary the properties by $20\%$. This section presents the results of changing the thermal optical properties: heat capacity, thermal conductivity, protein and water absorption, and density.

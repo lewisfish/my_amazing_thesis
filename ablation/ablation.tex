@@ -324,8 +324,7 @@ The final stage of tissue damage is the removal of the remaining tissue, i.e tis
 
 In order to model all these tissue damage processes we split our tissue damage model into two sections: `physical' damage and coagulation damage. Where `physical' damage changes the tissue optical and thermal properties, where the coagulation damage has no effect on the tissue's optical or thermal properties.
 
-\subsubsection{Modelling coagulation damage}
-
+\subsubsection{Modelling coagulation damage}\label{sec:coagdamage}
 With the description of the various process that tissue undergoes during ablation, we can now create a numerical model of these processes.
 First, in order to model the full extent of the damage done under 100${^{\circ}}$C, i.e in the coagulation regime, we use the Arrhenius damage model. The Arrhenius damage model was originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage \cite{hendriques1947studies,jiang2002effects}. These authors and various others, adapted this model by fitting \cref{eqn:arrhenius} to experimental data for burn damage. The two paramters fitted in this way are the A, the frequency factor, and $\Delta E$, the activation energy.
 
@@ -571,9 +570,33 @@ Over the full range of \gls{ta}, as the energy per pixel beam increases, there i
  
 
 \subsubsection{Investigating Thermal damage} 
+
+As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in order to estimate the thermal damage due to the laser. In order to calculate the tissue damage around the ablation craters, we first transform~\cref{eqn:arrhenius} in to a summation:
+
+\begin{align}
+\Omega(t) &= \int^{t_{f}}_{t_i} Ae^{(-\tfrac{\Delta E}{RT})}d\tau \\
+\Omega(t) &= \sum_{m=m_i}^{m_f} Ae^{(-\tfrac{\Delta E}{RT_{\xi}^{m}})}\Delta t\label{eqn:damagesum}
+\end{align}
  
-*arrhenius subroutine broken for some reason need to fix before this section can be completed* 
- 
+\noindent Where: 
+	
+	\indent $\Delta E$, $R$, $T$, and $A$ have the same meanings as before;
+	
+	\indent $\xi$ is the $i^{th}, j^{th}, k^{th}$ node;
+	
+	\indent and $m_i$ is the $i^{th}$ timestep when the $\xi$ node is above the threshold temperature.
+
+	\medskip
+	
+	Using~\cref{eqn:damagesum} we can thus estimate the damage to the tissue on a voxel by voxel basis.~\Cref{fig:damfig} show how far the thermal damage extends around the ablation crater.
+	
+\begin{figure}	
+	\centering
+	\includegraphics[width=\columnwidth]{./ablation/images/damage-slice.pdf}
+	\caption{Tissue thermal damage around the ablation crater. Values of 3 are third degree burns, 2 second degree, and 1 first degree burns}
+	\label{fig:damfig}
+\end{figure}
+	
 \subsubsection{Comparison to experimental work} 
  
 *The work below will possibly be done. If so it will be in 2019 if not needed for the paper*

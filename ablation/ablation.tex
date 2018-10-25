@@ -588,14 +588,37 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
 
 	\medskip
 	
-	Using~\cref{eqn:damagesum} we can thus estimate the damage to the tissue on a voxel by voxel basis.~\Cref{fig:damfig} show how far the thermal damage extends around the ablation crater.
+	Using~\cref{eqn:damagesum} we can thus estimate the damage to the tissue on a voxel by voxel basis.~\Cref{fig:damfig} show how far the thermal damage extends around the ablation crater. For ease of visualisation we map 1-3 to their respective burns via the following scheme, with $\eta$ as burn severity:
 	
-\begin{figure}	
+\begin{equation}
+\eta = 
+     \begin{cases}
+       \text{3,} &\quad \Omega \geq 10000\\
+       \text{2,} &\quad 1 \leq \Omega < 10000\\
+       \text{1,} &\quad 0 \leq \Omega < 1\\
+       \text{0,} &\quad \Omega=0.\\
+     \end{cases}
+\end{equation}
+
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/damage-slice.pdf}
-	\caption{Tissue thermal damage around the ablation crater. Values of 3 are third degree burns, 2 second degree, and 1 first degree burns}
+	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
 	\label{fig:damfig}
 \end{figure}
+	
+As evidenced in\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. For the lower powered laser ($30~W$) there seems to be a maximum distance in how far the thermal damage extends beyond the ablation crater horizontally. \Cref{fig:horz-30} show this cut-off which appears to start around $250~mJ$.  
+	
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\columnwidth]{./ablation/images/horz-30w.pdf}
+	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam. Cut-off in thermal damage appears to set in around $250~mJ$.}
+	\label{fig:horz-30}
+\end{figure}
+
+In the higher powered laser ($70~W$), it appears that there is no upper cut-off for the maximum horizontal extent of thermal damage. The most likely reason for this is that the simulated energies for the pixel beams were not large enough to reach the cut-off.
+
+\newpage	
 	
 \subsubsection{Comparison to experimental work} 
  

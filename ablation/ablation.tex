@@ -612,11 +612,18 @@ As evidenced in\cref{fig:damfig}, the thermal damage zone extends for a small di
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/horz-30w.pdf}
-	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam. Cut-off in thermal damage appears to set in around $250~mJ$.}
+	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam for laser of power $30~W$. Cut-off in thermal damage appears to set in around $250~mJ$.}
 	\label{fig:horz-30}
 \end{figure}
 
-In the higher powered laser ($70~W$), it appears that there is no upper cut-off for the maximum horizontal extent of thermal damage. The most likely reason for this is that the simulated energies for the pixel beams were not large enough to reach the cut-off.
+In the higher powered laser ($70~W$), it appears that there is no upper cut-off for the maximum horizontal extent of thermal damage. The reason for this is that the simulated energies for the pixel beams were not large enough to reach the cut-off, and thus if more heat was deposited by the laser it would defuse further into the tissue.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\columnwidth]{./ablation/images/horz-70w.pdf}
+	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam for laser of power $70~W$. There appears to be not cut-off in the horizontal extent of the thermal damage.}
+	\label{fig:horz-70}
+\end{figure}
 
 \newpage	
 	
@@ -639,3 +646,10 @@ As mentioned in the introduction to this section, the thermal and optical proper
 \subsubsection{Investigating temperature of air after ablation}  
 *****************************************************************
 \section{Conclusion}
+
+
+Using \gls{mcrt} and finite difference method, we have created a fully 3D model of photon and heat transport within tissue. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered laser and the resultant thermal damage surrounding the ablation crater.
+
+Our model has been fully validated against both analytical solutions and experimental results. We found that to match with experimental results that a tissue ablation temperature $T_a$ of around $420~K$ has to be adopted.
+
+The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form.

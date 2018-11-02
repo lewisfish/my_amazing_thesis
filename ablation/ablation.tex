@@ -1,6 +1,6 @@
 \chapter{Computational modelling of tissue ablation}
-
-\section{Introduction and background}%*********************************************************************************************************************************************************
+\label{chap:ablation}
+\section{Introduction and background}
 Lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
 One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. They have also recently been investigated as a means of better drug delivery in the skin for \gls{pdt} treatments~\cite{haedersdal2010fractional}.
 
@@ -14,7 +14,7 @@ This chapter examines using \gls{mcrt} techniques coupled to a heat transfer sim
 
 In order to replicate the experimental work \textit{in silico}, our numerical model has three main portions. The first is the \gls{mcrt} that models light transport through tissue so that we can calculate the laser energy deposited as a function of time and space. The second, a \gls{fdm} which is used to calculate the heat diffusion within the tissue due to the absorbed laser energy. Finally, a tissue damage model to track the damage to the tissue caused by the laser. All these individual portions are connected together to create our numerical model. Each portion of the numerical model is described below in more detail.
 
-\subsection{Monte Carlo radiation transport (MCRT)}%**************************************************************************************************************************************************
+\subsection{Monte Carlo radiation transport (MCRT)}
 
 *This part is here as it will be needed for paper. probably not needed in chapter though...*
 \gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient}. This is due to its flexibility in modelling non standard geometries, and its ability to model various light sources and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
@@ -91,7 +91,7 @@ E_{i}^{abs} = \frac{L}{N \Delta V_i}\sum\mu_{a,i} s
 		
 This grid of absorbed energy is then passed to the heat transport portion of the simulation, so that the heat diffusion in the porcine tissue can be calculated.
 \newpage
-\subsection{Heat transport}%************************************************************************************************************************************************************************
+\subsection{Heat transport}
 
 In order to model the transport of heat in porcine skin, we use the standard parabolic heat equation:
 
@@ -254,7 +254,7 @@ In the instance where there is more than one pulse, the laser is turned on and o
 
 As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. However as we have a convection prescribed boundary condition, the constraint on the time is more severe. Along with this time restraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be an order of magnitude smaller than the shortest laser pulse.
 
-As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in *ref here to MCRT chapter*, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
+As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in~\cref{chap:mcrt}, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
 
 \medskip
 
@@ -284,7 +284,7 @@ On a workstation computer these simulations were carried out on (Intel Xeon E3-1
 
 After the heat transport has been completed, the grid of temperatures is passed to the tissue damage portion of the simulation.
 
-\subsection{Tissue Damage}%************************************************************************************************************************************************************************
+\subsection{Tissue Damage}
 \label{sec:tissuedamage}
 
 \subsubsection{Introduction}
@@ -412,7 +412,7 @@ We define the \gls{ta} as occurring between 177 and 500$^{\circ}$C\cite{gerstman
 
 The updated damaged tissue structure is then fed back to the \gls{mcrt} model and the whole process repeats until the predefined time limit is reached. This whole process of photon propagation, heat diffusion and tissue damage is outlined in \cref{fig:algo}.
 
-\subsection{Validation}%************************************************************************************************************************************************************************
+\subsection{Validation}
 
 \subsubsection{Heat transport validation}
 
@@ -501,7 +501,7 @@ As the code developed in this chapter simulates the diffusion of heat in a mediu
 
 \section{\textit{In silco} results} 
 
-\subsection{Introduction}%************************************************************************************************************************************************************************
+\subsection{Introduction}
 
 In order to match the experimental results, we must first create as accurate model of the experimental setup \textit{in silico}. However due to computational constraints, such as memory and time available, we must make some approximations to the experimental setup. The porcine skin was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, we initially  model the porcine skin as a cuboid, dimensions:  1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice or was kept cooled. 
 As mentioned in the previous sections, there are several unknowns in the model: \gls{ta}, water content, temperature of air after ablation, and the exact thermal and optical properties of the porcine tissue. Therefore we run several models so that the full parameter space of these unknowns can be explored.
@@ -555,11 +555,11 @@ As a sanity check to ensure that we are not omitting any phenomena by focusing o
 
 \subsubsection{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three}. Thus, we run several models over this range in order to establish a `good' \gls{ta} to use for the rest of the simulations. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=400~^{\circ}C$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=400~^{\circ}C$.
 
-Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. As more energy is required to heat the porcine tissue up to the ablation temperature before it can be ablated. Decreasing the ablation temperature has the converse affect.
+Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. As more energy is required to heat the porcine tissue up to the ablation temperature before it can be ablated. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
-Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth tapers off.  
+Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth tapers off. This is most likely due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
 
 
 \begin{figure}
@@ -595,19 +595,20 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
      \begin{cases}
        \text{3,} &\quad \Omega \geq 10000\\
        \text{2,} &\quad 1 \leq \Omega < 10000\\
-       \text{1,} &\quad 0 \leq \Omega < 1\\
+       \text{1,} &\quad 0.53 \leq \Omega < 1\\
        \text{0,} &\quad \Omega=0.\\
      \end{cases}
+\label{eqn:thermalbound}
 \end{equation}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/damage-slice.pdf}
-	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
+	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$ *need to do this with more voxels*.}
 	\label{fig:damfig}
 \end{figure}
 	
-As evidenced in\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. For the lower powered laser ($30~W$) there seems to be a maximum distance in how far the thermal damage extends beyond the ablation crater horizontally. \Cref{fig:horz-30} show this cut-off which appears to start around $250~mJ$.  
+As evidenced in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. For the lower powered laser ($30~W$) there seems to be a maximum distance in how far the thermal damage extends beyond the ablation crater horizontally. \Cref{fig:horz-30} show this cut-off which appears to start around $250~mJ$.  
 	
 \begin{figure}[!h]
 	\centering
@@ -621,11 +622,13 @@ In the higher powered laser ($70~W$), it appears that there is no upper cut-off 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/horz-70w.pdf}
-	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam for laser of power $70~W$. There appears to be not cut-off in the horizontal extent of the thermal damage.}
+	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam for laser of power $70~W$. There appears to be not cut-off in the horizontal extent of the thermal damage. *need to do this with more voxels*}
 	\label{fig:horz-70}
 \end{figure}
 
-\newpage	
+We can also investigate the time it takes for different areas of the tissue to become thermally damaged. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:thres1,fig:thres2} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur for both 30~$W$ and 70~$W$ powered lasers.
+The 70~$W$ laser shows that there is little to no time (upon the order of *insert*) between $1^{st}$ and $2^{nd}$ degree burns, and around $\sim$~$0.1$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
+
 	
 \subsubsection{Comparison to experimental work} 
  
@@ -644,9 +647,8 @@ As mentioned in the introduction to this section, the thermal and optical proper
 \subsubsection{Investigating water content}
  
 \subsubsection{Investigating temperature of air after ablation}  
-*****************************************************************
-\section{Conclusion}
 
+\section{Conclusion}
 
 Using \gls{mcrt} and finite difference method, we have created a fully 3D model of photon and heat transport within tissue. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered laser and the resultant thermal damage surrounding the ablation crater.
 

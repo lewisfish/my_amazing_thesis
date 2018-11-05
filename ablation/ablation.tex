@@ -626,9 +626,18 @@ In the higher powered laser ($70~W$), it appears that there is no upper cut-off 
 	\label{fig:horz-70}
 \end{figure}
 
-We can also investigate the time it takes for different areas of the tissue to become thermally damaged. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:thres1,fig:thres2} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur for both 30~$W$ and 70~$W$ powered lasers.
-The 70~$W$ laser shows that there is little to no time (upon the order of *insert*) between $1^{st}$ and $2^{nd}$ degree burns, and around $\sim$~$0.1$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
+\medskip
 
+We can also investigate the time it takes for different areas of the tissue to become thermally damaged. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:time-thres} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur for both 30~$W$ and 70~$W$ powered lasers as a function of depth. The 70~$W$ laser shows that there is little to no time (upon the order of $0.5$~$ms$) between $1^{st}$ and $2^{nd}$ degree burns, and a maximum of $\sim$~$0.02$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
+The 30~$W$ has a larger time differential between burn classifications, with a maximum of $0.02$~$s$ between $1^{st}$ and $2^{nd}$ degree burns and a maximum of $0.2$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
+The spatial distance between burn boundaries are also drastically different between the two different powers of laser.
+	
+\begin{figure}
+	\centering
+	\includegraphics[width=\columnwidth]{./ablation/images/time-thres.pdf}
+	\caption{Figure shows the extent of burns inflicted by the laser as a function of depth. Lines are taken from the central point of the laser beam through the tissue. Coloured dashed lines are 30W laser and solid coloured lines are 70W laser.}
+	\label{fig:time-thres}
+\end{figure}	
 	
 \subsubsection{Comparison to experimental work} 
  

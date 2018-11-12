@@ -238,7 +238,7 @@ U_{zz} = \tfrac{\alpha}{\Delta z^2} (\tfrac{2 \Delta z}{\kappa} (-h(T^N_{i,j,k}-
 
 \medskip
 
-As the lasers operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, laserOn, is a boolean value, which is defined as:
+As the laser used in the experimental work, operate in a pulsed mode, we account for this in our simulation. We assume that the pulse shape is a top-hat pulse for simplicity. In the heat simulation we have an additional variable in the term $laserOn\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, laserOn, is a boolean value, which is defined as:
 
 \[   
 laserOn = 
@@ -512,7 +512,7 @@ Results from these \textit{in silico} experiments are presented in this section 
 
 As mentioned, the thermal and optical properties of porcine tissue are not known exactly for a given tissue sample. This is due to no one tissue sample being exactly the same as another sample, due to various factors. As such the thermal and optical properties used in this section are taken from various literature source and are modified over a range that is deemed acceptable according to various sources.
 
-Both of the lasers used in the experimental work are infrared lasers, this means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The lasers used in the experiment are the Lynton lumina 576 Er:YAG, and the Pixel CO$_2$. The Er:YAG laser has a wavelength 2940$~nm$ which corresponds to an absorption coefficient of water: $\sim 11200~cm^{-1}$. The CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelengths.
+The laser used in the experimental work is an infrared laser. This means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The laser used in the experiment is the Pixel CO$_2$. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelengths.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 \begin{figure}	
@@ -537,9 +537,9 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 \caption{Optical and thermal properties for porcine tissue and air in SI.}\label{table:values}
 \end{table}  
 
-Both lasers were used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The Er:YAG laser used a pattern of 5 x 5 lasers, with the corners missing, giving a total of 21 `Pixel beams'. The CO$_2$ laser used an array of 81 pixel beams with no missing `Pixels'. As the CO$_2$ laser was upgraded during the period in which the experimental data was taken, we present both sets of data, pre-upgrade and post-upgrade. The upgrade consisted of an update to the laser power, from 30~$W$ to 70~$W$.
+The laser was used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The laser used an array $9 \times 9$ of 81 pixel beams. The Pixel CO$_2$ laser was upgraded during the period in which the experimental data was taken, we present both sets of data, pre-upgrade and post-upgrade. The upgrade consisted of an update to the laser power, from $\sim$ 30~$W$ to $\sim$ 70~$W$.
 
-Both lasers operated in different modes; the Er:YAG delivered multiples pulses of either 350~$mJ$ or 700~$mJ$, and the CO$_2$ delivered one single pulse of varying energy over the range 50~$mJ$ to 400~$mJ$. The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by either stacking multiple pulses on top of each other for the Er:YAG laser over a range of 350~$mJ$ to 3500~$mJ$. For the CO$_2$ the pulse length of each pulse was adjusted, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the CO$_2$ laser was kept the same pre and post-upgrade.
+The laser delivered one single pulse of varying energy over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode". The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by adjusting the pulse length of each laser pulse, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade.
 
 \subsubsection{Computational speed up:}
 As mentioned in the introduction, the volume of interest is the are around the ablation craters. The volume is 1.1 $\times$ 1.1 $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser.
@@ -630,33 +630,15 @@ In the higher powered laser ($70~W$), it appears that there is no upper cut-off 
 
 We can also investigate the time it takes for different areas of the tissue to become thermally damaged. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:time-thres} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur for both 30~$W$ and 70~$W$ powered lasers as a function of depth. The 70~$W$ laser shows that there is little to no time (upon the order of $0.5$~$ms$) between $1^{st}$ and $2^{nd}$ degree burns, and a maximum of $\sim$~$0.02$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
 The 30~$W$ has a larger time differential between burn classifications, with a maximum of $0.02$~$s$ between $1^{st}$ and $2^{nd}$ degree burns and a maximum of $0.2$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
-The spatial distance between burn boundaries are also drastically different between the two different powers of laser.
+The spatial distance between burn boundaries are also drastically different between the two different powers of laser. At 70W there is virtually no difference in the boundaries for the 1st and 2nd degree burns, with a slight difference of $\sim$ $5$~$\mu m$ between the $2^{nd}$ and $3^{rd}$ degree burns. 30~$W$ the distance between $2^{nd}$ and $3^{rd}$ is $\sim 11\mu m$, and for  $1^{st}$ and $2^{nd}$ $\sim 1 \mu m$.
 	
 \begin{figure}
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/time-thres.pdf}
-	\caption{Figure shows the extent of burns inflicted by the laser as a function of depth. Lines are taken from the central point of the laser beam through the tissue. Coloured dashed lines are 30W laser and solid coloured lines are 70W laser.}
+	\caption{Figure shows the extent of burns inflicted by the laser as a function of depth. Lines are taken from the central point of the laser beam through the tissue. Coloured dashed lines are 30W laser and solid coloured lines are 70W laser. Both data sets plotted for ablation temperature of 420~$^{\circ}C$, and pixel beam energy of 400~$mJ$}
 	\label{fig:time-thres}
 \end{figure}	
 	
-\subsubsection{Comparison to experimental work} 
- 
-*The work below will possibly be done. If so it will be in 2019 if not needed for the paper*
-\subsubsection{Effect of beam shape}
-\subsubsection{Effect of thermal and optical properties on crater depth}
-
-As mentioned in the introduction to this section, the thermal and optical properties vary over a wide range in the literature. Thus there is no one `correct' value we can choose for out simulations. In order to better understand how the thermal and optical properties affect the crater depth reached by the fractional laser, we vary the properties by $20\%$. This section presents the results of changing the thermal optical properties: heat capacity, thermal conductivity, protein and water absorption, and density.
-
-\paragraph{Heat capacity, $c_p$}
-\paragraph{Thermal conductivity, $\kappa$}
-\paragraph{Absorption coefficient, $\mu_a$}
-\paragraph{Density, $\rho$}
-
-
-\subsubsection{Investigating water content}
- 
-\subsubsection{Investigating temperature of air after ablation}  
-
 \section{Conclusion}
 
 Using \gls{mcrt} and finite difference method, we have created a fully 3D model of photon and heat transport within tissue. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered laser and the resultant thermal damage surrounding the ablation crater.

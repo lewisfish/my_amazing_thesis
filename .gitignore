@@ -10,3 +10,5 @@ build/
 *.planner
 *.blend1
 *.log
+*.dat
+*.lof

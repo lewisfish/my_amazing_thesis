@@ -4,7 +4,7 @@
 Lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
 One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. They have also recently been investigated as a means of better drug delivery in the skin for \gls{pdt} treatments~\cite{haedersdal2010fractional}.
 
-One downside to using lasers to remove tissue, it that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures*ref*.
+One downside to using lasers to remove tissue, it that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
  Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. We propose to use \gls{oct} to measure the ablative crater non-invasively \textit{in-vivo}. The \gls{oct} measurements are then backed up by a computational model. This computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
 
@@ -19,7 +19,7 @@ In order to replicate the experimental work \textit{in silico}, our numerical mo
 \subsection{Monte Carlo radiation transport (MCRT)}
 
 *This part is here as it will be needed for paper. probably not needed in chapter though...*
-\gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient}*refs*. This is due to its flexibility in modelling non-standard geometries, various light sources, and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. We simulate the propagation of photon packets, which represent photons with a given power, derived from the incident radiant source. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
+\gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient,wang1995mcml}. This is due to its flexibility in modelling non-standard geometries, various light sources, and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. We simulate the propagation of photon packets, which represent photons with a given power, derived from the incident radiant source. These `packets' can undergo go scattering, absorption and various other physical process \cite{yao1999monte,welch1997propagation}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
 
 The original \gls{mcrt} code was developed for astronomy applications \cite{wood1999model,wood2005estimating}, and has since been adapted for medical applications~\cite{campbell2015monte,barnard2018quantifying}.
 
@@ -308,14 +308,14 @@ T =
 \end{equation}
 
 
-The area of tissue damage we term `coagulation' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures, and some cell death~\cite{welch2011optical}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to increased cell death. When temperatures exceed 60$^{\circ}$C, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with little to no function at all.  A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~\cite{niemz2013laser}.
+The area of tissue damage we term `coagulation' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures, and some cell death~\cite{welch2011optical,wright2015quantitative}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to increased cell death. When temperatures exceed 60$^{\circ}$C, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with little to no function at all.  A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~\cite{niemz2013laser}.
 
 The next stage in the tissue damage process is the vaporisation of water. As the temperature of the tissue starts to approach 100${^{\circ}}$C (at 1 atm), water starts to vaporise. If the vaporised water cannot escape the tissue it forms steam vacuoles, small pockets of steam. These vacuoles can easily been seen when viewing tissue samples after tissue has been treated with a high powered laser (see \cref{fig:histology}). In certain conditions these steam pockets can explode, with these `explosions' being audible by the human ear~\cite{petrella2013popcorn}.
 
 
-The third stage of tissue damage is carbonisation or caramelisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical}.
+The third stage of tissue damage is carbonisation or caramelisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical,verdaasdonk1990explosive}.
 
-The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed~\cite{vogel2003mechanisms}. The tissue ablation process is not a simple process, with various unknowns which depend on everything from tissue composition to laser power, wavelength, and pulse length. The literature however, does suggest that it takes place when the tissue temperature is between 177 and 500${^{\circ}}$C\cite{gerstmann1994char,mckenzie1986three}.
+The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed~\cite{vogel2003mechanisms,mckenzie1990physics}. The tissue ablation process is not a simple process, with various unknowns which depend on everything from tissue composition to laser power, wavelength, and pulse length. The literature however, does suggest that it takes place when the tissue temperature is between 177 and 500${^{\circ}}$C\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}.
 
 \begin{figure}	
 \vspace{-10pt}
@@ -354,11 +354,11 @@ First, in order to model the full extent of the damage done under 100${^{\circ}}
 	
 	\medskip
 
-It is reported that a value of $\Omega$ of 0.53, 1.0, and 10$^4$ relate to first, second, and third degree burns respectively~\cite{diller1983finite}. We use the Arrhenius damage model in order to better understand the amount of damage caused by the laser in the non-ablated areas of tissue. This can give us an insight into the various physical phenomena encountered in the \gls{oct} results.
+It is reported that a value of $\Omega$ of 0.53, 1.0, and 10$^4$ relate to first, second, and third degree burns respectively~\cite{diller1983finite}. We use the Arrhenius damage model in order to better understand the amount of damage caused by the laser in the non-ablated areas of tissue.
 
 \subsubsection{Modelling physical tissue damage}
 
-As tissue mostly consists of water *ref* when the temperature of the tissue approaches 100$^{\circ}$C (at 1 atm), water in the tissue begins to boil off. This acts as a large heat sink for the absorbed laser energy, slowing down the rate of ablation. The energy required to boil the water is $Q_{vapor}=m_v\cdot L$, where $m_v$ is the mass of a voxel, and $L$ is the latent heat of vaporisation. The energy to boil off the water is provided via the laser and heat diffusing into the voxel:
+As tissue mostly consists of water~\cite{meglinski2002quantitative} when the temperature of the tissue approaches 100$^{\circ}$C (at 1 atm), water in the tissue begins to boil off. This acts as a large heat sink for the absorbed laser energy, slowing down the rate of ablation. The energy required to boil the water is $Q_{vapor}=m_v\cdot L$, where $m_v$ is the mass of a voxel, and $L$ is the latent heat of vaporisation. The energy to boil off the water is provided via the laser and heat diffusing into the voxel:
 
 \begin{equation}
 Q_{vapor}=\underbrace{laserOn\cdot\dot{q}\cdot \Delta t\cdot V_{i,j,k}}_\text{laser heating} + \underbrace{c\cdot M_{i,j,k}\cdot\Delta T}_\text{heat diffusion}
@@ -412,7 +412,7 @@ c_p &= 4.2\cdot 10^{3}\cdot W + 1.09\cdot 10^{3}\cdot P \\
 
 \medskip
 
-We define the \gls{ta} as occurring between 177 and 500$^{\circ}$C\cite{gerstmann1994char,mckenzie1986three}. At \gls{ta} the tissue is removed and the thermal, optical, and physical properties set to that of air.
+We define the \gls{ta} as occurring between 177 and 500$^{\circ}$C\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. At \gls{ta} the tissue is removed and the thermal, optical, and physical properties set to that of air.
 
 The updated damaged tissue structure is then fed back to the \gls{mcrt} model and the whole process repeats until the predefined time limit is reached. This whole process of photon propagation, heat diffusion and tissue damage is outlined in \cref{fig:algo}.
 
@@ -473,7 +473,7 @@ T(x,y,z,t)=\sum^\infty_{n=1,3,..}\sum^\infty_{m=1,3,..}\sum^\infty_{p=1,3,..}\fr
 	
 	\medskip
 	
-At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cref{fig:validation-heat}.
+At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cref{fig:validation-heat}, which shows that the numerical method matches the analytical solution closely.
 
 \begin{figure}	
 \vspace{-10pt}
@@ -514,9 +514,9 @@ Results from these \textit{in silico} experiments are presented in this section 
 
 \subsubsection{Optical \& thermal properties}
 
-As mentioned, the thermal and optical properties of porcine tissue are not known exactly for a given tissue sample. This is due to no one tissue sample being exactly the same as another sample, due to various factors. As such the thermal and optical properties used in this section are taken from various literature source and are modified over a range that is deemed acceptable according to various sources.
+As mentioned, the thermal and optical properties of porcine tissue are not known exactly for a given tissue sample. This is due to no one tissue sample being exactly the same as another sample, due to various biological factors. As such the thermal and optical properties used in this section are taken from various literature sources.
 
-The laser used in the experimental work is an infrared laser. This means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The laser used in the experiment is the Pixel CO$_2$. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelengths.
+The laser used in the experimental work is an infrared laser. This means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelengths.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 \begin{figure}	
@@ -543,7 +543,7 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 
 The laser was used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The laser used an array $9 \times 9$ of 81 pixel beams. The Pixel CO$_2$ laser was upgraded during the period in which the experimental data was taken, we present both sets of data, pre-upgrade and post-upgrade. The upgrade consisted of an update to the laser power, from $\sim$ 30~$W$ to $\sim$ 70~$W$.
 
-The laser delivered one single pulse of varying energy over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode". The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by adjusting the pulse length of each laser pulse, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade.
+The laser delivered one single pulse of varying energy over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode". The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by adjusting the pulse length of the laser, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade, with the pulse length differing.
 
 \subsubsection{Computational speed up:}
 As mentioned in the introduction, the volume of interest is the are around the ablation craters. The volume is 1.1 $\times$ 1.1 $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is infeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser.
@@ -559,7 +559,7 @@ As a sanity check to ensure that we are not omitting any phenomena by focusing o
 
 \subsubsection{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both *hopefully...* the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=400~^{\circ}C$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both *hopefully still awaiting data...* the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=400~^{\circ}C$.
 
 Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. As more energy is required to heat the porcine tissue up to the ablation temperature before it can be ablated. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
@@ -569,7 +569,7 @@ Over the full range of \gls{ta}, as the energy per pixel beam increases, there i
 \begin{figure}
 	\centering
     \includegraphics[width=\columnwidth]{./ablation/images/both.pdf}
-    \caption{Simulations of 30~$W$ and 70~$W$ CO$_2$ ablative laser. Crater depths as a function of pixel beam energy for various \gls{ta}'s. *placeholder until I get 70W dundee data. need to rerun the upper 177 points on larger z depth as it crashes currently due to known error*}\label{fig:ta}
+    \caption{Simulations of 30~$W$ and 70~$W$ CO$_2$ ablative laser. Crater depths as a function of pixel beam energy for various \gls{ta}'s. *placeholder until I get 70W dundee data.*}\label{fig:ta}
 \end{figure}
  
 
@@ -608,7 +608,7 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/damage-slice.pdf}
-	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$ *need to do this with more voxels*.}
+	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
 	\label{fig:damfig}
 \end{figure}
 	
@@ -626,7 +626,7 @@ In the higher powered laser ($70~W$), it appears that there is no upper cut-off 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{./ablation/images/horz-70w.pdf}
-	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam for laser of power $70~W$. There appears to be not cut-off in the horizontal extent of the thermal damage. *need to do this with more voxels*}
+	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam for laser of power $70~W$. There appears to be not cut-off in the horizontal extent of the thermal damage.}
 	\label{fig:horz-70}
 \end{figure}
 

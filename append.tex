@@ -1,24 +1,64 @@
 \begin{appendices}
 \chapter{Heat equation derivation}
 
-To derive the heat equation
+To derive the heat equation consider the conversation of energy
+
+rate of change of heat energy = rate of heat energy flowing through boundary surface + rate of heat generation in R
 
 
 \begin{equation}
-e(x,y,z,t)=c(x,y,z)\rho(x,y,z) T(x,y,z,t)
+e(x,y,z,t)=c(x,y,z)\cdot \rho(x,y,z)\cdot T(x,y,z,t)
 \end{equation} 
 
 \begin{equation}
-\parbox{70pt}{rate of change of heat energy} = \iiint\limits_{R} edV= \iiint\limits_{R} c\rho TdV
+\parbox{70pt}{rate of change of heat energy} =\frac{d}{dt} \iiint\limits_{R} e\ dV= \frac{d}{dt}\iiint\limits_{R} c\rho T\ dV
 \end{equation}
 
 
 \begin{equation}
-\parbox{70pt}{rate of heat generation in R} = \iiint\limits_{R} Q dV
+\parbox{100pt}{rate of heat generation in R} = \iiint\limits_{R} Q\ dV
 \end{equation}
 
 \begin{equation}
-\parbox{70pt}{rate of heat energy flowing through boundary surface} = -\iint\limits_{\del R} edV= \iiint\limits_{R} \varphi\cdot \wedge{n} dS
+\parbox{90pt}{rate of heat energy flowing through boundary surface} = -\iint \limits_{\partial R} \phi\cdot \bold{\hat{n}}\ dS
+\end{equation}
+
+\begin{equation}
+\frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \phi\cdot \bold{\hat{n}}\ dV +  \iiint\limits_{R} Q\ dV
+\end{equation}
+
+div theorem 
+
+\begin{equation}
+\iint \limits_{\partial R} \phi\cdot \bold{\hat{n}}\ dS = \iiint \limits_{R} \nabla\cdot \phi\ dV
+\end{equation}
+
+\begin{equation}
+\frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \nabla\cdot \phi\ dV +  \iiint\limits_{R} Q\ dV
+\end{equation}
+
+\begin{equation}
+\iiint\limits_{R} \left[ c\rho \frac{\partial}{\partial t} T + \nabla\cdot \phi - Q\right] dV = 0
+\end{equation}
+
+holds for arbitrary R.
+
+\begin{equation}
+c\rho\frac{\partial}{\partial t}T = - \nabla \cdot \phi + Q
+\end{equation}
+
+\begin{equation}
+\phi(x,y,z,t)=\kappa(x,y,z)\nabla T(x,y,z,t)
+\end{equation}
+
+\begin{equation}
+c\rho\frac{\partial}{\partial t}T = \nabla\cdot (\kappa\nabla T) + Q
+\end{equation}
+
+Q=0 and $\kappa,\ \rho,\ and\ c$ are constant
+
+\begin{equation}
+\frac{\partial T}{\partial t} = \alpha \nabla^2 T
 \end{equation}
 
 \end{appendices}

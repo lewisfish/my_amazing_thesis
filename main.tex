@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,twoside]{book}
+\documentclass[10pt,a4paper,twoside,draft]{book}
 \setcounter{tocdepth}{3}%depth of table of contents
 \setcounter{secnumdepth}{3}%depth of section numbering
 \usepackage{amsmath}%standard packages
@@ -6,7 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}%for including graphics
 \usepackage{notoccite}%fixes refs ordering as refs in captions etc come first without this package
-
+\usepackage[toc,page]{appendix}
 
 %package to centre front page 
 \usepackage{geometry}
@@ -102,6 +102,7 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 %\include{intro}
 %\include{MCRT/mcrt}
 \include{ablation/ablation}
+\include{append}
 %\include{salvo}
 %\include{bessel}
 %\include{fluro}

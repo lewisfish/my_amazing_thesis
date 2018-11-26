@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,twoside,draft]{book}
+\documentclass[10pt,a4paper,twoside]{book}
 \setcounter{tocdepth}{3}%depth of table of contents
 \setcounter{secnumdepth}{3}%depth of section numbering
 \usepackage{amsmath}%standard packages
@@ -6,7 +6,9 @@
 \usepackage{amssymb}
 \usepackage{graphicx}%for including graphics
 \usepackage{notoccite}%fixes refs ordering as refs in captions etc come first without this package
-\usepackage[toc,page]{appendix}
+\usepackage[page,titletoc]{appendix}
+\usepackage[symbol]{footmisc}%for footnote symbols
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}%for footnote symbols
 
 %package to centre front page 
 \usepackage{geometry}
@@ -31,12 +33,13 @@
 %***********
 
 \usepackage[acronym,toc,shortcuts]{glossaries}%abbreviations
-%\makenoidxglossaries
-%\renewcommand*{\acronymname}{Abbreviations}
-%\setacronymstyle{long-short}
+\makenoidxglossaries
+\renewcommand*{\acronymname}{Abbreviations}
+\setacronymstyle{long-short}
 \include{abbr}
 
 \usepackage{lipsum}%used to fill space for now
+\crefname{appsec}{Appendix}{Appendices}%create name for appendix reference
 
 
 %create title page

@@ -3,8 +3,8 @@
 \chapter{Heat equation derivation}
 \label{app:heatderive}
 
-To derive the heat equation we consider the conversation of energy in a volume R, with a flux out, $\phi(x,y,z,t)$, and unit outer normal $\bold{\hat{n}}$. We need just the normal component of $\phi$ 
-: $\phi \cdot \bold{\hat{n}}$.
+To derive the heat equation we consider the conversation of energy in a volume R, with a flux out, $\phi(x,y,z,t)$, and unit outer normal $\mathbf{\hat{n}}$. We need just the normal component of $\phi$ 
+: $\phi \cdot \mathbf{\hat{n}}$.
 \medskip
 
 The rate of change of heat inside the volume R is equal to the heat generated inside the volume R plus the heat flowing in/out of the boundary surface:
@@ -38,20 +38,20 @@ We denote the heat generated inside the volume R as $Q(x,y,z,t)$:
 and the rate of heat energy flowing through the boundary surface is:
 
 \begin{equation}
--\iint \limits_{\partial R} \phi\cdot \bold{\hat{n}}\ dS\footnote[3]{This is negative as outward flow $\phi$ is positive, but the flow would result in a reduction of energy.}
+-\iint \limits_{\partial R} \phi\cdot \mathbf{\hat{n}}\ dS\footnote[3]{This is negative as outward flow $\phi$ is positive, but the flow would result in a reduction of energy.}
 \label{eqn:rotheatloss}
 \end{equation}
 
 Substituting \cref{eqn:rotenergy,eqn:rotheatgen,eqn:rotheatloss} into \cref{eqn:word}, yields:
 
 \begin{equation}
-\frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \phi\cdot \bold{\hat{n}}\ dV +  \iiint\limits_{R} Q\ dV
+\frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \phi\cdot \mathbf{\hat{n}}\ dV +  \iiint\limits_{R} Q\ dV
 \end{equation}
 
 Using the divergence theorem, and simplifying gives: 
 
 %\begin{equation}
-%\iint \limits_{\partial R} \phi\cdot \bold{\hat{n}}\ dS = \iiint \limits_{R} \nabla\cdot \phi\ dV
+%\iint \limits_{\partial R} \phi\cdot \mathbf{\hat{n}}\ dS = \iiint \limits_{R} \nabla\cdot \phi\ dV
 %\end{equation}
 
 \begin{equation}

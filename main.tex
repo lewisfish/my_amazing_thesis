@@ -22,7 +22,7 @@
 \usepackage{import}
 \usepackage{cite}
 \usepackage{graphicx}%images
-%\graphicspath{{./images/}}%path for images
+\graphicspath{{./bessel/images/}{./fluro/images/}{./fluro/images/}{./ablation/images/}{./MCRT/images/}}%path for images
 \usepackage{pdfpages}
 \usepackage[strings]{underscore}
 \usepackage{wrapfig}
@@ -60,41 +60,41 @@ University of St Andrews}
 \maketitle
 \loadgeometry{origin}%restore margins to original
 
-\chapter{Declaration}
-I, Lewis McMillan, hereby certify that this thesis, which is approximately ***** words in length,
-has been written by me, that it is the record of work carried out by me, or principally by myself in collaboration with others as acknowledged, and that it has not been submitted in any
-previous application for a higher degree.
-\medskip
+%\chapter{Declaration}
+%I, Lewis McMillan, hereby certify that this thesis, which is approximately ***** words in length,
+%has been written by me, that it is the record of work carried out by me, or principally by myself in collaboration with others as acknowledged, and that it has not been submitted in any
+%previous application for a higher degree.
+%\medskip
 
-I was admitted as a research student in September 2015 and as a candidate for the degree
-of PhD in September 2015; the higher study for which this is a record was carried out in the
-University of St Andrews between 2015 and 2019.
+%I was admitted as a research student in September 2015 and as a candidate for the degree
+%of PhD in September 2015; the higher study for which this is a record was carried out in the
+%University of St Andrews between 2015 and 2019.
 
-\medskip
+%\medskip
 
-Date\dotfill \hspace{1cm} Signature of candidate \dotfill
+%Date\dotfill \hspace{1cm} Signature of candidate \dotfill
 
-\medskip
+%\medskip
 
-I hereby certify that the candidate has fulfilled the conditions of the Resolution and Regulations appropriate for the degree of PhD in the University of St Andrews and that the candidate
-is qualified to submit this thesis in application for that degree.
+%I hereby certify that the candidate has fulfilled the conditions of the Resolution and Regulations appropriate for the degree of PhD in the University of St Andrews and that the candidate
+%is qualified to submit this thesis in application for that degree.
 
-\medskip
+%\medskip
 
-Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
+%Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 
-\medskip
+%\medskip
 
-\indent Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
+%\indent Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 
-\chapter{Abstract}
-\lipsum[1-2]
+%\chapter{Abstract}
+%\lipsum[1-2]
 
-\chapter{Acknowledgements}
-\lipsum[1-2]
+%\chapter{Acknowledgements}
+%\lipsum[1-2]
 
 \tableofcontents
-%\printnoidxglossaries
+\printnoidxglossaries
 
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -105,12 +105,12 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 %\include{intro}
 %\include{MCRT/mcrt}
 \include{ablation/ablation}
-\include{append}
+%\include{bessel/bessel}
 %\include{salvo}
-%\include{bessel}
 %\include{fluro}
 %\include{conclusion}
+\include{append}
 
-\bibliography{./ablation/ablation,./MCRT/mcrt}
+\bibliography{./ablation/ablation,./MCRT/mcrt,./bessel/bessel}
 \bibliographystyle{unsrt}
 \end{document}

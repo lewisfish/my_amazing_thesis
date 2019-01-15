@@ -31,11 +31,11 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 \begin{figure}
 \centering
 \includegraphics[width=\columnwidth/2]{buffon-pi=317.pdf}
-\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5cm apart. If a needle lands on a line it is recorded and colored blue, else it is yellow. This simulation gave a value of pi as 3.17.}
+\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of pi as 3.17.}
 \label{fig:buffon-needle}
 \end{figure}
 
-The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}.
+The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy and medicine, in order to simulate the propagation of particles through turbid media. This technique, Monte Carlo radiation transfer, is what makes up the bulk of this thesis and is described in depth in the following sections.
 
 \begin{figure}
 \centering
@@ -48,6 +48,13 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 
 \subsection{Introduction $\&$ background}
 The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of World War two at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.
+The Monte Carlo radiation transfer method is a method of numerically solving the \gls{rte}. The \gls{rte} is the equation that governs how light propagates through a medium with sources and sinks.
+
+\begin{equation}
+s\cdot \nabla L(r,s)=-(\mu_a+\mu_s)L(r,s)+\mu_a\int_{4\pi}p(s,s')L(r,s')d\omega'
+\end{equation}
+
+Where L(r,s) is the irradiance of light at a point r in the direction s. $\mu_s$ and $\mu_a$ are the scattering and absorption coefficients, and p(s,s') is the phase function
 
 \subsection{MCRT algorithm}
 
@@ -55,7 +62,7 @@ The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as comp
 
 \subsubsection{Grid set-up}\label{sec:photsetup}
 
-The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has it's own optical properties. This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this). Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
+The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has it's own optical properties~(see \cref{sec:optprop} for discussion). This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this). along with setting up the medium, arrays which store the locations of the voxel walls in each cardinal direction are created for reference in later parts of the code. Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
 
 
 %\begin{figure}
@@ -65,7 +72,7 @@ The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as t
 
 \subsubsection{Photon launch}\label{sec:photlaunch}
 
-The initial step of any \gls{mcrt} algorithm is to launch a photon packet. Depending on the source of photon packets for a given simulation, this step varies from simulation to simulation. The general idea of launching a photon packet is that the packet is given an initial direction vector and position (which consists of a physical position and a voxel position)\footnote{all variables given in this section are the same as they are in the code.}:
+The initial step (besides medium set-up and other book keeping) of any \gls{mcrt} algorithm is to launch a photon packet. Depending on the source of photon packets for a given simulation, this step varies from simulation to simulation. The general idea of launching a photon packet is that the packet is given an initial direction vector and position (which consists of a physical position and a voxel position)\footnote{all variables given in this section are the same as they are in the code.}:
 
 \begin{align}
 	direction &= \begin{bmatrix}
@@ -89,7 +96,7 @@ n_{yp} &= sin(\theta) \cdot sin(\phi) \\
 n_{zp} &= cos(\theta)
 \end{align}
 
-$\theta$ and $\phi$ are generated dependant on the photon source used.
+$\theta$ and $\phi$ are generated dependant on the photon source used. The individual sine and cosine terms are saved for use in the scattering routines, see~\cref{sec:photscatterabsorb}.
 
 \subsubsection{Photon move}\label{sec:photmove}
 
@@ -162,4 +169,21 @@ This section details the the actual implementation of the \gls{mcrt} algorithm d
 
 \section{Validation of MCRT code}
 \section{Optical properties}\label{sec:optprop}
+
+Optical properties of a medium are the properties that determine how light is transport though that medium. Usually the optical properties of a medium are defined by four main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), the anisotropy coefficient (g), and the refractive index (n). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections.
+
+\subsection{Scattering}
+
+The scattering coefficient defines how much a photon will scatter in the medium per distance
+
+\subsection{Anisotropy}
+
+\subsection{Absorption}
+
+\subsection{Refractive index}
+
+\subsection{Other parameters}
+
+
+
 \section{Further extensions to the code}\label{sec:codefurther}

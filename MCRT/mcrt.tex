@@ -28,7 +28,7 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 
 \Cref{eqn:buffon} can be used to carry out a Monte Carlo estimation of pi. A simple rearrangement yields: $\pi = \tfrac{2l}{sP}$ where P is the ratio of needles crossing the line over total number dropped. Laplace was the first to suggest that Buffon's needle experiment could be used to estimate $\pi$~\cite{beckmann2015history}. \Cref{fig:buffon-needle} shows an example of simulation of Buffon's needle experiment.
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=\columnwidth/2]{buffon-pi=317.pdf}
 \caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of pi as 3.17.}
@@ -37,7 +37,7 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 
 The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy and medicine, in order to simulate the propagation of particles through turbid media. This technique, Monte Carlo radiation transfer, is what makes up the bulk of this thesis and is described in depth in the following sections.
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=\columnwidth]{ray-tracing.png}
 \caption{Computer generated imagery using ray-tracing. Code usd to create image available at: \url{https://github.com/lewisfish/RayTran}}
@@ -47,14 +47,161 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \section{Monte Carlo radiation transport algorithm}
 
 \subsection{Introduction $\&$ background}
-The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of World War two at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.
-The Monte Carlo radiation transfer method is a method of numerically solving the \gls{rte}. The \gls{rte} is the equation that governs how light propagates through a medium with sources and sinks.
+The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of World War two at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.***more here + link to next section***
+
+
+
+\subsubsection{Radiative transfer}
+Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the the radiative losses, and gains by a beam of radiations as it travels through a medium, including: loss of energy due to absorption, loss of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
+
+
+The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow per unit normal per unit solid angle per unit time per unit temporal frequency bandwidth.
+Irradiance is defined as the spectral irradiance over a small frequency range $[\nu, \nu+\Delta \nu]$:
 
 \begin{equation}
-s\cdot \nabla L(r,s)=-(\mu_a+\mu_s)L(r,s)+\mu_a\int_{4\pi}p(s,s')L(r,s')d\omega'
+	L(\vec{r},\hat{s},t) = L_{\nu}(\vec{r},\hat{s},t)\Delta \nu	
 \end{equation}
 
-Where L(r,s) is the irradiance of light at a point r in the direction s. $\mu_s$ and $\mu_a$ are the scattering and absorption coefficients, and p(s,s') is the phase function
+\noindent Where:
+
+\indent $\vec{r}$ is the position;
+
+\indent $\hat{s}$ is the unit normal vector,;
+
+\indent $t$ is the time;
+
+\indent and $L(\vec{r},\hat{s},t)$ is the irradiance [$W \cdot m^{-2}\cdot sr^{-1}$].
+
+\medskip
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=1.]{diffelement.pdf}
+	\caption{Energy flow through area $dA$ within solid angle $d\Omega$ in a direction $\hat{s}$.}
+	\label{fig:energydiag1}
+\end{figure}
+
+The irradiance can be used to determine the energy, $dE$, transported across an area $dA$, in a solid angle $d\Omega$ in a time $dt$ (see~\cref{fig:energydiag1}) is:
+
+\begin{equation}
+	dE = L(\vec{r},\hat{s},t) \cdot (\hat{s} \cdot \hat{n})\ dAd\Omega dt
+\end{equation}
+
+\noindent Where:
+
+\indent $\hat{n}$ is the unit normal to $dA$;
+
+\indent and $\hat{s}\cdot\hat{n}$ is the angle of the solid angle.
+
+\medskip
+
+Radiance can also be used to determine the fluence rate, $\phi$, which is defined as the energy flow per unit time, independent of the flow direction.
+
+\begin{equation}
+	\phi(\vec{r},t)=\int_{4\pi}L(\vec{r},\hat{s},t)\ d\Omega
+\end{equation}
+
+\noindent Where:
+
+\indent $\phi$ is the fluence rate [$W \cdot m^{-2}$].
+
+\medskip
+
+Irradiance is also the main variable in the \gls{rte}, as it describes the light distribution throughout the medium, and by solving the \gls{rte} yields the irradiance, which in turn gives information on the state of the system and all the physical properties of it.
+
+With the irradiance defined, as well as the other quantities that follow, we can now derive the \gls{rte}. We first consider conservation of energy, as shown in~\cref{eqn:enegyconvo}.
+
+\begin{equation}
+	dP = -dp_{div} - dp_{ext} + dP_{scatt} + dP_{src}
+	\label{eqn:enegyconvo}
+\end{equation}
+
+\noindent Where:
+
+\indent $dP$ is the total change in energy in the volume $dAdS$ within the solid angle, $d\Omega$, per unit time (see~\cref{fig:energydiag2});
+
+\indent $dP_{div}$ is the energy loss due to the divergence of the radiation beam per unit time;
+
+\indent $dP_{ext}$ is the energy loss due to absorption and scattering within $dAdSd\Omega$;
+
+\indent $dP_{scatt}$ is the energy gain due to scattering from $\hat{s}'$ into $d\Omega$ per unit time;
+
+\indent and $dP_{src}$ is the energy gain due to emission within the medium, per unit time.
+
+\medskip
+
+The total change in energy in the volume element within the solid angle $d\Omega$, $dP$ is equal to:
+
+\begin{equation}
+	dP=\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t}\ dAdsd\Omega
+	\label{eqn:p}
+\end{equation}
+
+Where c is the speed of light.
+
+The first loss term, $dP_{div}$, is the energy loss due to divergence of the radition beam. This is modelled as:
+
+\begin{align}
+	dP_{div}&=\frac{\partial L}{\partial s}\ d\Omega dV \\
+		    &=\hat{s} \cdot \nabla L(\vec{r},\hat{s},t)\ d\Omega dV
+    \label{eqn:pdiv}
+\end{align}
+
+$dP_{ext}$ is the second loss term, and accounts for energy loss due to scattering and absoption in the volume element within the solid angle $d\Omega$. This is modelled as:
+
+\begin{equation}
+	dP_{ext}=\mu_t ds\ L(\vec{r},\hat{s},t)\ dAd\Omega
+	\label{eqn:pext}
+\end{equation}
+
+The first enegey gain term, $dP_{src}$, is due to emission in the vlume element within the solid angle $d\Omega$. 
+
+\begin{equation}
+	dP_{src}=S(\vec{r},\hat{s},t)\ dVd\Omega
+	\label{eqn:psrc}
+\end{equation}
+
+The second energy gain term, and final term, is due to the incident energy on the volume element within the solid angle $d\Omega$ in direction $\hat{s}$ due to scattering from any direction $\hat{s}'$.
+
+\begin{align}
+	dP_{scatt}&=N_sdV\left(\int_{4\pi}L(\vec{r},\hat{s}',t)P(\hat{s}',\hat{s})\sigma_s\ d\Omega' \right)\ d\Omega \\
+			  &=\mu_sdV\left(\int_{4\pi}L(\vec{r},\hat{s}',t)P(\hat{s}',\hat{s})\ d\Omega' \right)\ d\Omega 
+			  \label{eqn:pscatt}
+\end{align}
+
+\noindent Where:
+
+\indent $N_s$ is the number density of scatters;
+
+\indent $P(\hat{s}',\hat{s})$ is the scattering phase function (see~\cref{sec:optprop} for further discussion);
+
+\indent and $\sigma_s$ is the cross section of the scatters, thus $\mu_s=N_s\sigma_s$ (again see~\cref{sec:optprop} for further discussion).
+
+\medskip
+
+
+Finally subsituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cref{eqn:enegyconvo} yields:
+
+\begin{equation}
+\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t} + s\cdot \nabla L(\vec{r},\hat{s},t)=-\mu_tL(\vec{r},\hat{s},t)+\mu_s\int_{4\pi}p(\hat{s},\hat{s}')L(\vec{r},\hat{s}',t)d\Omega' + S(\vec{r},\hat{s},t)
+\label{eqn:rte}
+\end{equation}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.75]{cylinderelement.pdf}
+	\caption{Cylindrical volume element, $ds \cdot dA$, with soild angle $d\Omega$ in direction $\hat{s}$ and soid angle $d\Omega'$ in direction $\hat{s}'$. Energy flowing through this element is used to derive the \gls{rte}.}
+	\label{fig:energydiag2}
+\end{figure}
+
+
+
+The \gls{rte} in general, is hard to solve in arbitrary 3 dimensional geometries, however there are a number of approximations, and numerical methods available.
+The Monte Carlo radiation transfer method is a method of numerically solving the \gls{rte}. The \gls{rte} is the equation that governs how light propagates through a medium with sources and sinks.
+
+
+***diff theory, kubelka-munk, why mcrt***
+
 
 \subsection{MCRT algorithm}
 

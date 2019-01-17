@@ -1,0 +1,1657 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"mod",
+				"module"
+			],
+			[
+				"les",
+				"lensF"
+			],
+			[
+				"len",
+				"lensI"
+			],
+			[
+				"dis",
+				"distAir"
+			],
+			[
+				"z",
+				"zL"
+			],
+			[
+				"le",
+				"lensI"
+			],
+			[
+				"re",
+				"reflect_refract"
+			],
+			[
+				"dir",
+				"dirI"
+			],
+			[
+				"fo",
+				"focalBack"
+			],
+			[
+				"dist",
+				"distLens"
+			],
+			[
+				"lens",
+				"lensThickness"
+			],
+			[
+				"di",
+				"diri"
+			],
+			[
+				"Len",
+				"lensS"
+			],
+			[
+				"vec",
+				"vector"
+			],
+			[
+				"po",
+				"popt"
+			],
+			[
+				"ga",
+				"gauss"
+			],
+			[
+				"ra",
+				"radius"
+			],
+			[
+				"phi",
+				"phit"
+			],
+			[
+				"p",
+				"phit"
+			],
+			[
+				"ph",
+				"phasor"
+			],
+			[
+				"r",
+				"rflag"
+			],
+			[
+				"ref",
+				"reflect_refract"
+			],
+			[
+				"cn",
+				"centre"
+			],
+			[
+				"ran",
+				"rang"
+			],
+			[
+				"op",
+				"open\topenwrite"
+			],
+			[
+				"im",
+				"img"
+			],
+			[
+				"or",
+				"orig"
+			],
+			[
+				"ve",
+				"vector_class"
+			],
+			[
+				"int",
+				"intersect"
+			],
+			[
+				"sol",
+				"solveQuadratic"
+			],
+			[
+				"do",
+				"dot_product"
+			],
+			[
+				"in",
+				"intersect"
+			],
+			[
+				"so",
+				"solveQuadratic"
+			],
+			[
+				"d",
+				"discrim"
+			],
+			[
+				"cost",
+				"costim"
+			],
+			[
+				"cos",
+				"cospim"
+			],
+			[
+				"sin",
+				"sinpim"
+			],
+			[
+				"co",
+				"cospim"
+			],
+			[
+				"zp",
+				"zpold"
+			],
+			[
+				"yp",
+				"ypnew"
+			],
+			[
+				"xp",
+				"xpnew"
+			],
+			[
+				"pi",
+				"pixels"
+			],
+			[
+				"pha",
+				"phaseold"
+			],
+			[
+				"bi",
+				"binwid"
+			],
+			[
+				"th",
+				"thetaim"
+			],
+			[
+				"c",
+				"cellk"
+			],
+			[
+				"t",
+				"twopi"
+			],
+			[
+				"the",
+				"theory"
+			],
+			[
+				"float",
+				"float64"
+			],
+			[
+				"summ",
+				"summe"
+			],
+			[
+				"plt",
+				"plot"
+			],
+			[
+				"su",
+				"summa"
+			],
+			[
+				"be",
+				"bessel"
+			],
+			[
+				"x",
+				"xmax"
+			],
+			[
+				"da",
+				"datab"
+			],
+			[
+				"s",
+				"sarray"
+			],
+			[
+				"o",
+				"only"
+			],
+			[
+				"ns",
+				"nscattGLOBAL"
+			],
+			[
+				"axi",
+				"axi_thickness"
+			],
+			[
+				"imag",
+				"imageGLOBAL"
+			],
+			[
+				"ax",
+				"axi_thickness"
+			],
+			[
+				"mo",
+				"module"
+			],
+			[
+				"np",
+				"nphot"
+			],
+			[
+				"ar",
+				"arrayGLOBAL"
+			],
+			[
+				"PHASE",
+				"phaser"
+			],
+			[
+				"ia",
+				"iarrayGLOBAL"
+			],
+			[
+				"w",
+				"wavelength"
+			],
+			[
+				"rp",
+				"r_pos"
+			],
+			[
+				"all",
+				"allocate"
+			],
+			[
+				"fluro",
+				"fluorophores"
+			],
+			[
+				"mu",
+				"mus_m"
+			],
+			[
+				"mus",
+				"mus_m"
+			],
+			[
+				"fr",
+				"fray"
+			],
+			[
+				"C",
+				"C_bili"
+			],
+			[
+				"oxy",
+				"Oxy_Hb"
+			],
+			[
+				"wa",
+				"water"
+			],
+			[
+				"c_",
+				"C_h20"
+			],
+			[
+				"jm",
+				"jmeanglobal"
+			],
+			[
+				"f",
+				"f_array"
+			],
+			[
+				"size",
+				"sizeof"
+			],
+			[
+				"get",
+				"get_wave_fn"
+			],
+			[
+				"flu",
+				"fluro_img"
+			],
+			[
+				"conc",
+				"concs"
+			],
+			[
+				"sta",
+				"Strat_range"
+			],
+			[
+				"st",
+				"strat_last"
+			],
+			[
+				"star",
+				"Strat"
+			],
+			[
+				"pa",
+				"paramsFile"
+			],
+			[
+				"em",
+				"emission"
+			],
+			[
+				"emi",
+				"emission"
+			],
+			[
+				"ex",
+				"excite"
+			],
+			[
+				"e",
+				"exciteName"
+			],
+			[
+				"nu",
+				"numFluro"
+			],
+			[
+				"io",
+				"iostat"
+			],
+			[
+				"init",
+				"init_fluros"
+			],
+			[
+				"al",
+				"allocatable"
+			],
+			[
+				"ty",
+				"tyrosine"
+			],
+			[
+				"str",
+				"str_I32"
+			],
+			[
+				"poi",
+				"point"
+			],
+			[
+				"prnt",
+				"print"
+			],
+			[
+				"pr",
+				"print"
+			],
+			[
+				"conve",
+				"convergance"
+			],
+			[
+				"fit",
+				"fitbool"
+			],
+			[
+				"fil",
+				"fileplace"
+			],
+			[
+				"id",
+				"identity"
+			],
+			[
+				"ini",
+				"init_point"
+			],
+			[
+				"ine",
+				"integer"
+			],
+			[
+				"pro",
+				"procedure"
+			],
+			[
+				"lo",
+				"loc"
+			],
+			[
+				"me",
+				"messg"
+			],
+			[
+				"sub",
+				"subroutine"
+			],
+			[
+				"min",
+				"minfit"
+			],
+			[
+				"abs",
+				"abs_point"
+			],
+			[
+				"p1",
+				"P1MinusP2"
+			],
+			[
+				"point",
+				"point"
+			],
+			[
+				"si",
+				"sizeOf"
+			],
+			[
+				"fin",
+				"finish-start"
+			],
+			[
+				"opt",
+				"opt_array"
+			],
+			[
+				"con",
+				"concstmp"
+			],
+			[
+				"Ref",
+				"reflect"
+			],
+			[
+				"tar",
+				"tar"
+			],
+			[
+				"ins",
+				"inside"
+			],
+			[
+				"new",
+				"newPointr"
+			],
+			[
+				"newp",
+				"newPointr"
+			],
+			[
+				"newpo",
+				"newPointr"
+			],
+			[
+				"out",
+				"outsideContract"
+			],
+			[
+				"inside",
+				"insideContract"
+			],
+			[
+				"func",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.tex",
+			"settings":
+			{
+				"buffer_size": 3534,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "MCRT/mcrt.tex",
+			"settings":
+			{
+				"buffer_size": 13085,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ablation/ablation.tex",
+			"settings":
+			{
+				"buffer_size": 52110,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bessel/bessel.tex",
+			"settings":
+			{
+				"buffer_size": 1185,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "madrid/fluro.tex",
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fluro/salvo.tex",
+			"settings":
+			{
+				"buffer_size": 263,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "conclusion.tex",
+			"settings":
+			{
+				"buffer_size": 33,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "append.tex",
+			"settings":
+			{
+				"buffer_size": 3186,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "abbr.tex",
+			"settings":
+			{
+				"buffer_size": 397,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "intro.tex",
+			"settings":
+			{
+				"buffer_size": 35,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"Traditional"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/Fortran/build-systems/GFortran.sublime-build",
+					""
+				],
+				[
+					"Packages/Fortran/build-systems/GFortran.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/Fortran/build-systems/GFortran.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 304.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"fo\t",
+				"Set Syntax: Fortran (Modern)"
+			],
+			[
+				"for",
+				"Set Syntax: Fortran (Modern)"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"fo",
+				"Set Syntax: Fortran (Modern)"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"f",
+				"Set Syntax: Fortran (Modern)"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"pyt\t",
+				"Set Syntax: Python"
+			],
+			[
+				"py\t",
+				"Set Syntax: Python"
+			],
+			[
+				"for\t",
+				"Set Syntax: Fortran (Modern)"
+			],
+			[
+				"f\t",
+				"Set Syntax: Fortran (Modern)"
+			],
+			[
+				"bas",
+				"Set Syntax: Bourne Again Shell (bash)"
+			],
+			[
+				"c",
+				"Set Syntax: C++"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: fortsopen"
+			],
+			[
+				"sublimelin",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"select theme",
+				"UI: Select Theme"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"anac",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				" sublime",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"sublimelinter",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"anaconda",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"sublime linter sett",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"aut",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"sublimelinter sett",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 497.0
+	},
+	"console":
+	{
+		"height": 249.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/lewis/thesis/main.tex",
+		"/home/lewis/thesis/MCRT/mcrt.tex",
+		"/home/lewis/.config/sublime-text-3/Packages/User/LaTeXTools.sublime-settings",
+		"/home/lewis/phdshizz/bessel beam/testgauss.f90",
+		"/home/lewis/Downloads/gaussianbeam-code-r131/gui/GaussianBeamWidget.h",
+		"/home/lewis/Downloads/GaussianBeam/GaussianBeam.pro",
+		"/home/lewis/Downloads/GaussianBeam-0.3/GaussianBeam.pro",
+		"/home/lewis/Downloads/gaussianbeam-code-r131/gui/GaussianBeamWindow.h",
+		"/home/lewis/Downloads/gaussianbeam-code-r131/gui/Names.h",
+		"/home/lewis/Downloads/gaussianbeam-code-r131/gui/main.cpp",
+		"/home/lewis/Downloads/gaussianbeam-code-r131/gui/GaussianBeamWidget.cpp",
+		"/home/lewis/Downloads/GaussianBeam-0.4/GaussianBeam.pro",
+		"/home/lewis/Downloads/GaussianBeam-0.4/gui/GaussianBeamWidget.h",
+		"/home/lewis/Downloads/GaussianBeam-0.4/Makefile",
+		"/home/lewis/Downloads/gaussianbeam-code-r140/Makefile",
+		"/home/lewis/Downloads/gaussianbeam-code-r140/CMakeLists.txt",
+		"/home/lewis/.cache/.fr-5jLvqt/GaussianBeam-0.2/INSTALL",
+		"/home/lewis/Downloads/GaussianBeam-0.4/INSTALL",
+		"/home/lewis/.cache/.fr-TBLEkN/GaussianBeam-0.3/INSTALL",
+		"/home/lewis/Downloads/GaussianBeam-0.4/AUTHORS",
+		"/home/lewis/data-cube/custommpl.py",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/plot.py",
+		"/home/lewis/phdshizz/bessel beam/readwrite.f90",
+		"/home/lewis/phdshizz/bessel beam/src/taufind2.f90",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/adder.f90",
+		"/home/lewis/phdshizz/bessel beam/theorypwr.py",
+		"/home/lewis/phdshizz/bessel beam/pwr.py",
+		"/home/lewis/phdshizz/bessel beam/phasetest.py",
+		"/home/lewis/phdshizz/bessel beam/l0g",
+		"/home/lewis/phdshizz/bessel beam/test.py",
+		"/home/lewis/phdshizz/bessel beam/sphere.f90",
+		"/home/lewis/phdshizz/bessel beam/vector_class.f90",
+		"/home/lewis/phdshizz/bessel beam/adder-gimage.f90",
+		"/home/lewis/notes/monte carlo/Hmwk-1/Q5/Q5-lm959.f95",
+		"/home/lewis/notes/monte carlo/Hmwk-2/Q4/planeparr.f95",
+		"/home/lewis/phdshizz/bessel beam/log",
+		"/home/lewis/phdshizz/tester/src/inttau2.f90",
+		"/home/lewis/phdshizz/phasetest/src/mcpolar.f90",
+		"/home/lewis/phdshizz/phasetest/src/inttau2.f90",
+		"/home/lewis/phdshizz/Madrid paper/src/inttau2.f90",
+		"/home/lewis/phdshizz/blank code/MCRT code/src/ch_opt.f90",
+		"/home/lewis/notes/monte carlo/lab1/rod2.f95",
+		"/home/lewis/thesis/.git/MERGE_HEAD",
+		"/home/lewis/thesis/.gitignore",
+		"/home/lewis/thesis/.git/logs/refs/heads/master",
+		"/home/lewis/thesis/.git/logs/HEAD",
+		"/home/lewis/phdshizz/talks/mc day/mc-explain.py",
+		"/home/lewis/phdshizz/mc-explain.py",
+		"/home/lewis/phdshizz/bessel beam/plottest.py",
+		"/home/lewis/phdshizz/bessel beam/res/input.params",
+		"/home/lewis/phdshizz/code-cake/code-and-cake.github.io/_talks/2018-12-05-fran-AD.md",
+		"/home/lewis/phdshizz/code-cake/code-and-cake.github.io/_pages/about.md",
+		"/home/lewis/thesis/count.sh",
+		"/home/lewis/notes/supapyt/q1_1.py",
+		"/home/lewis/notes/supapyt/parse_data.py",
+		"/home/usr/local/include/mpi.h",
+		"/home/usr/local/include/mpif.h",
+		"/home/lewis/phdshizz/blank code/data/plooter.py",
+		"/home/lewis/phdshizz/tester/testpwr.f90",
+		"/home/lewis/.bash_history",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/test.mp4",
+		"/home/lewis/.bashrc",
+		"/home/lewis/phdshizz/Ga-salvo-2018/src/inttau2.f90",
+		"/home/lewis/phdshizz/bessel beam/tester.f90",
+		"/home/lewis/phdshizz/bessel beam/rms_test.f90",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/save/selfhealing/plot-bore.py",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/save/selfhealing/plotall.py",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/save/selfhealing/test.py",
+		"/home/lewis/Desktop/raytrace-MC/data/im/untitled.py",
+		"/home/lewis/phdshizz/tester/data/jmean/gridspec.py",
+		"/home/lewis/phdshizz/tester/data/jmean/pyth.py",
+		"/home/lewis/phdshizz/tester/data/pythimread.py",
+		"/home/lewis/phdshizz/phasetest/data/plot.py",
+		"/home/lewis/phdshizz/bessel beam/data/jmean/pyth.py",
+		"/home/lewis/phdshizz/bessel beam/data/plot_test.py",
+		"/home/lewis/phdshizz/bessel beam/data/im/plot_image.py",
+		"/home/lewis/phdshizz/bessel beam/data/pyth.py",
+		"/home/lewis/phdshizz/code-cake/code-and-cake.github.io/_talks/2018-11-28-bert-OOP.md",
+		"/home/lewis/phdshizz/bessel beam/src/stokes.f90",
+		"/home/lewis/phdshizz/bessel beam/src/precision.f90",
+		"/home/lewis/phdshizz/bessel beam/src/density.f90",
+		"/home/lewis/Desktop/raytrace-MC/readwrite.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/utils.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/types_mod.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/stokes.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/photon_type.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/opt_prop.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/constants.f90",
+		"/home/lewis/Desktop/raytrace-MC/plot_bessel.py",
+		"/home/lewis/Desktop/raytrace-MC/src/sourceph.f90",
+		"/home/lewis/Desktop/raytrace-MC/src/main.f90",
+		"/home/lewis/phdshizz/tester/src/mcpolar.f90",
+		"/home/lewis/phdshizz/tester/plot_bessel.py",
+		"/home/lewis/Desktop/raytrace-MC/data/im/pythimread.py",
+		"/home/lewis/phdshizz/tester/src/pyth.py",
+		"/home/lewis/phdshizz/tester/ft_test.py",
+		"/home/lewis/phdshizz/Ga-salvo-2018/data/tetra3.dat",
+		"/home/lewis/phdshizz/Ga-salvo-2018/data/tetra.dat",
+		"/home/lewis/phdshizz/Ga-salvo-2018/data/tetra2.dat",
+		"/home/lewis/phdshizz/Ga-salvo-2018/data/test-tetra.dat",
+		"/home/lewis/phdshizz/Ga-salvo-2018/log",
+		"/home/lewis/phdshizz/Ga-salvo-2018/src/simplex.sublime-workspace",
+		"/home/lewis/programs/FortranRay/src/camera.f90",
+		"/home/lewis/phdshizz/blank code/MCRT code/src/mcpolar.f90",
+		"/home/lewis/subs.f90",
+		"/home/lewis/phdshizz/ablation/newdata/160/plot_time_thres.py",
+		"/home/lewis/phdshizz/ablation/newdata/70w/calcDepth.py",
+		"/home/lewis/phdshizz/ablation/newdata/calcDepth.py",
+		"/home/lewis/phdshizz/kenny sim/src/utils.f90",
+		"/home/lewis/phdshizz/melanin-toy-model/src/utils.f90",
+		"/home/lewis/phdshizz/meshMC/src/utils.f90",
+		"/home/lewis/phdshizz/phasetest/src/utils.f90",
+		"/home/lewis/phdshizz/salvo fig/src/utils.f90",
+		"/home/lewis/phdshizz/tester/src/utils.f90",
+		"/home/lewis/programs/fortran random stuff/fizzle/utils.f90",
+		"/home/lewis/programs/OpenFl/src/utils.f90",
+		"/home/lewis/phdshizz/blank code/MCRT code/src/utils.f90",
+		"/home/lewis/phdshizz/darth vader/meshMC/src/utils.f90",
+		"/home/lewis/phdshizz/Ga-validation/toy_model/src/utils.f90",
+		"/home/lewis/Desktop/fds/stokes.f",
+		"/home/lewis/Desktop/fds/mcpolar.f",
+		"/home/lewis/phdshizz/ablation/newdata/slice_plot.py",
+		"/home/lewis/phdshizz/ablation/newdata/plot-data.py",
+		"/home/lewis/thesis/ablation/images/slice_plot.py",
+		"/home/lewis/thesis/ablation/images/plot-damage.py",
+		"/home/lewis/phdshizz/ablation/newdata/160/diff-in-timr-thres.py",
+		"/home/lewis/phdshizz/ablation/newdata/dundee70w.dat",
+		"/home/lewis/phdshizz/Ga-salvo-2018/src/fluorophores.f90"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 118.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								210,
+								210
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "MCRT/mcrt.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13085,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ablation/ablation.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 52110,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "bessel/bessel.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "madrid/fluro.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "fluro/salvo.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "conclusion.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 33,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "append.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3186,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "abbr.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 397,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "intro.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 35,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 85.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 109.0
+	},
+	"output.exec":
+	{
+		"height": 239.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 109.0
+	},
+	"pinned_build_system": "Packages/LaTeXTools/LaTeX.sublime-build",
+	"project": "thesis.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"co",
+				"~/phdshizz/bessel beam/src/constants.f90"
+			],
+			[
+				"wr",
+				"~/phdshizz/bessel beam/src/writer.f90"
+			],
+			[
+				"mc",
+				"~/phdshizz/bessel beam/src/mcpolar.f90"
+			],
+			[
+				"in",
+				"~/phdshizz/bessel beam/src/inttau2.f90"
+			],
+			[
+				"su",
+				"~/phdshizz/bessel beam/src/subs.f90"
+			],
+			[
+				"ia",
+				"~/phdshizz/bessel beam/src/iarray.f90"
+			],
+			[
+				"ch",
+				"~/phdshizz/bessel beam/src/ch_opt.f90"
+			],
+			[
+				"sub",
+				"~/phdshizz/bessel beam/src/subs.f90"
+			],
+			[
+				"iar",
+				"~/phdshizz/bessel beam/src/iarray.f90"
+			],
+			[
+				"M",
+				"~/phdshizz/bessel beam/src/Makefile"
+			],
+			[
+				"uti",
+				"utils.f90"
+			],
+			[
+				"ma",
+				"main2.f90"
+			],
+			[
+				"mai",
+				"main2.f90"
+			],
+			[
+				"si",
+				"simpRun.f90"
+			],
+			[
+				"fl",
+				"~/phdshizz/Ga-salvo-2018/res/fluro.params"
+			],
+			[
+				"gr",
+				"gridset.f90"
+			],
+			[
+				"flu",
+				"~/phdshizz/Ga-salvo-2018/res/fluro.params"
+			],
+			[
+				"so",
+				"sourceph.f90"
+			],
+			[
+				"inp",
+				"~/phdshizz/Ga-salvo-2018/res/input.params"
+			],
+			[
+				"ski",
+				"skin_layers_mod.f90"
+			],
+			[
+				"ab",
+				"absorbers_mod.f90"
+			],
+			[
+				"sk",
+				"skin_layers_mod.f90"
+			],
+			[
+				"iun",
+				"inttau2.f90"
+			],
+			[
+				"ir",
+				"iarray.f90"
+			],
+			[
+				"sou",
+				"sourceph.f90"
+			],
+			[
+				"re",
+				"reader.f90"
+			],
+			[
+				"gah",
+				"~/phdshizz/Ga-salvo-2018/rah.f90"
+			],
+			[
+				"sto",
+				"stokes.f90"
+			],
+			[
+				"ra",
+				"~/phdshizz/Ga-salvo-2018/rah.f90"
+			],
+			[
+				"rah",
+				"~/phdshizz/Ga-salvo-2018/rah.f90"
+			],
+			[
+				"gri",
+				"gridset.f90"
+			],
+			[
+				"st",
+				"stokes.f90"
+			],
+			[
+				"2d",
+				"2Dsimplex_mod.f90"
+			],
+			[
+				"sim",
+				"simpRun.f90"
+			],
+			[
+				"s",
+				"simpRun.f90"
+			],
+			[
+				"m",
+				"main2.f90"
+			],
+			[
+				"mi",
+				"main2.f90"
+			],
+			[
+				"w",
+				"writer.f90"
+			],
+			[
+				"plo",
+				"~/phdshizz/Ga-salvo-2018/data/plotspaceTri.py"
+			],
+			[
+				"Ma",
+				"Makefile"
+			],
+			[
+				"main",
+				"main2.f90"
+			],
+			[
+				"",
+				"simpRun.f90"
+			],
+			[
+				"wri",
+				"writer.f90"
+			],
+			[
+				"rea",
+				"reader.f90"
+			],
+			[
+				"writ",
+				"writer.f90"
+			],
+			[
+				"main2",
+				"main2.f90"
+			],
+			[
+				"grid",
+				"gridset.f90"
+			],
+			[
+				"subs",
+				"subs.f90"
+			],
+			[
+				"wr\t",
+				"writer.f90"
+			],
+			[
+				"mak",
+				"Makefile"
+			],
+			[
+				"pho",
+				"src/photon_vars.f90"
+			],
+			[
+				"mcp",
+				"src/mcpolar.f90"
+			],
+			[
+				"stok",
+				"src/stokes.f90"
+			],
+			[
+				"ut",
+				"src/utils.f90"
+			],
+			[
+				"con",
+				"~/phdshizz/tester/src/constants.f90"
+			],
+			[
+				"c",
+				"~/phdshizz/tester/src/constants.f90"
+			],
+			[
+				"i",
+				"~/phdshizz/tester/src/inttau2.f90"
+			],
+			[
+				"u",
+				"~/phdshizz/tester/src/utils.f90"
+			],
+			[
+				"tau",
+				"Source/taufind2.f90"
+			],
+			[
+				"int",
+				"Source/inttau2.f90"
+			],
+			[
+				"bes",
+				"bessel.sublime-project"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 218.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

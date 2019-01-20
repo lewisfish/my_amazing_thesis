@@ -1,0 +1,39 @@
+kubelka-munk
+
+   MODELLING OF LIGHT AND HUMAN SKIN INTERACTION
+USING KUBELKA-MUNK THEORY
+Marek Jasiński 
+
+Mathematical Methods in Biomedical Optics
+Macaveiu Gabriela
+
+Vesna Dˇzimbeg-Malˇci ́c Zeljka
+Barbari ́c-Mikoˇcevi ́c and Katarina Itri ́c. Kubelka-munk theory in describ-
+ing optical properties of paper (i). Technical Gazette,
+
+   pros:
+      simple
+
+
+   cons:
+      1d
+      diffuse light incident
+      optical properties a problem. no easy mapping to usual optical properties
+      no reflections at boundaries
+      isotropic scattering
+      planar
+      no other microphysics
+      finite thickness and infinite width
+
+
+Diffusion
+
+   pros:
+      can be used to speed up other methods i.e MCRT
+      simple
+      
+   cons:
+      scattering dominates
+      scattering is isotropic
+      poor modelling near boundaries
+

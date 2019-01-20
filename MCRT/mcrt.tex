@@ -43,19 +43,19 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \caption{Computer generated imagery using ray-tracing. Code usd to create image available at: \url{https://github.com/lewisfish/RayTran}}
 \label{fig:ray-trace}
 \end{figure}
-
+\newpage
 \section{Monte Carlo radiation transport algorithm}
 
-\subsection{Introduction $\&$ background}
-The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of World War two at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.***more here + link to next section***
+\subsection{Introduction \texorpdfstring{$\&$}{and} background}%texorpdfstring supresses warning about pdf bookmarks
+The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of the Second World War at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.***more here + link to next section***
 
 
 
 \subsubsection{Radiative transfer}
-Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the the radiative losses, and gains by a beam of radiations as it travels through a medium, including: loss of energy due to absorption, loss of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
+Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
 
 
-The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow per unit normal per unit solid angle per unit time per unit temporal frequency bandwidth.
+The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction \textbf{n}, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
 Irradiance is defined as the spectral irradiance over a small frequency range $[\nu, \nu+\Delta \nu]$:
 
 \begin{equation}
@@ -66,7 +66,7 @@ Irradiance is defined as the spectral irradiance over a small frequency range $[
 
 \indent $\vec{r}$ is the position;
 
-\indent $\hat{s}$ is the unit normal vector,;
+\indent $\hat{s}$ is the unit normal vector;
 
 \indent $t$ is the time;
 
@@ -95,7 +95,7 @@ The irradiance can be used to determine the energy, $dE$, transported across an 
 
 \medskip
 
-Radiance can also be used to determine the fluence rate, $\phi$, which is defined as the energy flow per unit time, independent of the flow direction.
+Irradiance can also be used to determine the fluence rate, $\phi$, which is defined as the energy flow per unit time, independent of the flow direction.
 
 \begin{equation}
 	\phi(\vec{r},t)=\int_{4\pi}L(\vec{r},\hat{s},t)\ d\Omega
@@ -118,11 +118,11 @@ With the irradiance defined, as well as the other quantities that follow, we can
 
 \noindent Where:
 
-\indent $dP$ is the total change in energy in the volume $dAdS$ within the solid angle, $d\Omega$, per unit time (see~\cref{fig:energydiag2});
+\indent $dP$ is the total change in energy in the volume $dAds$ within the solid angle, $d\Omega$, per unit time (see~\cref{fig:energydiag2});
 
 \indent $dP_{div}$ is the energy loss due to the divergence of the radiation beam per unit time;
 
-\indent $dP_{ext}$ is the energy loss due to absorption and scattering within $dAdSd\Omega$;
+\indent $dP_{ext}$ is the energy loss due to absorption and scattering within $dAdsd\Omega$;
 
 \indent $dP_{scatt}$ is the energy gain due to scattering from $\hat{s}'$ into $d\Omega$ per unit time;
 
@@ -130,16 +130,18 @@ With the irradiance defined, as well as the other quantities that follow, we can
 
 \medskip
 
-The total change in energy in the volume element within the solid angle $d\Omega$, $dP$ is equal to:
+The total change in energy in the volume element within the solid angle $d\Omega$, $dP$, is equal to:
 
 \begin{equation}
 	dP=\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t}\ dAdsd\Omega
 	\label{eqn:p}
 \end{equation}
 
-Where c is the speed of light.
+\noindent Where c is the speed of light.
 
-The first loss term, $dP_{div}$, is the energy loss due to divergence of the radition beam. This is modelled as:
+\medskip
+
+The first loss term, $dP_{div}$, is the energy loss due to divergence of the radiation beam. This is modelled as:
 
 \begin{align}
 	dP_{div}&=\frac{\partial L}{\partial s}\ d\Omega dV \\
@@ -147,14 +149,14 @@ The first loss term, $dP_{div}$, is the energy loss due to divergence of the rad
     \label{eqn:pdiv}
 \end{align}
 
-$dP_{ext}$ is the second loss term, and accounts for energy loss due to scattering and absoption in the volume element within the solid angle $d\Omega$. This is modelled as:
+$dP_{ext}$ is the second loss term, and accounts for energy loss due to scattering and absorption in the volume element within the solid angle $d\Omega$. This is modelled as:
 
 \begin{equation}
 	dP_{ext}=\mu_t ds\ L(\vec{r},\hat{s},t)\ dAd\Omega
 	\label{eqn:pext}
 \end{equation}
 
-The first enegey gain term, $dP_{src}$, is due to emission in the vlume element within the solid angle $d\Omega$. 
+The first energy gain term, $dP_{src}$, is due to emission in the volume element within the solid angle $d\Omega$. 
 
 \begin{equation}
 	dP_{src}=S(\vec{r},\hat{s},t)\ dVd\Omega
@@ -180,7 +182,7 @@ The second energy gain term, and final term, is due to the incident energy on th
 \medskip
 
 
-Finally subsituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cref{eqn:enegyconvo} yields:
+Finally substituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cref{eqn:enegyconvo} yields the \gls{rte}:
 
 \begin{equation}
 \frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t} + s\cdot \nabla L(\vec{r},\hat{s},t)=-\mu_tL(\vec{r},\hat{s},t)+\mu_s\int_{4\pi}p(\hat{s},\hat{s}')L(\vec{r},\hat{s}',t)d\Omega' + S(\vec{r},\hat{s},t)
@@ -190,13 +192,31 @@ Finally subsituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cre
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.75]{cylinderelement.pdf}
-	\caption{Cylindrical volume element, $ds \cdot dA$, with soild angle $d\Omega$ in direction $\hat{s}$ and soid angle $d\Omega'$ in direction $\hat{s}'$. Energy flowing through this element is used to derive the \gls{rte}.}
+	\caption{Cylindrical volume element, $ds \cdot dA$, with solid angle $d\Omega$ in direction $\hat{s}$ and solid angle $d\Omega'$ in direction $\hat{s}'$. Energy flowing through this element is used to derive the \gls{rte}.}
 	\label{fig:energydiag2}
 \end{figure}
 
 
 
-The \gls{rte} in general, is hard to solve in arbitrary 3 dimensional geometries, however there are a number of approximations, and numerical methods available.
+In general, the \gls{rte} is hard to solve in arbitrary 3D geometries, however there are a number of approximations, and numerical methods available. Diffusion approximation, \gls{km}, and \gls{mcrt} are the common methods used to approximate the \gls{rte}.
+
+\paragraph{Kubelka-Munk theory}
+\gls{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform, only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide.
+
+These assumptions make \gls{km}, very poor for modelling light-tissue interactions. This is as in tissue, scattering is not isotropic, but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, if ever, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls{km} is not able to model, along with polarization. 
+\Gls{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple mediums, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications.
+
+\paragraph{Diffusion approximation}
+The diffusion approximation for the \gls{rte}, is where the irradiance is separated into two components:
+
+\begin{equation}
+	L(\vec{r},\hat{s}) = L_c(\vec{r},\hat{s}) +l_d(\vec{r},\hat{s})
+\end{equation}
+Where $L_c$ is the unscattered contribution, which satisfies Beer's law, and $L_d$ is the diffuse contribution. The $L_d$ component is expanded using Legendre polynomials and truncated. 
+The diffusion approximation also has a number of assumptions and restrictions. The main assumption is that scattering dominates over absorption, and that the scattering is nearly isotropic.
+
+Diffusion theory is computationally fast, and simple. However it is poor at modelling light-tissue interactions due to it's assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics.
+
 The Monte Carlo radiation transfer method is a method of numerically solving the \gls{rte}. The \gls{rte} is the equation that governs how light propagates through a medium with sources and sinks.
 
 

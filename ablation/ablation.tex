@@ -23,7 +23,7 @@ In order to replicate the experimental work \textit{in silico}, our numerical mo
 
 The original \gls{mcrt} code was developed for astronomy applications \cite{wood1999model,wood2005estimating}, and has since been adapted for use in the medical field~\cite{campbell2015monte,barnard2018quantifying}.
 
-The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  160 $\times$ 160 $\times$ 160 voxels, representing a tissue sample size of 0.06 $\times$ 0.06 $\times$ 0.18~$cm$. We assume the porcine skin is uniform, so initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein~\cref{majaron2007effective}, see \cref{fig:waterabsor}.
+The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  160 $\times$ 160 $\times$ 160 voxels, representing a tissue sample size of 0.06 $\times$ 0.06 $\times$ 0.18~$cm$. We assume the porcine skin is uniform, so initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein~\cite{majaron2007effective}, see \cref{fig:waterabsor}.
 
 
 \begin{figure}
@@ -213,7 +213,7 @@ c_p^{\pm}&=\frac{c_{p,i}+c_{p,i\pm 1}}{2}
 Thus for the simple 1D case as in~\cref{eqn:simplefdm}, we average the thermal properties when computing the coefficients of the temperature nodes, and lag the thermal properties when adding the heat from the laser:
 
 \begin{equation}
-T^{N+1}=\Delta t (AT^N_{i-1}-2BT^N_{i}+DT^N_{i+1})+ T_i^N + \frac{\dot{q_L}}{\rho c_p}\label{eqn:heatnonlin1d}
+T^{N+1}=\Delta t (AT^N_{i-1}-2BT^N_{i}+DT^N_{i+1})+ T_i^N + \frac{\Delta t\ \dot{q_L}}{\rho c_p}\label{eqn:heatnonlin1d}
 \end{equation}
 
 Where (in the $x$ direction):
@@ -501,7 +501,8 @@ At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cr
 	\vspace{-10pt}
 \end{figure}	
 
-\subsubsection{MCRT $\&$ heat transport validation}
+\subsubsection{MCRT \texorpdfstring{$\&$}{and} heat transport validation}
+
 
 As a first test of our code, both \gls{mcrt} and heat simulation, we compare to a simple analytical model of ablation. The simple model of ablation is as: We define the ablation energy ($E_a$) as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in one dimension we have~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of power density ($Wcm^{-2}$), P, this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
 

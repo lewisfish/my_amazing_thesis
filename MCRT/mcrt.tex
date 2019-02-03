@@ -328,11 +328,12 @@ This section details the the actual implementation of the \gls{mcrt} algorithm d
 \section{Validation of MCRT code}
 \section{Optical properties}\label{sec:optprop}
 
-Optical properties of a medium are the properties that determine how light is transported though that medium. Usually the optical properties of a medium are defined by four main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), the anisotropy coefficient ($g$), and the refractive index ($n$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections.
+Optical properties of a medium are the properties that determine how light is transported though that medium. Usually the optical properties of a medium are defined by four main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), the anisotropy coefficient ($g$), and the refractive index ($n$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
 
 \subsection{Scattering}\label{sec:scatt}
 
-The scattering coefficient, along with the anisotropy value (see ~\cref{sec:ansio}), define how light is transported though a medium. Scattering in skin is due to a number of different scatterers, and inhomogeneities within the skin. The main scatterers are filamentous proteins such as collagen, and elastin which are generally found within the dermis, and epidermis and both are composed of long filament like bundles ***ref 7***. In the upper layers of the skin the main scatterers are keratins and various chromophores such as melanin. These scatterers and their size determine how light is scattered, and in which direction into.
+The scattering coefficient, along with the anisotropy value (see ~\cref{sec:ansio}), define how light is scattered in a medium. Scattering occurs in skin due to a number of different scatterers, and inhomogeneities found within the skin. The main scatters in the skin are filamentous proteins such as collagen and elastin. These proteins are generally found within the dermis and epidermis~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
+The size of the aforementioned scatters affect how light is scattered and into which direction that light is scattered into.
 
 \medskip
 
@@ -343,41 +344,50 @@ The scattering of light within tissue is usually defined as $\mu_s$ or $\mu_s'$:
 \end{equation}
 This gives units of inverse length for the scattering coefficient (usually measured in $cm^{-1}$). The reduced scattering coefficient is quite often given in place of the scattering coefficient, as the reduced coefficient is more easily measured then the `normal' coefficient~\cite{jacques2013optical}.
 
+
+
 \subsection{Anisotropy}\label{sec:ansio}
 
-Anisotropy describes the degree of deviation in the photon path at each scattering event. The anisotropy value is taken from the phase function for the medium. The phase function, $\Phi(\theta,\phi)$, is usually normalised over all angles:
+Anisotropy is the degree of deviation that light undergoes at each scattering event. The anisotropy value is taken from the phase function for the medium. The phase function, $\Phi(\theta,\phi)$, is usually normalised over all angles:
 
 \begin{equation}
 	\int_{\Omega}\Phi(\theta,\phi)\ d\Omega = 1
 \end{equation}
 
 Where $\theta$, and $\phi$ are the usual spherical angles.
-Thus Rayleigh and isotropic scattering's phase functions are:
+Thus the usual Rayleigh scattering and isotropic scattering, phases function's are:
 
 \begin{align}
 	\Phi_{isotropic}(\theta,\phi)&=\frac{1}{4\pi}\\
 	\Phi_{Rayleigh}(\theta,\phi)&=\frac{3}{8\pi}(1+cos^2(\theta))
 \end{align}
 
-Phase functions are hard to experimentally determine for biological tissues ***ref***, therefore the phase function is usually cast as the anisotropy value g, which is defined as the average angle of deflection:
+For simplicity, the phase function is usually cast as the anisotropy value g, which is defined as the average angle of deflection:
 
 \begin{equation}
 	g=\left<cos(\theta)\right>=\int_{\Omega}cos(\theta)\Phi(\theta,\phi)\ d\Omega
 \end{equation}
-The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is highly backward scattering, $0$ is isotopic scattering and $1$ is highly forward scattering.
+The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is highly back scattering, $0$ is isotopic scattering, and $1$ is highly forward scattering.
 
-There are various phase functions that can be used to model the anisotropy factor in medium, but the standard phase function for scattering in a biological tissue is the Henyey-Greenstein phase function. The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
+
+There are many phase functions that can be used to model the anisotropy factor in a medium. the standard phase function in biological tissue is the Henyey-Greenstein phase function. The Henyey-Greenstein phase function, was originally created to modelling diffuse radiation in the galaxy~\cite{lister2012optical,henyey1941diffuse}. The Henyey-Greenstein phase function has become the \textit{de-facto} phase function for biological tissue. This is due to the phase functions, relative simplicity and due to it being regarded as a `good' phase function for accurately modelling scattering in biological tissue~\cite{jacques1987angular}.
+The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 
 \begin{equation}
 	\Phi_{H.G}(\theta,\phi)=\frac{1}{4\pi}\frac{1-g^2}{(1+g^2-2g\ cos(\theta))^{\tfrac{3}{2}}}
 	\label{eqn:henyey}
 \end{equation}
 
-The Henyey-Greenstein phase function was originally used as the phase function for scattering in dusty galactic clouds, but has since become the \textit{de-facto} phase function for scattering in biological tissue***ref***. The Henyey-Greenstein phase function is regarded as a `good' phase function for biological tissues as it can model forward scattering, which tissue exhibits, and it is relatively simple to implement~\cite{jacques1987angular}.
+\begin{figure}
+	\centering
+	\includegraphics[width=\columnwidth]{polar.pdf}
+	\caption{Figure show the g factor for the Henyey-Greenstein phase function, for various configurations of back, forward or isotropic scattering.}
+	\label{fig:henyey}
+\end{figure}
 
 \subsection{Absorption}\label{sec:absor}
 
-The absorption within biological tissues is defined by the absorption coefficient $\mu_a$. The absorption coefficient is defined, like the scattering coefficient, by considering the probability of transmission without absorbing in a path length L:
+Absorption of light by a medium is defined by the absorption coefficient $\mu_a$. The absorption coefficient is defined, as before with the scattering coefficient, by considering the probability of transmission without absorbing in a path length L:
 
 \begin{equation}
 	T=e^{-\mu_aL}
@@ -389,15 +399,53 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 \begin{figure}
 	\centering
 	\includegraphics[width=\columnwidth]{absorbers.pdf}
-	\caption{Spectra of some of the more common absorbers found in the skin.}
+	\caption{Spectra of some of the more common absorbers found in the skin.***refs***}
 	\label{fig:absorb}
 \end{figure}
 
 \subsection{Refractive index}\label{sec:refrac}
 
-\subsection{Other parameters}\label{sec:other}
-There are various other optical parameters that can define a medium, including: Raman cross sections, fluorescence quantum yields, polarization cross sections.
 
+The refractive index of a medium, defines how fast light propagates through that medium. Generally for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin (as shown in~\cref{tab:refrac}).
+
+\begin{table}[hb!]
+	\caption{Example of refractive indices per layer of skin for a $\lambda$=632.8~nm~\cite{meglinski2002quantitative}.}
+	\label{tab:refrac}
+	\centering
+
+	\begin{tabular}{|l|cc|}
+	\hline
+
+	\hline
+	\textbf{Layer} & \textbf{Refractive index} &\\
+	\hline
+
+	\hline
+		Stratum Corenum & 1.53 & \\
+	\hline
+		Epidermis & 1.34 & \\
+	\hline
+		Papillary Dermis & 1.395 &\\
+	\hline
+		Reticular Dermis & 1.39 &\\
+	\hline
+		Hypodermis & 1.44 &\\
+	\hline
+
+	\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Other parameters}\label{sec:other}
+There are various other optical parameters that can define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, or fluorescence. These parameters in general are not very common to include in a \gls{mcrt} simulation, unless modelling of these phenomena is vital.
+
+Raman scattering is where a photon is scattered inelastically, which excites the molecule the photon scattered off, thus decreasing the energy of the photon and increasing the photons wavelength. The optical property needed to model Raman scattering, is the Raman scattering cross section. The cross section, like the absorption or scattering coefficient, is the likelihood of a photon undergoing a Raman scattering event. Raman scattering has been modelled in \gls{mcrt} in order to simulate spatially offset Raman spectroscopy for breast tumour analysis~\cite{keller2010monte}.
+
+Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-released with a new wavelength. Fluorescence	is a reactively common phenomena, and is heavily utilised in biophotonics and medicine, in order to image, or monitor molecules in tissue. Again the optical property that models fluorescence is coefficient that gives the probability of absorption and remission of a photon by a certain molecule. Usually this is in the form of an absorption coefficient or extinction coefficient. An extinction coefficient is 
+
+\begin{equation}
+\mu_a=ln10 \sum_i C_i \varepsilon_i	
+\end{equation}
 
 \section{Further extensions to the code}\label{sec:codefurther}
 This section details the miscellaneous additions to the \gls{mcrt} algorithm that the various chapters in this thesis may or may not use.

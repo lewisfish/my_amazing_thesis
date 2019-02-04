@@ -221,7 +221,34 @@ The final method, \gls{mcrt}, is a method that is numerically equivalent to the 
 
 \subsection{MCRT algorithm}
 
-The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide a detailed description a simple \gls{mcrt} algorithm for a 3D voxel based grid.
+The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide an in depth description of the \gls{mcrt} algorithm. The following section will provide details of how the \gls{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the implementation of the 3D voxelised medium.
+
+
+
+%***this section will be transformed into basic MCRT algo section. The following section will %describe the code in detail.***
+%
+%steps
+%
+%set up medium
+%setup init pos & dir -> derivation of dir vectors -> mention
+%get tau -> normalise 
+%move photon
+%scatter
+%repeat
+%
+%code shizz
+%
+%voxel medium - gridset
+%transport in grid tauint
+%sourceph
+%scatter -> derivation of non lab frame shizz stokes
+%absorb
+%path length estimators
+%write out data
+%
+%overall structure
+
+
 
 \subsubsection{Grid set-up}\label{sec:photsetup}
 
@@ -328,7 +355,7 @@ This section details the the actual implementation of the \gls{mcrt} algorithm d
 \section{Validation of MCRT code}
 \section{Optical properties}\label{sec:optprop}
 
-Optical properties of a medium are the properties that determine how light is transported though that medium. Usually the optical properties of a medium are defined by four main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), the anisotropy coefficient ($g$), and the refractive index ($n$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
+Optical properties of a medium are the properties that determine how light is transported though that medium. Usually the optical properties of a medium are defined by three main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), and the anisotropy coefficient ($g$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
 
 \subsection{Scattering}\label{sec:scatt}
 
@@ -399,18 +426,20 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 \begin{figure}
 	\centering
 	\includegraphics[width=\columnwidth]{absorbers.pdf}
-	\caption{Spectra of some of the more common absorbers found in the skin.***refs***}
+	\caption{Spectra of some of the more common absorbers found in the skin~\cite{dixon2005photochemcad,photoprahl2017,segelstein1981complex,pope1997absorption,jacques2013optical,van2004determination,saidi1992transcutaneous,iglesias2015biophysically,bashkatov2011optical,sarna2006physical}.}
 	\label{fig:absorb}
 \end{figure}
 
-\subsection{Refractive index}\label{sec:refrac}
 
+\subsection{Other parameters}\label{sec:other}
+The preceding subsection, described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
 
+\medskip
+
+\paragraph*{Refractive index}
 The refractive index of a medium, defines how fast light propagates through that medium. Generally for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin (as shown in~\cref{tab:refrac}).
 
 \begin{table}[hb!]
-	\caption{Example of refractive indices per layer of skin for a $\lambda$=632.8~nm~\cite{meglinski2002quantitative}.}
-	\label{tab:refrac}
 	\centering
 
 	\begin{tabular}{|l|cc|}
@@ -434,18 +463,28 @@ The refractive index of a medium, defines how fast light propagates through that
 
 	\hline
 	\end{tabular}
+	\caption{Example of refractive indices per layer of skin for a $\lambda$=632.8~nm~\cite{meglinski2002quantitative}.}
+	\label{tab:refrac}
 \end{table}
 
-\subsection{Other parameters}\label{sec:other}
-There are various other optical parameters that can define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, or fluorescence. These parameters in general are not very common to include in a \gls{mcrt} simulation, unless modelling of these phenomena is vital.
+Details on how refraction is implemented with the code can  be found in ***ref here***.
 
+\medskip
+
+\paragraph*{Raman Scattering}
 Raman scattering is where a photon is scattered inelastically, which excites the molecule the photon scattered off, thus decreasing the energy of the photon and increasing the photons wavelength. The optical property needed to model Raman scattering, is the Raman scattering cross section. The cross section, like the absorption or scattering coefficient, is the likelihood of a photon undergoing a Raman scattering event. Raman scattering has been modelled in \gls{mcrt} in order to simulate spatially offset Raman spectroscopy for breast tumour analysis~\cite{keller2010monte}.
 
-Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-released with a new wavelength. Fluorescence	is a reactively common phenomena, and is heavily utilised in biophotonics and medicine, in order to image, or monitor molecules in tissue. Again the optical property that models fluorescence is coefficient that gives the probability of absorption and remission of a photon by a certain molecule. Usually this is in the form of an absorption coefficient or extinction coefficient. An extinction coefficient is 
+\medskip
+
+\paragraph*{Fluorescence}
+Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-emitted with a new wavelength. Fluorescence	is a reactively common phenomena, and is heavily utilised in biophotonics and medicine, in order to image, or monitor molecules in tissue. Again the optical property that models fluorescence is coefficient that gives the probability of absorption and re-emission of a photon by a certain molecule. Usually this is in the form of an absorption coefficient or extinction coefficient. The extinction coefficient is a measurement of absorption in terms of the concentration of that absorber. Thus if a medium has many fluorophores, then the total absorption coefficient is the bulk absorption of the medium plus the contribution from the fluorophores as in~\cref{eqn:exct}:
 
 \begin{equation}
-\mu_a=ln10 \sum_i C_i \varepsilon_i	
+\mu_a=ln10 \sum_i C_i \varepsilon_i
+\label{eqn:exct}	
 \end{equation}
+
+Fluorescence will be described in more depth in~\cref{sec:salvo,sec:madrid}.
 
 \section{Further extensions to the code}\label{sec:codefurther}
 This section details the miscellaneous additions to the \gls{mcrt} algorithm that the various chapters in this thesis may or may not use.

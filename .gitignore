@@ -12,3 +12,6 @@ build/
 *.log
 *.dat
 *.lof
+*.mod
+*.fls
+*.fdb_latexmk

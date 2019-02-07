@@ -577,7 +577,7 @@ As a sanity check to ensure that we are not omitting any phenomena by focusing o
 
 \subsubsection{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:ta} shows how \gls{ta} affects the crater depth as a function of pixel beam energy for the CO$_2$ laser. Both the 70~$W$ and 30~$W$ simulations agree, that a `good' \gls{ta} is around $T_a=tbd~^{\circ}C$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. Simulation data suggests that, that a `good' \gls{ta} is around $T_a=450~^{\circ}C$.
 
 Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. As more energy is required to heat the porcine tissue up to the ablation temperature before it can be ablated. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
@@ -586,10 +586,17 @@ Over the full range of \gls{ta}, as the energy per pixel beam increases, there i
 
 \begin{figure}
 	\centering
-    \includegraphics[width=\columnwidth]{both.pdf}
-    \caption{Simulations of 30~$W$ and 70~$W$ CO$_2$ ablative laser. Crater depths as a function of pixel beam energy for various \gls{ta}'s. *placeholder until I rerun for triangular pulse.*}\label{fig:ta}
+    \includegraphics[width=\columnwidth]{70w-circular.pdf}
+    \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a circular beam profile. Crater depths as a function of pixel beam energy for various \gls{ta}'s.}
+    \label{fig:tacirc}
 \end{figure}
  
+ \begin{figure}
+	\centering
+    \includegraphics[width=\columnwidth]{70w-gaussian.pdf}
+    \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a Gaussian beam profile. Crater depths as a function of pixel beam energy for various \gls{ta}'s.}
+    \label{fig:tagauss}
+\end{figure}
 
 \subsubsection{Investigating Thermal damage} 
 

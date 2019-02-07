@@ -18,52 +18,18 @@ In order to replicate the experimental work \textit{in silico}, our numerical mo
 
 \subsection{Monte Carlo radiation transport (MCRT)}
 
-*This part is here as it will be needed for paper. probably not needed in chapter though...*
-\gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient,wang1995mcml}. This is due to its flexibility in modelling 3D geometries, various light sources, and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. We simulate the propagation of photon packets, which represent photons with a given power, derived from the incident radiant source. These `packets' can undergo scattering, absorption and fluorescence, and polarisation \cite{yao1999monte,welch1997propagation,wood1999model}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
+\Gls{mcrt} is used here to calculate the energy deposited by the laser. This is then passed to the heat transport simulation, which calculates the heat diffusion in the medium. The algorithm for the the three coupled simulations is presented in~\cref{fig:algo}.
 
-The original \gls{mcrt} code was developed for astronomy applications \cite{wood1999model,wood2005estimating}, and has since been adapted for use in the medical field~\cite{campbell2015monte,barnard2018quantifying}.
-
-The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  160 $\times$ 160 $\times$ 160 voxels, representing a tissue sample size of 0.06 $\times$ 0.06 $\times$ 0.18~$cm$. We assume the porcine skin is uniform, so initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein~\cite{majaron2007effective}, see \cref{fig:waterabsor}.
-
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.25]{voxel-model-render.png}
-\caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel can represent a different optical/thermal propertty of the tissue medium.}\label{fig:voxel-model}
-\end{figure}
-
-\Cref{fig:algo}. shows the overall algorithm for the simulation, including the \gls{mcrt} portion. 
-The \gls{mcrt} portion of the algorithm begins with determining where the photon enters the medium. This is calculated by randomly selecting one of the pixel beams, from the 9 x 9 array of pixel beams. Next the position on the surface of the medium is calculated. As the exact profile of the pixel beams are unknown, we assume them to be uniformly circular. Thus, the packets position is uniformly sampled on a circle the width of the pixel beam.
-
-Once the packet enters the simulation, a propagation distance for the packet is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption, however in this simulation absorption dominates, and thus we assume no scattering takes place. This process is repeated until the photon has either been absorbed or exits the medium.
-
-\begin{equation}
-L = -\tfrac{ln(\xi)}{\mu_a}
-\label{eqn:propdist}
-\end{equation}
-
-\noindent Where:
-
-\indent $\xi$ a random number ($\tau = -ln(\xi)$, $\tau$ is the optical depth);
-
-\indent $\mu_a$ is the absorption coefficient;
-
-\indent L is the physical distance.
-
-\medskip
-
-\Cref{eqn:propdist} is the equation for a uniform medium. As the medium we are simulating changes over time due to thermal damage this equation has to be adapted for a 3D Cartesian grid. Each voxel 
-can have different optical properties, thus the photon packet is moved on a voxel by voxel basis. To start the movement process, a random number is generated, which is used to sample an optical depth the photon packet will travel. Next the photon enters the voxel and the maximum distance the photon can travel in the new voxel is calculated along the photon's trajectory. If this optical distance is less than the optical depth sampled, then the photon enters the next voxel. If the distance is larger than the sampled optical distance then the photon has an interaction event in that voxel. The photon packet moves to the interaction event in the voxel and then undergoes scattering or absorption. The whole process is repeated until the photon `dies' via absorption or leaving the medium.
-This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 1 million photon packets per \gls{mcrt} simulation run.
-
-\begin{figure}
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.7]{flowchart.pdf}
 \caption{Flowchart of the tissue ablation algorithm.}
 \label{fig:algo}
 \end{figure}
 
-To calculate the energy absorbed in the porcine tissue via the laser we use the path length counter method devised by Lucy \cite{lucy1999computing} (see~\cref{fig:jmea-explain}). The energy absorbed per voxel is therefore calculated as:
+The \gls{mcrt} algorithm is largely the same as described in~\cref{sec:mcrt}, with a couple of key adjustments.
+
+The first adjustment to the algorithm is that the path length counter for fluence is adjusted to track absorbed energy instead. This is achieved by multiplying the pathlength in a voxel by the absorption coefficient of that voxel. \Cref{fig:jmea-explain} show this process graphically, and \Cref{eqn:ablationenergy} shows the mathematical expression:
 
 \begin{equation}
 E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
@@ -84,15 +50,19 @@ E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
 	
 	\medskip
 	
-\begin{figure}
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.25]{jmea-explain.png}
-\caption{Red lines are photon paths within a voxel. Black lines photon paths out with the voxel. Red photon paths, weighted by $mu_a$ , are summed up in order to calculate the absorbed energy within each voxel.}
+\caption{Red lines are photon paths within a voxel. Black lines photon paths out with the voxel. Red photon paths, weighted by $\mu_a$, are summed up in order to calculate the absorbed energy within each voxel.}
 \label{fig:jmea-explain}
 \end{figure}	
 		
 This grid of absorbed energy is then passed to the heat transport portion of the simulation, so that the heat diffusion in the porcine tissue can be calculated.
-\newpage
+
+The next adjustment to the \gls{mcrt} algorithm, is that the \gls{mcrt} algorithm is run for every heat simulation time step. The simulation needs to be run for every time step, as the medium could change at every time step due to the optical, and thermal properties changing as a function of tissue damage.
+
+Finally, to match the experiment undertaken the medium and laser for the \textit{in-silico} experiments must match the `real life' experiments. As the laser used in the experiments emits an infra-red wavelength, the optical properties are dominated by the water content of the tissue. Due to this we model just absorbing in the medium, with no scattering. Further discussion of this can be found in~\cref{sec:opticalprops}. The laser in some of the \textit{in silico} experiments, has multiple beams. Thus the source photon routine is adjusted to accommodate this when needed.
+
 \subsection{Heat transport}
 
 The diffusion of heat can be modelled using the heat equation~(\cref{eqn:heat}), which is derived from Fourier's law and the principle of conservation of energy~\cite{widder1976heat}~(see~\cref{app:heatderive}). 
@@ -148,8 +118,6 @@ The numerical method we employ is a \gls{fdm}. The \gls{fdm} is derived from the
 
 
 A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart (see~\cref{fig:fdmexplain}). We can then truncate and rearrange~\cref{eqn:taylor} and assume that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfisrt}.~Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the `forward' direction. We can also calculate the `backward' and central difference terms by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. We can also give expressions for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
-
-%Then at a node \textit{i} we can use the Taylor series approximation in the forward ($+\text{ive}\ x$ direction) and backward ($-\text{ive}\ x$ direction) to give the derivatives in~\cref{eqn:fdmfwd,eqn:fdmbck}. Where: \textit{i} is the grid point at $x_o$, $i$+1 is the point at $x_0+\Delta x$, and \textit{i}-1 is the grid point at $x_{o}-\Delta x$. We can then combine these `forward' and `backward' derivatives to give a `central' derivative~\cref{eqn:fdmcent}. 
 
 \begin{equation}
 f(x_0+\Delta x)=f(x_0) + \frac{f'(x_0)}{1!}\Delta x + \frac{f''(x_0)}{2!}\Delta x^2+...+ \frac{f^{(n)}(x_0)}{n!}\Delta x^n+R_n(x)
@@ -274,14 +242,14 @@ In the instance where there is more than one pulse, the laser is turned on and o
 
 As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. However as we have a convection prescribed boundary condition, the constraint on the time is more severe. Along with this time constraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be an order of magnitude smaller than the shortest laser pulse.
 
-As the timestep is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in~\cref{sec:mcrt}, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
+As the time step is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. As discussed in~\cref{sec:mcrt}, the \gls{mcrt} simulation is fully parallelised, and the results are passed to the heat simulation.
 
 \medskip
 
 Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation being dependant on the temperature of adjacent nodes. Thus information will have to be passed from each individual core during computation, as opposed to doing the information passing at the end of the simulation \textit{\`a la} \gls{mcrt} parallelisation.
 The heat simulation is parallelised using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-* old data from before nonlinear heat equation *
+* old data from before non-linear heat equation *
 On a workstation computer these simulations were carried out on (Intel Xeon E3-1245 v5, 8 core @ 3.5GHz) led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
 
 
@@ -303,7 +271,7 @@ On a workstation computer these simulations were carried out on (Intel Xeon E3-1
 \end{figure}
 
 
-After one time step of the heat simulation has been completed, the temperature grid is passed to the tissue damage portion of the simulation to calculate the tissue damage that may have accrued during the heat simulation timestep.
+After one time step of the heat simulation has been completed, the temperature grid is passed to the tissue damage portion of the simulation to calculate the tissue damage that may have accrued during the heat simulation time step.
 
 \subsection{Tissue Damage}
 \label{sec:tissuedamage}
@@ -531,7 +499,7 @@ Results from these \textit{in silico} experiments are presented in this section 
 
 
 \subsubsection{Optical \& thermal properties}
-
+\label{sec:opticalprops}
 As mentioned, the thermal and optical properties of porcine tissue are not known exactly for a given tissue sample. This is due to no one tissue sample being exactly the same as another sample, due to various biological factors. As such the thermal and optical properties used in this section are taken from various literature sources.
 
 The laser used in the experimental work is an infrared laser. This means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelengths.

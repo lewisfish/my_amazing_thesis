@@ -221,7 +221,7 @@ The final method, \gls{mcrt}, is a method that is numerically equivalent to the 
 
 \subsection{MCRT algorithm}
 
-The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide an in depth description of the \gls{mcrt} algorithm. The following section will provide details of how the \gls{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the implementation of the 3D voxelised medium.
+The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide an in depth description of the \gls{mcrt} algorithm (see also~\cref{fig:algo}). The following section will provide details of how the \gls{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the implementation of the 3D voxelised medium.
 
 
 
@@ -248,16 +248,36 @@ The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as comp
 %
 %overall structure
 
-\subsubsection{medium set-up}\label{sec:algomedium}
+\subsubsection{Medium set-up}\label{sec:algomedium}
 The first step of any \gls{mcrt} algorithm , is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. for simplicity we will only consider one wavelength, $\lambda$. The following section will detail arbitrary geometries and cases where there are more than one wavelength of interest.
 
 
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.25]{voxel-model-render.png}
-\caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel can represent a different optical/thermal propertty of the tissue medium.***move to correct place***}
-\label{fig:voxel-model}
-\end{figure}
+
+\subsubsection{Initialise photon}\label{sec:algoinit}
+
+The second step in the \gls{mcrt} algorithm, is to initialise the photon. Initialisation of the photon involves setting its initial position and direction. Again how this is done depends on the experiments being simulated. Here we initialise the photon to the centre of the sphere. The initial direction is sampled isotropically, and set accordingly:
+
+\begin{align}
+n_{x}&=sin(\theta) \cdot cos(\phi)\\
+n_{y}&=sin(\theta) \cdot sin(\phi)\\
+n_{z}&=cos(\theta)
+\end{align}
+
+\begin{wrapfigure}{I}{\columnwidth/2}
+\includegraphics[width=\columnwidth/2]{algopic.pdf}
+\caption{blah}
+\label{fig:algo}
+\end{wrapfigure}
+
+
+With $\theta$ and $\phi$ sampled uniformly between $[0,acos(2\xi-1)]$ and $[0,2\pi\xi]$ respectively.
+
+% \begin{figure}[!ht]
+% \centering
+% \includegraphics[scale=0.25]{voxel-model-render.png}
+% \caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel can represent a different optical/thermal property of the tissue medium.***move to correct place***}
+% \label{fig:voxel-model}
+% \end{figure}
 
 \subsubsection{Grid set-up}\label{sec:photsetup}
 

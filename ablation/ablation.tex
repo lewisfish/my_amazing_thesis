@@ -2,16 +2,19 @@
 \label{chap:ablation}
 \section{Introduction and background}
 \label{sec:intro}
-Lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
+
+This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
+
+\medskip
+
+Ablative lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
 One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls{pdt}. The ablative laser `drill' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
 
 One downside to using lasers to remove tissue, is that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
- Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. In this work an \gls{oct} system is used to measure the ablative crater non-invasively \textit{in-vivo}. The \gls{oct} measurements are then compared to a computational model developed as part of this project. It is hoped this computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
+Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. In this work an \gls{oct} system is used to measure the ablative crater non-invasively \textit{in-vivo}. The \gls{oct} measurements are then compared to a computational model developed as part of this project. It is hoped this computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
 
-\medskip
 
-This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
 
 \section{Methods}
 
@@ -118,7 +121,7 @@ As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries w
 The numerical method we employ is a \gls{fdm}. The \gls{fdm} is derived from the Taylor series, see~\cref{eqn:taylor}. 
 
 
-A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart (see~\cref{fig:fdmexplain}). We can then truncate and rearrange~\cref{eqn:taylor} and assume that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfisrt}.~\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the `forward' direction. We can also calculate the `backward' and central difference terms by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. We can also give expressions for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
+A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart (see~\cref{fig:fdmexplain}). We can then truncate and rearrange~\cref{eqn:taylor} and assume that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.~\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the `forward' direction. We can also calculate the `backward' and central difference terms by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. We can also give expressions for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
 
 \begin{equation}
 f(x_0+\Delta x)=f(x_0) + \frac{f'(x_0)}{1!}\Delta x + \frac{f''(x_0)}{2!}\Delta x^2+...+ \frac{f^{(n)}(x_0)}{n!}\Delta x^n+R_n(x)
@@ -127,7 +130,7 @@ f(x_0+\Delta x)=f(x_0) + \frac{f'(x_0)}{1!}\Delta x + \frac{f''(x_0)}{2!}\Delta 
 
 \begin{equation}
 f'(x_0) \approx \frac{f(x+0+\Delta x)-f(x_0)}{\Delta x}
-\label{eqn:fdmfisrt}
+\label{eqn:fdmfirst}
 \end{equation}
 
 \begin{figure}
@@ -310,7 +313,7 @@ The final stage of tissue damage is the removal of the remaining tissue, i.e tis
 \begin{figure}	
 \vspace{-10pt}
 	\centering
-	\includegraphics[width=\columnwidth]{steam_vacoule.png}
+	\includegraphics[width=\columnwidth/2]{steam_vacoule.png}
 	\caption{Ablation of a dog aorta, as viewed under a microscope. Steam vacuoles are clearly visible either side of the ablation area. Carbonisation is also evident at the edges of the ablation fronts. Adapted from~\cite{welch2011optical}.}
 	\label{fig:histology}
 	\vspace{-10pt}
@@ -537,7 +540,7 @@ The laser was used in `Pixel beam' mode. This means that the laser beam is split
 The laser delivered one single pulse of varying total energy delivered over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode". The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by adjusting the pulse length of the laser, $\tau$, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade, with the pulse length differing.
 
 \subsubsection{Computational speed up:}
-As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1 $\times$ 1.1 $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser.
+As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser. A volume of 0.18~$cm$ $\times$ 0.06~$cm$ $\times$ 0.06~$cm$
 As a sanity check to ensure that we are not omitting any phenomena by focusing on just one ablation crater, an initial simulation that simulates the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives us validation that the shrinking of the volume of interest is a valid approximation to make.
 
 \begin{figure}
@@ -554,7 +557,7 @@ Various literature sources report the ablation temperature ranging from 177$^{\c
 
 Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
-Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth tapers off. This is potentially due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
+Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to tapers off. This is potentially due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
 
 
 \begin{figure}
@@ -614,38 +617,36 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
 	\label{fig:damfig}
 \end{figure}
 	
-As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. %For the lower powered laser ($30~W$) there seems to be a maximum distance in how far the thermal damage extends beyond the ablation crater horizontally. \Cref{fig:horz-30} show this cut-off which appears to start around $250~mJ$.  
-	
+As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, is appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely due to the fact that for lower values of $T_a$, there is a a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage.
 
-%In the higher powered laser ($70~W$), it appears that there is no upper cut-off for the maximum horizontal extent of thermal damage. A possible reason for this is that the simulated energies for the pixel beams were not large enough to reach the cut-off, and thus if more heat was deposited by the laser it would defuse further into the tissue.
-
-\begin{figure}[!h]
+\begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{horz-damage.pdf}
+	\includegraphics[scale=0.7]{horz-damage.pdf}
 	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam, for different $T_a$'s.}
 	\label{fig:horz-70}
 \end{figure}
 
 \medskip
 
-We can also investigate the time it takes for different areas of the tissue to become thermally damaged. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:time-thres} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur for both 30~$W$ and 70~$W$ powered lasers as a function of depth. The 70~$W$ laser shows that there is little to no time (upon the order of $0.5$~$ms$) between $1^{st}$ and $2^{nd}$ degree burns, and a maximum of $\sim$~$0.02$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
-The 30~$W$ has a larger time differential between burn classifications, with a maximum of $0.02$~$s$ between $1^{st}$ and $2^{nd}$ degree burns and a maximum of $0.2$~$s$ between $2^{nd}$ and $3^{rd}$ degree burns.
-The spatial distance between burn boundaries are also drastically different between the two different powers of laser. At 70W there is virtually no difference in the boundaries for the 1st and 2nd degree burns, with a slight difference of $\sim$ $5$~$\mu m$ between the $2^{nd}$ and $3^{rd}$ degree burns. 30~$W$ the distance between $2^{nd}$ and $3^{rd}$ is $\sim 11\ \mu m$, and for  $1^{st}$ and $2^{nd}$ $\sim 1\ \mu m$.
+We can also investigate the time it takes for different areas of the tissue to become thermally damaged. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:time-thres1,fig:time-thres2} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur as a function of depth. \Cref{fig:time-thres1} shows that there is little to no time (upon the order of $0.5$~$ms$) between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns.
+\Cref{fig:time-thres2} shows there is a slightly greater time difference between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns, however this is almost as negligible as the 400~mJ case.
+
+The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns, is most likely due to the fact that there is very little time for heat to diffuse, whilst the laser is still illuminating the medium. The laser pulses are on the order of seconds, and tissue is not very thermally conductive. This leads to the results presented here.
 	
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\columnwidth]{70w-400.pdf}
-	\caption{Figure shows the extent of burns inflicted by the laser as a function of depth. Lines are taken from the central point of the laser beam through the tissue. Coloured dashed lines are 30W laser and solid coloured lines are 70W laser. Both data sets plotted for ablation temperature of 420~$^{\circ}C$, and pixel beam energy of 400~$mJ$}
+	\includegraphics[scale=0.75]{70w-400.pdf}
+	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 400~mJ.}
 	\label{fig:time-thres1}
 \end{figure}	
 	
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\columnwidth]{70w-50.pdf}
-	\caption{Figure shows the extent of burns inflicted by the laser as a function of depth. Lines are taken from the central point of the laser beam through the tissue. Coloured dashed lines are 30W laser and solid coloured lines are 70W laser. Both data sets plotted for ablation temperature of 420~$^{\circ}C$, and pixel beam energy of 400~$mJ$}
+	\includegraphics[scale=0.75]{70w-50.pdf}
+	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 50~mJ.}
 	\label{fig:time-thres2}
 \end{figure}	
-
+\FloatBarrier
 \section{Conclusion}
 
 Using \gls{mcrt} and finite difference method, we have created a fully 3D model of photon and heat transport within tissue. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered laser and the resultant thermal damage surrounding the ablation crater.

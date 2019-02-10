@@ -1,0 +1,38 @@
+%*This part is here as it will be needed for paper. probably not needed in chapter though...*
+%\gls{mcrt} is the `gold standard' for simulating the transport of light through biological tissue~\cite{kong2008efficient,wang1995mcml}. This is due to its flexibility in modelling 3D geometries, various light sources, and micro-physics, such as fluorescence. It uses interaction probabilities and random numbers in order to model the `random walk' that photons undergo in a turbid medium. We simulate the propagation of photon packets, which represent photons with a given power, derived from the incident radiant source. These `packets' can undergo scattering, absorption and fluorescence, and polarisation \cite{yao1999monte,welch1997propagation,wood1999model}. \gls{mcrt} has been used to model light-tissue interactions in many different medical and biophotonic applications \cite{campbell2015monte,boas2002three,patwardhan2005monte}. \gls{mcrt} is used here to calculate the energy deposited by the laser, which is then passed to the heat transport simulation.
+
+%The original \gls{mcrt} code was developed for astronomy applications \cite{wood1999model,wood2005estimating}, and has since been adapted for use in the medical field~\cite{campbell2015monte,barnard2018quantifying}.
+
+%The tissue medium for the \gls{mcrt} and heat transport simulations is a 3D voxel model (\cref{fig:voxel-model}). This allows the variation of optical and thermal properties from voxel to voxel, making it the ideal type of grid for modelling tissue ablation. We use  160 $\times$ 160 $\times$ 160 voxels, representing a tissue sample size of 0.06 $\times$ 0.06 $\times$ 0.18~$cm$. We assume the porcine skin is uniform, so initially our voxel model is uniform, and the optical properties of porcine skin at the wavelength of interest is mainly that of water mixed with protein~\cite{majaron2007effective}, see \cref{fig:waterabsor}.
+
+
+
+
+%\Cref{fig:algo}. shows the overall algorithm for the simulation, including the \gls{mcrt} portion. 
+%The \gls{mcrt} portion of the algorithm begins with determining where the photon enters the medium. This is calculated by randomly selecting one of the pixel beams, from the 9 x 9 array of pixel beams. Next the position on the surface of the medium is calculated. As the exact profile of the pixel beams are unknown, we assume them to be uniformly circular. Thus, the packets position is uniformly sampled on a circle the width of the pixel beam.
+
+%Once the packet enters the simulation, a propagation distance for the packet is calculated using \cref{eqn:propdist}. The packet then moves this distance before undergoing an interaction event. This can be either scattering or absorption, however in this simulation absorption dominates, and thus we assume no scattering takes place. This process is repeated until the photon has either been absorbed or exits the medium.
+
+%\begin{equation}
+%L = -\tfrac{ln(\xi)}{\mu_a}
+%\label{eqn:propdist}
+%\end{equation}
+%
+%\noindent Where:
+%
+%\indent $\xi$ a random number ($\tau = -ln(\xi)$, $\tau$ is %the optical depth);%
+%
+%\indent $\mu_a$ is the absorption coefficient;
+%
+%\indent L is the physical distance.
+%
+%\medskip
+
+%\Cref{eqn:propdist} is the equation for a uniform medium. As the medium we are simulating changes over time due to thermal damage this equation has to be adapted for a 3D Cartesian grid. Each voxel 
+%can have different optical properties, thus the photon packet is moved on a voxel by voxel basis. To start the movement process, a random number is generated, which is used to sample an optical depth the photon packet will travel. Next the photon enters the voxel and the maximum distance the photon can travel in the new voxel is calculated along the photon's trajectory. If this optical distance is less than the optical depth sampled, then the photon enters the next voxel. If the distance is larger than the sampled optical distance then the photon has an interaction event in that voxel. The photon packet moves to the interaction event in the voxel and then undergoes scattering or absorption. The whole process is repeated until the photon `dies' via absorption or leaving the medium.
+%This in turn is again repeated for all the photons, until all the photons have been absorbed or have escaped the tissue medium. We use 1 million photon packets per \gls{mcrt} simulation run.
+
+
+%To calculate the energy absorbed in the porcine tissue via the laser we use the path length counter method devised by Lucy \cite{lucy1999computing} (see~\cref{fig:jmea-explain}). The energy absorbed per voxel is therefore calculated as:
+
+    % Figure shows the extent of burns inflicted by the laser as a function of depth. Lines are taken from the central point of the laser beam through the tissue. Coloured dashed lines are 30W laser and solid coloured lines are 70W laser. Both data sets plotted for ablation temperature of 420~$^{\circ}C$, and pixel beam energy of 400~$mJ$}

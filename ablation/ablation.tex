@@ -3,14 +3,14 @@
 \section{Introduction and background}
 \label{sec:intro}
 
-This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, such as to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
+This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
 
 \medskip
 
 Ablative lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
 One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls{pdt}. The ablative laser `drill' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
 
-One downside to using lasers to remove tissue, is that unlike a scalpel, where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can also cause  thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
+One downside to using lasers to remove tissue, is that unlike a scalpel where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can cause thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
 Currently the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. In this work an \gls{oct} system is used to measure the ablative crater non-invasively \textit{in-vivo}. The \gls{oct} measurements are then compared to a computational model developed as part of this project. It is hoped this computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
 
@@ -265,12 +265,10 @@ Parallelisation of the heat simulation is more involved than the `embarrassingly
 \vspace{-10pt}
 \end{figure}
 
-We parallelise Dictionary the heat simulation using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
+We parallelise the heat simulation using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The `halo swapping' technique is efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems sizes $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reason, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
 
-
-The `halo swapping' technique efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large, then bottlenecks occur, due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation.
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
 
@@ -284,11 +282,13 @@ The `halo swapping' technique efficient for situations where the computational d
 
 \begin{figure}
 \centering
-\includegraphics[]{}
-\caption{Figure show the speedup gained by parallelisation of the heat simulation using the `halo' swapping technique. Data taken from a Intel Xeon E3-1245 v5, 8 core @ 3.5GHz machine.}
+\includegraphics[scale=.75]{profile.pdf}
+\caption{Figure show the speed up gained by parallelisation of the heat simulation using the `halo' swapping technique, for various sizes of computational domain (voxels). Data taken from a Intel Xeon E3-1245 v5, 8 cores @ 3.5GHz machine.}
 \label{fig:parallel}
 \end{figure}
 After one time step of the heat simulation has been completed, the temperature grid is passed to the tissue damage portion of the simulation to calculate the tissue damage that may have accrued during the heat simulation time step.
+\FloatBarrier
+\newpage
 
 \subsection{Tissue Damage}
 \label{sec:tissuedamage}
@@ -524,13 +524,16 @@ The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 \begin{figure}	
-%\vspace{-10pt}
 	\centering
 	\includegraphics[width=\columnwidth]{water.pdf}
 	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing in the infra-red portion of the spectrum  compared to the visible portion.}
 	\label{fig:waterabsor}
-	%\vspace{-10pt}
 \end{figure}
+
+
+The laser was used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The laser used an array $9 \times 9$ of 81 pixel beams, each with a spot size of $250\ \mu m$. The Pixel CO$_2$ laser was upgraded during the period in which the experimental data was taken, we present both sets of data, pre-upgrade and post-upgrade. The upgrade consisted of an update to the laser power, from $\sim$ 30~$W$ to $\sim$ 70~$W$.
+
+The laser delivered one single pulse of varying total energy delivered over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode". The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by adjusting the pulse length of the laser, $\tau$, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade, with the pulse length differing.
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|}
@@ -544,10 +547,6 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 \end{tabular}
 \caption{Optical and thermal properties for porcine tissue and air.}\label{table:values}
 \end{table}  
-
-The laser was used in `Pixel beam' mode. This means that the laser beam is split into an array of smaller beams. The laser used an array $9 \times 9$ of 81 pixel beams, each with a spot size of $250\ \mu m$. The Pixel CO$_2$ laser was upgraded during the period in which the experimental data was taken, we present both sets of data, pre-upgrade and post-upgrade. The upgrade consisted of an update to the laser power, from $\sim$ 30~$W$ to $\sim$ 70~$W$.
-
-The laser delivered one single pulse of varying total energy delivered over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode". The experiment consisted of ablating the porcine tissue, as a function of energy per `pixel' beam. This was achieved by adjusting the pulse length of the laser, $\tau$, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade, with the pulse length differing.
 
 \subsubsection{Computational speed up:}
 As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser. A volume of 0.18~$cm$ $\times$ 0.06~$cm$ $\times$ 0.06~$cm$

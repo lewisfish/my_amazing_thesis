@@ -253,11 +253,7 @@ As the time step is small, and the grid resolution large, the resultant simulati
 
 \medskip
 
-Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation being dependent on the temperature of adjacent nodes. Thus information will have to be passed from each individual core during computation, as opposed to doing the information passing at the end of the simulation \textit{\`a la} \gls{mcrt} parallelisation.
-The heat simulation is parallelised using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
-
-* old data from before non-linear heat equation *
-On a workstation computer these simulations were carried out on (Intel Xeon E3-1245 v5, 8 core @ 3.5GHz) led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
+Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation being dependant on neighbouring nodes to update the temperature at the current node. Thus if we were to split up the medium on to separate cores, there would have to be communication between the cores, in order for the simulation can be completed successfully. Therefore we can not take the `easy' route of running the simulation concurrently $N$ times and collating the result at the end of all the simulations.
 
 
 \begin{figure}
@@ -269,6 +265,15 @@ On a workstation computer these simulations were carried out on (Intel Xeon E3-1
 \vspace{-10pt}
 \end{figure}
 
+We parallelise Dictionary the heat simulation using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
+
+\Cref{fig:parallel} shows the speed up gained from using the technique.
+
+
+The `halo swapping' technique efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large, then bottlenecks occur, due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation.
+%Use more on amadahls law
+%led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
+
 \begin{figure}
 \centering
 \def\svgwidth{350pt}
@@ -277,7 +282,12 @@ On a workstation computer these simulations were carried out on (Intel Xeon E3-1
 \label{fig:haloswap}
 \end{figure}
 
-
+\begin{figure}
+\centering
+\includegraphics[]{}
+\caption{Figure show the speedup gained by parallelisation of the heat simulation using the `halo' swapping technique. Data taken from a Intel Xeon E3-1245 v5, 8 core @ 3.5GHz machine.}
+\label{fig:parallel}
+\end{figure}
 After one time step of the heat simulation has been completed, the temperature grid is passed to the tissue damage portion of the simulation to calculate the tissue damage that may have accrued during the heat simulation time step.
 
 \subsection{Tissue Damage}

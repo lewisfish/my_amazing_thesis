@@ -3,12 +3,12 @@
 \section{Introduction and background}
 \label{sec:intro}
 
-This chapter examines using \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
+This chapter uses \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
 
 \medskip
 
-Ablative lasers are used in wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
-One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls{pdt}. The ablative laser `drill' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
+Ablative lasers are used in a wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
+One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls{pdt}. The ablative laser `drills' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
 
 One downside to using lasers to remove tissue, is that unlike a scalpel where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can cause thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
@@ -18,7 +18,7 @@ Currently the only reliable method to measure the depth of the ablative holes, i
 
 \section{Methods}
 
-In order to replicate the experimental work \textit{in silico}, the numerical model has three main portions. The first is the \gls{mcrt} that models light transport through tissue so that we can calculate the laser energy deposited as a function of time and space. The second, a \gls{fdm} which is used to calculate the heat diffusion within the tissue due to the absorbed laser energy. Finally, a tissue damage model to track the tissue damage caused by the laser. All these individual portions are connected together to create our numerical model. This chapter explains in detail each portion of the numerical model used to simulate tissue ablation via a laser.
+In order to replicate the experimental work \textit{in silico}, the numerical model has three main portions. The first is the \gls{mcrt} code that models light transport through tissue so that we can calculate the laser energy deposited as a function of time and space. The second, a \gls{fdm} which is used to calculate the heat diffusion within the tissue due to the absorbed laser energy. Finally, a tissue damage model to track the tissue damage caused by the laser. All these individual portions are connected together to create our numerical model. This chapter explains in detail each portion of the numerical model used to simulate tissue ablation via a laser.
 
 \subsection{Monte Carlo radiation transport (MCRT)}
 
@@ -70,7 +70,7 @@ Finally, to match the experiment undertaken the medium and laser for the \textit
 \subsection{Heat transport}
 
 The diffusion of heat can be modelled using the heat equation~(\cref{eqn:heat}), which is derived from Fourier's law and the principle of conservation of energy~\cite{widder1976heat}~(see~\cref{app:heatderive}). 
-The standard heat equation is a partial differential equation of the parabolic form. Solutions and analytical methods are readily available for lower dimensions (i.e. 1D heat diffusion), but for higher dimensions such as three dimensions, numerical models must be used for all bar the simplest problems.~The simplest form of the heat equation is shown below:
+The standard heat equation is a partial differential equation of the parabolic form. Solutions and analytical methods are readily available for lower dimensions (i.e. 1D heat diffusion), but for higher dimensions such as three dimensions, numerical models must be used for all except the simplest problems.~The simplest form of the heat equation is shown below:
 
 \begin{equation}
 \rho c_p \frac{\partial T}{\partial t}= \nabla \cdot (\kappa \nabla T) + \dot{q}
@@ -91,7 +91,7 @@ The standard heat equation is a partial differential equation of the parabolic f
 	
 	\medskip
 
-\Cref{eqn:heat} is for a homogeneous system where the thermal properties do not change as function of time, space and/or temperature. However in order to model a moving ablation front we must use the non-linear heat equation where the thermal properties can be a function of time, space and/or temperature~(\cref{eqn:nonlinearheat}).
+\Cref{eqn:heat} is for a homogeneous system where the thermal properties do not change as a function of time, space and/or temperature. However in order to model a moving ablation front we must use the non-linear heat equation where the thermal properties can be a function of time, space and/or temperature~(\cref{eqn:nonlinearheat}).
 
 \begin{equation}
 \frac{\partial T}{\partial t} = \frac{1}{(\rho c_p)_{\xi}}(\nabla k_\xi T + k_\xi\nabla^2T)+\dot{q}\quad \xi=(i,j,k)
@@ -100,7 +100,7 @@ The standard heat equation is a partial differential equation of the parabolic f
 
 We have also included in the~\cref{eqn:nonlinearheat} a source and sink term, $\dot{q}$ to allow the modelling of heat loss/gain from external sources/sinks. The heat source in this simulation is due to the laser, and we assume the only loss of heat to the surrounding medium is via convection and conduction.
 	
-All faces of the cube, bar the laser facing face, are considered to be pinned at 5$^{\circ}$C, as the porcine skin was kept cooled prior to experimental work and the simulation volume is smaller than the porcine tissue samples. The face of the medium on which the laser is incident, has a simple convective BC (based upon Newton’s law of cooling):	
+All faces of the cube, except the laser facing face, are considered to be pinned at 5$^{\circ}$C, as the porcine skin was kept cooled prior to experimental work and the simulation volume is smaller than the porcine tissue samples. The face of the medium on which the laser is incident, has a simple convective BC (based upon Newton’s law of cooling):	
 
 \begin{equation}
 \dot{q}_c = -hA(T - T_\infty)
@@ -117,8 +117,8 @@ All faces of the cube, bar the laser facing face, are considered to be pinned at
 	
 	\medskip
 
-As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions we employ a numerical method to solve \cref{eqn:nonlinearheat}.
-The numerical method we employ is a \gls{fdm}. The \gls{fdm} is derived from the Taylor series, see~\cref{eqn:taylor}. 
+As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions we employ a numerical method to solve it.
+The numerical method we employ is a \gls{fdm}, derived from the Taylor series, see~\cref{eqn:taylor}. 
 
 
 A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart (see~\cref{fig:fdmexplain}). We can then truncate and rearrange~\cref{eqn:taylor} and assume that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.~\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the `forward' direction. We can also calculate the `backward' and central difference terms by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. We can also give expressions for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
@@ -129,7 +129,7 @@ f(x_0+\Delta x)=f(x_0) + \frac{f'(x_0)}{1!}\Delta x + \frac{f''(x_0)}{2!}\Delta 
 \end{equation}
 
 \begin{equation}
-f'(x_0) \approx \frac{f(x+0+\Delta x)-f(x_0)}{\Delta x}
+f'(x_0) \approx \frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}
 \label{eqn:fdmfirst}
 \end{equation}
 
@@ -170,11 +170,11 @@ Where $\alpha=\tfrac{\kappa}{\rho c}$.
   \caption{Finite difference method stencil for simple explicit scheme}\label{fig:fdmstencil}
 \end{figure}
 
-\Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. There are various other scheme that can be used to calculate the temperature at the the next time step. However we use a simple explicit scheme here, due to its ease of implementation despite there being a constraint on the stability in comparison to an implicit method. This method is also easily scaled up to 3D with little difficulty.
+\Cref{eqn:simplefdm} is called the `simple explicit form of finite-difference approximation'\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the `stencil' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. There are various other schemes that can be used to calculate the temperature at the the next time step. However we use a simple explicit scheme here, due to its ease of implementation despite there being a constraint on the stability in comparison to an implicit method. This method is also easily scaled up to 3D with little difficulty.
 
 \medskip
 
-For the more complicated non-linear heat equation we have to account for the possibility that the medium is not continuously smooth between nodes, in terms of optical and thermal properties. The two easiest methods~\cite{ozisik1994finite} of achieving this are: One, lag the value behind by one step, i.e $c_{p}^{n+1}=c_{p}^{n}$. Two, average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme where the thermal property used in the calculation is the thermal property half way between two nodes, i.e the average of the two nodes:
+For the more complicated non-linear heat equation we have to account for the possibility that the medium is not continuously smooth between nodes, in terms of optical and thermal properties. The two easiest methods~\cite{ozisik1994finite} of achieving this are: (1), lag the value behind by one step, i.e $c_{p}^{n+1}=c_{p}^{n}$. (2), average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme where the thermal property used in the calculation is the thermal property half way between two nodes, i.e the average of the two nodes:
 
 \begin{align}
 \kappa^{\pm}&=\frac{\kappa_i+\kappa_{i\pm 1}}{2}\\
@@ -195,7 +195,7 @@ B=&\frac{\kappa^{+}}{\rho^{+}c_{p}^{+}2\Delta x^2} \label{eqn:coeffsABD}\\
 D=&\frac{(A+B)}{2} \nonumber
 \end{align}
 
-\Cref{eqn:heatnonlin1d} can be generalised to higher dimensions easily. The 3D case gives:
+\Cref{eqn:heatnonlin1d} is straightforward to generalise to higher dimensions. The 3D case gives:
 
 \begin{align}
 U_{xx} &=  (A T^N_{i-1,j,k} - 2B T^N_{i,j,k} + D T^N_{i+1,j,k}) \label{eqn:FDMheat1}\\
@@ -253,7 +253,7 @@ As the time step is small, and the grid resolution large, the resultant simulati
 
 \medskip
 
-Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation being dependant on neighbouring nodes to update the temperature at the current node. Thus if we were to split up the medium on to separate cores, there would have to be communication between the cores, in order for the simulation can be completed successfully. Therefore we can not take the `easy' route of running the simulation concurrently $N$ times and collating the result at the end of all the simulations.
+Parallelisation of the heat simulation is more involved than the `embarrassingly parallel' class of problems that \gls{mcrt} belongs to. This is due to the heat simulation being dependant on neighbouring nodes to update the temperature at the current node. Thus if we were to split up the medium on to separate cores, there would have to be communication between the cores, in order for the simulation to be completed successfully. Therefore we can not take the `easy' route of running the simulation concurrently $N$ times and collating the result at the end of all the simulations.
 
 
 \begin{figure}
@@ -329,7 +329,7 @@ The final stage of tissue damage is the removal of the remaining tissue, i.e tis
 	\vspace{-10pt}
 \end{figure}
 
-In order to model all these tissue damage processes we split our tissue damage model into two sections: `physical' damage and coagulation damage. Where `physical' damage changes the tissue optical and thermal properties, where the coagulation damage has no effect on the tissue's bulk optical or thermal properties.
+In order to model all these tissue damage processes we split our tissue damage model into two sections: `physical' damage and coagulation damage. `Physical' damage changes the tissue optical and thermal properties. Coagulation damage has no effect on the tissue's bulk optical or thermal properties.
 
 \subsubsection{Modelling coagulation damage}\label{sec:coagdamage}
 With the description of the various process that tissue undergoes during ablation, we can now create a numerical model of these processes.

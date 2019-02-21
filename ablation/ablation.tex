@@ -81,13 +81,13 @@ The standard heat equation is a partial differential equation of the parabolic f
 
 	\indent $T(x, y, z, t)$ is the temperature as a function of time and space [\textit{K}];
 	
-	\indent $\kappa$ is the thermal conductivity [$W\cdot m^{-1}\cdot K^{-1}$];
+	\indent $\kappa$ is the thermal conductivity [$W m^{-1} K^{-1}$];
 	
-	\indent $\rho$ is the density [$Kg \cdot m^{-3}$];
+	\indent $\rho$ is the density [$Kg  m^{-3}$];
 	
-	\indent $c_p$ the specific heat capacity [$J\cdot K^{-1}$];
+	\indent $c_p$ the specific heat capacity [$J K^{-1}$];
 	
-	\indent $\dot{q}(x,y,z,t)$ is the source/sink term as a function of time and space [$W\cdot m^{-3}$].
+	\indent $\dot{q}(x,y,z,t)$ is the source/sink term as a function of time and space [$W m^{-3}$].
 	
 	\medskip
 
@@ -109,7 +109,7 @@ All faces of the cube, except the laser facing face, are considered to be pinned
 
 \noindent Where:
 
-	\indent \textit{h} is the heat transfer coefficient [$W\cdot m^{-2}\cdot K$];
+	\indent \textit{h} is the heat transfer coefficient [$W m^{-2} K$];
 	
 	\indent \textit{A} is the area of the grid element, that is radiating/convicting heat away [$m^{-2}$];
 	
@@ -210,9 +210,9 @@ T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac
 	
 	\indent $T^N_{i,j,k}$ is the temperature at node $i,j,k$ at the current time step [$K$];
 	
-	\indent $\alpha$ is the thermal diffusivity [$m^2\cdot s^{-1}$];
+	\indent $\alpha$ is the thermal diffusivity [$m^2 s^{-1}$];
 	
-	\indent $\kappa$ is the thermal conductivity [$W/m\cdot K$];
+	\indent $\kappa$ is the thermal conductivity [$W/m K$];
 	
 	\indent $\Delta x\ etc.$ is the size of the grid element in the $p^{th}$ direction [$m$];
 	
@@ -267,7 +267,7 @@ Parallelisation of the heat simulation is more involved than the `embarrassingly
 
 We parallelise the heat simulation using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique. The `halo swapping' technique is efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems sizes $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reason, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The `halo swapping' technique is efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reason, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -282,7 +282,7 @@ We parallelise the heat simulation using a technique called `halo swapping'. Thi
 
 \begin{figure}
 \centering
-\includegraphics[scale=.75]{profile.pdf}
+% \includegraphics[scale=.75]{profile.pdf}
 \caption{Figure show the speed up gained by parallelisation of the heat simulation using the `halo' swapping technique, for various sizes of computational domain (voxels). Data taken from a Intel Xeon E3-1245 v5, 8 cores @ 3.5GHz machine.}
 \label{fig:parallel}
 \end{figure}
@@ -347,9 +347,9 @@ First, in order to model the full extent of the damage done under 100${^{\circ}}
 	
 	\indent A is `frequency factor' [$s^{-1}$];
 	
-	\indent $\Delta E$ is activation energy [$J\cdot mol^{-1}$];
+	\indent $\Delta E$ is activation energy [$J mol^{-1}$];
 	
-	\indent R is the universal gas constant [$J\cdot mol^{-1}\cdot K^{-1}$];
+	\indent R is the universal gas constant [$J mol^{-1} K^{-1}$];
 	
 	\indent T is the temperature [$K$];
 	
@@ -373,15 +373,15 @@ Q_{vapor}=\underbrace{laserOn(t)\cdot\dot{q}\cdot \Delta t\cdot V_{i,j,k}}_\text
 	
 	\indent $laserOn$ is a boolean variable that determine if the laser is on or off [$-$];
 	
-	\indent $\dot{q}$ is the energy absorbed by the voxel due to the laser [$W\cdot m^{-3}$];
+	\indent $\dot{q}$ is the energy absorbed by the voxel due to the laser [$W m^{-3}$];
 	
 	\indent $\Delta t$ is the timestep [$s$];
 	
 	\indent $V_{i,j,k}$ is the volume of the voxel labelled $i,j,k$ [$m^3$];
 	
-	\indent $c$ is the heat capacity of the voxel [$J\cdot K^{-1}$];
+	\indent $c$ is the heat capacity of the voxel [$J K^{-1}$];
 	
-	\indent $M_{i,j,k}$ is the mass of the the voxel labelled $i,j,k$ [$Kg$];
+	\indent $M_{i,j,k}$ is the mass of the the voxel labelled $i,j,k$ [$kg$];
 	
 	\indent and $\Delta T$ is the change in temperature the voxel would undergo, if the water was not boiling off.
 
@@ -407,9 +407,9 @@ c_p &= 4.2\cdot 10^{3}\cdot W + 1.09\cdot 10^{3}\cdot P \\
 
 \indent $P$ is the protein content (i.e P = 1.0 - W);
 
-\indent $\kappa$ is the Thermal conductivity [$W\cdot m^{-1}\cdot K^{-1}$];
+\indent $\kappa$ is the Thermal conductivity [$W m^{-1} K^{-1}$];
 
-\indent $c_p$ is the heat capacity [$J\cdot Kg^{-1}\cdot K^{-1}$];
+\indent $c_p$ is the heat capacity [$J kg^{-1} K^{-1}$];
 
 \indent and $\mu_a$ is the total absorption coefficient, and $\mu_{water}\ \text{and}\ \mu_{protein}$ are the absorption coefficients of water and protein respectively.
 
@@ -499,8 +499,8 @@ P\cdot dt &= \rho dx (c_p \Delta T + L_v) \label{eqn:midequationablation} \\
 u &= \frac{P}{\rho(c_p\Delta T+ L_v)} \label{eqn:ablationvelo}
 \end{align}
 
-Assuming the ablation front moves with constant velocity during the ablation, and using $L_v=2.53\cdot 10^6\ J\cdot Kg^{-1},\ c_p=4181\ J\cdot Kg^{-1}\cdot K^{-1}$ and the medium is a cube side $2\ mm$, with a starting temperature is 37~$^{\circ}$C with a water content of 70\% giving a density of 700~$Kg\cdot m^{-3}$. For these parameters this gives an ablation velocity, $u\simeq 0.77\ cm\cdot s^{-1}$, and a time to ablate through 2~$mm$ of tissue of $\simeq 0.26~s$.
-As the code developed in this chapter simulates the diffusion of heat in a medium due to an incident laser, the expected time to ablate through the same medium should be slightly less as heat diffuses away from the voxel while it is heated being heated. When the full heat + \gls{mcrt} code is used to simulate this experiment, it gives a time, $t \simeq 0.33~s$.	
+Assuming the ablation front moves with constant velocity during the ablation, and using $L_v=2.53\cdot 10^6\ J kg^{-1},\ c_p=4181\ J\cdot kg^{-1}\cdot K^{-1}$ and the medium is a cube side $2\ mm$, with a starting temperature is 37~$^{\circ}$C with a water content of 70\% giving a density of 700~$kg\cdot m^{-3}$. For these parameters this gives an ablation velocity, $u\simeq 0.77\ cm\cdot s^{-1}$, and a time to ablate through 2~$mm$ of tissue of $\simeq 0.26~s$.
+As the code developed in this chapter simulates the diffusion of heat in a medium due to an incident laser, the expected time to ablate through the same medium should be slightly larger as heat diffuses away from the voxel while it is heated being heated. When the full heat + \gls{mcrt} code is used to simulate this experiment, it gives a time, $t \simeq 0.33~s$.	
 
 %\medskip
 
@@ -520,7 +520,7 @@ Results from these \textit{in silico} experiments are presented in this section 
 \label{sec:opticalprops}
 The thermal and optical properties of porcine tissue are not known exactly for any given tissue sample. As such the thermal and optical properties used in this section are taken from various literature sources.
 
-The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \mu m$. This means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient in water of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligent at these wavelengths.
+The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \mu m$. This means that the optical properties of the tissue are dominated by water absorption (see \cref{fig:waterabsor}). The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient in water of $\sim 850~cm^{-1}$. As the absorption coefficient is large, we assume that scattering is negligible at these wavelengths.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 \begin{figure}	
@@ -549,8 +549,8 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 \end{table}  
 
 \subsubsection{Computational speed up:}
-As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser. A volume of 0.18~$cm$ $\times$ 0.06~$cm$ $\times$ 0.06~$cm$
-As a sanity check to ensure that we are not omitting any phenomena by focusing on just one ablation crater, an initial simulation that simulates the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives us validation that the shrinking of the volume of interest is a valid approximation to make.
+As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser. A volume of  0.06~$cm$ $\times$ 0.06~$cm$ $\times$ 0.18~$cm$ 
+As a check to ensure that we are not omitting any phenomena by focusing on just one ablation crater, an initial simulation that simulates the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives us validation that the shrinking of the volume of interest is a valid approximation to make, as there is no overlap between the separate ablation crater.
 
 \begin{figure}
 	\centering
@@ -562,11 +562,11 @@ As a sanity check to ensure that we are not omitting any phenomena by focusing o
 
 \subsubsection{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. Simulation data suggests that, that a `good' \gls{ta} is around $T_a=450~^{\circ}C$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a `good' \gls{ta} which fits with the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. Simulation data suggests that, a `good' \gls{ta} is around $T_a=450~^{\circ}C$.
 
-Increasing the ablation temperature, has the obvious affect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
+Increasing the ablation temperature, has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
-Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to tapers off. This is potentially due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
+Over the full range of \gls{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grow, due to the availability of more tissue for the heat to diffuse into.
 
 
 \begin{figure}
@@ -626,7 +626,7 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
 	\label{fig:damfig}
 \end{figure}
 	
-As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, is appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely due to the fact that for lower values of $T_a$, there is a a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage.
+As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, it appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely due to the fact that for lower values of $T_a$, there is a a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage.
 
 \begin{figure}
 	\centering
@@ -658,14 +658,14 @@ The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{r
 \FloatBarrier
 \section{Conclusion}
 
-Using \gls{mcrt} and finite difference method, we have created a fully 3D model of photon and heat transport within tissue. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered laser and the resultant thermal damage surrounding the ablation crater.
+Using \gls{mcrt} and a finite difference method, we have created a fully 3D model of photon and heat transport within tissue. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered lasers and the resultant thermal damage surrounding the ablation crater.
 
 Our model has been fully validated against both analytical solutions and experimental results. We found that to match with experimental results that a tissue ablation temperature $T_a$ of around $420~K$ has to be adopted.
 
-The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form. The computational model could be used in future to help develop treatment regimes for both aesthetic procedures. For example, currently there is a lot of `down time' after skin rejuvenation, in which the patient displays inflammation, erythema, edema, pain, and crusting~\cite{lapidoth2014fractional,trelles2011safe,kohl2015fractional}. Simulations of thermal damage due to fractional ablation could help design treatment regimes that minimise these effects, whilst still delivering skin rejuvenation.
+The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form. The computational model could be used in future to help develop treatment regimes for both aesthetic and medical procedures. For example, currently there is a lot of `down time' after skin rejuvenation, in which the patient displays inflammation, erythema, edema, pain, and crusting~\cite{lapidoth2014fractional,trelles2011safe,kohl2015fractional}. Simulations of thermal damage due to fractional ablation could help design treatment regimes that minimise these effects, whilst still delivering skin rejuvenation.
 The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to `drill' holes into the skin in order to help topical medicines diffuse into the skin better, than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
 
-There are many avenues available with regards to future work on this model. The model presented here in this chapter was on a initially homogeneous skin model. In reality skin is compromised of several distinctive layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an $n$-layer skin model complete with various fractions of chromophores.
-The current model as present is a voxel based model, where all the voxels are the same size. This allows the model presented in this chapter to be easily set-up, with regards to parallelisation, optical/thermal properties and ease of programming. However voxel models, where all the voxels are the same size, are not computationally efficient. Particularly in order to achieve good resolution, many voxels are needed, which requires large amounts of RAM, due to a $\sim n^3$ scaling of voxels to memory in 3D. A more efficient way, would be to allow different sizes of voxels, depending on parts of the model which need high resolution, and parts that do not need high resolution. Such a voxel model is called an \gls{amr}. There are downsides to \gls{amr}: complex implementation for parallelisation and set-up of optical/thermal, slower optical depth integration routines due to neighbour lookups.
+There are many avenues available with regards to future work on this model. The model presented here in this chapter was on a initially homogeneous skin model. In reality skin is compromised of several distinctive layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores.
+The current model is a voxel based model, where all the voxels are the same size. This allows the model presented in this chapter to be easily set-up, with regards to parallelisation, optical/thermal properties and ease of programming. However voxel models, where all the voxels are the same size, are not computationally efficient. Particularly in order to achieve good resolution, many voxels are needed, which requires large amounts of RAM, due to a $\sim n^3$ scaling of voxels to memory in 3D. A more efficient way, would be to allow different sizes of voxels, depending on parts of the model which need high resolution, and parts that do not need high resolution. Such a voxel model is called an \gls{amr}. There are downsides to \gls{amr}: complex implementation for parallelisation and set-up of optical/thermal properties, slower optical depth integration routines due to neighbour lookups.
 
 

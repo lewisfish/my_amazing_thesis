@@ -8,7 +8,7 @@ This chapter uses \gls{mcrt} techniques coupled to a heat transfer simulation, i
 \medskip
 
 Ablative lasers are used in a wide variety of medical procedures not limited to: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
-One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls{pdt}. The ablative laser `drills' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
+One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers ($>$30~W) targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls{pdt}. The ablative laser `drills' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
 
 One downside to using lasers to remove tissue, is that unlike a scalpel where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can cause thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
@@ -44,20 +44,20 @@ E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
 
 	\indent P is power [$W$];
 	
-	\indent N is the number of photons;
+	\indent N is the number of packets, representing a power, P;
 	
 	\indent $V_i$ is the volume of the $i^{th}$ voxel [$m^{-3}$];
 	
 	\indent $\mu_{a,i}$ is the absorption coefficient of the $i^{th}$ voxel [$cm^{-1}$];
 	
-	\indent and s is the pathlength of a photon packet through the $i^{th}$ voxel [$cm$].
+	\indent and s is the pathlength of a packet through the $i^{th}$ voxel [$cm$].
 	
 	\medskip
 	
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.25]{jmea-explain.png}
-\caption{Red lines are photon paths within a voxel. Black lines photon paths out with the voxel. Red photon paths, weighted by $\mu_a$, are summed up in order to calculate the absorbed energy within each voxel.}
+\caption{Red lines are packet paths within a voxel. Black lines packet paths out with the voxel. Red packet paths, weighted by $\mu_a$, are summed up in order to calculate the absorbed energy within each voxel.}
 \label{fig:jmea-explain}
 \end{figure}	
 		
@@ -65,7 +65,7 @@ This grid of absorbed energy is then passed to the heat transport portion of the
 
 The next adjustment to the \gls{mcrt} algorithm, is that the \gls{mcrt} algorithm is run for every heat simulation time step. The simulation needs to be run for every time step, as the medium could change at every time step due to the optical, and thermal properties changing as a function of tissue damage.
 
-Finally, to match the experiment undertaken the medium and laser for the \textit{in-silico} experiments must match the `real life' experiments. As the laser used in the experiments emits an infra-red wavelength, the optical properties are dominated by the water content of the tissue. Due to this we model just absorbing in the medium, with no scattering. Further discussion of this can be found in~\cref{sec:opticalprops}. The laser in some of the \textit{in silico} experiments, has multiple beams. Thus the source photon routine is adjusted to accommodate this when needed.
+Finally, to match the experiment undertaken the medium and laser for the \textit{in-silico} experiments must match the `real life' experiments. As the laser used in the experiments emits an infra-red wavelength, the optical properties are dominated by the water content of the tissue. Due to this we model just absorbing in the medium, with no scattering. Further discussion of this can be found in~\cref{sec:opticalprops}. The laser in some of the \textit{in silico} experiments, has multiple beams. Thus the source photon packet routine is adjusted to accommodate this when needed.
 
 \subsection{Heat transport}
 
@@ -296,7 +296,7 @@ After one time step of the heat simulation has been completed, the temperature g
 \subsubsection{Introduction}
 The final portion of the simulation is the tissue damage model. To be able to model damage to the tissue we first need to be able to describe the tissue damage process due to heating from a laser.
 
-When the laser is turned on, the temperature starts to rise within the tissue due to the absorption of photons by the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}C$~\cite{welch2011optical}%*p539*
+When the laser is turned on, the temperature starts to rise within the tissue due to the absorption of packets by the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}C$~\cite{welch2011optical}%*p539*
 . From the temperature, $T_d$, we define four main areas of tissue damage:
 
 
@@ -552,7 +552,7 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser. A volume of  0.06~$cm$ $\times$ 0.06~$cm$ $\times$ 0.18~$cm$ 
 As a check to ensure that we are not omitting any phenomena by focusing on just one ablation crater, an initial simulation that simulates the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives us validation that the shrinking of the volume of interest is a valid approximation to make, as there is no overlap between the separate ablation crater.
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
     \includegraphics[width=\columnwidth]{slice.pdf}
     \caption{Simulation of 81 pixel beams. Figure shows a a slice through the optical properties at the end of the simulation. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}\label{fig:sizecheck}

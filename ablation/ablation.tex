@@ -220,13 +220,7 @@ T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac
 
 	\medskip
 	
-Incorporating B.Cs on the top air exposed face:
-
-\begin{equation}
-U_{zz} = \tfrac{\alpha}{\Delta z^2} (\tfrac{2 \Delta z}{\kappa} (-h(T^N_{i,j,k}-T^N_\infty) ) -2 T^N_{i,j,k} + 2T^N_{i,j,k+1})\label{eqn:bceqn} 
-\end{equation}
-
-\Cref{eqn:FDMheat4,eqn:bceqn} give the full numerical solution to the non-linear heat equation with a convection boundary term and laser heat source. This will allow us to calculate the heat diffusion in the porcine tissue due to laser heating.
+\Cref{eqn:FDMheat4,eqn:bceqn} gives the full numerical solution to the non-linear heat equation with a laser heat source. This will allow us to calculate the heat diffusion in the porcine tissue due to laser heating.
 
 \medskip
 
@@ -244,10 +238,7 @@ In the instance where there is more than one pulse, the laser is turned on and o
 
 \medskip
 
-As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux BCs, yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. However as there is also a convection boundary condition, the constraint on the timestep is more severe, due to the more mathematically complicated expressions~\cite{ozisik1994finite}.
-
-
-However as we have a convection prescribed boundary condition, the constraint on the time is more severe. Along with this time constraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be at least an order of magnitude smaller than the shortest laser pulse.
+As we are using a simple explicit \gls{fdm}, the time step is constrained in order to make the solution stable. For a cubic 3D \gls{fdm} without prescribed flux boundary conditions, yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. Along with this time constraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be at least an order of magnitude smaller than the shortest laser pulse.
 
 As the time step is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls{mcrt} and heat simulation are independently parallelised. 
 
@@ -267,7 +258,7 @@ Parallelisation of the heat simulation is more involved than the `embarrassingly
 
 We parallelise the heat simulation using a technique called `halo swapping'. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The `halo swapping' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique. The `halo swapping' technique is efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reason, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The `halo swapping' technique is efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -343,7 +334,7 @@ First, in order to model the full extent of the damage done under 100${^{\circ}}
 
 \noindent Where:
 
-	\indent $\Omega$ is the damage value;
+	\indent $\Omega$ is the damage value [-];
 	
 	\indent A is `frequency factor' [$s^{-1}$];
 	
@@ -423,14 +414,14 @@ The updated damaged tissue structure is then fed back to the \gls{mcrt} model an
 
 \subsubsection{Heat transport validation}
 
-In order to thoroughly validate the numerical method we employ to solve the heat equation, we compare the numerical method against an easily solvable analytical case. We solve the heat equation on a cube, side L, in a surrounding medium of 0$^{\circ}$C. The cube is initially at temperature 37$^{\circ}$C and we calculate the temperature at time \textit{t=0.1s}. Thus the boundary conditions are:
+In order to thoroughly validate the numerical method we employ to solve the heat equation, we compare the numerical method against an easily solvable analytical case. We solve the heat equation on a cube, side L, in a surrounding medium of 0$^{\circ}$C. The cube is initially at temperature 20$^{\circ}$C and we calculate the temperature at various times. Thus the boundary conditions are:
 
 \begin{align}
 T(0,y,z,t)&=T(x,0,z,t)=T(x,y,0,t)=0^{\circ}\text{C} \label{eqn:bc1}\\
 T(L,y,z,t)&=T(x,L,z,t)=T(x,y,L,t)=0^{\circ}\text{C} \label{eqn:bc2}
 \end{align}
 
-The thermal diffusivity~($\alpha$), density~($\rho$), and heat capacity~($c_p$) are all set to 1. Assuming a separable solution in Cartesian coordinates yields:
+The thermal diffusivity~($\alpha$), density~($\rho$), and heat capacity~($c_p$) are all set to 1. This corresponds to a material which has the thermal diffusivity between copper and aluminium~\cite{casalegno2010measurement,maccormack1997measurements}. Assuming a separable solution in Cartesian coordinates yields:
 
 \begin{equation}
 \begin{split}
@@ -476,13 +467,13 @@ T(x,y,z,t)=\sum^\infty_{n=1,3,..}\sum^\infty_{m=1,3,..}\sum^\infty_{p=1,3,..}\fr
 	
 	\medskip
 	
-At time, $t=0.1$s, a slice through the middle of the cube, $L=1~cm$,  yields \cref{fig:validation-heat}, which shows that the numerical method matches the analytical solution closely.
+A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-heat}, which shows that the numerical method matches the analytical solution closely.
 
 \begin{figure}	
 \vspace{-10pt}
 	\centering
 	\includegraphics[width=\columnwidth]{validation.pdf}
-	\caption{Comparison between analytical solution and numerical method at t=0.1~$s$.}
+	\caption{Comparison between analytical solution and numerical method for various times.}
 	\label{fig:validation-heat}
 	\vspace{-10pt}
 \end{figure}	
@@ -630,7 +621,7 @@ As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small dista
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.7]{horz-damage.pdf}
+	\includegraphics[scale=0.75 ]{horz-damage.pdf}
 	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam, for different $T_a$'s.}
 	\label{fig:horz-70}
 \end{figure}

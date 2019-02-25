@@ -1,7 +1,7 @@
 \chapter{Monte Carlo radiation transport technique}
 \label{sec:mcrt}
 \section{Introduction and Background}
-This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the MCRT code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
+This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the \gls{MCRT} code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
 
 \subsection{Monte Carlo method}\label{sec:mcmethod}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems. 
@@ -26,12 +26,12 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 \end{equation}
 
 
-\Cref{eqn:buffon} can be used to carry out a Monte Carlo estimation of pi. A simple rearrangement yields: $\pi = \tfrac{2l}{sP}$ where P is the ratio of needles crossing the line over total number dropped. Laplace was the first to suggest that Buffon's needle experiment could be used to estimate $\pi$~\cite{beckmann2015history}. \Cref{fig:buffon-needle} shows an example of simulation of Buffon's needle experiment.
+\Cref{eqn:buffon} can be used to carry out a Monte Carlo estimation of $\pi$. A simple rearrangement yields: $\pi = \tfrac{2l}{sP}$ where P is the ratio of needles crossing the line over total number dropped. Laplace was the first to suggest that Buffon's needle experiment could be used to estimate $\pi$~\cite{beckmann2015history}. \Cref{fig:buffon-needle} shows an example of simulation of Buffon's needle experiment.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\columnwidth/2]{buffon-pi=317.pdf}
-\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of pi as 3.17.}
+\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of $\pi$ as $\sim$3.17.}
 \label{fig:buffon-needle}
 \end{figure}
 
@@ -40,18 +40,18 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\columnwidth]{ray-tracing.png}
-\caption{Computer generated imagery using ray-tracing. Code usd to create image available at: \url{https://github.com/lewisfish/RayTran}}
+\caption{Computer generated imagery using ray-tracing. The Monte Carlo method is used to `compute radiance along ray paths between lights and the camera'~\cite{pharr2016physically}, in order to generate CGI images.}
 \label{fig:ray-trace}
 \end{figure}
 \newpage
 \section{Monte Carlo radiation transport algorithm}
 
-\subsection{Introduction \texorpdfstring{$\&$}{and} background}%texorpdfstring supresses warning about pdf bookmarks
-The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the tail end of the Second World War at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.***more here + link to next section***
+\subsection{Introduction \texorpdfstring{$\&$}{and} background}
+The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the end of the Second World War at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.***more here + link to next section***
 
 
 
-\subsubsection{Radiative transfer}
+\subsubsection*{Radiative transfer}
 Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
 
 
@@ -198,13 +198,13 @@ Finally substituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cr
 
 In general, the \gls{rte} is hard to solve in arbitrary 3D geometries, however there are a number of approximations, and numerical methods available. Diffusion approximation, \gls{km}, and \gls{mcrt} are the common methods used to approximate the \gls{rte}.
 
-\paragraph{Kubelka-Munk theory}
+\subsubsection*{Kubelka-Munk theory}
 \gls{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform, only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
 
 These assumptions make \gls{km}, very poor for modelling light-tissue interactions. This is as in tissue, scattering is not isotropic, but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, if ever, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls{km} is not able to model, along with polarization. 
 \Gls{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple mediums, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications.***refs for these claims***
 
-\paragraph{Diffusion approximation}
+\subsubsection*{Diffusion approximation}
 The diffusion approximation for the \gls{rte}, is where the irradiance is separated into two components:
 
 \begin{equation}

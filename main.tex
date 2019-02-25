@@ -36,7 +36,7 @@
 %***********
 
 \usepackage[acronym,toc,shortcuts,nonumberlist]{glossaries}%abbreviations
-% \makenoidxglossaries
+\makenoidxglossaries
 \renewcommand*{\acronymname}{Abbreviations}
 \setacronymstyle{long-short}
 \include{abbr}
@@ -98,7 +98,7 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 \newpage
 
 \tableofcontents
-% \printnoidxglossaries
+\printnoidxglossaries
 \newpage
 
 \renewcommand{\cftdotsep}{\cftnodots}%get rid of dots and numbers on LoFs
@@ -117,7 +117,7 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 %\include{fluro/salvo}
 %\include{madrid/fluro}
 %\include{conclusion}
-\include{append}
+%\include{append}
 
 \bibliography{./ablation/ablation,./MCRT/mcrt,./bessel/bessel}
 \bibliographystyle{unsrt}

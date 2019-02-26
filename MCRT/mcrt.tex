@@ -30,7 +30,7 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\columnwidth/2]{buffon-pi=317.pdf}
+\includegraphics[width=.5\textwidth]{buffon-pi=317.pdf}
 \caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of $\pi$ as $\sim$3.17.}
 \label{fig:buffon-needle}
 \end{figure}
@@ -39,8 +39,8 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\columnwidth]{ray-tracing.png}
-\caption{Computer generated imagery using ray-tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera''~\cite{pharr2016physically}, in order to generate CGI images.}
+\includegraphics[width=.95\textwidth]{ray-tracing.png}
+\caption{Computer generated imagery using ray tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera''~\cite{pharr2016physically}, in order to generate CGI images.}
 \label{fig:ray-trace}
 \end{figure}
 
@@ -201,7 +201,7 @@ In general, the \gls{rte} is hard to solve in arbitrary 3D geometries, however t
 \subsubsection*{Kubelka-Munk Theory}
 \gls{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform, only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
 
-These assumptions make \gls{km}, very poor for modelling light-tissue interactions. This is as in tissue, scattering is not isotropic, but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, if ever, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls{km} is not able to model, along with polarization. 
+These assumptions make \gls{km} poor for modelling light-tissue interactions. This is as in tissue, scattering is not isotropic, but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, if ever, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls{km} is not able to model, along with polarization. 
 \Gls{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple mediums, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications.***refs for these claims***
 
 \subsubsection*{Diffusion Approximation}
@@ -213,11 +213,11 @@ The diffusion approximation for the \gls{rte}, is where the irradiance is separa
 Where $L_c$ is the unscattered contribution, which satisfies Beer's law\footnote{Beer's law (or Beer-Lambert law) states that the transmission, $T$, is equal to $e^{-\mu L}$, where $L$ is the distance and $\mu$ is the attenuation coefficient.}, and $L_d$ is the diffuse contribution. The $L_d$ component is expanded using Legendre polynomials and truncated. 
 The diffusion approximation also has a number of assumptions and restrictions. The main assumption is that scattering dominates over absorption, and that the scattering is nearly isotropic. This restricts the types of scattering the Diffusion approximation can model, though using similarity relations can partially model scattering in tissue~\cite{graaff1993similarity,yoon1989accuracies}.
 
-Diffusion theory is computationally fast, and simple. However it is poor at modelling light-tissue interactions due to it's assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. However it can be used to speed up \gls{mcrt} in optically thick regions~\cite{robitaille2010modified,min2009radiative}.
+Diffusion theory is computationally fast, and simple. However it is poor at modelling light-tissue interactions due to its assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. However it can be used to speed up \gls{mcrt} in optically thick regions~\cite{robitaille2010modified,min2009radiative}.
 
 \medskip
 
-The final method, \gls{mcrt}, is a method that is numerically equivalent to the \gls{rte}~\cite{wang2012biomedical}. \Gls{mcrt} is a very flexible method, it can model arbitrary 3D geometries, various microphysics: fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams, to diffuse light sources. The only downside that is noted in the literature is that the \gls{mcrt} can be very expensive computationally. However with computational power growing faster with each year, this is less and less of a problem going forward. The next several sections give an in depth description of the \gls{mcrt} method and it's flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
+The final method, \gls{mcrt}, is a method that is numerically equivalent to the \gls{rte}~\cite{wang2012biomedical}. \Gls{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics: fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams, to diffuse light sources. The only downside that is noted in the literature is that the \gls{mcrt} can be expensive computationally. However with computational power growing faster with each year, this is less and less of a problem going forward. The next several sections give an in depth description of the \gls{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
 
 \subsection{MCRT Algorithm}
 
@@ -249,7 +249,7 @@ The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as comp
 %overall structure
 
 \subsubsection{Medium Set-up}\label{sec:algomedium}
-The first step of any \gls{mcrt} algorithm , is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. for simplicity we will only consider one wavelength, $\lambda$. The following section will detail arbitrary geometries and cases where there are more than one wavelength of interest.
+The first step of any \gls{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity we will only consider one wavelength, $\lambda$. The following section will detail arbitrary geometries and cases where there are more than one wavelength of interest.
 
 
 
@@ -263,8 +263,8 @@ n_{y}&=sin(\theta) \cdot sin(\phi)\\
 n_{z}&=cos(\theta)
 \end{align}
 
-\begin{wrapfigure}{I}{\columnwidth/2}
-\includegraphics[width=\columnwidth/2]{algopic.pdf}
+\begin{wrapfigure}{I}{.5\textwidth}
+\includegraphics[width=.5\textwidth]{algopic.pdf}
 \caption{blah}
 \label{fig:algo}
 \end{wrapfigure}
@@ -281,7 +281,7 @@ With $\theta$ and $\phi$ sampled uniformly between $[0,acos(2\xi-1)]$ and $[0,2\
 
 \subsubsection{Grid Set-up}\label{sec:photsetup}
 
-The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has it's own optical properties~(see \cref{sec:optprop} for discussion). This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this). along with setting up the medium, arrays which store the locations of the voxel walls in each cardinal direction are created for reference in later parts of the code. Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
+The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has its own optical properties~(see \cref{sec:optprop} for discussion). This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this), along with setting up the medium, arrays which store the locations of the voxel walls in each cardinal direction are created for reference in later parts of the code. Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
 
 
 \subsubsection{Photon Launch}\label{sec:photlaunch}
@@ -302,7 +302,7 @@ The initial step (besides medium set-up and other book keeping) of any \gls{mcrt
 	\end{bmatrix}	 
 \end{align}
 
-In order to set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\cref{sec:photscatterabsorb}), the direction vectors are computed in a spherical system thus the direction vectors are: 
+To set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\cref{sec:photscatterabsorb}), the direction vectors are computed in a spherical system thus the direction vectors are: 
 
 \begin{align}
 n_{xp} &= sin(\theta) \cdot cos(\phi) \\
@@ -360,7 +360,7 @@ with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. The position is the
 The first part of this section of the algorithm is to decide what kind of interaction the packet has with the medium. This section will focus on scattering and absorbing with other interaction events left for the chapters that detail these behaviours.
 \medskip
 
-To decide whether a packet scatters or absorbs involves `throwing' a random number and comparing it against the albedo. As detailed in~\cref{sec:optprop} the albedo is the scattering probability $a=\tfrac{\mu_a}{\mu_a+\mu_s}$. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
+To decide whether a packet scatters or absorbs involves ``throwing'' a random number and comparing it against the albedo. As detailed in~\cref{sec:optprop} the albedo is the scattering probability $a=\tfrac{\mu_a}{\mu_a+\mu_s}$. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
 
 \paragraph{Packet Absorption}\hspace{0pt}\\
 \\
@@ -379,7 +379,7 @@ Anisotropy is the degree of deviation in the photon packets path at each interac
 
 \subsection{Code Details}
 
-This section details the the actual implementation of the \gls{mcrt} algorithm detailed in the previous section, along with any computational necessities and speed ups on the original algorithm.
+This section details the actual implementation of the \gls{mcrt} algorithm detailed in the previous section, along with any computational necessities and speed ups on the original algorithm.
 
 \section{Validation of MCRT Code}
 \section{Optical Properties}\label{sec:optprop}
@@ -398,7 +398,7 @@ The scattering of light within tissue is usually defined as $\mu_s$ or $\mu_s'$:
 \begin{equation}
 	T=e^{-\mu_sL}
 \end{equation}
-This gives units of inverse length for the scattering coefficient (usually measured in $cm^{-1}$). The reduced scattering coefficient is quite often given in place of the scattering coefficient, as the reduced coefficient is more easily measured then the `normal' coefficient~\cite{jacques2013optical}.
+This gives units of inverse length for the scattering coefficient (usually measured in $cm^{-1}$). The reduced scattering coefficient is quite often given in place of the scattering coefficient, as the reduced coefficient is more easily measured then the ``normal'' coefficient~\cite{jacques2013optical}.
 
 
 
@@ -426,7 +426,7 @@ For simplicity, the phase function is usually cast as the anisotropy value g, wh
 The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is highly back scattering, $0$ is isotopic scattering, and $1$ is highly forward scattering.
 
 
-There are many phase functions that can be used to model the anisotropy factor in a medium. the standard phase function in biological tissue is the Henyey-Greenstein phase function. The Henyey-Greenstein phase function, was originally created to modelling diffuse radiation in the galaxy~\cite{lister2012optical,henyey1941diffuse}. The Henyey-Greenstein phase function has become the \textit{de-facto} phase function for biological tissue. This is due to the phase functions, relative simplicity and due to it being regarded as a `good' phase function for accurately modelling scattering in biological tissue~\cite{jacques1987angular}.
+There are many phase functions that can be used to model the anisotropy factor in a medium. The standard phase function in biological tissue is the Henyey-Greenstein phase function. The Henyey-Greenstein phase function, was originally created to modelling diffuse radiation in the galaxy~\cite{lister2012optical,henyey1941diffuse}. The Henyey-Greenstein phase function has become the \textit{de-facto} phase function for biological tissue. This is due to the phase functions, relative simplicity and due to it being regarded as a ``good'' phase function for accurately modelling scattering in biological tissue~\cite{jacques1987angular}.
 The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 
 \begin{equation}
@@ -436,7 +436,7 @@ The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{polar.pdf}
+	\includegraphics[width=.95\textwidth]{polar.pdf}
 	\caption{Figure show the g factor for the Henyey-Greenstein phase function, for various configurations of back, forward or isotropic scattering.}
 	\label{fig:henyey}
 \end{figure}
@@ -454,7 +454,7 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{absorbers.pdf}
+	\includegraphics[width=.95\textwidth]{absorbers.pdf}
 	\caption{Spectra of some of the more common absorbers found in the skin~\cite{dixon2005photochemcad,photoprahl2017,segelstein1981complex,pope1997absorption,jacques2013optical,van2004determination,saidi1992transcutaneous,iglesias2015biophysically,bashkatov2011optical,sarna2006physical}.}
 	\label{fig:absorb}
 \end{figure}
@@ -466,7 +466,7 @@ The preceding subsection, described the optical properties that this thesis will
 \medskip
 
 \paragraph*{Refractive Index}
-The refractive index of a medium, defines how fast light propagates through that medium. Generally for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin (as shown in~\cref{tab:refrac}).
+The refractive index of a medium, defines how fast light propagates through that medium. Generally, for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin (as shown in~\cref{tab:refrac}).
 
 \begin{table}[hb!]
 	\centering
@@ -529,9 +529,9 @@ This section details the miscellaneous additions to the \gls{mcrt} algorithm tha
 
 \subsection{Parallelisation of the MCRT Algorithm}\label{sec:parasec}
 
-As mentioned in the previous sections, \gls{mcrt} can be computationally intensive, especially when dealing with highly scattering mediums. Fluorescence can also cause simulations times to drastically increase as photons are no longer `killed' off, but rather re-emitted at a new wavelength. Other optical processes such as Raman scattering are highly unlikely events, which again can lead to a dramatic increase in simulation times, as many photons are required to be simulate in order to get `good' statistics.
+As mentioned in the previous sections, \gls{mcrt} can be computationally intensive, especially when dealing with highly scattering mediums. Fluorescence can also cause simulations times to drastically increase as photons are no longer ``killed'' off, but rather re-emitted at a new wavelength. Other optical processes such as Raman scattering are highly unlikely events, which again can lead to a dramatic increase in simulation times, as many photons are required to be simulate in order to get `good' statistics.
 
-Fortunately \gls{mcrt} is classed as an `embarrassingly parallel' problem\footnote{However this is not true for all \gls{mcrt} applications. For example using the Bjorkman $\&$ Wood~\cite{bjorkman2001radiative} immediate temperature corrections method, turns \gls{mcrt} into a different class of parallel problem~\cite{robitaille2011hyperion}.}. This means that it is trivial to parallelise in comparison to other algorithms. The reason that \gls{mcrt} is classed as `embarrassingly parallel', is that the algorithm can be split up onto separate processes, with no little need for communication between them. In reality this means that $n$ copies of the algorithm can run on $n$ cores in a processor, with communication taking place at the start and end of each simulation run. 
+Fortunately \gls{mcrt} is classed as an ``embarrassingly parallel'' problem\footnote{However this is not true for all \gls{mcrt} applications. For example, using the Bjorkman $\&$ Wood~\cite{bjorkman2001radiative} immediate temperature corrections method, turns \gls{mcrt} into a different class of parallel problem~\cite{robitaille2011hyperion}.}. This means that it is trivial to parallelise in comparison to other algorithms. The reason that \gls{mcrt} is classed as `embarrassingly parallel', is that the algorithm can be split up onto separate processes, with no little need for communication between them. In reality this means that $n$ copies of the algorithm can run on $n$ cores in a processor, with communication taking place at the start and end of each simulation run. 
 
 All the code in this thesis is parallelised using \gls{mpi}, with the only communication taking place at the end, where the path length estimators are collated on to all process. 
 

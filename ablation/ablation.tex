@@ -3,7 +3,7 @@
 \section{Introduction and Background}
 \label{sec:intro}
 
-This chapter uses \gls{mcrt} techniques coupled to a heat transfer simulation, in order to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
+This chapter uses \gls{mcrt} techniques coupled to a heat transfer simulation, to study the thermal damage to tissue due to fractional lasers. Fractionated ablative lasers  are ablative lasers where the power is spread over several beams, to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. We present experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side our computational model of tissue ablation.
 
 \medskip
 
@@ -57,7 +57,7 @@ E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.25]{jmea-explain.png}
-\caption{Red lines are packet paths within a voxel. Black lines packet paths out with the voxel. Red packet paths, weighted by $\mu_a$, are summed up in order to calculate the absorbed energy within each voxel.}
+\caption{Red lines are packet paths within a voxel. Black lines packet paths out with the voxel. Red packet paths, weighted by $\mu_a$, are summed up to calculate the absorbed energy within each voxel.}
 \label{fig:jmea-explain}
 \end{figure}	
 		
@@ -91,7 +91,7 @@ The standard heat equation is a partial differential equation of the parabolic f
 	
 	\medskip
 
-\Cref{eqn:heat} is for a homogeneous system where the thermal properties do not change as a function of time, space and/or temperature. However in order to model a moving ablation front we must use the nonlinear heat equation where the thermal properties can be a function of time, space and temperature~(\cref{eqn:nonlinearheat}).
+\Cref{eqn:heat} is for a homogeneous system where the thermal properties do not change as a function of time, space and temperature. However in order to model a moving ablation front we must use the nonlinear heat equation where the thermal properties can be a function of time, space and temperature~(\cref{eqn:nonlinearheat}).
 
 \begin{equation}
 \frac{\partial T}{\partial t} = \frac{1}{(\rho c_p)_{\xi}}(\nabla k_\xi T + k_\xi\nabla^2T)+\dot{q},\quad \text{where}\ \xi=(i,j,k)
@@ -316,16 +316,14 @@ The theoretical models behind explosive and thermal ablation models is also not 
 The two main heuristic models are: the blow off model, and the steady state model. 
 The blow off model, assumes that the there is thermal confinement (i.e no propagation of heat in time $t$), that material is removed after the laser irradiation. There is a radiant threshold that has to be met in order to ablate material, and that Beer-Lambert's law describes the spatial distribution of light. For laser pulses of $<10$~ns, these conditions are normally met. However for lasers with pulse length larger than this, these conditions are not usually met~\cite{vogel2003mechanisms,koren1984emission,andrew1983direct}. 
 
-The steady state heuristic model, assumes that the pulse length is of the order of $ms$ or larger, that material starts to be removed shortly after laser irradiation begins, and that some radiant threshold exists in order for ablation to begin. The steady state model also assumes that a fixed energy is required to remove a unit of tissue~\cite{vogel2003mechanisms}. However this does not always hold, as there are many circumstances where there is no one fixed energy, but rather many energies (due to various phase changes) that must be met in order for ablation to occur.
+The steady state heuristic model, assumes that the pulse length is of the order of $ms$ or larger, that material starts to be removed shortly after laser irradiation begins, and that some radiant threshold exists in order for ablation to begin. The steady state model also assumes that a fixed energy is required to remove a unit of tissue~\cite{vogel2003mechanisms}. However this does not always hold, as there are many circumstances where there is no one fixed energy, but rather many energies (due to various phase changes) that must be met in order for ablation to occur. There are also many other sophisticated models, that try to describe what happens physically when ablation occurs~\cite{mckenzie1990physics,mckenzie1986three,majaron1999thermo}.
 
-There are more sophisticated models, that try to explain the dynamics of ablation. The first of these, a steady state vaporization model, develops a relationship between the laser parameters and the temperature profile inside the tissue as well as the calculating the thermal injury extent~\cite{mckenzie1986three}. However this model fails to account for the thermal diffusion after the laser irradiations has been turned off, which can have a large affect on the extent of thermal damage. 
-
-Due to the above mentioned reasons, there is no one ablation temperature. The literature however, does suggest that it takes place when the tissue temperature is between 177~${^{\circ}}$C and 500~${^{\circ}}$C~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}.
+Due to the above mentioned reasons, there is no one ablation temperature. The literature however, does suggest that it takes place when the tissue temperature is between 177~${^{\circ}}$C and 500~${^{\circ}}$C~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. 
 
 \begin{figure}	
 \vspace{-10pt}
 	\centering
-	\includegraphics[width=\columnwidth/2]{steam_vacoule.png}
+	\includegraphics[width=.5\textwidth]{steam_vacoule.png}
 	\caption{Ablation of a dog aorta, as viewed under a microscope. Steam vacuoles are clearly visible either side of the ablation area. Carbonisation is also evident at the edges of the ablation fronts. Adapted from~\cite{welch2011optical}.}
 	\label{fig:histology}
 	\vspace{-10pt}
@@ -483,7 +481,7 @@ A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-
 \begin{figure}	
 \vspace{-10pt}
 	\centering
-	\includegraphics[width=\columnwidth]{validation.pdf}
+	\includegraphics[width=.95\textwidth]{validation.pdf}
 	\caption{Comparison between analytical solution and numerical method for various times.}
 	\label{fig:validation-heat}
 	\vspace{-10pt}
@@ -527,7 +525,7 @@ The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \
 
 \begin{figure}	
 	\centering
-	\includegraphics[width=\columnwidth]{water.pdf}
+	\includegraphics[width=.95\textwidth]{water.pdf}
 	\caption{Water absorption coefficient for wavelengths 0-12000nm \cite{segelstein1981complex}. Data shows that water is highly absorbing in the infra-red portion of the spectrum  compared to the visible portion.}
 	\label{fig:waterabsor}
 \end{figure}
@@ -556,7 +554,7 @@ As a check to ensure that we are not omitting any phenomena by focusing on just 
 
 \begin{figure}[!h]
 	\centering
-    \includegraphics[width=\columnwidth]{slice.pdf}
+    \includegraphics[width=.95\textwidth]{slice.pdf}
     \caption{Simulation of 81 pixel beams. Figure shows a a slice through the optical properties at the end of the simulation. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}\label{fig:sizecheck}
 \end{figure}
 
@@ -573,14 +571,14 @@ Over the full range of \gls{ta}, as the energy per pixel beam increases, there i
 
 \begin{figure}
 	\centering
-    \includegraphics[width=\columnwidth]{70w-circular.pdf}
+    \includegraphics[width=.95\textwidth]{70w-circular.pdf}
     \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a circular beam profile. Crater depths as a function of pixel beam energy for various \gls{ta}'s.}
     \label{fig:tacirc}
 \end{figure}
  
  \begin{figure}
 	\centering
-    \includegraphics[width=\columnwidth]{70w-gaussian.pdf}
+    \includegraphics[width=.95\textwidth]{70w-gaussian.pdf}
     \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a Gaussian beam profile. Crater depths as a function of pixel beam energy for various \gls{ta}'s.}
     \label{fig:tagauss}
 \end{figure}
@@ -623,7 +621,7 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{damage-slice.pdf}
+	\includegraphics[width=.95\textwidth]{damage-slice.pdf}
 	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
 	\label{fig:damfig}
 \end{figure}

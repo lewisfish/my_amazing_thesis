@@ -1,16 +1,16 @@
-\chapter{Monte Carlo radiation transport technique}
+\chapter{Monte Carlo Radiation Transport Technique}
 \label{sec:mcrt}
 \section{Introduction and Background}
-This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the \gls{MCRT} code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
+This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the \gls{mcrt} code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
 
-\subsection{Monte Carlo method}\label{sec:mcmethod}
+\subsection{Monte Carlo Method}\label{sec:mcmethod}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems. 
 
 The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$ century~\cite{badger1994lazzarini,beckmann2015history,buffon1785histoire}. Buffon asked the question;
 
 \medskip
 
-``Suppose we have a floor made of parallel strips of wood, each the same width, and we drop a needle onto the floor. What is the probability that the needle will lie across a line between two strips?"
+``Suppose we have a floor made of parallel strips of wood, each the same width, and we drop a needle onto the floor. What is the probability that the needle will lie across a line between two strips?''
 
 \medskip
 
@@ -31,7 +31,7 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\columnwidth/2]{buffon-pi=317.pdf}
-\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of $\pi$ as $\sim$3.17.}
+\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of $\pi$ as $\sim$3.17.}
 \label{fig:buffon-needle}
 \end{figure}
 
@@ -40,19 +40,19 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\columnwidth]{ray-tracing.png}
-\caption{Computer generated imagery using ray-tracing. The Monte Carlo method is used to `compute radiance along ray paths between lights and the camera'~\cite{pharr2016physically}, in order to generate CGI images.}
+\caption{Computer generated imagery using ray-tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera''~\cite{pharr2016physically}, in order to generate CGI images.}
 \label{fig:ray-trace}
 \end{figure}
-\newpage
-\section{Monte Carlo radiation transport algorithm}
+
+\section{Monte Carlo Radiation Transport Algorithm}
 
 \subsection{Introduction \texorpdfstring{$\&$}{and} background}
 The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique. This method was developed at the end of the Second World War at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.***more here + link to next section***
 
 
 
-\subsubsection*{Radiative transfer}
-Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
+\subsubsection*{Radiative Transfer}
+Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
 
 
 The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction \textbf{n}, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
@@ -198,13 +198,13 @@ Finally substituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cr
 
 In general, the \gls{rte} is hard to solve in arbitrary 3D geometries, however there are a number of approximations, and numerical methods available. Diffusion approximation, \gls{km}, and \gls{mcrt} are the common methods used to approximate the \gls{rte}.
 
-\subsubsection*{Kubelka-Munk theory}
+\subsubsection*{Kubelka-Munk Theory}
 \gls{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform, only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
 
 These assumptions make \gls{km}, very poor for modelling light-tissue interactions. This is as in tissue, scattering is not isotropic, but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, if ever, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls{km} is not able to model, along with polarization. 
 \Gls{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple mediums, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications.***refs for these claims***
 
-\subsubsection*{Diffusion approximation}
+\subsubsection*{Diffusion Approximation}
 The diffusion approximation for the \gls{rte}, is where the irradiance is separated into two components:
 
 \begin{equation}
@@ -219,7 +219,7 @@ Diffusion theory is computationally fast, and simple. However it is poor at mode
 
 The final method, \gls{mcrt}, is a method that is numerically equivalent to the \gls{rte}~\cite{wang2012biomedical}. \Gls{mcrt} is a very flexible method, it can model arbitrary 3D geometries, various microphysics: fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams, to diffuse light sources. The only downside that is noted in the literature is that the \gls{mcrt} can be very expensive computationally. However with computational power growing faster with each year, this is less and less of a problem going forward. The next several sections give an in depth description of the \gls{mcrt} method and it's flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
 
-\subsection{MCRT algorithm}
+\subsection{MCRT Algorithm}
 
 The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide an in depth description of the \gls{mcrt} algorithm (see also~\cref{fig:algo}). The following section will provide details of how the \gls{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the implementation of the 3D voxelised medium.
 
@@ -248,12 +248,12 @@ The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as comp
 %
 %overall structure
 
-\subsubsection{Medium set-up}\label{sec:algomedium}
+\subsubsection{Medium Set-up}\label{sec:algomedium}
 The first step of any \gls{mcrt} algorithm , is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. for simplicity we will only consider one wavelength, $\lambda$. The following section will detail arbitrary geometries and cases where there are more than one wavelength of interest.
 
 
 
-\subsubsection{Initialise photon}\label{sec:algoinit}
+\subsubsection{Initialise Photon}\label{sec:algoinit}
 
 The second step in the \gls{mcrt} algorithm, is to initialise the photon. Initialisation of the photon involves setting its initial position and direction. Again how this is done depends on the experiments being simulated. Here we initialise the photon to the centre of the sphere. The initial direction is sampled isotropically, and set accordingly:
 
@@ -279,12 +279,12 @@ With $\theta$ and $\phi$ sampled uniformly between $[0,acos(2\xi-1)]$ and $[0,2\
 % \label{fig:voxel-model}
 % \end{figure}
 
-\subsubsection{Grid set-up}\label{sec:photsetup}
+\subsubsection{Grid Set-up}\label{sec:photsetup}
 
 The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has it's own optical properties~(see \cref{sec:optprop} for discussion). This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this). along with setting up the medium, arrays which store the locations of the voxel walls in each cardinal direction are created for reference in later parts of the code. Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
 
 
-\subsubsection{Photon launch}\label{sec:photlaunch}
+\subsubsection{Photon Launch}\label{sec:photlaunch}
 
 The initial step (besides medium set-up and other book keeping) of any \gls{mcrt} algorithm is to launch a photon packet. Depending on the source of photon packets for a given simulation, this step varies from simulation to simulation. The general idea of launching a photon packet is that the packet is given an initial direction vector and position (which consists of a physical position and a voxel position)\footnote{all variables given in this section are the same as they are in the code.}:
 
@@ -312,7 +312,7 @@ n_{zp} &= cos(\theta)
 
 $\theta$ and $\phi$ are generated dependant on the photon source used. The individual sine and cosine terms are saved for use in the scattering routines, see~\cref{sec:photscatterabsorb}.
 
-\subsubsection{Photon move}\label{sec:photmove}
+\subsubsection{Photon Move}\label{sec:photmove}
 
 The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the interaction probability (see~\cref{sec:optprop}). Thus the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
 
@@ -355,18 +355,18 @@ L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
 
 with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. The position is then updated as before using~\cref{eqn:update1,eqn:update2,eqn:update3}. The next step in the algorithm is the interaction event, which can consist of either: scattering, absorbing or fluorescing.
 
-\subsubsection{Photon scatter and absorbing}\label{sec:photscatterabsorb}
+\subsubsection{Photon Scatter and Absorbing}\label{sec:photscatterabsorb}
 
 The first part of this section of the algorithm is to decide what kind of interaction the packet has with the medium. This section will focus on scattering and absorbing with other interaction events left for the chapters that detail these behaviours.
 \medskip
 
 To decide whether a packet scatters or absorbs involves `throwing' a random number and comparing it against the albedo. As detailed in~\cref{sec:optprop} the albedo is the scattering probability $a=\tfrac{\mu_a}{\mu_a+\mu_s}$. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
 
-\paragraph{Packet absorption}\hspace{0pt}\\
+\paragraph{Packet Absorption}\hspace{0pt}\\
 \\
 If the interaction event is a photon packet absorption, then the algorithm terminates the photon packets and starts the next photon packet,~\cref{sec:terminator}.
 
-\paragraph{Packet scattering}\hspace{0pt}\\
+\paragraph{Packet Scattering}\hspace{0pt}\\
 \\
 If the interaction event is a packet scattering, then the packet is scattered into a new direction and the above process are carried out until a termination clause is met, see~\cref{sec:terminator}.
 
@@ -377,12 +377,12 @@ Anisotropy is the degree of deviation in the photon packets path at each interac
 
 \subsubsection{Termination}\label{sec:terminator}
 
-\subsection{Code details}
+\subsection{Code Details}
 
 This section details the the actual implementation of the \gls{mcrt} algorithm detailed in the previous section, along with any computational necessities and speed ups on the original algorithm.
 
-\section{Validation of MCRT code}
-\section{Optical properties}\label{sec:optprop}
+\section{Validation of MCRT Code}
+\section{Optical Properties}\label{sec:optprop}
 
 Optical properties of a medium are the properties that determine how light is transported though that medium. Usually the optical properties of a medium are defined by three main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), and the anisotropy coefficient ($g$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
 
@@ -460,12 +460,12 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 \end{figure}
 
 
-\subsection{Other parameters}\label{sec:other}
+\subsection{Other Parameters}\label{sec:other}
 The preceding subsection, described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
 
 \medskip
 
-\paragraph*{Refractive index}
+\paragraph*{Refractive Index}
 The refractive index of a medium, defines how fast light propagates through that medium. Generally for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin (as shown in~\cref{tab:refrac}).
 
 \begin{table}[hb!]
@@ -515,10 +515,10 @@ Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-e
 
 Fluorescence will be described in more depth in~\cref{sec:salvo,sec:madrid}.
 
-\section{Further extensions to the code}\label{sec:codefurther}
+\section{Further Extensions to the Code}\label{sec:codefurther}
 This section details the miscellaneous additions to the \gls{mcrt} algorithm that the various chapters in this thesis may or may not use.
 
-\subsection{Fresnel reflections \texorpdfstring{$\&$}{and} refractions}\label{sec:fresnel}
+\subsection{Fresnel Reflections \texorpdfstring{$\&$}{and} Refractions}\label{sec:fresnel}
 ***this section in madrid work?***
 
 
@@ -527,7 +527,7 @@ This section details the miscellaneous additions to the \gls{mcrt} algorithm tha
 	R_p&=\left|\frac{n_1\ cos\theta_t-n_2\ cos\theta_i}{n_1\ cos\theta_t+n_2\ cos\theta_i}\right|^2
 \end{align}
 
-\subsection{Parallelisation of the \texorpdfstring{\gls{mcrt}}{MCRT} algorithm}\label{sec:parasec}
+\subsection{Parallelisation of the MCRT Algorithm}\label{sec:parasec}
 
 As mentioned in the previous sections, \gls{mcrt} can be computationally intensive, especially when dealing with highly scattering mediums. Fluorescence can also cause simulations times to drastically increase as photons are no longer `killed' off, but rather re-emitted at a new wavelength. Other optical processes such as Raman scattering are highly unlikely events, which again can lead to a dramatic increase in simulation times, as many photons are required to be simulate in order to get `good' statistics.
 
@@ -540,7 +540,7 @@ do parallel tests
 finish writing this subsection
 ***ToDO***
 
-\section{Improving the voxel tissue model}\label{sec:improve}
+\section{Improving the Voxel Tissue Model}\label{sec:improve}
 
 ***Needed?***
 

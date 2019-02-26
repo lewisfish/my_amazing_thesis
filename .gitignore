@@ -15,3 +15,7 @@ build/
 *.mod
 *.fls
 *.fdb_latexmk
+*.pl
+*.ist
+*.glo
+*.acn

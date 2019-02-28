@@ -309,8 +309,11 @@ The next stage in the tissue damage process is the vaporisation of water. As the
 
 The third stage of tissue damage is carbonisation or caramelisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical,verdaasdonk1990explosive}.
 
-The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed. The three main methods are: photochemical, thermal, and explosive~\cite{husinsky1990mechanisms,kitai1991physics,oraevsky1991pulsed}. Photochemical ablation is when the energy of a photon from the irradiating laser, is sufficient enough that it excites the electronic state into an anti-boding state, leading to broken bonds and conversion from electronic energy into kinetic energy~\cite{husinsky1990mechanisms}. Thermal ablation is where tissue is heated sufficiently so that tissue vaporisation takes place. Finally, explosive ablation is an extreme version of thermal ablation. Explosive ablation occurs when large amounts of energy is deposited in a small time scale, so that none of the energy can thermally diffuse away, resulting in explosive ablation.
-Photochemical ablation, is usually confined to UV laser ablation, and as such we will not discuss this further. Thermal and explosive ablation regimes are the more likely candidates for IR ablation which we are considering here.
+The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed. The three main methods are: photochemical, thermal, and explosive~\cite{husinsky1990mechanisms,kitai1991physics,oraevsky1991pulsed}. 
+Photochemical ablation is when the energy of a photon from the irradiating laser, is sufficient enough that it excites the electronic state of the tissues molecules into an anti-boding state, leading to broken bonds and conversion from electronic energy into kinetic energy, and thus ablation.
+Thermal ablation is where tissue is heated sufficiently so that tissue vaporisation takes place. 
+Finally, explosive ablation is an extreme version of thermal ablation. Explosive ablation occurs when large amounts of energy is deposited in a small time scale, so that none of the energy can thermally diffuse away, resulting in explosive ablation.
+Photochemical ablation, is usually applied to UV laser ablation, whereas thermal and explosive ablation regimes are the more likely candidates for IR ablation which we are considering here.
 
 The theoretical models behind explosive and thermal ablation models is also not well understood, with many models proposed in order to try to and explain experimental results. These models range from heuristic models to sophisticated models that relate the underlying physical mechanisms to ablation damage. 
 The two main heuristic models are: the blow off model, and the steady state model. 
@@ -318,7 +321,7 @@ The blow off model, assumes that the there is thermal confinement (i.e no propag
 
 The steady state heuristic model, assumes that the pulse length is of the order of $ms$ or larger, that material starts to be removed shortly after laser irradiation begins, and that some radiant threshold exists in order for ablation to begin. The steady state model also assumes that a fixed energy is required to remove a unit of tissue~\cite{vogel2003mechanisms}. However this does not always hold, as there are many circumstances where there is no one fixed energy, but rather many energies (due to various phase changes) that must be met in order for ablation to occur. There are also many other sophisticated models, that try to describe what happens physically when ablation occurs~\cite{mckenzie1990physics,mckenzie1986three,majaron1999thermo}.
 
-Due to the above mentioned reasons, there is no one ablation temperature. The literature however, does suggest that it takes place when the tissue temperature is between 177~${^{\circ}}$C and 500~${^{\circ}}$C~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. 
+Due to the above mentioned reasons, there is no defined ablation temperature. The literature however, does suggest that it takes place when the tissue temperature is between 177~${^{\circ}}$C and 500~${^{\circ}}$C~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. 
 
 \begin{figure}	
 \vspace{-10pt}
@@ -555,14 +558,14 @@ As a check to ensure that we are not omitting any phenomena by focusing on just 
 \begin{figure}[!h]
 	\centering
     \includegraphics[width=.95\textwidth]{slice.pdf}
-    \caption{Simulation of 81 pixel beams. Figure shows a a slice through the optical properties at the end of the simulation. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}\label{fig:sizecheck}
+    \caption{Simulation of 81 pixel beams. Figure a) shows a a slice through the optical properties at the end of the simulation in the z-y plane. Figure b) shows the optical properties in the x-y plane at the top surface. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}\label{fig:sizecheck}
 \end{figure}
 
 \subsection{Results}
 
 \subsubsection*{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a ``good'' \gls{ta} which fits with the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. Simulation data suggests that, a `good' \gls{ta} is around $T_a=450~^{\circ}C$.
+Various literature sources report the ablation temperature ranging from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, we run several models over this range in order to establish a ``good'' \gls{ta} which fits with the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. Simulation data suggests that, a `good' \gls{ta} is around $T_a=500~^{\circ}C$, the upper limit of \gls{ta} from the literature.
 
 Increasing the ablation temperature, has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
@@ -626,7 +629,7 @@ As stated in~\cref{sec:coagdamage}, we use the Arrhenius damage integral in orde
 	\label{fig:damfig}
 \end{figure}
 	
-As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, it appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely because for lower values of $T_a$, there is a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage.
+As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, it appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely because for lower values of $T_a$, there is a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage. Overall there is little difference in the maximum horizontal extent of thermal injury, when using different energies (of the order of $\sim$ 0.01~mm).
 
 \begin{figure}
 	\centering

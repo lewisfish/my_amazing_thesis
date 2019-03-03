@@ -83,9 +83,9 @@ for i in range(trials):
                 ax.plot([x1, x2], [y1, y2], color="blue")
         else:
             if i == 1:
-                ax.plot([x1, x2], [y1, y2], color="gold", label="Missed Line")
+                ax.plot([x1, x2], [y1, y2], color="red", label="Missed Line")
             else:
-                ax.plot([x1, x2], [y1, y2], color="gold")
+                ax.plot([x1, x2], [y1, y2], color="red")
     if counter > 0:
         print(float(trials) * 2. * needleLength / (lineDist * float(counter)))
 ax.legend()

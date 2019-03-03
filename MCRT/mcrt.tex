@@ -3,8 +3,8 @@
 \section{Introduction and Background}
 This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls{mcrt}. The chapter will then present the details of the \gls{mcrt} code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code for each individual projects needs.
 
-\subsection{Monte Carlo Method}\label{sec:mcmethod}
-The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems. 
+\subsection*{Monte Carlo Method}\label{sec:mcmethod}
+The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems~\cite{cashwell1959practical,rogers1990monte}. 
 
 The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$ century~\cite{badger1994lazzarini,beckmann2015history,buffon1785histoire}. Buffon asked the question;
 
@@ -14,12 +14,12 @@ The earliest use of the method is in Buffon's needle experiment of the 18$^{th}$
 
 \medskip
 
-The solution to this question is as:
+The solution to this question is:
 for a needle length \textit{l}, strip separation \textit{s}, and where \textit{x} is the distance from the needle to the closest line. Then using a simple geometrical argument, a needle crosses a strip if $x \leq \tfrac{l}{2} sin \theta$.
 
 $x$ is distributed uniformly in [0, $\tfrac{s}{2}$], and $\theta$ in [0, $\tfrac{\pi}{2}$]. Therefore the probability density function for $x$ is $p(x)=\tfrac{2}{s}$, and $\theta$ is $p(\theta) = \tfrac{2}{\pi}$. The \gls{pdf}, is a function of a variable that gives probability for a variable to a take a given value. The \gls{pdf} is normalised over the whole range of the variable, in this case $x$, and $\theta$.
 Thus, as $x$ and $\theta$ are independent variables, giving a joint probability of $p(x,\theta) = \tfrac{4}{s \pi}$.
-So the probability of a needle of length l ($l<s$) is:
+So the probability of a needle of length $l$ ($l<s$) is:
 
 \begin{equation}
 P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = \frac{2 l}{s \pi}\label{eqn:buffon}
@@ -30,12 +30,12 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}dx d\theta = 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.5\textwidth]{buffon-pi=317.pdf}
-\caption{Sample buffon needle experiment. 100 needles are dropped on a 10 by 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is yellow. This simulation gave a value of $\pi$ as $\sim$3.17.}
+\includegraphics[width=.5\textwidth]{buffon.pdf}
+\caption{Sample Buffon needle experiment. 100 needles are dropped on a 10 x 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is red. This simulation gave a value of $\pi$ $\approx$ 3.10.}
 \label{fig:buffon-needle}
 \end{figure}
 
-The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy and medicine, in order to simulate the propagation of particles through turbid media. This technique, Monte Carlo radiation transfer, is what makes up the bulk of this thesis and is described in depth in the following sections.
+The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy and medicine, in order to simulate the propagation of particles through turbid media. This technique, \gls{mcrt}, is what makes up the bulk of this thesis and is described in depth in the following sections.
 
 \begin{figure}[!htb]
 \centering
@@ -55,7 +55,7 @@ The technique that makes up the bulk of this thesis, is the \gls{mcrt} technique
 Transport of photons through turbid media, can be modelled analytically using the \gls{rte}. The \gls{rte} models the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before we derive the \gls{rte}, we first define some terms and physical quantities.
 
 
-The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction \textbf{n}, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
+The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction $\mathbf{\hat{n}}$, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
 Irradiance is defined as the spectral irradiance over a small frequency range $[\nu, \nu+\Delta \nu]$:
 
 \begin{equation}
@@ -70,7 +70,7 @@ Irradiance is defined as the spectral irradiance over a small frequency range $[
 
 \indent $t$ is the time;
 
-\indent and $L(\vec{r},\hat{s},t)$ is the irradiance [$W \cdot m^{-2}\cdot sr^{-1}$].
+\indent and $L(\vec{r},\hat{s},t)$ is the irradiance [$W m^{-2} sr^{-1}$].
 
 \medskip
 
@@ -84,7 +84,7 @@ Irradiance is defined as the spectral irradiance over a small frequency range $[
 The irradiance can be used to determine the energy, $dE$, transported across an area $dA$, in a solid angle $d\Omega$ in a time $dt$ (see~\cref{fig:energydiag1}) is:
 
 \begin{equation}
-	dE = L(\vec{r},\hat{s},t) \cdot (\hat{s} \cdot \hat{n})\ dAd\Omega dt
+	dE = L(\vec{r},\hat{s},t) \cdot (\hat{s} \cdot \hat{n})\ dA\ d\Omega\ dt
 \end{equation}
 
 \noindent Where:
@@ -103,7 +103,7 @@ Irradiance can also be used to determine the fluence rate, $\phi$, which is defi
 
 \noindent Where:
 
-\indent $\phi$ is the fluence rate [$W \cdot m^{-2}$].
+\indent $\phi$ is the fluence rate [$W m^{-2}$].
 
 \medskip
 
@@ -118,11 +118,11 @@ With the irradiance defined, as well as the other quantities that follow, we can
 
 \noindent Where:
 
-\indent $dP$ is the total change in energy in the volume $dAds$ within the solid angle, $d\Omega$, per unit time (see~\cref{fig:energydiag2});
+\indent $dP$ is the total change in energy in the volume $dA\ ds$ within the solid angle, $d\Omega$, per unit time (see~\cref{fig:energydiag2});
 
 \indent $dP_{div}$ is the energy loss due to the divergence of the radiation beam per unit time;
 
-\indent $dP_{ext}$ is the energy loss due to absorption and scattering within $dAdsd\Omega$;
+\indent $dP_{ext}$ is the energy loss due to absorption and scattering within $dA\ ds\ d\Omega$;
 
 \indent $dP_{scatt}$ is the energy gain due to scattering from $\hat{s}'$ into $d\Omega$ per unit time;
 
@@ -133,7 +133,7 @@ With the irradiance defined, as well as the other quantities that follow, we can
 The total change in energy in the volume element within the solid angle $d\Omega$, $dP$, is equal to:
 
 \begin{equation}
-	dP=\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t}\ dAdsd\Omega
+	dP=\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t}\ dA\ ds\ d\Omega
 	\label{eqn:p}
 \end{equation}
 
@@ -144,22 +144,22 @@ The total change in energy in the volume element within the solid angle $d\Omega
 The first loss term, $dP_{div}$, is the energy loss due to divergence of the radiation beam. This is modelled as:
 
 \begin{align}
-	dP_{div}&=\frac{\partial L}{\partial s}\ d\Omega dV \\
-		    &=\hat{s} \cdot \nabla L(\vec{r},\hat{s},t)\ d\Omega dV
+	dP_{div}&=\frac{\partial L}{\partial s}\ d\Omega\ dV \\
+		    &=\hat{s} \cdot \nabla L(\vec{r},\hat{s},t)\ d\Omega\ dV
     \label{eqn:pdiv}
 \end{align}
 
 $dP_{ext}$ is the second loss term, and accounts for energy loss due to scattering and absorption in the volume element within the solid angle $d\Omega$. This is modelled as:
 
 \begin{equation}
-	dP_{ext}=\mu_t ds\ L(\vec{r},\hat{s},t)\ dAd\Omega
+	dP_{ext}=\mu_t ds\ L(\vec{r},\hat{s},t)\ dA\ d\Omega
 	\label{eqn:pext}
 \end{equation}
 
 The first energy gain term, $dP_{src}$, is due to emission in the volume element within the solid angle $d\Omega$. 
 
 \begin{equation}
-	dP_{src}=S(\vec{r},\hat{s},t)\ dVd\Omega
+	dP_{src}=S(\vec{r},\hat{s},t)\ dV\ d\Omega
 	\label{eqn:psrc}
 \end{equation}
 
@@ -185,24 +185,24 @@ The second energy gain term, and final term, is due to the incident energy on th
 Finally substituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cref{eqn:enegyconvo} yields the \gls{rte}:
 
 \begin{equation}
-\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t} + s\cdot \nabla L(\vec{r},\hat{s},t)=-\mu_tL(\vec{r},\hat{s},t)+\mu_s\int_{4\pi}p(\hat{s},\hat{s}')L(\vec{r},\hat{s}',t)d\Omega' + S(\vec{r},\hat{s},t)
+\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t} + s\cdot \nabla L(\vec{r},\hat{s},t)=-\mu_tL(\vec{r},\hat{s},t)+\mu_s\int_{4\pi}p(\hat{s},\hat{s}')L(\vec{r},\hat{s}',t)\ d\Omega' + S(\vec{r},\hat{s},t)
 \label{eqn:rte}
 \end{equation}
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.75]{cylinderelement.pdf}
-	\caption{Cylindrical volume element, $ds \cdot dA$, with solid angle $d\Omega$ in direction $\hat{s}$ and solid angle $d\Omega'$ in direction $\hat{s}'$. Energy flowing through this element is used to derive the \gls{rte}. Adapted from~\cite{wang2012biomedical,chandrasekhar2013radiative}.}
+	\caption{Cylindrical volume element, $ds dA$, with solid angle $d\Omega$ in direction $\hat{s}$ and solid angle $d\Omega'$ in direction $\hat{s}'$. Energy flowing through this element is used to derive the radiation transfer equation. Adapted from~\cite{wang2012biomedical,chandrasekhar2013radiative}.}
 	\label{fig:energydiag2}
 \end{figure}
 
 In general, the \gls{rte} is hard to solve in arbitrary 3D geometries, however there are a number of approximations, and numerical methods available. Diffusion approximation, \gls{km}, and \gls{mcrt} are the common methods used to approximate the \gls{rte}.
 
 \subsubsection*{Kubelka-Munk Theory}
-\gls{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform, only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
+\gls{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform with only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
 
 These assumptions make \gls{km} poor for modelling light-tissue interactions. This is as in tissue, scattering is not isotropic, but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, if ever, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls{km} is not able to model, along with polarization. 
-\Gls{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple mediums, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications.***refs for these claims***
+\Gls{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple media, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications.***refs for these claims***
 
 \subsubsection*{Diffusion Approximation}
 The diffusion approximation for the \gls{rte}, is where the irradiance is separated into two components:
@@ -219,13 +219,13 @@ Diffusion theory is computationally fast, and simple. However it is poor at mode
 
 The final method, \gls{mcrt}, is a method that is numerically equivalent to the \gls{rte}~\cite{wang2012biomedical}. \Gls{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics: fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams, to diffuse light sources. The only downside that is noted in the literature is that the \gls{mcrt} can be expensive computationally. However with computational power growing faster with each year, this is less and less of a problem going forward. The next several sections give an in depth description of the \gls{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
 
-\section{Optical Properties}\label{sec:optprop}
+\subsection{Optical Properties}\label{sec:optprop}
 
-Before an in depth description of the \gls{mcrt} method is outlined, we must discuss optical properties of materials, which the \gls{mcrt} method needs to use in order to simulate the transport of phtons in a material.
+Before an in depth description of the \gls{mcrt} method is outlined, we must discuss optical properties of materials, which the \gls{mcrt} method needs in order to simulate the transport of photons in a material.
 
-Optical properties of a medium are the properties that determine how light is transported though that medium. Usually the optical properties of a medium are defined by three main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), and the anisotropy coefficient ($g$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
+Optical properties of a medium are the properties that discuss how light is transported though that medium. Usually the optical properties of a medium are defined by three main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), and the anisotropy coefficient ($g$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
 
-\subsection{Scattering}\label{sec:scatt}
+\subsubsection*{Scattering}\label{sec:scatt}
 
 The scattering coefficient, along with the anisotropy value (see ~\cref{sec:ansio}), define how light is scattered in a medium. Scattering occurs in skin due to a number of different scatterers, and inhomogeneities found within the skin. The main scatters in the skin are filamentous proteins such as collagen and elastin. These proteins are generally found within the dermis and epidermis~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
 The size of the aforementioned scatters affect how light is scattered and into which direction that light is scattered into.
@@ -241,7 +241,7 @@ This gives units of inverse length for the scattering coefficient (usually measu
 
 
 
-\subsection{Anisotropy}\label{sec:ansio}
+\subsubsection*{Anisotropy}\label{sec:ansio}
 
 Anisotropy is the degree of deviation that light undergoes at each scattering event. The anisotropy value is taken from the phase function for the medium. The phase function, $\Phi(\theta,\phi)$, is usually normalised over all angles:
 
@@ -262,7 +262,7 @@ For simplicity, the phase function is usually cast as the anisotropy value g, wh
 \begin{equation}
 	g=\left<cos(\theta)\right>=\int_{\Omega}cos(\theta)\Phi(\theta,\phi)\ d\Omega
 \end{equation}
-The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is highly back scattering, $0$ is isotopic scattering, and $1$ is highly forward scattering.
+The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is highly back scattering, $0$ is isotopic scattering, and $1$ is highly forward scattering (see~\cref{fig:henyey}).
 
 
 There are many phase functions that can be used to model the anisotropy factor in a medium. The standard phase function in biological tissue is the Henyey-Greenstein phase function. The Henyey-Greenstein phase function, was originally created to modelling diffuse radiation in the galaxy~\cite{lister2012optical,henyey1941diffuse}. The Henyey-Greenstein phase function has become the \textit{de-facto} phase function for biological tissue. This is due to the phase functions, relative simplicity and due to it being regarded as a ``good'' phase function for accurately modelling scattering in biological tissue~\cite{jacques1987angular}.
@@ -280,9 +280,9 @@ The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 	\label{fig:henyey}
 \end{figure}
 
-\subsection{Absorption}\label{sec:absor}
+\subsubsection*{Absorption}\label{sec:absor}
 
-Absorption of light by a medium is defined by the absorption coefficient $\mu_a$. The absorption coefficient is defined, as before with the scattering coefficient, by considering the probability of transmission without absorbing in a path length L:
+Absorption of light by a medium is defined by the absorption coefficient $\mu_a$. The absorption coefficient is defined in a similar fashion to the scattering coefficient, by considering the probability of transmission without absorbing in a path length L:
 
 \begin{equation}
 	T=e^{-\mu_aL}
@@ -299,52 +299,26 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 \end{figure}
 
 
-\subsection{Other Parameters}\label{sec:other}
+\subsection*{Other Parameters}\label{sec:other}
 The preceding subsection, described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
 
 \medskip
 
-\paragraph*{Refractive Index}
-The refractive index of a medium, defines how fast light propagates through that medium. Generally, for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin (as shown in~\cref{tab:refrac}).
-
-\begin{table}[hb!]
-	\centering
-
-	\begin{tabular}{|l|cc|}
-	\hline
-
-	\hline
-	\textbf{Layer} & \textbf{Refractive index} &\\
-	\hline
-
-	\hline
-		Stratum Corenum & 1.53 & \\
-	\hline
-		Epidermis & 1.34 & \\
-	\hline
-		Papillary Dermis & 1.395 &\\
-	\hline
-		Reticular Dermis & 1.39 &\\
-	\hline
-		Hypodermis & 1.44 &\\
-	\hline
-
-	\hline
-	\end{tabular}
-	\caption{Example of refractive indices per layer of skin for a $\lambda$=632.8~nm~\cite{meglinski2002quantitative}.}
-	\label{tab:refrac}
-\end{table}
-
-Details on how refraction is implemented with the code can  be found in ***ref here***.
+\subsubsection*{Refractive Index}
+The refractive index of a medium, defines how fast light propagates through that medium. Generally, for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin. Details on how refraction is implemented with the code can  be found in ***ref here***.
 
 \medskip
 
-\paragraph*{Raman Scattering}
-Raman scattering is where a photon is scattered inelastically, which excites the molecule the photon scattered off, thus decreasing the energy of the photon and increasing the photons wavelength. The optical property needed to model Raman scattering, is the Raman scattering cross section. The cross section, like the absorption or scattering coefficient, is the likelihood of a photon undergoing a Raman scattering event. Raman scattering has been modelled in \gls{mcrt} in order to simulate spatially offset Raman spectroscopy for breast tumour analysis~\cite{keller2010monte}.
+\subsubsection*{Raman Scattering}
+Raman scattering is where a photon is scattered inelastically, which excites the molecule the photon scattered off, thus decreasing the energy of the photon and increasing the photons wavelength. 
+The optical property needed to model Raman scattering is the Raman scattering cross section. The cross section, like the absorption or scattering coefficient, is the likelihood of a photon undergoing a Raman scattering event. Raman scattering has been modelled in \gls{mcrt} in order to simulate spatially offset Raman spectroscopy for breast tumour analysis~\cite{keller2010monte}.
 
 \medskip
 
-\paragraph*{Fluorescence}
+\subsubsection*{Fluorescence}
+
+
+
 Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-emitted with a new wavelength. Fluorescence	is a reactively common phenomena, and is heavily utilised in biophotonics and medicine, in order to image, or monitor molecules in tissue. Again the optical property that models fluorescence is coefficient that gives the probability of absorption and re-emission of a photon by a certain molecule. Usually this is in the form of an absorption coefficient or extinction coefficient. The extinction coefficient is a measurement of absorption in terms of the concentration of that absorber. Thus if a medium has many fluorophores, then the total absorption coefficient is the bulk absorption of the medium plus the contribution from the fluorophores as in~\cref{eqn:exct}:
 
 \begin{equation}
@@ -352,27 +326,29 @@ Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-e
 \label{eqn:exct}	
 \end{equation}
 
+Where $C_i$ is the concentration of the $i^{th}$ fluorophore, and $\varepsilon_i$ is the extinction coefficient of the the $i^{th}$ fluorophore.
+
 Fluorescence will be described in more depth in~\cref{sec:salvo,sec:madrid}.
 
 \subsection{MCRT Algorithm}
 
-The \gls{mcrt} algorithm can be as simple as a $\sim$ 20 line program to as complex as needed for the problem at hand. This section will provide an in depth description of the \gls{mcrt} algorithm (see also~\cref{fig:algo}). The following section will provide details of how the \gls{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the implementation of the 3D voxelised medium.
+A \gls{mcrt} algorithm can range in complexity from a simple 20 line program, to tens of thousands of lines, depending on the application. This section will provide an in depth description of the \gls{mcrt} algorithm for the propagating photons thorough a spherical medium with optical properties $\mu_s$, and $\mu_a$. The section following this one, will provide details of how the \gls{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the implementation of the 3D voxelised medium.
 
 
-\subsubsection{Medium Set-up}\label{sec:algomedium}
-The first step of any \gls{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity we will only consider one wavelength, $\lambda$. The following section will detail arbitrary geometries and cases where there are more than one wavelength of interest.
+\subsubsection*{Medium and grid Set-up}\label{sec:algomedium}
+The first step of any \gls{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity we will only consider one wavelength, $\lambda$. As the \gls{mcrt} algorithm presented here is run on a 3D Cartesian grid, the grid is setup before creating the spherical medium. The grid is composed of $n_x \times n_y \times n_z$ voxels\footnote{A voxel is a 3D pixel}, where each voxel can have its own optical properties. The grid is setup by first setting an array that stores the locations of the voxel boundary walls are in each the x, y, and z directions. The next step, is to setup the actual medium. This is achieved by discretising the medium onto a grid. For this example a sphere is inscribed into a cubic volume, by setting the optical properties of a voxel to that of the medium if the sphere encloses that voxel. The voxels out with sphere are set to that of the ambient medium. An example of a voxelised medium can be seen in~\cref{fig:voxel-model}. 
 
-
-\begin{wrapfigure}{L}{.5\textwidth}
+\begin{wrapfigure}{l}{.45\textwidth}
 \centering
-\includegraphics[width=.5\textwidth]{algopic.pdf}
-\caption{Flowchart of the \gls{mcrt} algorithm as described in this section.}
+\includegraphics[width=.45\textwidth]{algopic.pdf}
+\caption{Flowchart of the Monte Carlo radiation transport algorithm as described in this section.}
 \label{fig:algo}
-\vspace{-80pt}
+\vspace{-150pt}
 \end{wrapfigure}
 \leavevmode
 \FloatBarrier
-\subsubsection{Initialise Photon}\label{sec:algoinit}
+
+\subsubsection*{Initialise Photon}\label{sec:algoinit}
 
 The second step in the \gls{mcrt} algorithm, is to initialise the photon. Initialisation of the photon involves setting its initial position and direction. Again how this is done depends on the experiments being simulated. Here we initialise the photon to the centre of the sphere. The initial direction is sampled isotropically, and set accordingly:
 
@@ -383,21 +359,9 @@ n_{z}&=cos(\theta)
 \end{align}
 
 
-With $\theta$ and $\phi$ sampled uniformly between $[0,acos(2\xi-1)]$ and $[0,2\pi\xi]$ respectively.
+With $\theta$ and $\phi$ sampled uniformly between $[0,\ cos^{-1}(2\xi-1)]$ and $[0,2\pi\xi]$ respectively.
 
-% \begin{figure}[!ht]
-% \centering
-% \includegraphics[scale=0.25]{voxel-model-render.png}
-% \caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel can represent a different optical/thermal property of the tissue medium.***move to correct place***}
-% \label{fig:voxel-model}
-% \end{figure}
-
-\subsubsection{Grid Set-up}\label{sec:photsetup}
-
-The first step of the \gls{mcrt} algorithm is to set-up the grid which acts as the simulated medium. This grid consists of $n \times n \times n$ voxels\footnote{A voxel is a 3D pixel} of which each voxel has its own optical properties~(see \cref{sec:optprop} for discussion). This allows the medium of interest to be discretised onto a grid, which gives a good approximation of the real-life medium (see~\cref{sec:codefurther} for discussion on this), along with setting up the medium, arrays which store the locations of the voxel walls in each cardinal direction are created for reference in later parts of the code. Once the medium has been set-up photon packets are launched and propagated through the voxel structure.
-
-
-\subsubsection{Photon Launch}\label{sec:photlaunch}
+\subsubsection*{Photon Launch}\label{sec:photlaunch}
 
 The initial step (besides medium set-up and other book keeping) of any \gls{mcrt} algorithm is to launch a photon packet. 
 Depending on the source of photon packets for a given simulation, this step varies from simulation to simulation. 
@@ -417,7 +381,7 @@ The general idea of launching a photon packet is that the packet is given an ini
 	\end{bmatrix}	 
 \end{align}
 
-To set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\cref{sec:photscatterabsorb}), the direction vectors are computed in a spherical system thus the direction vectors are: 
+To set the direction vectors, the components of the direction vectors must be first set. The packets position is tracked using a Cartesian coordinate system, however for ease of computation for calculating scattering angles (see~\nameref{sec:photscatterabsorb}), the direction vectors are computed in a spherical system thus the direction vectors are: 
 
 \begin{align}
 n_{xp} &= sin(\theta) \cdot cos(\phi) \\
@@ -425,11 +389,19 @@ n_{yp} &= sin(\theta) \cdot sin(\phi) \\
 n_{zp} &= cos(\theta)
 \end{align}
 
-$\theta$ and $\phi$ are generated dependant on the photon source used. The individual sine and cosine terms are saved for use in the scattering routines, see~\cref{sec:photscatterabsorb}.
+$\theta$ and $\phi$ are generated dependant on the photon source used. The individual sine and cosine terms are saved for use in the scattering routines, see~\nameref{sec:photscatterabsorb}.
+\FloatBarrier
 
-\subsubsection{Photon Move}\label{sec:photmove}
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.25]{voxel-model-render.png}
+\caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers. Each voxel can represent a different optical/thermal property of the tissue medium.}
+\label{fig:voxel-model}
+\vspace{-20pt}
+\end{figure}
+\subsubsection*{Photon Move}\label{sec:photmove}
 
-The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the interaction probability (see~\cref{sec:optprop}). Thus the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
+The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the interaction probability (see~\nameref{sec:optprop}). Thus, the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
 
 \begin{align}
 P(L) &= (1-\mu_t\frac{L}{N}) \cdot (1-\mu_t\frac{L}{N}) ...\ (1-\mu_t\frac{L}{N}) = (1-\mu_t\frac{L}{N})^N \\
@@ -462,35 +434,32 @@ y_p &= y_p+L\cdot n_{yp}\label{eqn:update2}\\
 z_p &= z_p+L\cdot n_{zp}\label{eqn:update3}
 \end{align}
 
-However as the code in this thesis is a 3D gridded Cartesian code, we have to slightly adjust how we move and update the packets position. As stated in~\cref{sec:photsetup}, the medium has been discretised onto a grid, so that each voxel can have a different $\mu_t$, thus~\cref{eqn:physicaldist} becomes:
+However as the code in this thesis is a 3D gridded Cartesian code, we have to slightly adjust how we move and update the packets position. As stated in~\nameref{sec:algomedium}, the medium has been discretised onto a grid, so that each voxel can have a different $\mu_t$, thus~\cref{eqn:physicaldist} becomes:
 
 \begin{equation}
 L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
 \end{equation}
 
-with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. The position is then updated as before using~\cref{eqn:update1,eqn:update2,eqn:update3}. The next step in the algorithm is the interaction event, which can consist of either: scattering, absorbing or fluorescing.
+with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. The position is then updated as before using~\cref{eqn:update1,eqn:update2,eqn:update3}. The next step in the algorithm is the interaction event, which can consist of either: scattering, absorbing or fluorescing. 
 
-\subsubsection{Photon Scatter and Absorbing}\label{sec:photscatterabsorb}
+\subsubsection*{Photon Interaction Event}\label{sec:photscatterabsorb}
 
-The first part of this section of the algorithm is to decide what kind of interaction the packet has with the medium. This section will focus on scattering and absorbing with other interaction events left for the chapters that detail these behaviours.
+The next section of the algorithm is to decide how the photon interacts with the medium, either via scattering or absorption. There are other interaction events that can occur, however these are left for the chapters that detail these behaviours.
 \medskip
 
-To decide whether a packet scatters or absorbs involves ``throwing'' a random number and comparing it against the albedo. As detailed in~\cref{sec:optprop} the albedo is the scattering probability $a=\tfrac{\mu_a}{\mu_a+\mu_s}$. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
+To decide whether a packet scatters or absorbs involves ``throwing'' a random number and comparing it against the albedo. As detailed in~\nameref{sec:optprop} the albedo is the scattering probability $a=\tfrac{\mu_a}{\mu_a+\mu_s}$. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
 
 \paragraph{Packet Absorption}\hspace{0pt}\\
 \\
-If the interaction event is a photon packet absorption, then the algorithm terminates the photon packets and starts the next photon packet,~\cref{sec:terminator}.
+If the interaction event is a photon packet absorption, then the algorithm terminates the photon packets and starts the next photon packet, see~\nameref{sec:terminator}.
 
 \paragraph{Packet Scattering}\hspace{0pt}\\
 \\
-If the interaction event is a packet scattering, then the packet is scattered into a new direction and the above process are carried out until a termination clause is met, see~\cref{sec:terminator}.
+If the interaction event is a packet scattering, then the packet is scattered into a new direction and the above process are carried out until a termination clause is met, see~\nameref{sec:terminator}.
 
-Depending of the medium being simulated, it can either be isotropically scattering or preferentially scattering in a direction. In the case of simulating photon propagation in tissue, tissue is highly forward scattering.
+Depending of the medium being simulated, it can either be isotropically scattering or preferentially scattering in a direction. In the case of simulating photon propagation in tissue, tissue is highly forward scattering. For the isotropic case, new $\theta$ and $\phi$ angles are sampled uniformly, and the direction vectors set as in section~\nameref{sec:photlaunch}.
 
-Anisotropy is the degree of deviation in the photon packets path at each interaction event. The measure of anisotropy is the g value, $g$. With $g$ taking any value from $-1$ to $1$, $-1$ is highly backward scattering, $0$ is isotropic scattering and $1$ is highly forward scattering. 
-
-
-\subsubsection{Termination}\label{sec:terminator}
+\subsubsection*{Termination}\label{sec:terminator}
 
 \subsection{Code Details}
 

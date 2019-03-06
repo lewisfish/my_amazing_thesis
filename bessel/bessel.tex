@@ -23,7 +23,7 @@ Now we can calculate the phase of a photon at a position $\hat{p_o}$, if we know
 To be able model the wave-like behaviour of photons, we let the photons packets interfere with one another in a volume or area element. 
 We do not model the interference at just the points where photons packets cross one another as due to the ballistic nature of the \gls{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
 The interference takes place in a volume element $dV$ or area element $dA$ instead.
-To calculate the interference from the phase, the phase if summed in each volume or area element and the absolute value taken, and then squared, as seen in in~\cref{eqn:intense}.
+To calculate the interference from the phase, the phase if summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$.
 
 \begin{equation}
 I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi d}{\lambda}\right) + i \sum\limits_{\xi}sin\left(\frac{2\pi d}{\lambda}\right)\right|^2,\ \ \ \xi=(x,y,z)
@@ -36,18 +36,36 @@ I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi d}{\lambda}\right) + i \sum\l
 
 \indent $\lambda$ is the wavelength of the photon [$m$];
 
-\indent $I$ is the intensity at the $\xi^{th}$ cell [dunno].
+\indent $I$ is the intensity at the $\xi^{th}$ cell [dunno];
+
+\indent and $\xi$ is the $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
 
 \medskip
 
-As the \gls{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, we compare our simulations to theoretical and experimental data.
+As the \gls{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, we compare our simulations to theoretical and experimental data to prove this model is accurate. However before we validate our model we first introduce one further principle that is required for our model to work.
+
+\subsection{Huygens-Fresnel Principle}
+
+The Huygens-Fresnel principle is a method that is used to help mode the propagation of waves in the far-field limit and the near-field limit. 
+
+The Huygens-Fresnel principle: Every point point on a wavefront acts as a source of spherical wavelets, and that the sum of all the wavelets forms the wavefront. The principle is illustrated in~\cref{fig:huygensillis}
+
 
 \subsection{Validation of Phase Tracking Algorithm}
 
 The first test of our phase tracking algorithm, is to compare our simulation to a double slit experiment.
 The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits, and the interference pattern is observed on a screen a distance $d$ away from the slits.
-In this experiment
 
+In this experiment blah bla ***
+
+\begin{equation}
+    I(\theta) \propto cos^2\left(\frac{\pi d\ sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ sin\theta}{\lambda}\right)
+\end{equation}
+Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b is the slit width, d is the slit separation and $\theta$ is the angular spacing of the fringes.
+
+\section{Bessel Beams}
+
+Bessel beams
 
 \begin{figure}
 \centering
@@ -62,6 +80,20 @@ In this experiment
 \caption{Bessel beam in the far field.}
 \label{fig:farfield}
 \end{figure}
+\section{Gaussian Beams}
+
+
+
+\section{Other Beams}
+
+Our technique outlined in the preceding sections, can also be applied to arbitrary non-diffracting or complex beams. The only requirements for our algorithm to be able to model a complex beam, is that there is some phase delay that can be modelled analytically\footnote{It may be possible to model phase delays that are not analytical expressions. Simulating spatial light modulators may also be possible with our algorithm.}.
+
+The first example of using our algorithm to model complex beams is to model a Laguerre-Gauss beam. A Laguerre-Gauss beam can be created by introducing a helical phase delay to a plane wave blah blah. ***put theory here + phase and interference patterns for all beams
+
+Another example of our algorithms flexibility is that it can also model Hermite-Gauss beams, higher order Bessel beams and airy beams
+
+\section{Discussion}
+
 
 
 a~\cite{mignon2016fractional}

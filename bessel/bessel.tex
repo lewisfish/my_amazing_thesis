@@ -2,6 +2,16 @@
 
 \section{Introduction}\label{sec:besintro}
 
+Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
+Bessel beams have since been used for blah blah
+They are really good and like are better than Gaussian beams allegedly.
+
+This chapter examines how Bessel beams compare to other beam in a scattering medium. 
+We investigate if the Bessel beams self-healing property has any effect in a turbid medium.
+We examine Bessel beams and the other beams by creating a novel~\gls{mcrt} algorithm that allows the tracking of a photon as it propagates through a medium. 
+The main focus of this chapter, is validation of our new novel technique, followed by using the new algorithm to compare Gaussian and Bessel beams, to see which one preforms better in a turbid medium. 
+This chapter also extends out novel algorithm to other complex, diffraction less beams
+
 \section{Theory}\label{sec:bestheory}
 
 The \gls{mcrt} algorithm as described in~\cref{sec:mcrt}, must be adjusted so that wave phenomena such as interference and diffraction can be modelled. 
@@ -65,14 +75,72 @@ Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b 
 
 \section{Bessel Beams}
 
-Bessel beams
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.65]{pwr-rings.pdf}
-\caption{Bessel beam power in each ring.}
-\label{fig:pwrring}
-\end{figure}
+From the scalar description of the electric component of the beam, we get:
+
+\begin{equation}
+    E(r,z)=E_0\sqrt{\frac{2\pi k z w_0sin(\beta)}{z_{max}}}\ \text{exp}^{\left(-\frac{z^2}{z_{max}^2}-\frac{i\pi}{4}\right)}\ J_0\left(krsin(\beta)\right)\ \text{exp}^{\left(ikzcos(\beta)\right)}
+    \label{eqn:besselEfield}
+\end{equation}
+
+\noindent Where:
+
+    \indent k is the wavevector, $k=\tfrac{2\pi}{\lambda}$ [$m$];
+
+    \indent z is the distance from the axicon tip [$m$]; 
+
+    \indent $\beta$ is the angle the wavefront propagates at (see~\cref{fig:besselexplain}) [$rad$]; 
+
+    \indent $w_0$ is the $\tfrac{1}{e^2}$ width of the input Gaussian beam [$m$]; 
+
+    \indent $J_0$ is the Bessel function of the first order; 
+
+    \indent r is radial distance from the optical axis [$m$]. 
+
+\medskip
+
+
+~\Cref{eqn:besselEfield} gives the electric field for a Bessel beam. The intensity can be calculated using:
+
+\begin{equation}
+    I(r,z)=\frac{c\epsilon_0\left|E_0\right|^2}{2}
+    \label{eqn:besselintsub}
+\end{equation}
+
+Using the definition total power transmitted by a beam as:
+
+\begin{equation}
+    P=\frac{\pi I_0w_0^2}{2}
+    \label{eqn:pwrdef}
+\end{equation}
+
+Where $I_0$ is defined as on axis intensity of the incident Gaussian beam.
+
+\begin{equation}
+    I_0=\frac{c\epsilon_0E_0^2}{2}
+    \label{eqn:intdef}
+\end{equation}
+
+Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:besselintsub} yields:
+
+\begin{equation}
+    I(r,z)=\frac{4k_rP}{w_0}\frac{z}{z_{max}}J_0^2\left(k_r\ r\right)\text{exp}^{\left(-\frac{2z^2}{z^2_{max}}\right)}
+\end{equation}
+
+
+\noindent Where:
+
+    \indent $k_r$ is the radial wavevector, $k_r=k sin(\beta)$;
+
+    \indent P is the power of the incident Gaussian beam.
+
+
+% \begin{figure}
+% \centering
+% \includegraphics[scale=0.65]{pwr-rings.pdf}
+% \caption{Bessel beam power in each ring.}
+% \label{fig:pwrring}
+% \end{figure}
 
 \begin{figure}
 \centering

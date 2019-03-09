@@ -9,7 +9,7 @@ They are really good and like are better than Gaussian beams allegedly.
 This chapter examines how Bessel beams compare to other beam in a scattering medium. 
 We investigate if the Bessel beams self-healing property has any effect in a turbid medium.
 We examine Bessel beams and the other beams by creating a novel~\gls{mcrt} algorithm that allows the tracking of a photon as it propagates through a medium. 
-The main focus of this chapter, is validation of our new novel technique, followed by using the new algorithm to compare Gaussian and Bessel beams, to see which one preforms better in a turbid medium. 
+The main focus of this chapter, is validation of our new novel technique, followed by using the new algorithm ($\varphi MC$) to compare Gaussian and Bessel beams, to see which one preforms better in a turbid medium. 
 This chapter also extends out novel algorithm to other complex, diffraction less beams
 
 
@@ -153,6 +153,7 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 
 \begin{equation}
     I(r,z)=\frac{4k_rP}{w_0}\frac{z}{z_{max}}J_0^2\left(k_r\ r\right)\text{exp}^{\left(-\frac{2z^2}{z^2_{max}}\right)}
+    \label{eqn:besselInt}
 \end{equation}
 
 
@@ -162,6 +163,62 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 
     \indent P is the power of the incident Gaussian beam.
 
+    \medskip
+
+To check out method accurately models Bessel beams, we compare out beam to theoretical expressions and experimental data.
+
+To compare against a theoretical Bessel beam, a Bessel beam is modelled in the MCRT phase simulation, and propagated through air past the ``Bessel region''. 
+A slice of the intensity is then plotted against what the theory predicts the Bessel beam should look like. 
+A check of how the Bessel beam propagates in the far field is also preformed.
+
+
+~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation when $\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1$, with the simulation normalised to a maximum of 1 as well. ~\Cref{fig:besselCompare} shows this comparison.
+
+
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[]{}
+    \caption{Comparison of theoretical and MCRT simulation of a Bessel beams, with intensity normalised.}
+    \label{fig:besselCompare}
+\end{figure}
+
+To ensure our algorithm works in turbid media, we carried out an experiment where a Bessel beam was propagated through a medium of varying turbidity.
+A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens, with angle $5~^{\circ}$.
+The laser beam had a $\tfrac{1}{e^2}$ spot size of $2~mm$. 
+The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
+The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
+The scattering agent used is intralipid $20~\%$, which is diluted as shown in~\cref{tab:intra}.
+Images of the Bessel as it emerges from the cuvette are taken for comparison with out algorithm.
+~\Cref{fig:expsetup} shows the experimental setup.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{bessel-exp-setup.pdf}
+    \caption{Experimental setup for propagating a Bessel beam through a cuvette filled with varying concentrations of Intralipid 20\%. Bessel beam is imaged by an 20x objective lens and a Grasshopper 3 camera.}
+    \label{fig:expsetup}
+\end{figure}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{ccc}
+    \hline
+    \multicolumn{3}{c}{Volume/$\mu L$}                                               \\ \hline
+    Intralipid              & $H_2O$                   & Intralipid concentration/\% \\ \hline
+    \multicolumn{1}{c|}{0}  & \multicolumn{1}{c|}{500} & 0                           \\
+    \multicolumn{1}{c|}{2}  & \multicolumn{1}{c|}{500} & 0.39841                     \\
+    \multicolumn{1}{c|}{4}  & \multicolumn{1}{c|}{500} & 0.79365                     \\
+    \multicolumn{1}{c|}{6}  & \multicolumn{1}{c|}{500} & 1.18577                     \\
+    \multicolumn{1}{c|}{8}  & \multicolumn{1}{c|}{500} & 1.57480                     \\
+    \multicolumn{1}{c|}{10} & \multicolumn{1}{c|}{500} & 1.96078                     \\
+    \multicolumn{1}{c|}{12} & \multicolumn{1}{c|}{500} & 2.34375                     \\ \hline
+    \end{tabular}
+    \caption{Intralipid solutions used for experiment.}
+    \label{tab:intra}
+\end{table}
+
+
+To model the experimental setup we simplify the setup considerably.
+The simulation setup models just the phase delay of the axicon on the laser beam and the beams propagation through the cuvette onto an image plane. 
 
 % \begin{figure}
 % \centering

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="phase-diag.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="167.4631"
+     inkscape:cy="912.62487"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="1000"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="21.71828,810.14236"
+       orientation="0,1"
+       id="guide5532" />
+    <sodipodi:guide
+       position="136.87567,885.9038"
+       orientation="1,0"
+       id="guide5857" />
+    <sodipodi:guide
+       position="507.09658,871.76167"
+       orientation="1,0"
+       id="guide5859" />
+    <sodipodi:guide
+       position="404.69237,929.84544"
+       orientation="0,1"
+       id="guide5863" />
+    <sodipodi:guide
+       position="407.72282,890.07068"
+       orientation="0,1"
+       id="guide5865" />
+    <sodipodi:guide
+       position="321,1110.8647"
+       orientation="1,0"
+       id="guide4158"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       id="path4578"
+       title="t sin(t)"
+       d="m 137.05723,242.21929 c 5.1029,-5.1029 10.2058,-10.18992 15.3087,-14.2533 5.1029,-4.06339 10.20579,-7.07384 15.30869,-8.44061 5.1029,-1.36677 10.2058,-1.07295 15.3087,0.81428 5.1029,1.88724 10.20579,5.3655 15.30869,9.7371 5.1029,4.3716 10.2058,9.61583 15.3087,14.68899 5.10289,5.07316 10.20579,9.94469 15.30869,13.65051 5.1029,3.70582 10.2058,6.21796 15.3087,7.04515 5.1029,0.8272 10.20579,-0.0445 15.30869,-2.4333 5.1029,-2.38877 10.2058,-6.28886 15.3087,-10.91943 5.1029,-4.63056 10.20579,-9.96851 15.30869,-14.95246 5.1029,-4.98395 10.2058,-9.58286 15.3087,-12.88767 5.1029,-3.30481 10.20579,-5.28919 15.30869,-5.56711 5.1029,-0.27792 10.2058,1.16148 15.3087,4.02379 5.10289,2.86231 10.20579,7.13849 15.30869,11.97374 5.1029,4.83525 10.2058,10.20433 15.3087,15.04063 5.10289,4.83631 10.20579,9.10869 15.30869,11.97375 5.1029,2.86505 10.2058,4.2984 15.3087,4.02379 5.1029,-0.27461 10.20579,-2.26483 15.30869,-5.56711 5.1029,-3.30228 10.2058,-7.90443 15.3087,-12.88767 5.1029,-4.98324 10.20579,-10.3205 15.30869,-14.95246 5.1029,-4.63197 10.2058,-8.52773 15.3087,-10.91943 5.10289,-2.39171 10.20579,-3.25723 15.30869,-2.43331 5.1029,0.82392 10.2058,3.34162 15.30869,7.04516 5.1029,3.70354 10.2058,8.5777 15.3087,13.65051 5.1029,5.0728 10.2058,10.31568 15.3087,14.68899 5.1029,4.37331 10.20579,7.84678 15.30869,9.73709 5.1029,1.89032 10.2058,2.17786 15.3087,0.81429 5.1029,-1.36357 10.20579,-4.37923 15.30869,-8.44061 5.1029,-4.06138 10.2058,-9.1504 15.3087,-14.2533"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00539b;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+    <circle
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="path5515"
+       cx="137.38075"
+       cy="243.22998"
+       r="4.5456862" />
+    <circle
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="path5515-6"
+       cx="506.59149"
+       cy="243.23001"
+       r="4.5456862" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5534"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(35.860415,44.951788)"><flowRegion
+         id="flowRegion5536"><rect
+           id="rect5538"
+           width="140.41121"
+           height="62.629459"
+           x="83.842659"
+           y="144.74013" /></flowRegion><flowPara
+         id="flowPara5540">P</flowPara></flowRoot>    <flowRoot
+       transform="translate(403.38098,37.268774)"
+       xml:space="preserve"
+       id="flowRoot5534-7"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:transform-center-x="388.40365"
+       inkscape:transform-center-y="-57.073597"><flowRegion
+         id="flowRegion5536-5"><rect
+           id="rect5538-3"
+           width="140.41121"
+           height="62.629459"
+           x="83.842659"
+           y="144.74013" /></flowRegion><flowPara
+         id="flowPara5540-5">P<flowSpan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="flowSpan5566">0</flowSpan></flowPara></flowRoot>    <path
+       id="path4578-6"
+       title="t sin(t)"
+       d="m 201.05413,391.72405 c 2.79743,-6.65233 5.60087,-13.28996 8.79095,-18.97978 3.19008,-5.68983 6.77786,-10.40471 10.98649,-13.59768 4.20863,-3.19297 9.0445,-4.84837 14.48222,-5.02839 5.43772,-0.18001 11.47639,1.11314 17.8525,3.23345 6.37611,2.12031 13.08183,5.04861 19.72293,7.8185 6.64109,2.76991 13.20603,5.35311 19.33066,6.85696 6.12463,1.50385 11.7984,1.90244 16.83573,0.74091 5.03733,-1.16153 9.43295,-3.8961 13.25554,-8.03539 3.82261,-4.13926 7.07437,-9.67789 10.05021,-15.89288 2.97585,-6.21498 5.68449,-13.08495 8.52686,-19.62714 2.84236,-6.5422 5.83016,-12.72788 9.30676,-17.71532 3.47661,-4.98744 7.45195,-8.75227 12.07186,-10.93705 4.61991,-2.18478 9.88848,-2.77945 15.6945,-2.05663 5.80602,0.72283 12.14609,2.75479 18.69732,5.3044 6.55124,2.54961 13.30411,5.59351 19.85575,8.1441 6.55163,2.55059 12.89026,4.57903 18.69732,5.30441 5.80706,0.72536 11.07335,0.12508 15.69451,-2.05664 4.62115,-2.18171 8.59429,-5.95195 12.07185,-10.93705 3.47756,-4.9851 6.46414,-11.17377 9.30677,-17.71531 2.84263,-6.54154 5.55154,-13.41087 8.52685,-19.62714 2.97532,-6.21629 6.22871,-11.75091 10.05021,-15.89288 3.82149,-4.14198 8.21945,-6.87084 13.25554,-8.0354 5.03609,-1.16456 10.71196,-0.76082 16.83572,0.74092 6.12377,1.50174 12.6897,4.08738 19.33067,6.85696 6.64096,2.76956 13.34617,5.69661 19.72292,7.8185 6.37676,2.12189 12.41362,3.41061 17.85251,3.23344 5.43888,-0.17716 10.27238,-1.83837 14.48222,-5.02838 4.20984,-3.19001 7.79565,-7.90972 10.98649,-13.59768 3.19083,-5.68797 5.99351,-12.32745 8.79094,-18.97978"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ee312a;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 137.04929,142.59355 370.29963,0"
+       id="path5861"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 507.09658,122.51676 0,39.77476"
+       id="path5867"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 136.9388,122.57992 0,39.77476"
+       id="path5867-2"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5534-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(225.89718,-52.937843)"><flowRegion
+         id="flowRegion5536-1"><rect
+           id="rect5538-2"
+           width="140.41121"
+           height="62.629459"
+           x="83.842659"
+           y="144.74013" /></flowRegion><flowPara
+         id="flowPara5540-7">l</flowPara></flowRoot>  </g>
+</svg>

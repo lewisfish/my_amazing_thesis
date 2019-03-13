@@ -2,6 +2,8 @@
 
 \section{Introduction}\label{sec:besintro}
 
+Intro = mention complex beams and their uses then move onto gaussian and bessel beams
+
 Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
 Bessel beams have since been used for blah blah
 They are really good and like are better than Gaussian beams allegedly.
@@ -13,7 +15,7 @@ The main focus of this chapter, is validation of our new novel technique, follow
 This chapter also extends out novel algorithm to other complex, diffraction less beams
 
 
-motivation => better imaging of chick embryos etc
+motivation = better imaging of chick embryos etc
 
 
 \section{Theory}\label{sec:bestheory}
@@ -21,7 +23,7 @@ motivation => better imaging of chick embryos etc
 The \gls{mcrt} algorithm as described in~\cref{sec:mcrt}, must be adjusted so that wave phenomena such as interference and diffraction can be modelled. 
 Modelling these wave behaviours allows us to model complex beams, where these phenomena are required to form the beam, e.g Bessel beams. 
 As \gls{mcrt} is a ballistic simulation of photon packets, meaning that the \gls{mcrt} simulation presented thus far in this thesis only modelled the ballistic behaviour of photons. 
-However for the work presented in this chapter, wave like behaviours is crucial to modelling the various experiments and phenomena.
+However for the work presented in this chapter, wave like behaviour is crucial to modelling the various experiments and phenomena.
 
 In order to convert a ballistic simulation of photon packets into a ballistic/wave-like simulation, the complex phase of each photon packet is tracked.
 This is achieved, by simply tracking the complex phase of the photon as it propagates through a medium.
@@ -33,14 +35,22 @@ This is achieved, by simply tracking the complex phase of the photon as it propa
 \end{equation}
 
 Where $\varphi~[-]$ is the phase of a photon packet, $l\ [m]$ is the distance the photons has travelled, and $\lambda~[m]$ is the wavelength of the photon.
-Now we can calculate the phase of a photon at a position $\hat{p_o}$, if we know the distance it has travelled, and its original phase. 
+Now we can calculate the phase of a photon at a position $P_o$, if we know the distance it has travelled, and its original phase,~\cref{fig:phase-diag}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{phase-diag.pdf}
+    \caption{Example of phase calculation when a photon has travelled a distance l. Figure also show an example of interference between two photons.}
+    \label{fig:phase-diag}
+\end{figure}
+
 To be able model the wave-like behaviour of photons, we let the photons packets interfere with one another in a volume or area element. 
-We do not model the interference at just the points where photons packets cross one another as due to the ballistic nature of the \gls{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
-The interference takes place in a volume element $dV$ or area element $dA$ instead.
-To calculate the interference from the phase, the phase if summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$.
+We do not model the interference at a point in space where photons packets cross one another as due to the ballistic nature of the \gls{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
+Thus, interference takes place in a volume, $dV$, or area element, $dA$, instead.
+To calculate the interference from the phase, the phase is summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
 \begin{equation}
-I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi d}{\lambda}\right) + i \sum\limits_{\xi}sin\left(\frac{2\pi d}{\lambda}\right)\right|^2,\ \ \ \xi=(x,y,z)
+I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\xi}sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \xi=(x,y,z)
 \label{eqn:intense}
 \end{equation}
 
@@ -50,21 +60,35 @@ I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi d}{\lambda}\right) + i \sum\l
 
 \indent $\lambda$ is the wavelength of the photon [$m$];
 
-\indent $I$ is the intensity at the $\xi^{th}$ cell [dunno];
+\indent $I$ is the intensity at the $\xi^{th}$ cell [$W m^{-2}$];
 
 \indent and $\xi$ is the $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
 
 \medskip
 
-As the \gls{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, we compare our simulations to theoretical and experimental data to prove this model is accurate. However before we validate our model we first introduce one further principle that is required for our model to work.
+As the \gls{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, comparisons between the simulations and, theoretical and experimental data to prove this model is accurate. However before validation of the model takes place, one further principle needs to be introduced that is required for our model to work.
 
 \subsection{Huygens-Fresnel Principle}
 
-The Huygens-Fresnel principle is a method that is used to help mode the propagation of waves in the far-field limit and the near-field limit. 
+The Huygens-Fresnel principle is a method that is used to help model the propagation of waves in the far-field limit and the near-field limit. 
 
-The Huygens principle: Every point point on a wavefront acts as a source of spherical wavelets, and that the sum of all the wavelets forms the wavefront. 
-The principle is illustrated in~\cref{fig:huygensillis}. 
-Fresnel later came along and fixed, then kirchoff double fixed it real good, with math and stuff.
+The Huygens principle states: 
+
+\medskip
+
+``Every point point on a wavefront acts as a source of spherical wavelets, and that the sum of all the wavelets forms the wavefront.''***ref***
+
+\medskip
+
+The principle is illustrated in~\cref{fig:huygensillis}. Christiaan Huygens postulated this principle in 1678.
+The principle allowed Huygens to derive laws of refraction and reflection using this principle, but it failed to describe diffraction effects.
+This led to Augustin-Jean Fresnel in 1818, combining the Huygens principle with his own theory of interference.
+This principle, the Huygens-Fresnel principle, gave an accurate description of the propagation of light and diffraction effects.
+This was achieved by allowing the secondary wavelets to self interfere with one another, giving rise to an accurate description of the physical phenomena.
+Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory. *refs for this section*
+
+
+
 
 
 allows us to calculate complex amplitude at a given point. 
@@ -77,7 +101,7 @@ fraunhoefer far away
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{huygens.pdf}
+    \includegraphics[width=0.7\textwidth]{huygens.pdf}
     \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle.}
     \label{fig:huygensillis}
 \end{figure}
@@ -99,7 +123,7 @@ Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b 
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{bessel.pdf}
+    \includegraphics[width=0.6\textwidth]{bessel.pdf}
     \caption{Geometry of a Bessel beam, generated by an axicon lens. $\beta$ is the angle with the optical axis, and the angle of the conical waves. $\alpha$ is the axicon angle.}
     \label{fig:besselgeo}
 \end{figure}

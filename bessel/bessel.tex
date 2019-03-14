@@ -87,6 +87,8 @@ This principle, the Huygens-Fresnel principle, gave an accurate description of t
 This was achieved by allowing the secondary wavelets to self interfere with one another, giving rise to an accurate description of the physical phenomena.
 Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory. *refs for this section*
 
+Our algorithm uses the Huygens-Fresnel principle in order to simulate diffraction effects, that would otherwise be absent from the simulation.
+The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
 
 
 
@@ -119,6 +121,23 @@ In this experiment blah bla ***
 Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b is the slit width, d is the slit separation and $\theta$ is the angular spacing of the fringes.
 
 \section{Bessel Beams}
+
+The first ``complex'' beam simulated using $\varphi MC$ is a Bessel beam. 
+Bessel beams are non-diffractive solutions to the wave equation. 
+Bessel beams were first shown to blah
+
+
+% *** Bessel beams non diffracting
+%     but are they - some debate over this
+%     self reconstructing
+%     central core does not diffract like Gaussian
+%     quasi Bessel beam -> infinite rings not possible -> infinite energy
+%     Bessel beam theory form of equation -> intensity
+%     pics of Bessel beam + higher orders
+%     geometry of Bessel beams
+%     Bessel beams in code
+%     results
+% ***
 
 
 \begin{figure}[!ht]
@@ -196,13 +215,13 @@ A slice of the intensity is then plotted against what the theory predicts the Be
 A check of how the Bessel beam propagates in the far field is also preformed.
 
 
-~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation when $\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1$, with the simulation normalised to a maximum of 1 as well. ~\Cref{fig:besselCompare} shows this comparison.
+~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation when $\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1$, with the simulation similarly normalised, by normalising to the maximum intensity of the image generated. ~\Cref{fig:besselCompare} shows this comparison.
 
 
 \begin{figure}[!ht]
     \centering
-    % \includegraphics[]{}
-    \caption{Comparison of theoretical and MCRT simulation of a Bessel beams, with intensity normalised.}
+    \includegraphics[width=0.95\textwidth]{compare-theory.pdf}
+    \caption{Comparison of theoretical and MCRT simulation of a Bessel beams, with intensity normalised. The results from $\varphi MC$ show good agreement with the theory.}
     \label{fig:besselCompare}
 \end{figure}
 
@@ -211,13 +230,15 @@ A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens
 The laser beam had a $\tfrac{1}{e^2}$ spot size of $2~mm$. 
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
-The scattering agent used is intralipid $20~\%$, which is diluted as shown in~\cref{tab:intra}.
-Images of the Bessel as it emerges from the cuvette are taken for comparison with out algorithm.
+The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra}.
+Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime.
+This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
+Images of the Bessel beam as it emerges from the cuvette are taken for comparison with out algorithm.
 ~\Cref{fig:expsetup} shows the experimental setup.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.95\textwidth]{bessel-exp-setup.pdf}
+    \includegraphics[width=0.8\textwidth]{bessel-exp-setup.pdf}
     \caption{Experimental setup for propagating a Bessel beam through a cuvette filled with varying concentrations of Intralipid 20\%. Bessel beam is imaged by an 20x objective lens and a Grasshopper 3 camera.}
     \label{fig:expsetup}
 \end{figure}
@@ -241,13 +262,22 @@ Images of the Bessel as it emerges from the cuvette are taken for comparison wit
 \end{table}
 
 
-To model the experimental setup we simplify the setup considerably.
-The simulation setup models just the phase delay of the axicon on the laser beam and the beams propagation through the cuvette onto an image plane. 
+To model within $\varphi MC$, the experimental setup we simplify the setup considerably.
+The simulation models the propagation of a photon packet through the axicon to its conical surface. 
+On the conical surface the Huygens-Fresnel principle is invoked, and the packet is sampled onto the surface of the medium (cuvette).
+The sampling of the photon onto the surface of the medium, speeds the algorithm up, as it does not need to simulate the photons that would ``miss'' the medium.
+From there the usual~\gls{mcrt} method propagates the packet through the medium while tracking its phase, and scattering the packet until it leaves the medium.
+If the packet leaves the medium to any side other than the far side of the cuvette (e.g any side of the cuvette not facing the objective lens), then it is discarded.
+If the packet leaves the medium on the objective lens facing side, then the packet is recorded by its phase onto an area element.
+For each intralipid concentration $3.2\times10^11$ photons are run over 32 cores, taking $\sim 4$ hours for the 0.5448\% intralipid concentration.
+Once all the photon packets have been run, the image is the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
+
+\Cref{fig:compareexpbessel} shows the results from the experiment and simulation. The simulation shows good agreement with experimental data.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{compare-exp.pdf}
-\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity.}
+\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Concentrations along the top are the concentration of scattering particles in each solution as in~\cref{tab:intra}. All images cropped so they are the same size.}
 \label{fig:compareexpbessel}
 \end{figure}
 
@@ -259,20 +289,24 @@ The simulation setup models just the phase delay of the axicon on the laser beam
 % \label{fig:pwrring}
 % \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.95\textwidth]{far-field.pdf}
-\caption{Bessel beam in the far field.}
-\label{fig:farfield}
-\end{figure}
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.95\textwidth]{far-field.pdf}
+% \caption{Bessel beam in the far field.}
+% \label{fig:farfield}
+% \end{figure}
+\FloatBarrier
+
 \section{Gaussian Beams}
 
-implementation of lenss -> plano-convex and aspheric
-emphasis no coding of focal distance
-spherical aberrations 
-curvature of phase change
-
-need to find factor root 2
+% gaussian beam theory
+% geometry
+% implementation of lens's -> plano-convex and aspheric
+% emphasis no coding of focal distance
+% spherical aberrations 
+% curvature of phase change
+% 
+% need to find factor root 2
 
 \section{Other Beams}
 

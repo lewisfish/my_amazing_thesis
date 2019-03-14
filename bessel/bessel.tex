@@ -223,18 +223,18 @@ Images of the Bessel as it emerges from the cuvette are taken for comparison wit
 \end{figure}
 
 \begin{table}[!ht]
-    \centering
-    \begin{tabular}{ccc}
-    \hline
-    \multicolumn{3}{c}{Volume/$\mu L$}                                               \\ \hline
-    Intralipid              & $H_2O$                   & Intralipid concentration/\% \\ \hline
-    \multicolumn{1}{c|}{0}  & \multicolumn{1}{c|}{500} & 0                           \\
-    \multicolumn{1}{c|}{2}  & \multicolumn{1}{c|}{500} & 0.39841                     \\
-    \multicolumn{1}{c|}{4}  & \multicolumn{1}{c|}{500} & 0.79365                     \\
-    \multicolumn{1}{c|}{6}  & \multicolumn{1}{c|}{500} & 1.18577                     \\
-    \multicolumn{1}{c|}{8}  & \multicolumn{1}{c|}{500} & 1.57480                     \\
-    \multicolumn{1}{c|}{10} & \multicolumn{1}{c|}{500} & 1.96078                     \\
-    \multicolumn{1}{c|}{12} & \multicolumn{1}{c|}{500} & 2.34375                     \\ \hline
+\centering
+    \begin{tabular}{cc|cc}
+        \hline
+        \multicolumn{2}{c|}{Volume/$\mu L$} & \multicolumn{2}{|c}{Intralipid concentration}                       \\
+        Intralipid                & $H_2O$  & Volume/\%      & Scattering particle/\% \\ \hline
+        \multicolumn{1}{c|}{0}    & 500     & \multicolumn{1}{c|}{0.0}       & 0.0                                    \\
+        \multicolumn{1}{c|}{2}    & 500     & \multicolumn{1}{c|}{0.39841} & 0.0908                                \\
+        \multicolumn{1}{c|}{4}    & 500     & \multicolumn{1}{c|}{0.79365} & 0.1816                                \\
+        \multicolumn{1}{c|}{6}    & 500     & \multicolumn{1}{c|}{1.18577} & 0.2724                                \\
+        \multicolumn{1}{c|}{8}    & 500     & \multicolumn{1}{c|}{1.57480} & 0.3632                                \\
+        \multicolumn{1}{c|}{10}   & 500     & \multicolumn{1}{c|}{1.96078} & 0.4534                                \\
+        \multicolumn{1}{c|}{12}   & 500     & \multicolumn{1}{c|}{2.34375} & 0.5448                                \\ \hline
     \end{tabular}
     \caption{Intralipid solutions used for experiment.}
     \label{tab:intra}
@@ -243,6 +243,14 @@ Images of the Bessel as it emerges from the cuvette are taken for comparison wit
 
 To model the experimental setup we simplify the setup considerably.
 The simulation setup models just the phase delay of the axicon on the laser beam and the beams propagation through the cuvette onto an image plane. 
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.95\textwidth]{compare-exp.pdf}
+\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity.}
+\label{fig:compareexpbessel}
+\end{figure}
+
 
 % \begin{figure}
 % \centering
@@ -253,7 +261,7 @@ The simulation setup models just the phase delay of the axicon on the laser beam
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.75]{far-field.pdf}
+\includegraphics[width=0.95\textwidth]{far-field.pdf}
 \caption{Bessel beam in the far field.}
 \label{fig:farfield}
 \end{figure}

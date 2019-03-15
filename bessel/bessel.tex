@@ -2,30 +2,30 @@
 
 \section{Introduction}\label{sec:besintro}
 
-Intro = mention complex beams and their uses then move onto gaussian and bessel beams
+%Intro = mention complex beams and their uses then move onto gaussian and bessel beams
 
 Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
-Bessel beams have since been used for blah blah
-They are really good and like are better than Gaussian beams allegedly.
+%Bessel beams have since been used for blah blah
+%They are really good and like are better than Gaussian beams allegedly.
 
 This chapter examines how Bessel beams compare to other beam in a scattering medium. 
 We investigate if the Bessel beams self-healing property has any effect in a turbid medium.
-We examine Bessel beams and the other beams by creating a novel~\gls{mcrt} algorithm that allows the tracking of a photon as it propagates through a medium. 
+We examine Bessel beams and the other beams by creating a novel~\gls*{mcrt} algorithm that allows the tracking of a photon as it propagates through a medium. 
 The main focus of this chapter, is validation of our new novel technique, followed by using the new algorithm ($\varphi MC$) to compare Gaussian and Bessel beams, to see which one preforms better in a turbid medium. 
 This chapter also extends out novel algorithm to other complex, diffraction less beams
 
 
-motivation = better imaging of chick embryos etc
+%motivation = better imaging of chick embryos etc
 
 
 \section{Theory}\label{sec:bestheory}
 
-The \gls{mcrt} algorithm as described in~\cref{sec:mcrt}, must be adjusted so that wave phenomena such as interference and diffraction can be modelled. 
+The \gls*{mcrt} algorithm as described in~\cref{sec:mcrt}, must be adjusted so that wave phenomena such as interference and diffraction can be modelled. 
 Modelling these wave behaviours allows us to model complex beams, where these phenomena are required to form the beam, e.g Bessel beams. 
-As \gls{mcrt} is a ballistic simulation of photon packets, meaning that the \gls{mcrt} simulation presented thus far in this thesis only modelled the ballistic behaviour of photons. 
+As \gls*{mcrt} is a ballistic simulation of photon packets, meaning that the \gls*{mcrt} simulation presented thus far in this thesis only modelled the ballistic behaviour of photons. 
 However for the work presented in this chapter, wave like behaviour is crucial to modelling the various experiments and phenomena.
 
-In order to convert a ballistic simulation of photon packets into a ballistic/wave-like simulation, the complex phase of each photon packet is tracked.
+To convert a ballistic simulation of photon packets into a ballistic/wave-like simulation, the complex phase of each photon packet is tracked.
 This is achieved, by simply tracking the complex phase of the photon as it propagates through a medium.
 ~\Cref{eqn:phase} shows how the phase is calculated.
 
@@ -45,7 +45,7 @@ Now we can calculate the phase of a photon at a position $P_o$, if we know the d
 \end{figure}
 
 To be able model the wave-like behaviour of photons, we let the photons packets interfere with one another in a volume or area element. 
-We do not model the interference at a point in space where photons packets cross one another as due to the ballistic nature of the \gls{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
+We do not model the interference at a point in space where photons packets cross one another as due to the ballistic nature of the \gls*{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
 Thus, interference takes place in a volume, $dV$, or area element, $dA$, instead.
 To calculate the interference from the phase, the phase is summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
@@ -66,17 +66,17 @@ I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\l
 
 \medskip
 
-As the \gls{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, comparisons between the simulations and, theoretical and experimental data to prove this model is accurate. However before validation of the model takes place, one further principle needs to be introduced that is required for our model to work.
+As the \gls*{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, comparisons between the simulations and, theoretical and experimental data to prove this model is accurate. However before validation of the model takes place, one further principle needs to be introduced that is required for our model to work.
 
 \subsection{Huygens-Fresnel Principle}
 
-The Huygens-Fresnel principle is a method that is used to help model the propagation of waves in the far-field limit and the near-field limit. 
+The Huygens-Fresnel principle is a method that is used to help model the propagation of waves in the far field limit and the near field limit. 
 
 The Huygens principle states: 
 
 \medskip
 
-``Every point point on a wavefront acts as a source of spherical wavelets, and that the sum of all the wavelets forms the wavefront.''***ref***
+``Every point on a wavefront acts as a source of spherical wavelets, and that the sum of all the wavelets forms the wavefront.''***ref***
 
 \medskip
 
@@ -87,19 +87,19 @@ This principle, the Huygens-Fresnel principle, gave an accurate description of t
 This was achieved by allowing the secondary wavelets to self interfere with one another, giving rise to an accurate description of the physical phenomena.
 Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory. *refs for this section*
 
-Our algorithm uses the Huygens-Fresnel principle in order to simulate diffraction effects, that would otherwise be absent from the simulation.
+Our algorithm uses the Huygens-Fresnel principle to simulate diffraction effects, that would otherwise be absent from the simulation.
 The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
 
 
 
 
-allows us to calculate complex amplitude at a given point. 
-inclination factor no backward waves.
-used in diffraction theory -> kirchoffs
-
-fresnel and fraunhoefer diffraction -> validation of algorithm
-fresnel close
-fraunhoefer far away
+%allows us to calculate complex amplitude at a given point. 
+%inclination factor no backward waves.
+%used in diffraction theory -> kirchoffs
+%
+%fresnel and fraunhoefer diffraction -> validation of algorithm
+%fresnel close
+%fraunhoefer far away
 
 \begin{figure}[!ht]
     \centering
@@ -113,7 +113,7 @@ fraunhoefer far away
 The first test of our phase tracking algorithm, is to compare our simulation to a double slit experiment.
 The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits, and the interference pattern is observed on a screen a distance $d$ away from the slits.
 
-In this experiment blah bla ***
+%In this experiment blah bla ***
 
 \begin{equation}
     I(\theta) \propto cos^2\left(\frac{\pi d\ sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ sin\theta}{\lambda}\right)
@@ -239,7 +239,7 @@ Images of the Bessel beam as it emerges from the cuvette are taken for compariso
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{bessel-exp-setup.pdf}
-    \caption{Experimental setup for propagating a Bessel beam through a cuvette filled with varying concentrations of Intralipid 20\%. Bessel beam is imaged by an 20x objective lens and a Grasshopper 3 camera.}
+    \caption{Experimental setup for propagating a Bessel beam through a cuvette filled with varying concentrations of Intralipid 20\%. Bessel beam is imaged by an $20\times$ objective lens and a Grasshopper 3 camera.}
     \label{fig:expsetup}
 \end{figure}
 
@@ -266,10 +266,10 @@ To model within $\varphi MC$, the experimental setup we simplify the setup consi
 The simulation models the propagation of a photon packet through the axicon to its conical surface. 
 On the conical surface the Huygens-Fresnel principle is invoked, and the packet is sampled onto the surface of the medium (cuvette).
 The sampling of the photon onto the surface of the medium, speeds the algorithm up, as it does not need to simulate the photons that would ``miss'' the medium.
-From there the usual~\gls{mcrt} method propagates the packet through the medium while tracking its phase, and scattering the packet until it leaves the medium.
+From there the usual~\gls*{mcrt} method propagates the packet through the medium while tracking its phase, and scattering the packet until it leaves the medium.
 If the packet leaves the medium to any side other than the far side of the cuvette (e.g any side of the cuvette not facing the objective lens), then it is discarded.
 If the packet leaves the medium on the objective lens facing side, then the packet is recorded by its phase onto an area element.
-For each intralipid concentration $3.2\times10^11$ photons are run over 32 cores, taking $\sim 4$ hours for the 0.5448\% intralipid concentration.
+For each intralipid concentration $3.2\times10^{11}$ photons are run over 32 cores, taking $\sim 4$ hours for the 0.5448\% intralipid concentration.
 Once all the photon packets have been run, the image is the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
 
 \Cref{fig:compareexpbessel} shows the results from the experiment and simulation. The simulation shows good agreement with experimental data.
@@ -320,27 +320,27 @@ Another example of our algorithms flexibility is that it can also model Hermite-
 
 \section{Discussion}
 
-talk about comparison of beams. methods validity -> downside and upsides
+%talk about comparison of beams. methods validity -> downside and upsides
 
 a~\cite{mignon2016fractional}
 \section{Conclusion}
 
-conclude shit
+%conclude shit
 
 
-sources
-cizmar thesis
-born: principles of optics
-hecht: optics
-mignon
-prahl
-fresnel/fraunhoefer paper
-thorlabs
-sacsha thesis
-kishans papers
-various axicon papers
-aspheric papers
-phase screen model
-beam steering paper
-paper that hates on mcrt
-E-field mcrt
+%sources
+%cizmar thesis
+%born: principles of optics
+%hecht: optics
+%mignon
+%prahl
+%fresnel/fraunhoefer paper
+%thorlabs
+%sacsha thesis
+%kishans papers
+%various axicon papers
+%aspheric papers
+%phase screen model
+%beam steering paper
+%paper that hates on mcrt
+%E-field mcrt

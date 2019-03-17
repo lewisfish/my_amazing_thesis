@@ -120,6 +120,45 @@ The double slit experiment, is a simple experiment where monochromatic plane wav
 \end{equation}
 Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b is the slit width, d is the slit separation and $\theta$ is the angular spacing of the fringes.
 
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{aperture.pdf}
+    \caption{Fresnel diffraction at a square aperture.}
+    \label{fig:aperture}
+\end{figure}
+
+$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field.
+
+In the Fresnel regime, the electric field at a point p is
+
+\begin{equation}
+\hat{E}_p=\frac{\varepsilon_0}{2(\rho_0+r_0)}e^{i[k(\rho_0+r_0)-\omega t]}\int^{u_2}_{u_1} e^{i\pi u^2/2}du \int^{v_2}_{v_1} e^{i\pi v^2/2}dv
+\end{equation}
+
+Where the symbols have their meanings as in~\cref{fig:aperture}, and \textit{u} and \textit{v} are the following dimensionless variables
+
+\begin{align}
+u&=y\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}\\
+v&=z\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}
+\end{align}
+
+where $(y,z)$ are the coordinates of the point $a$ in~\cref{fig:aperture}.
+
+
+
+\begin{equation}
+I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2) - C(v_1)]^2 + [S(v_2) - S(v_1)]^2\}
+\label{eqn:fresIntensityp}
+\end{equation}
+
+\begin{align}
+S(w)&=\int^w_0 sin\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint1}\\
+C(w)&=\int^w_0 cos\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint2}
+\end{align}
+
+
+
 \section{Bessel Beams}
 
 The first ``complex'' beam simulated using $\varphi MC$ is a Bessel beam. 

@@ -110,16 +110,71 @@ The Huygens-Fresnel principle is implemented by sampling the light source on the
 
 \subsection{Validation of Phase Tracking Algorithm}
 
+\subsubsection*{Double Slit Experiment}
+
 The first test of our phase tracking algorithm, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits, and the interference pattern is observed on a screen a distance $d$ away from the slits.
+The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $a$, and width $b$, and the interference pattern is observed on a screen a distance $d$ away from the slits.
 
 %In this experiment blah bla ***
 
 \begin{equation}
     I(\theta) \propto cos^2\left(\frac{\pi d\ sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ sin\theta}{\lambda}\right)
 \end{equation}
-Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b is the slit width, d is the slit separation and $\theta$ is the angular spacing of the fringes.
 
+Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, d is the slit separation and $\theta$ is the angular spacing of the fringes.
+
+
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[]{}
+    \caption{Comparison of theory and simulation for the double slit experiment. $\lambda$ is $x nm$, $b$ is, and $d$}
+    \label{fig:doubleslitcomp}
+\end{figure}
+
+\subsubsection*{Diffraction by a Square Slit}
+$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field.
+
+%near field == fresnel
+%far field == fraunhoefer
+
+In the Fresnel regime, the electric field at a point p is
+
+\begin{equation}
+\hat{E}_p=\frac{\varepsilon_0}{2(\rho_0+r_0)}e^{i[k(\rho_0+r_0)-\omega t]}\int^{u_2}_{u_1} e^{i\pi u^2/2}du \int^{v_2}_{v_1} e^{i\pi v^2/2}dv
+\label{eqn:fresEfield}
+\end{equation}
+
+Where $k$ is a wavevector, $\varepsilon_0$ is permittivity of free space, and the other symbols have their meanings as in~\cref{fig:aperture}. \textit{u} and \textit{v} are the following dimensionless variables:
+
+\begin{align}
+u&=y\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}\\
+v&=z\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}
+\end{align}
+
+
+Where $(y,z)$ are the coordinates of the point $a$ in~\cref{fig:aperture}.
+\medskip
+
+Using~\cref{eqn:fresneleqn}, where $C(w)$ and $S(w)$ are the Fresnel integrals as in~\cref{eqn:fresint1,eqn:fresint2},~\cref{eqn:fresEfield} can then be transformed into an intensity, by taking the absolute value and squaring, yielding~\cref{eqn:fresIntensityp}:
+
+\begin{equation}
+\int_{w}^{w'}e^{i\pi u^2/2}du=C(w)+iS(w)
+\label{eqn:fresneleqn}
+\end{equation}
+
+
+\begin{align}
+S(w)&=\int^w_0 sin\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint1}\\
+C(w)&=\int^w_0 cos\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint2}
+\end{align}
+
+
+\begin{equation}
+I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2) - C(v_1)]^2 + [S(v_2) - S(v_1)]^2\}
+\label{eqn:fresIntensityp}
+\end{equation}
+
+\Cref{eqn:fresIntensityp} gives the intensity of the field at the point $p$, on axis for a square aperture. In order to calculate the intensity of the axis around the point $p$,~\cref{eqn:fresIntensityp} is used, but the $y$ and $z$ variables are perturbed in the desired direction to yields the intensity at the point $p+d$, where d is the distance the aperture is perturbed.
 
 \begin{figure}[!ht]
     \centering
@@ -128,36 +183,17 @@ Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, b 
     \label{fig:aperture}
 \end{figure}
 
-$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field.
-
-In the Fresnel regime, the electric field at a point p is
 
 \begin{equation}
-\hat{E}_p=\frac{\varepsilon_0}{2(\rho_0+r_0)}e^{i[k(\rho_0+r_0)-\omega t]}\int^{u_2}_{u_1} e^{i\pi u^2/2}du \int^{v_2}_{v_1} e^{i\pi v^2/2}dv
+F = a\sqrt{\frac{2}{\lambda r_0}}
+\label{eqn:fnumber}
 \end{equation}
 
-Where the symbols have their meanings as in~\cref{fig:aperture}, and \textit{u} and \textit{v} are the following dimensionless variables
+In $\varphi MC$, the above experiment is simulated. A square slit is uniformly sampled in the $y$, and $z$. A random direction is then sampled, ensuring that the direction points towards the detector screen.
 
-\begin{align}
-u&=y\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}\\
-v&=z\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}
-\end{align}
+The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $10^{10}$ photons released from the aperture, as Huygens wavelets.
 
-where $(y,z)$ are the coordinates of the point $a$ in~\cref{fig:aperture}.
-
-
-
-\begin{equation}
-I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2) - C(v_1)]^2 + [S(v_2) - S(v_1)]^2\}
-\label{eqn:fresIntensityp}
-\end{equation}
-
-\begin{align}
-S(w)&=\int^w_0 sin\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint1}\\
-C(w)&=\int^w_0 cos\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint2}
-\end{align}
-
-
+\FloatBarrier
 
 \section{Bessel Beams}
 

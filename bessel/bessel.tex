@@ -132,33 +132,65 @@ Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, d 
 \end{figure}
 
 \subsubsection*{Diffraction by a Square Slit}
-$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field.
-
-%near field == fresnel
-%far field == fraunhoefer
-
-In the Fresnel regime, the electric field at a point p is
+$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field, the so call Fresnel and Fraunhofer regimes. 
+Fresnel diffraction occurs in the near field when the \textit{Fresnel number},~\cref{eqn:fnumber}, is greater than 1.0.
+Fraunhofer diffraction occurs when the \textit{Fresnel number} is less than 1.0.
 
 \begin{equation}
-\hat{E}_p=\frac{\varepsilon_0}{2(\rho_0+r_0)}e^{i[k(\rho_0+r_0)-\omega t]}\int^{u_2}_{u_1} e^{i\pi u^2/2}du \int^{v_2}_{v_1} e^{i\pi v^2/2}dv
-\label{eqn:fresEfield}
+F = a\sqrt{\frac{2}{\lambda r_0}}
+\label{eqn:fnumber}
 \end{equation}
 
-Where $k$ is a wavevector, $\varepsilon_0$ is permittivity of free space, and the other symbols have their meanings as in~\cref{fig:aperture}. \textit{u} and \textit{v} are the following dimensionless variables:
+The contribution by an area element $dS$ at the point a, to the optical disturbance a t a point \textit{P}, see~\cref{fig:aperture}, is
+
+\begin{equation}
+U(P)=\frac{1}{i\lambda}\iint\limits_{\Sigma} \frac{Ae^{i(k\rho-\omega t)}}{\rho} \frac{e^{ikr}}{r}cos(\theta)\ dS
+\label{eqn:disturb}
+\end{equation}
+
+
+In the case where $\rho_0$ and $r_0$ are large compared to the size of the aperture, then $cos(\theta) = 1$ and $\tfrac{1}{\rho r}=\tfrac{1}{\rho_0 r_0}$.
+The lengths of $r_0$ and $\rho_0$ are:
+
+\begin{align}
+r=&\sqrt{r_0^2+y^2+z^2}\label{eqn:r} \\
+\rho=&\sqrt{\rho_0^2+y^2+z^2}\label{eqn:rho}
+\end{align}
+
+Using the binomial theorem to expand~\cref{eqn:r,eqn:rho} yields:
+
+\begin{equation}
+\rho + r \approx \rho_0 + r_0 + (y^2+z^2)\frac{\rho_0r_0}{2\rho_0r_0}
+\label{eqn:binomial}
+\end{equation}
+
+Substituting~\cref{eqn:binomial} into~\cref{eqn:disturb} with $k=2\pi/\lambda$
+
+\begin{equation}
+U(P)=\frac{Ae^{-i[k(\rho_0+r_0)\omega t]}}{i\lambda\rho_0r_0}\iint\limits_{\Sigma} e^{i2\pi y^2\tfrac{(\rho_0+r_0)}{2\lambda\rho_0r_0}+i2\pi z^2e^{\frac{i\pi u^2}{2}}\tfrac{(\rho_0+r_0)}{2\lambda\rho_0r_0}} \ dS
+\label{eqn:midway}
+\end{equation}
+
+
+Introducing the dimensionless variables \textit{u} and \textit{v}
 
 \begin{align}
 u&=y\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}\\
 v&=z\sqrt{\frac{2(\rho_0+r_0)}{\lambda\rho_0r_0}}
 \end{align}
 
-
-Where $(y,z)$ are the coordinates of the point $a$ in~\cref{fig:aperture}.
-\medskip
-
-Using~\cref{eqn:fresneleqn}, where $C(w)$ and $S(w)$ are the Fresnel integrals as in~\cref{eqn:fresint1,eqn:fresint2},~\cref{eqn:fresEfield} can then be transformed into an intensity, by taking the absolute value and squaring, yielding~\cref{eqn:fresIntensityp}:
+and substituting them into~\cref{eqn:midway}.
 
 \begin{equation}
-\int_{w}^{w'}e^{i\pi u^2/2}du=C(w)+iS(w)
+U(P)=\frac{\tilde{E}_u}{2}\int_{u_1}^{u_2} e^{\tfrac{i\pi u^2}{2}}\ du\int_{v_1}^{v_2} e^{\tfrac{i\pi v^2}{2}} \ dv
+\label{eqn:pentdisturb}
+\end{equation}
+\Cref{eqn:pentdisturb} describes the optical disturbance at the point $P$, with $\tilde{E}_u$ the unobstructed disturbance at $P$.
+\Cref{eqn:pentdisturb} can be evaluated using the Fresnel integrals, $C(w)$ and $S(W)$:
+
+
+\begin{equation}
+\int_{0}^{w}e^{i\pi w'^2/2}dw'=C(w)+iS(w)
 \label{eqn:fresneleqn}
 \end{equation}
 
@@ -169,13 +201,6 @@ C(w)&=\int^w_0 cos\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint2}
 \end{align}
 
 
-\begin{equation}
-I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2) - C(v_1)]^2 + [S(v_2) - S(v_1)]^2\}
-\label{eqn:fresIntensityp}
-\end{equation}
-
-\Cref{eqn:fresIntensityp} gives the intensity of the field at the point $p$, on axis for a square aperture. In order to calculate the intensity of the axis around the point $p$,~\cref{eqn:fresIntensityp} is used, but the $y$ and $z$ variables are perturbed in the desired direction to yields the intensity at the point $p+d$, where d is the distance the aperture is perturbed.
-
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{aperture.pdf}
@@ -184,14 +209,39 @@ I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2
 \end{figure}
 
 
+Using~\cref{eqn:fresneleqn}, where $C(w)$ and $S(w)$ are the Fresnel integrals as in~\cref{eqn:fresint1,eqn:fresint2},~\cref{eqn:pentdisturb} can then be transformed into an intensity, by taking the absolute value and squaring, yielding~\cref{eqn:fresIntensityp}:
+
+
 \begin{equation}
-F = a\sqrt{\frac{2}{\lambda r_0}}
-\label{eqn:fnumber}
+I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2) - C(v_1)]^2 + [S(v_2) - S(v_1)]^2\}
+\label{eqn:fresIntensityp}
 \end{equation}
 
-In $\varphi MC$, the above experiment is simulated. A square slit is uniformly sampled in the $y$, and $z$. A random direction is then sampled, ensuring that the direction points towards the detector screen.
+\Cref{eqn:fresIntensityp} gives the intensity of the field at the point $P$ on axis for a square aperture where $I_u$ is the unobstructed intensity at the point $P$. 
 
-The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $10^{10}$ photons released from the aperture, as Huygens wavelets.
+As the mathematics of calculating the optical disturbances at all points on a plane at point $P$ is difficult, instead the aperture is moved by small displacements, with the $\overrightarrow{SOP}$ fixed.
+This effectively achieves the translation of the origin, $O$, with respect to the fixed aperture. 
+This yields, for each displacement, new aperture coordinates $y_1, y_2, z_1, \text{and } z_2$ and thus new $u_1, u_2, v_1, \text{and }v_2$ and therefore a new $I_u$.
+This approximation holds for displacements that are small compared to the $\rho_0$~\cite{born2000principles,hecht2017optics,goodman2017introduction}.
+Using this method and~\cref{eqn:fresIntensityp} gives the theory curves in~\cref{fig:frescompare}.
+
+\medskip
+
+In $\varphi MC$, the above experiment is simulated. 
+A square slit is uniformly sampled in the $y$, and $z$. 
+A random direction is then sampled, ensuring that the direction points towards the detector screen.
+
+The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture, as Huygens wavelets.
+For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
+For the case of Fraunhofer diffraction, the number of bins is 100 covering a distance of 6000~$\mu m$.
+The simulations take $\sim$ 3 minutes for $10^10$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Fresnel-compare.pdf}
+    \caption{Comparison of theory and simulation for diffraction through a square aperture in the Fresnel and Fraunhofer regimes.}
+    \label{fig:frescompare}
+\end{figure}
 
 \FloatBarrier
 

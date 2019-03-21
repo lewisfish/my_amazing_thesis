@@ -72,24 +72,36 @@ As the \gls*{mcrt} simulation is now a quasi ballistic/wave simulation of photon
 
 The Huygens-Fresnel principle is a method that is used to help model the propagation of waves in the far field limit and the near field limit. 
 
-The Huygens principle states: 
+The Huygens principle states~\cite{huygens2012treatise,hecht2017optics,huygens1900wave}: 
 
 \medskip
 
-``Every point on a wavefront acts as a source of spherical wavelets, and that the sum of all the wavelets forms the wavefront.''***ref***
+``Every point on a propagating wavefront serves as the source of spherical secondary wavelets, such as the source at some time later is the envelope of these wavelets.''
 
 \medskip
 
 The principle is illustrated in~\cref{fig:huygensillis}. Christiaan Huygens postulated this principle in 1678.
-The principle allowed Huygens to derive laws of refraction and reflection using this principle, but it failed to describe diffraction effects.
-This led to Augustin-Jean Fresnel in 1818, combining the Huygens principle with his own theory of interference.
+The principle allowed Huygens to derive laws of refraction and reflection, but it failed to describe diffraction effects.
+This led to Augustin-Jean Fresnel in 1818, combining the Huygens principle with his own theory of interference~\cite{fresnel1819memoire,huygens1900wave}.
 This principle, the Huygens-Fresnel principle, gave an accurate description of the propagation of light and diffraction effects.
 This was achieved by allowing the secondary wavelets to self interfere with one another, giving rise to an accurate description of the physical phenomena.
-Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory. *refs for this section*
+Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory~\cite{kirchhoff1883ann,born2000principles}. 
+
+The Huygens-Fresnel principle allows the modelling of diffraction in both the near and far field.
+As the principle states that every point on the wavefront is a source of secondary spherical waves, this implies that there are ``backward'' waves.
+These ``backward'' waves are unphysical, and there is no evidence of their existence.
+Thus Fresnel introduced and inclination factor to eliminate these ``backward'' waves.
+This inclination factor was later put on rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory.~\cite{kirchhoff1883ann,born2000principles}
+
+\medskip
 
 Our algorithm uses the Huygens-Fresnel principle to simulate diffraction effects, that would otherwise be absent from the simulation.
+The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point.
 The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
-
+In practise this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
+The packets are then given a random direction, sampled towards the detector thus avoiding the non-existent ``backward'' waves.
+For the case of modelling propahation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
+When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
 
 
 
@@ -137,11 +149,25 @@ Fresnel diffraction occurs in the near field when the \textit{Fresnel number},~\
 Fraunhofer diffraction occurs when the \textit{Fresnel number} is less than 1.0.
 
 \begin{equation}
-F = a\sqrt{\frac{2}{\lambda r_0}}
+F = l\sqrt{\frac{2}{\lambda r_0}}
 \label{eqn:fnumber}
 \end{equation}
 
-The contribution by an area element $dS$ at the point a, to the optical disturbance a t a point \textit{P}, see~\cref{fig:aperture}, is
+\Cref{eqn:fnumber} is the Fresnel number, a measure of whether diffraction is in the Fresnel regime or the Fraunhofer regime.
+\textit{l} is the slit width, $\lambda$ is the wavelength of the incident radiation, and $r_0$ is the distance from the aperture to the detector screen, as shown in~\cref{fig:aperture}. 
+
+\medskip
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{aperture.pdf}
+    \caption{Fresnel diffraction at a square aperture.}
+    \label{fig:aperture}
+\end{figure}
+
+In order to compare $\varphi MC$ to the theory, the theory must first be examined.
+Consider the setup as shown in~\cref{fig:aperture}, in order to calculate the intensity at a point $P$, the contribution by an area element $dS$ at the point a, to the optical disturbance at a point \textit{P} is considered.
+Accounting for the the unobstructed optical disturbance from $S$ as well, yields: 
+
 
 \begin{equation}
 U(P)=\frac{1}{i\lambda}\iint\limits_{\Sigma} \frac{Ae^{i(k\rho-\omega t)}}{\rho} \frac{e^{ikr}}{r}cos(\theta)\ dS
@@ -186,7 +212,7 @@ U(P)=\frac{\tilde{E}_u}{2}\int_{u_1}^{u_2} e^{\tfrac{i\pi u^2}{2}}\ du\int_{v_1}
 \label{eqn:pentdisturb}
 \end{equation}
 \Cref{eqn:pentdisturb} describes the optical disturbance at the point $P$, with $\tilde{E}_u$ the unobstructed disturbance at $P$.
-\Cref{eqn:pentdisturb} can be evaluated using the Fresnel integrals, $C(w)$ and $S(W)$:
+\Cref{eqn:pentdisturb} can be evaluated using the Fresnel integrals, $C(w)$ and $S(w)$:
 
 
 \begin{equation}
@@ -201,14 +227,6 @@ C(w)&=\int^w_0 cos\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint2}
 \end{align}
 
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.75\textwidth]{aperture.pdf}
-    \caption{Fresnel diffraction at a square aperture.}
-    \label{fig:aperture}
-\end{figure}
-
-
 Using~\cref{eqn:fresneleqn}, where $C(w)$ and $S(w)$ are the Fresnel integrals as in~\cref{eqn:fresint1,eqn:fresint2},~\cref{eqn:pentdisturb} can then be transformed into an intensity, by taking the absolute value and squaring, yielding~\cref{eqn:fresIntensityp}:
 
 
@@ -219,22 +237,26 @@ I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2
 
 \Cref{eqn:fresIntensityp} gives the intensity of the field at the point $P$ on axis for a square aperture where $I_u$ is the unobstructed intensity at the point $P$. 
 
-As the mathematics of calculating the optical disturbances at all points on a plane at point $P$ is difficult, instead the aperture is moved by small displacements, with the $\overrightarrow{SOP}$ fixed.
+\medskip
+
+As the mathematics of calculating the optical disturbances at all points on a plane at point $P$ is difficult, instead the aperture is moved by small displacements, with $\overrightarrow{SOP}$ fixed.
 This effectively achieves the translation of the origin, $O$, with respect to the fixed aperture. 
-This yields, for each displacement, new aperture coordinates $y_1, y_2, z_1, \text{and } z_2$ and thus new $u_1, u_2, v_1, \text{and }v_2$ and therefore a new $I_u$.
+Thus, for each displacement new aperture coordinates $y_1, y_2, z_1, \text{and } z_2$ are generated and therefore new $u_1, u_2, v_1, \text{and }v_2$.
+Therefore the intensity at a point $P +\delta d$, where $\delta d$ is the displacement, can be calculated.
 This approximation holds for displacements that are small compared to the $\rho_0$~\cite{born2000principles,hecht2017optics,goodman2017introduction}.
-Using this method and~\cref{eqn:fresIntensityp} gives the theory curves in~\cref{fig:frescompare}.
+Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves curves in~\cref{fig:frescompare}.
 
 \medskip
 
 In $\varphi MC$, the above experiment is simulated. 
-A square slit is uniformly sampled in the $y$, and $z$. 
+A square slit is uniformly sampled in the $y$, and $z$ direction in order to get the packets initial position. 
 A random direction is then sampled, ensuring that the direction points towards the detector screen.
 
 The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture, as Huygens wavelets.
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
 For the case of Fraunhofer diffraction, the number of bins is 100 covering a distance of 6000~$\mu m$.
-The simulations take $\sim$ 3 minutes for $10^10$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
+The simulations take $\sim$ 3 minutes for $10^{10}$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
+\cref{fig:frescompare} shows the comparison between the theory and the $\varphi MC$ simulations.
 
 \begin{figure}[!ht]
     \centering

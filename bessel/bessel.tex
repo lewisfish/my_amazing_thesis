@@ -4,6 +4,8 @@
 
 %Intro = mention complex beams and their uses then move onto gaussian and bessel beams
 
+
+
 Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
 %Bessel beams have since been used for blah blah
 %They are really good and like are better than Gaussian beams allegedly.
@@ -34,13 +36,13 @@ This is achieved, by simply tracking the complex phase of the photon as it propa
     \label{eqn:phase}
 \end{equation}
 
-Where $\varphi~[-]$ is the phase of a photon packet, $l\ [m]$ is the distance the photons has travelled, and $\lambda~[m]$ is the wavelength of the photon.
+Where $\varphi~[-]$ is the phase of a photon packet, $l\ [m]$ is the distance the photons has travelled, $\lambda~[m]$ is the wavelength of the photon, and \textit{i} is the solution to $x^2=-1$.
 Now we can calculate the phase of a photon at a position $P_o$, if we know the distance it has travelled, and its original phase,~\cref{fig:phase-diag}.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.5\textwidth]{phase-diag.pdf}
-    \caption{Example of phase calculation when a photon has travelled a distance l. Figure also show an example of interference between two photons.}
+    \caption{Example of phase calculation when a photon has travelled a distance l. Figure also show an example of interference between two photons via addition of the complex amplitudes at the point $P_0$.}
     \label{fig:phase-diag}
 \end{figure}
 
@@ -104,14 +106,7 @@ For the case of modelling propahation through a lens, the usual geometric optics
 When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
 
 
-
-%allows us to calculate complex amplitude at a given point. 
-%inclination factor no backward waves.
-%used in diffraction theory -> kirchoffs
-%
-%fresnel and fraunhoefer diffraction -> validation of algorithm
-%fresnel close
-%fraunhoefer far away
+This is the principle that underpins the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for various complex beam propagation.
 
 \begin{figure}[!ht]
     \centering
@@ -127,13 +122,22 @@ When the packet lies on the surface of the lens, the Huygens-Fresnel principle i
 The first test of our phase tracking algorithm, is to compare our simulation to a double slit experiment.
 The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $a$, and width $b$, and the interference pattern is observed on a screen a distance $d$ away from the slits.
 
-%In this experiment blah bla ***
+This experiment, first carried out by Thomas Young and thus sometimes called Young's slits experiment, is usually carried out with the detector screen in the far field. The so called Fraunhofer regime.
+The intensity pattern on the detector screen is as in\cref{eqn:doubleslit}:
 
 \begin{equation}
     I(\theta) \propto cos^2\left(\frac{\pi d\ sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ sin\theta}{\lambda}\right)
+    \label{eqn:doubleslit}
 \end{equation}
 
 Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, d is the slit separation and $\theta$ is the angular spacing of the fringes.
+
+The simulation was carried out for a wavelength of , a slit width of, and a slit separation of .
+Using the Huygens-Fresnel principle, each slit is a source of Huygens wavelets.
+The initial position of the photon packets is sampled uniformly from the slit area, after randomly choosing one of the slits.
+A random direction is then chosen to ensure that the packets will hit the detector screen.
+The simulation was run with photon packets, which took to run on an 8 core Intel Xeon machine.
+This gave an accurate match to the theoretical expression, as seen in~\cref{fig:doubleslitcomp}.
 
 
 \begin{figure}[!ht]
@@ -256,6 +260,7 @@ The detector screen's distance from the aperture is then varied and the intensit
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
 For the case of Fraunhofer diffraction, the number of bins is 100 covering a distance of 6000~$\mu m$.
 The simulations take $\sim$ 3 minutes for $10^{10}$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
+The number of bins, and photons packets simulated had to be increased for the cases where the Fresnel number was large (i.e the detector screen was near the aperture)
 \cref{fig:frescompare} shows the comparison between the theory and the $\varphi MC$ simulations.
 
 \begin{figure}[!ht]
@@ -268,6 +273,10 @@ The simulations take $\sim$ 3 minutes for $10^{10}$ packets to be run on an Inte
 \FloatBarrier
 
 \section{Bessel Beams}
+
+Bessel beams, as described in the introduction to this chapter, are ``non--diffracting'' beams, that can ``self heal''.
+This means, in reality, that the central core of the beam does not spread out, and that if a blockage is placed in front of the beam, the beam reforms further down the optical axis.
+There is some debate amongst physicists as to weather these phenomena are justly labelled, or if they glib terms used to make Bessel beams seem like the solution to everything.
 
 The first ``complex'' beam simulated using $\varphi MC$ is a Bessel beam. 
 Bessel beams are non-diffractive solutions to the wave equation. 

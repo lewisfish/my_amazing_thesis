@@ -438,9 +438,51 @@ However as the code in this thesis is a 3D gridded Cartesian code, we have to sl
 
 \begin{equation}
 L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
+\label{eqn:voxeloptdist}
 \end{equation}
 
-with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. The position is then updated as before using~\cref{eqn:update1,eqn:update2,eqn:update3}. The next step in the algorithm is the interaction event, which can consist of either: scattering, absorbing or fluorescing. 
+with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. 
+
+Moving the photon through a voxelised medium is more involved than propagating a photon through a non voxelised medium. 
+This is mainly due to the fact the various ``book keeping'' involved in tracking where the photon is and in what voxel it is in.
+The first step of moving the photon through a voxelised medium is drawing a random optical depth.
+This optical depth will be the full optical depth the photon travels before an interaction event.
+The generation of a random optical depth is as outlined above.
+As the photon travels through the voxel grid, a running total of the current optical distance travelled is kept.
+This is then compared to the randomly generated optical depth.
+When the running total optical depth equals the randomly generated optical depth the photon propagation is stopped, and the photon undergoes an interaction.
+
+The next step is to calculate the distance to the nearest wall in the $x, y,\ \text{and}\ z$ directions.
+The distance is calculated for each direction as~\cref{eqn:walldist} shows for the $x$ direction:
+
+\begin{equation}
+\mathbf{d_{x}} = \tfrac{\mathbf{x_{face}} - \mathbf{x_{cur}}}{\mathbf{n_{xp}}}
+\label{eqn:walldist}
+\end{equation}
+
+Where $d_x$ is the distance to the nearest wall in the $x$ direction. $x_{face}$ is an array of wall positions in the $x$ direction, and $n_{xp}$ is the $x$ direction vector.
+With three distances calculated, [$d_x, d_y, d_z$], the minimum of these is thus the distance to the nearest voxel wall.
+
+The next step is to calculate the optical depth for this distance.
+The optical depth is calculated by rearranging~\cref{eqn:voxeloptdist} for $\tau$, with $L$ now the distance to the nearest wall.
+With the optical distance to the nearest wall calculated, the next step is to determine if there is ``enough'' optical distance left to travel the full distance to the nearest wall.
+Therefore the running total optical distance is compared to the randomly generated optical distance.
+If the running total + the new optical distance to the nearest wall, is less than the randomly generated optical depth, then the photon travels to the nearest wall.
+The photon is then placed in the next voxel by a distance $\delta$, where $\delta$ is just larger than machine precision.
+If the running total + the new optical distance to the nearest wall is greater than the generated optical distance then an interaction event occurs in the current voxel.
+The distance to the interaction event is calculated and the photon moved to this location. 
+
+\Cref{fig:voxelpropexplain} illustrates this whole process for a 2D example.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{grid_explain.eps}
+	\caption{Illustration of photon propagation through a grid. $d_{x1}$, and $d_{y1}$ are the distances to the voxel walls in the x and y directions in the $\mu_1$ voxel. In this case $S_1=d_{x1}$ as $d_{x1}$ is smaller than $d_{y1}$, thus the photon hits the voxel wall in the $x$ direction. For the $\mu_5$ voxel, $d_y$ is smaller, thus the photon hits the voxel wall in the $y^{th}$ direction.}
+	\label{fig:voxelpropexplain}
+\end{figure}
+
+This whole process is repeated until the photon undergoes an interaction event or leaves the voxel medium.
+The next step in the algorithm is the interaction event, which can consist of either: scattering, absorbing or another microphysics phenomena. 
 
 \subsubsection*{Photon Interaction Event}\label{sec:photscatterabsorb}
 
@@ -457,7 +499,10 @@ If the interaction event is a photon packet absorption, then the algorithm termi
 \\
 If the interaction event is a packet scattering, then the packet is scattered into a new direction and the above process are carried out until a termination clause is met, see~\nameref{sec:terminator}.
 
-Depending of the medium being simulated, it can either be isotropically scattering or preferentially scattering in a direction. In the case of simulating photon propagation in tissue, tissue is highly forward scattering. For the isotropic case, new $\theta$ and $\phi$ angles are sampled uniformly, and the direction vectors set as in section~\nameref{sec:photlaunch}.
+Depending of the medium being simulated, it can either be isotropically scattering or preferentially scattering in a direction. 
+For the isotropic case, new $\theta$ and $\phi$ angles are sampled uniformly, and the direction vectors set as in section~\nameref{sec:photlaunch}.
+For the case where the scattering is preferential in a direction the calculation of the scattering angles, $\theta$ and $\phi$, is complicated.
+
 
 \subsubsection*{Termination}\label{sec:terminator}
 

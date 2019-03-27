@@ -228,7 +228,7 @@ Optical properties of a medium are the properties that discuss how light is tran
 \subsubsection*{Scattering}\label{sec:scatt}
 
 The scattering coefficient, along with the anisotropy value (see ~\cref{sec:ansio}), define how light is scattered in a medium. Scattering occurs in skin due to a number of different scatterers, and inhomogeneities found within the skin. The main scatters in the skin are filamentous proteins such as collagen and elastin. These proteins are generally found within the dermis and epidermis~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
-The size of the aforementioned scatters affect how light is scattered and into which direction that light is scattered into.
+The size of the mentioned scatters affect how light is scattered and into which direction that light is scattered into.
 
 \medskip
 
@@ -326,7 +326,7 @@ Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-e
 \label{eqn:exct}	
 \end{equation}
 
-Where $C_i$ is the concentration of the $i^{th}$ fluorophore, and $\varepsilon_i$ is the extinction coefficient of the the $i^{th}$ fluorophore.
+Where $C_i$ is the concentration of the $i^{th}$ fluorophore, and $\varepsilon_i$ is the extinction coefficient of the $i^{th}$ fluorophore.
 
 Fluorescence will be described in more depth in~\cref{sec:salvo,sec:madrid}.
 
@@ -544,7 +544,7 @@ This section details the various code and implementation details such as how the
 \subsubsection*{Code}
 
 All code in this thesis is written in modern Fortran\footnote{modern Fortran is considered anything past Fortran 95~\cite{metcalf2011modern}}.
-All subroutines and functions are contained in modules (with the exception of the main program - mcpolar.f90).
+All subroutines and functions are contained in modules (with the exception of the main program---mcpolar.f90).
 This is done in order to be able to ``hide'' data from subroutines and functions, and to arrange the code that relates to other parts of the code in the same file.
 Having the code in modules also allows the use of runtime allocation of memory for arrays.
 This enables the user to specify the size of arrays depending on the need of the user for the problem at hand.
@@ -623,15 +623,42 @@ However these methods are more involved to set up and validate, so the simplest 
 \FloatBarrier
 \section{Validation of MCRT Code}\label{sec:validation}
 
+As the Monte Carlo method is an algorithm that depends upon random numbers, it is sometimes hard to ensure the correct result is obtained.
+Or to put it another way:
 \medskip
 
 ``Monte Carlo is easy to do wrong!'' G.W. Collins III~\cite{bjormaneasymonte}
 
 \medskip
-\section{conclusion}
-% \section{Improving the Voxel Tissue Model}\label{sec:improve}
 
-% ***Needed?***
+Thus the code has to be validated against various theoretical/experimental and other simulations, to determine whether the results are correct.
 
-% As voxels are cuboid in shape, in order for them to accurately model biological tissue, which is decidedly not smooth, new methods or approximations were attempted to improve the modelling of biological tissue. 
-% The first is bump-mapping, a technique borrowed from computer graphics. The second is to dispense with the voxel model and use a triangular based mesh. Both these methods were tried during the course of this thesis, but were abandoned due to time constraints. This section gives a brief overview of these techniques and why they were not ultimately used in this thesis.
+For the first test of a~\gls*{mcrt} code, it is compared against a theoretical expression for fluence as a function of depth.
+
+\begin{equation}
+\Psi(z)=\Psi_0(C_1e^{-k_1z/\delta}-C_2e^{-k_2z/\delta})
+\end{equation}
+
+\noindent Where:
+
+\indent $\Psi(z)$ is the penetration of the excitation light, or equivalently the fluence rate [$W\ cm^{-2}$];
+
+\indent $\Psi_0$ is a normalisation constant [$W\ cm^{-2}$];
+
+\indent $C_n$ and $k_n$ are fitted coefficients [-];
+
+\indent and $\delta$ is the optical penetration depth, defined as $\delta=1/\sqrt{3\mu_a(\mu_a+\mu_s(1-g))}$, [$cm$].
+
+\section{Conclusion}
+
+This chapter presented the Monte Carlo method from the basics to its use in radiation transport.
+Th \gls*{mcrt} algorithm covered in this chapter is used as the basis of the following chapters.
+Each chapter will modify the~\gls*{mcrt} for the problem in that chapter, but the main portion, the propagation of photons remains the same.
+
+This chapter also presented the validation of the code against theoretical and experimental results. 
+The code compared well with both of these results.
+For each modification of the code in the subsequent chapters, the code needs to validated against, to ensure the modifications are correct.
+% \section{Improving the Voxel Tissue Model}\label{sec:improve} %*****needed?
+
+
+%******* output data i.e fluence need to mention this!!!!*******************************************

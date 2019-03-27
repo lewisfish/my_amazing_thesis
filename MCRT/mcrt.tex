@@ -536,6 +536,40 @@ The final section of the \gls*{mcrt} algorithm is to check if tit should be term
 If there are more photons to run then the algorithm goes back to the~\nameref{sec:algoinit} section and continues from there.
 If there are no more photons the algorithm terminates and any results to be written out are written out.
 
+
+\subsubsection*{Scored Quantities}\label{sec:fluencecalc}
+
+As~\gls*{mcrt} is a computational method, we are able to record a wealth of information during the simulation.
+From the paths of individual photons, to average scattering angles and more.
+However it is not practical to record all this information for every simulation, as this would lead to inefficient simulations, and expensive data storage solutions.
+Thus for a certain problem we only store the pertinent information.
+
+One oft recorded variable is fluence.
+Fluence is the number of photons entering a sphere per unit cross section area~\cite{rogers1990monte}.
+In practise the average fluence per area is used,~\cref{eqn:jmean}, as this is easier to calculate in an~\gls*{mcrt} code.
+Lucy showed that the average fluence per area is proportional to the sum of the path length through a volume~\cite{lucy1999computing}:
+
+\begin{equation}
+J_i = \frac{L}{NV_{\varsigma}}\sum l 
+\label{eqn:jmean}
+\end{equation}
+
+\noindent Where:
+
+\indent $J_i$ is the fluence or mean intensity [$W\ m^{-2}$];
+
+\indent $L$ is the luminosity or power of the light source [$W$];
+
+\indent $N$ is the total number of photon packets [-];
+
+\indent $V_{\varsigma}$ is the volume of the $\varsigma^{th}$ voxel [$m^3$];
+
+\indent l is the path length of a photon packet through the $\xi^{th}$ voxel [$m$]. 
+
+The majority of the chapters in the thesis make use of~\cref{eqn:jmean} or modified versions of it as the main scored quantity.
+
+Other common scored quantities are the exit location of a photon, the wavelength of an exiting photon or the distribution of photon packet absorption.
+
 \subsection{Code Details}
 
 The preceding section gave an overview of the algorithm and how it works.
@@ -633,10 +667,12 @@ Or to put it another way:
 
 Thus the code has to be validated against various theoretical/experimental and other simulations, to determine whether the results are correct.
 
-For the first test of a~\gls*{mcrt} code, it is compared against a theoretical expression for fluence as a function of depth.
+For the first test of a~\gls*{mcrt} code, it is compared against a experimental expression,~\cref{jacqmatch}, for fluence as a function of depth~\cite{gardner1993fluorescence}.
+This expression has also been matched by other~\gls*{mcrt} simulations~\cite{jacques1993photobleaching}.
 
 \begin{equation}
 \Psi(z)=\Psi_0(C_1e^{-k_1z/\delta}-C_2e^{-k_2z/\delta})
+\label{eqn:jacqmatch}
 \end{equation}
 
 \noindent Where:
@@ -649,16 +685,47 @@ For the first test of a~\gls*{mcrt} code, it is compared against a theoretical e
 
 \indent and $\delta$ is the optical penetration depth, defined as $\delta=1/\sqrt{3\mu_a(\mu_a+\mu_s(1-g))}$, [$cm$].
 
+\medskip
+
+Jacques \textit{et al.}, in their simulation used two different wavelengths, 420~nm and 630~nm.
+The medium in the simulation is a infinitely wide slab with a depth of 2~cm, with uniform optical properties. 
+The medium has a refractive index of 1.38.
+The $g$ value is in the range 0.7 -- 0.9, and the optical properties are as in~\cref{tab:jacqprops}.
+
+\begin{table}[!ht]
+\begin{tabular}{llllllll}
+                                   & \multicolumn{1}{c}{{\ul Absorption}} & \multicolumn{1}{c}{{\ul Scattering}}    & \multicolumn{4}{c}{{\ul Penetration}}          &             \\
+\multicolumn{1}{l|}{Wavelength/nm} & \multicolumn{1}{l|}{$\mu_a$/$cm^{-1}$} & \multicolumn{1}{l|}{$\mu_s(1-g)/cm^{-1}$} & C1   & k1   & C2   & \multicolumn{1}{l|}{k2}   & $\delta/cm$ \\ \hline
+\multicolumn{1}{l|}{420}           & \multicolumn{1}{l|}{1.8}             & \multicolumn{1}{l|}{82}                 & 5.76 & 1.00 & 1.31 & \multicolumn{1}{l|}{10.2} & 0.047       \\
+\multicolumn{1}{l|}{630}           & \multicolumn{1}{l|}{0.23}            & \multicolumn{1}{l|}{21}                 & 6.27 & 1.00 & 1.18 & \multicolumn{1}{l|}{14.4} & 0.261      
+\end{tabular}
+\caption{Table of optical properties and determined coefficients from Jacques \textit{et al.}~\cite{jacques1993photobleaching}.}
+\label{tab:jacqprops}
+\end{table}
+
+Using these values Jacques \textit{et al.} calculated values for $C_1,\ C_2,\ k_1$ and $k_2$ using their \gls*{mcrt} code.
+The above optical properties and medium dimensions\footnote{The infinitely wide slab is implemented so that when a photon leaves the one of the sides of the voxel grid, it is moved to the other side of the grid, retaining its original direction vectors.} are recreated in the code and a value of ***x*** was chosen for $g$.
+n million photons were run for the simulation.
+This yielded the result as in~\cref{fig:matchjacq}.
+
+\begin{figure}[!ht]
+	\centering
+	% \includegraphics[width=0.95\textwidth]{}
+	\caption{Figure shows the fluence as a function of depth. Figure also shows comparison to the Jacques~\gls*{mcrt} simulation and the~\gls{mcrt} as described in this chapter.}
+	\label{fig:matchjacq}
+\end{figure}
+
+
 \section{Conclusion}
 
-This chapter presented the Monte Carlo method from the basics to its use in radiation transport.
-Th \gls*{mcrt} algorithm covered in this chapter is used as the basis of the following chapters.
-Each chapter will modify the~\gls*{mcrt} for the problem in that chapter, but the main portion, the propagation of photons remains the same.
+The Monte Carlo method relies on drawing random numbers in order to calculate unknown variables in problems.
+The Monte Carlo method can be used to calculate radiation transport in order to numerically solve the~\gls*{rte}.
+\Gls*{mcrt} is the most flexible of the methods available to solve the~\gls*{rte}, allowing arbitrary geometries, light sources and turbid mediums.
+\Gls*{mcrt} also allows the inclusion of various microphysics such as polarisation, Raman scattering and fluorescence.
+However the~\gls*{mcrt} method does have the downside, that for some problems, many photon packets must be run in order to achieve a good signal to noise ratio.
+Though this is becoming less of an issue due to increased computational available capacity.
 
-This chapter also presented the validation of the code against theoretical and experimental results. 
-The code compared well with both of these results.
-For each modification of the code in the subsequent chapters, the code needs to validated against, to ensure the modifications are correct.
-% \section{Improving the Voxel Tissue Model}\label{sec:improve} %*****needed?
-
+The algorithm covered in this chapter is the underpinning algorithm for this whole thesis.
+Each subsequent chapter builds upon the algorithm in order to solve the problem at hand.
 
 %******* output data i.e fluence need to mention this!!!!*******************************************

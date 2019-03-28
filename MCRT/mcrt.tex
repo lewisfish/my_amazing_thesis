@@ -39,6 +39,8 @@ There are various different approaches to using the Monte Carlo method to obtain
 One analytical way of achieving this is the inverted sampling method.
 The inverted sampling method can be summarised by the following steps for drawing a sample $X_i$ from an arbitrary PDF $p(x)$:
 
+\medskip
+
 1. Compute the CDF $P(x)=\int^{x}_{0}p(x')dx'$
 
 2. Compute the inverse $P^{-1}(x)$
@@ -47,19 +49,33 @@ The inverted sampling method can be summarised by the following steps for drawin
 
 4. Finally, compute $X_i = P^{-1}(\xi)$
 
+\medskip
+
 If a given problem cannot use the inverted sampling method, as it may not be possible to get a PDF or analytically invert the CDF, then the rejection method can be used.
-The rejection method is 
+The rejection method is essentially a dart throwing method.
+This means that points are drawn and compared to the function.
+If the point lies under the function then the point is accepted, if it lies above the function then it is rejected.
+For example, if we have a function, $f(x)$, that does not have an analytical PDF, we can use a PDF $p(x)$ such that $f(x) < cp(x)$ where c is a constant.
+We therefore sample from $p(x)$, and if the sampled point lies under $f(x)$ it is accepted, else it is rejected.
+~\Cref{fig:picircle} shows an example of this process.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{picirc.pdf}
+	\caption{Illustration of the rejection method for determining $\pi$ from the area of a circle inscribed within a square. The ratio of the area of the circle to the square is $\tfrac{\pi}{4}$. Thus the ratio of darts landing in the circle to those that land outside the circle is $\pi \approx \tfrac{4N_{inner}}{N_{total}}$, where $N_{total}$ is the total number of darts, and $N_{inner}$ is the total number of darts that land in the circle. Using 200 darts gave a value of $\pi \approx 3.12$}
+	\label{fig:picircle}
+\end{figure}
 
 
 The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy and medicine, in order to simulate the propagation of radiation through turbid media. This technique, \gls*{mcrt}, is what makes up the bulk of this thesis and is described in depth in the following sections.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.95\textwidth]{ray-tracing.png}
+\includegraphics[width=.75\textwidth]{ray-tracing.png}
 \caption{Computer generated imagery using ray tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera'', in order to generate CGI images~\cite{pharr2016physically}.}
 \label{fig:ray-trace}
 \end{figure}
-
+\newpage
 \section{Monte Carlo Radiation Transport Algorithm}
 
 \subsection{Introduction \texorpdfstring{$\&$}{and} background}
@@ -314,14 +330,28 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 \end{figure}
 
 
+\subsubsection{Derived Parameters}
+
+There are also some derived parameters that are useful to use.
+These are the albedo and the transmission coefficient.
+
+The transmission coefficient is defined as the sum of the scattering coefficient and the absorption coefficient:
+
+\begin{equation}
+\mu_t=\mu_s+\mu_a
+\end{equation}
+
+The albedo, or scattering probability, is defined as the ratio of the scattering coefficient to the transmission coefficient:
+
+\begin{equation}
+a = \frac{\mu_s}{\mu_a+\mu_s}=\frac{\mu_s}{\mu_t}
+\end{equation}
+
+
 \subsection*{Other Parameters}\label{sec:other}
 The preceding subsection, described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
 
-\subsubsection{Derived Parameters}
 
-albedo is 
-
-$mu_t$ is
 
 \medskip
 
@@ -350,24 +380,29 @@ Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-e
 Where $C_i$ is the concentration of the $i^{th}$ fluorophore, and $\varepsilon_i$ is the extinction coefficient of the $i^{th}$ fluorophore.
 
 Fluorescence will be described in more depth in~\cref{sec:salvo,sec:madrid}.
-
+\newpage
 \subsection{MCRT Algorithm}\label{sec:algorithmMCRT}
+
+\begin{wrapfigure}{r}{.45\textwidth}
+\centering
+\includegraphics[width=.45\textwidth]{algopic.pdf}
+\caption{Flowchart of the Monte Carlo radiation transport algorithm as described in this section.}
+\label{fig:algo}
+\vspace{-80pt}
+\end{wrapfigure}
+\leavevmode
+\FloatBarrier
 
 A \gls*{mcrt} algorithm can range in complexity from a simple 20 line program, to tens of thousands of lines, depending on the application. This section will provide an in depth description of the \gls*{mcrt} algorithm for the propagating photons thorough a spherical medium with optical properties $\mu_s$, and $\mu_a$. The section following this one, will provide details of how the \gls*{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the parallelisation of the code.
 
 
 \subsubsection*{Medium and Grid Set-up}\label{sec:algomedium}
-The first step of any \gls*{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity we will only consider one wavelength, $\lambda$. As the \gls*{mcrt} algorithm presented here is run on a 3D Cartesian grid, the grid is setup before creating the spherical medium. The grid is composed of $n_x \times n_y \times n_z$ voxels\footnote{A voxel is a 3D pixel}, where each voxel can have its own optical properties. The grid is setup by first setting an array that stores the locations of the voxel boundary walls are in each the x, y, and z directions. The next step, is to setup the actual medium. This is achieved by discretising the medium onto a grid. For this example a sphere is inscribed into a cubic volume, by setting the optical properties of a voxel to that of the medium if the sphere encloses that voxel. The voxels out with sphere are set to that of the ambient medium. An example of a voxelised medium can be seen in~\cref{fig:voxel-model}. 
+The first step of any \gls*{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, we will assume the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity we will only consider one wavelength, $\lambda$. As the \gls*{mcrt} algorithm presented here is run on a 3D Cartesian grid, the grid is setup before creating the spherical medium. The grid is composed of $n_x \times n_y \times n_z$ voxels\footnote{A voxel is a 3D pixel}, where each voxel can have its own optical properties.
+The grid is setup by first setting an array that stores the locations of the voxel boundary walls in the $x,\ y$, and $z$ directions. 
+The next step is to setup the actual medium. This is achieved by discretising the medium onto a grid. 
+For this example a sphere is inscribed into a cubic volume, by setting the optical properties of a voxel to that of the medium if the sphere encloses that voxel. The voxels out with sphere are set to that of the ambient medium. An example of a voxelised medium can be seen in~\cref{fig:voxel-model}. 
 
-\begin{wrapfigure}{l}{.45\textwidth}
-\centering
-\includegraphics[width=.45\textwidth]{algopic.pdf}
-\caption{Flowchart of the Monte Carlo radiation transport algorithm as described in this section.}
-\label{fig:algo}
-\vspace{-150pt}
-\end{wrapfigure}
-\leavevmode
-\FloatBarrier
+
 
 \subsubsection*{Photon Launch and Initialisation}\label{sec:photlaunch}
 
@@ -524,7 +559,7 @@ However this is not the case for anisotropic scattering, as the centre of mass f
 \medskip
 
 \Cref{fig:labframerotate} and~\cref{eqn:scatrotate} show how this process is achieved.
-Where $\mathbf{n}=(n_x,n_y,n_z)$, $\mathbf{n_s}=(n_{x}^{new},n_{y}^{new},n_{z}^{new})$, $\theta_s$ is chosen from the phase function, and $\varphi_s=2\pi \xi$ with $\xi$ being a random number in the range 0 to 1.
+Where $\mathbf{n}=(n_x,n_y,n_z)$, $\mathbf{n_s}=(n_{x}^{new},n_{y}^{new},n_{z}^{new})$, $\theta_s$ is chosen from the phase function~\cref{eqn:henyeysample}, and $\varphi_s=2\pi \xi$ with $\xi$ being a random number in the range 0 to 1.
 \begin{equation}
 	\begin{aligned}
 		n_{x}^{new} &= \frac{sin\theta_s}{sin\theta} \left(n_x\ n_y\ cos\varphi_s - n_y\ sin\phi_s\right) + n_x\ cos\theta_s \\
@@ -534,6 +569,10 @@ Where $\mathbf{n}=(n_x,n_y,n_z)$, $\mathbf{n_s}=(n_{x}^{new},n_{y}^{new},n_{z}^{
 	\label{eqn:scatrotate}
 \end{equation}
 
+\begin{equation}
+cos\theta = \frac{1+g^2-\left(\frac{1-g^2}{(1-g+2g\xi)^{3/2}}\right)^2}{2g}
+\label{eqn:henyeysample}
+\end{equation}
 
 
 \begin{figure}[!ht]

@@ -698,9 +698,24 @@ In reality this means that $n$ copies of the algorithm can run on $n$ cores in a
 All the code in this thesis is parallelised using \gls*{mpi}~\cite{gropp2014using,gropp2014usingadv}, with the only communication taking place at the end, where the path length estimators are collated on to all process.
 The one exception to the is in~\cref{chap:ablation}, where the heat diffusion calculation needs communication between the process during the calculation.
 
-To test how much parallelising the code sped up the code, a simple test was preformed.
-This simple test consisted of running the same number of photons, 700,000, in a highly scattering medium of size $2~cm^3$.
-\Cref{fig:paratest}
+The parallel efficiency of a code depends on the problem, and the number of photon packets run.
+To determine the speedup of a given problem Amdahl's law is used~\cite{amdahl1967validity}:
+
+\begin{equation}
+speedup = \frac{1}{(1-P)+P/N}
+\end{equation}
+
+Where $P$ is the fraction of the code that is parallel, and N is the number of cores the code is run on.
+The consequence of Amdahl's law is as $N$ tends to infinity the speedup tends to a maximum:
+
+\begin{equation}
+speedup_{max}=\frac{1}{1-P}
+\end{equation}
+
+The value of P varies from problem to problem, and the number of photon packets run.
+\Cref{fig:paratest} shows the results of the profiling of the code, for various numbers of cores.
+This test consisted of running the same number of photons, in a highly scattering medium of size $2~cm^3$.
+This yielded a $P$ of $0.999010 \pm 0.000045$, and a maximum speedup of 1010.1
 
 
 \begin{figure}[!ht]
@@ -775,7 +790,8 @@ This yielded the result as in~\cref{fig:matchjacq}.
 \end{figure}
 
 
-Fitting~\cref{eqn:jacqmatch} to the data calculated by our~\gls*{mcrt} code gave: $C_1 = 6.425$, $C_2=1.083$, $k_1=1.0$, and $k_2=12.966$.
+Fitting~\cref{eqn:jacqmatch} to the data calculated by our~\gls*{mcrt} code for $630~nm$, gave: $C_1 = 6.425$, $C_2=1.083$, $k_1=1.0$, and $k_2=12.966$.
+For $420~nm$ gave: $C_1 = 5.600$, $C_2=0.838$, $k_1=1.003$, and $k_2=9.846$.
 These are in good agreement with Jacques \textit{et al.} results.
 
 \section{Conclusion}

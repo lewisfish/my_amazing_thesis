@@ -590,9 +590,15 @@ Over the full range of \gls*{ta}, as the energy per pixel beam increases, there 
     \label{fig:tagauss}
 \end{figure}
 
-\subsubsection*{Investigating beam type}
+\subsubsection*{Temperature during ablation}
 
-As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian, and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data, is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.95\textwidth]{temp-profile-middle.pdf}
+	\caption{Temperature bore hole though centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$.}
+	\label{fig:temp-500profile}
+\end{figure}
+
 
 \subsubsection*{Investigating thermal damage} 
 
@@ -663,6 +669,37 @@ The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{r
 	\label{fig:time-thres2}
 \end{figure}	
 \FloatBarrier
+
+
+\subsubsection*{Investigating beam type}
+
+As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian, and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data, is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
+
+\subsubsection*{Investigating laser pulse profile}
+
+The pulse profile of the laser is the temporal profile of the laser pulse.
+Lasers have either tophat, triangular or Gaussian profiles, though in reality the pulse is usually something in between these profiles.
+The Pixel CO$_2$ laser states that the pulse profile is that of triangular pulse. 
+All results presented thus far have been with a triangular pulse.
+
+This section will investigate the difference in the ablation and thermal damage between the different laser pulse profiles.
+
+
+
+\subsubsection{Investigating initial temperature}
+
+
+As the experiment was carried out on porcine tissue that was kept on ice before the experiment was conducted, we assumed that the initial temperature of the porcine tissue was around 5$~^{\circ}C$.
+This section investigates whether this is an accurate assumption.
+
+To investigate this, three different temperatures were trialled: 25$~^{\circ}C$, 0$~^{\circ}C$, and 5$~^{\circ}C$.
+These temperature correspond to room temperature, the temperature of ice and the original temperature we assumed.
+
+\subsubsection*{Investigating voxel temperate after ablation}
+
+In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
+However this assumption may not be accurate.
+
 \section{Conclusion}
 
 Using \gls*{mcrt} and a finite difference method, a fully 3D model of photon and heat transport within tissue has been created. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered lasers and the resultant thermal damage surrounding the ablation crater.

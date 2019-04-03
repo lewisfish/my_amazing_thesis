@@ -351,11 +351,43 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 
 \noindent Where:
 
-    \indent $k_r$ is the radial wavevector, $k_r=k sin(\beta)$;
+    \indent $k_r$ is the radial wavevector, $k_r=k\ sin(\beta)$;
 
     \indent P is the power of the incident Gaussian beam.
 
     \medskip
+
+Bessel beam can be formed by an axicon lens or by diffraction through a ring.
+All the simulations of Bessel beams in this thesis use the axicon method of generating a Bessel beam, thus only axicons will be discussed.
+\Cref{fig:besselgeo} shows the geometry of a Bessel beam formed by an axicon.
+Using simple geometry and Snell's law the following equation can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization,}.
+
+The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However in reality the Bessel beam will continue to propagate slightly passed this depth.%***source
+~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function.
+\begin{equation}
+z_{max}=R\left(cot\left(\beta\right) - tan\left(\alpha\right)\right)
+\label{eqn:besselzmax}
+\end{equation}
+
+The propagation angle of the conical waves, $\beta$ can be calculated using Snell's law and $\alpha$ the angle of the axicon:
+
+\begin{equation}
+\beta = arcsin\left(n\ sin\left(\alpha\right)\right)-\alpha
+\label{eqn:betaangle}
+\end{equation}
+
+The central core of a Bessel beam is defined as the distance to the first zero of the Bessel beam.
+\Cref{eqn:coreradius} shows the radius of the core, where $2.405$ is derived from position of the first zero of the Bessel function.
+
+\begin{equation}
+r_o = \frac{2.405}{k\ sin\left(\beta\right)}
+\label{eqn:coreradius}
+\end{equation}
+
+Finally, the spacing between Bessel beam rings is:
+\begin{equation}
+\Delta \rho = \frac{\lambda}{2\ sin\left(\beta\right)}
+\end{equation}
 
 \subsection{Validation}
 
@@ -408,11 +440,12 @@ $8^10$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeo
 \subsubsection*{Comparison to experimental data}
 
 To ensure our algorithm works in turbid media, we carried out an experiment where a Bessel beam was propagated through a medium of varying turbidity.
-A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens, with angle $5~^{\circ}$.
-The laser beam had a $\tfrac{1}{e^2}$ spot size of $2~mm$. 
+A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens, with angle $5^{\circ}$.
+The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$. 
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
-The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra,fig:ilscatprop}.
+The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra}.
+~\Cref{fig:ilscatprop} shows the optical propeties of Intralipid $20~\%$.
 Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime.
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with out algorithm.
@@ -459,7 +492,7 @@ From there the usual~\gls*{mcrt} method propagates the packet through the medium
 If the packet leaves the medium to any side other than the far side of the cuvette (e.g any side of the cuvette not facing the objective lens), then it is discarded.
 If the packet leaves the medium on the objective lens facing side, then the packet is recorded by its phase onto an area element.
 For each intralipid concentration $6.4\times10^{10}$ photons are run over 64 cores, taking $\sim 3$ hours for the 0.5448\% intralipid concentration.
-Once all the photon packets have been run, the image is the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
+Once all the photon packets have been run, the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
 
 \Cref{fig:compareexpbessel} shows the results from the experiment and simulation. The simulation shows good agreement with experimental data.
 
@@ -468,6 +501,34 @@ Once all the photon packets have been run, the image is the phase is converted i
 \includegraphics[width=0.95\textwidth]{compare-exp.pdf}
 \caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Volumes along the top is the volume of Intralipid in each solution as in~\cref{tab:intra}. All images cropped so they are the same size.}
 \label{fig:compareexpbessel}
+\end{figure}
+
+\subsubsection*{Discussion}
+
+Originally the medium was modelled as in the experiment, a $2~mm^3$ volume.
+The image created was thus a $2001 \times 2001$ with a resolution of $1~\mu m$.
+In order to achieve a good signal to noise ratio for this setup $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
+This was enough packets to get a good signal to noise ration on all the simulations up to $6~\mu L$.
+However the amount of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
+Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
+This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
+
+Shrinking the mediums size does have some draw backs.
+Firstly Bessel beams propagation depth rely on the input beams width\ see~\cref{eqn:besselzmax}.
+The input beams width was kept constant between the shrinking of the volumes size.
+However shrink the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
+Therefore the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
+The second issue with shrinking the medium is that some packets may be lost.
+What this means is that, in the larger medium a packet may scatter towards an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
+However this same packet in the smaller medium would be lost as the packet would exit the medium and ceased to be tracked.
+It is not expected that this will cause much of an issue as any scattering event already degraded the quality of the beam, as that packet is no longer coherent with the rest of the packets, thus it will not contribute positively to the Bessel beam.
+To ensure this is not an issue, results from a larger medium are compared to that of the smaller medium in~\cref{fig:compareBigSmall}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.95\textwidth]{}
+    \caption{Comparison of a larger medium ($2~mm^3$) versus that of a smaller medium, $0.5~mm \times 0.5~mm \time 2.00~mm$.}
+    \label{fig:compareBigSmall}
 \end{figure}
 
 \FloatBarrier

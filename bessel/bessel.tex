@@ -512,6 +512,7 @@ This was enough packets to get a good signal to noise ration on all the simulati
 However the amount of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
 Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
 This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
+Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons are hit the plane in comparison to the larger medium. 
 
 Shrinking the mediums size does have some draw backs.
 Firstly Bessel beams propagation depth rely on the input beams width\ see~\cref{eqn:besselzmax}.
@@ -523,11 +524,14 @@ What this means is that, in the larger medium a packet may scatter towards an \t
 However this same packet in the smaller medium would be lost as the packet would exit the medium and ceased to be tracked.
 It is not expected that this will cause much of an issue as any scattering event already degraded the quality of the beam, as that packet is no longer coherent with the rest of the packets, thus it will not contribute positively to the Bessel beam.
 To ensure this is not an issue, results from a larger medium are compared to that of the smaller medium in~\cref{fig:compareBigSmall}.
+The larger and smaller medium yield the same results (within Monte Carlo noise) for Intralipid volumes less than $8~\mu L$.
+At $8~\mu L$ the smaller medium has a Bessel beams central core, whilst the larger medium is noisy, and forms no Bessel beam.
+This test has shown that shrinking the medium allows accurate modelling of the propagation of a Bessel beam through a turbid medium while using less computational resources.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{}
-    \caption{Comparison of a larger medium ($2~mm^3$) versus that of a smaller medium, $0.5~mm \times 0.5~mm \time 2.00~mm$.}
+    \includegraphics[width=0.7\textwidth]{compare-med-size.pdf}
+    \caption{Comparison of a larger medium, $2~mm^3$ versus that of a smaller medium, $0.5~mm \times 0.5~mm \time 2.00~mm$.}
     \label{fig:compareBigSmall}
 \end{figure}
 

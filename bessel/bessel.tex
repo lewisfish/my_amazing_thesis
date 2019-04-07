@@ -323,7 +323,7 @@ From the scalar description of the electric component of the beam, we get:
 ~\Cref{eqn:besselEfield} gives the electric field for a Bessel beam. The intensity can be calculated using:
 
 \begin{equation}
-    I(r,z)=\frac{c\epsilon_0\left|E_0\right|^2}{2}
+    I(r,z)=\frac{c\epsilon_0\left|E\right|^2}{2}
     \label{eqn:besselintsub}
 \end{equation}
 
@@ -548,62 +548,90 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 % 
 % need to find factor root 2...
 
-\section{Other Beams}
+\section{Higher order Bessel beams}
 
-Our technique outlined in the preceding sections, can also be applied to arbitrary non-diffracting or complex beams. The only requirements for our algorithm to be able to model a complex beam, is that there is some phase delay that can be modelled analytically\footnote{It may be possible to model phase delays that are not analytical expressions. Simulating spatial light modulators may also be possible with our algorithm.}.
+Our technique outlined in the preceding sections, can also be applied to arbitrary higher order Bessel beams. 
 
-The first example of using our algorithm to model complex beams is to model a Laguerre-Gauss beam. A Laguerre-Gauss beam can be created by introducing a helical phase delay to a Gaussian beam.
-\Cref{fig:helix} shows an element hat will introduce a helical phase shift to an incoming beam.
+%why higher order useful
 
-a~\cite{wei2015generation,qiong2012generalization,topuzoski2009conversion,kotlyar2006diffraction,khonina1992trochoson}%***cite these for higher order bessel beams + maybe LG beams
+The electric field of a Bessel beam is:
 
+\begin{equation}
+E(r,\varphi,z)=E_0J_l(k_r r)e^{-i k_z z}e^{-i l \varphi}
+\end{equation}
+
+\noindent Where:
+
+\indent l is the order of the beam [-];
+
+\indent $k_{z}^{2} + k_{r}^{2} =k^2$, where $k^2$ is the wavevector [$m^{-1}$];
+
+\indent $r, \varphi, and z$ are the cylindrical coordinates [$m$, $rad$, $m$];
+
+\indent and $J_l$ is the l-order Bessel function of the first kind [-].
+
+\medskip
+
+%properties of higher order bssel beams
+
+%methods of generating higher orders
+To generate higher order Bessel beam, a helicon is used.
+A helicon (shown in~\cref{fig:helix-2}) is an axicon attached to a helix phase delay element.
+The helical element imparts a helical phase delay to photon packets as they pass through the element.
+
+
+The distance travelled though the helicon is shown in~\cref{eqn:helix,eqn:axicon,eqn:heightdiff}\cite{wei2015generation}.
+$h_1$ is the path length travelled by a photon through the helical element.
+$h_2$ is the path through an axicon.
 
 \begin{align}
-h_1&=\frac{l\varphi\lambda}{(n-1)2\pi}\\
-h_2&=r\ tan(\alpha)\\
-h_3&=h_1+h_2\\
-\Delta h &= \frac{l\lambda}{n-1}
+h_1&=\frac{l\varphi\lambda}{(n-1)2\pi} \label{eqn:helix}\\
+h_2&=r\ tan(\alpha)\label{eqn:axicon}\\
+h_3&=h_1+h_2 \label{eqn:helicon}\\
+\Delta h &= \frac{l\lambda}{n-1}\label{eqn:heightdiff}
 \end{align}
+
+Where $\varphi$ is the azimuthal angle, $r$ is the radial position, $l$ is  blah, and $\alpha$ is the axicon angle.
+
+The path length in the above equations can be converted into a phase delay by considering the transmission functions of the individual elements~\cite{khonina1992trochoson,kotlyar2006diffraction,topuzoski2009conversion,qiong2012generalization}:
 
 
 \begin{align}
 T_1(\varphi)&=e^{-ik(n-1)h_1}=e^{-il\varphi}\\
-T_2(\varphi)&=e^{-ik(n-1)h_2}=e^{-ik_rr}\\
-T_3(\varphi)&=T_1*T_2=e^{-ik_rr-il\varphi}\\
+T_2(r)&=e^{-ik(n-1)h_2}=e^{-ik_rr}\\
+T_3(r,\varphi)&=T_1*T_2=e^{-ik_rr-il\varphi}\\
 \end{align}
+
+Where $T_1$ is the transmission function for the helical element, $T_2$ is the transmission function for the axicon, and $T_3$ is the total transmission function.
+Using the small angle approximation  for $\beta$ and~\cref{eqn:betaangle}, and knowing $k_r=sin\left(\beta\right)$ yields the phase delay as a function of angle and radial position:
 
 \begin{equation}
 \phi(\varphi,r)=k(n-1)r\alpha+l\varphi
 \end{equation}
 
+To implement a helicon in the $\varphi MC$ algorithm, an additional helical phase delay is added.
+The additional delay is implemented by adding $l\varphi$ where $0<varphi<\tfrac{2\pi}{l}$.
+An actual helix element is not modelled explicitly in the code, but rather just the phase delay.
+This method is similar to using a spatial light modulator in an experiment to impart a phase delay on a beam.
 
-% \begin{figure}[!ht]
-%     \centering
-%     \includegraphics[width=0.4\textwidth]{helicon.pdf}
-%     \caption{Helical delay element. Phase is delayed as a function of angle, $\varphi$, and radius, $R$. Input beam is a Gaussian, output beam is Laguerre-Gaussian.}
-%     \label{fig:helix}
-% \end{figure}
+\Cref{fig:highordershow} shows the comparison between theoretical higher order Bessel beam and the higher order beam beam simulated by $\varphi MC$.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.4\textwidth]{helicon-2.pdf}
     \caption{Helical delay element attached to an axicon. Axicon introduces an additional radial delay in addition to that of the helical element. Input beam is a Gaussian, output beam is a higher order Bessel beam, $l>0$.}
     \label{fig:helix-2}
+    \vspace{-10pt}
 \end{figure}
-
-
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{higher-order-bessel.pdf}
+    \includegraphics[width=0.85\textwidth]{higher-order-bessel.pdf}
     \caption{Higher order Bessel beams. a) to d) show the phase shift due to the helical element. e) to h) show line plots of the simulation data compared to the theory. i) to l) and m) to p) show the higher order Bessel beam images for theory and simulation data respectively.}
     \label{fig:highordershow}
 \end{figure}
 
- ***put theory here + phase and interference patterns for all beams
-
-Another example of our algorithms flexibility is that it can also model Hermite-Gauss beams, higher order Bessel beams and airy beams
-
+\FloatBarrier
 \section{Comparison}
 
 \section{Discussion}

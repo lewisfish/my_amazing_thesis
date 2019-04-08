@@ -677,13 +677,24 @@ As the manufacturer does not provide information on the beam profile of the pixe
 
 \subsubsection*{Investigating laser pulse profile}
 
-The pulse profile of the laser is the temporal profile of the laser pulse.
-Lasers have either tophat, triangular or Gaussian profiles, though in reality the pulse is usually something in between these profiles.
-The Pixel CO$_2$ laser states that the pulse profile is that of triangular pulse. 
-All results presented thus far have been with a triangular pulse.
+Pulsed laser have a variety of pulse profiles.
+The pulse profiles are usually modelled as triangular, tophat, or Gaussian.
+However the pulse profiles in reality are normally less well defined, and rather the pulse profile is something in between these perfect models.
 
-This section will investigate the difference in the ablation and thermal damage between the different laser pulse profiles.
+The laser used in the above experiments, the Pixel CO$_2$, uses a triangular pulse profile for the laser pulses.
+Thus in the section the effect of the laser pulse profile has n ablation and surrounding thermal injury is investigated.
 
+Four different laser pulses profiles are investigated: tophat, triangular and two different Gaussian profiles.
+The two different Gaussian pulses trialled are, a Gaussian profile with $\sigma$ equal to the pulselength, and a pulse profile where the same energy is expended.
+
+\Cref{fig:pulseprofiles} show the pulse profiles for a pulselength of $0.2~s$.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{profilespulse.pdf}
+	\caption{Comparison of the different pulse profiles trialled for a pulselength of $0.2~s$.}
+	\label{fig:pulseprofiles}
+\end{figure}
 
 \begin{figure}[!ht]
 	\centering
@@ -695,24 +706,29 @@ This section will investigate the difference in the ablation and thermal damage 
 
 \subsubsection{Investigating initial temperature}
 
-
 As the experiment was carried out on porcine tissue that was kept on ice before the experiment was conducted, we assumed that the initial temperature of the porcine tissue was around 5$~^{\circ}C$.
 This section investigates whether this is an accurate assumption.
 
 To investigate this, three different temperatures were trialled: 25$~^{\circ}C$, 0$~^{\circ}C$, and 5$~^{\circ}C$.
 These temperature correspond to room temperature, the temperature of ice and the original temperature we assumed.
 
-\subsubsection{Investigating voxel temperate after ablation}
+\subsubsection{Investigating voxel temperature after ablation}
 
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
 However this assumption may not be accurate.
+To test if the temperature of the voxel after ablation effects the depth of ablation or the thermal injury to the surrounding tissue various voxel temperature were tried.
+Two different temperatures were tried: half the ablation temperature and room temperature($\approx 25~^{\circ}C$).
+\Cref{fig:comparevoxtemp} shows the effect of the voxel temperature after ablation has on the ablation depth.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.75\textwidth]{compare-airtemp.pdf}
-	\caption{Comparison of different voxel temperatures after ablation. Half refers to setting the temperature of a voxel to hlaf that of the ablation temperature. Room refers to room temperature, and ablation leaves the temperature at the ablation temperature.}
+	\caption{Comparison of different voxel temperatures after ablation. Half refers to setting the temperature of a voxel to half that of the ablation temperature. Room refers to room temperature, and ablation leaves the temperature at the ablation temperature.}
 	\label{fig:comparevoxtemp}
 \end{figure}
+
+Setting the voxel temperature to either half the ablation temperature or to room temperature has a large effect on the ablation depth, with a difference of $\approx 0.1~mm$.
+However there is a small difference between setting the voxel temperature to room temperature and to half of the ablation temperature though.
 
 \section{Conclusion}
 

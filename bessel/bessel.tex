@@ -298,7 +298,7 @@ The first beam type we will examine is the Gaussian beam.
 Traditional \gls*{mcrt} cannot model Gaussian beams, as Gaussian beam have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
 \Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist
 
-A the electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}.
+The electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}.
 
 \begin{equation}
 E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\varphi(z))}
@@ -315,39 +315,27 @@ E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\va
 
     \indent $E_0$ is the electric field amplitude at the origin [$Vm^{-1}$];
 
-    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along the beam [$m$];
+    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along the beam,~\cref{eqn:gwaist} [$m$];
 
     \indent $w_0$ is the waist radius [$m$];
 
-    \indent $R(z)$ is the radius of curvature of the beams wavefronts at z [$m$];
+    \indent $R(z)$ is the radius of curvature of the beams wavefronts at z,~\cref{eqn:radiuscurve} [$m$];
 
-    \indent and finally, $\varphi(z)$ is the Gouy phase at z [-].
+    \indent and finally, $\varphi(z)$ is the Gouy phase at z,~\cref{eqn:gouyphase} [-].
 
+\medskip
 
-\begin{equation}
-    w(z)= w_0\sqrt{1+\left(\frac{z}{z_r}\right)^2}
-\label{eqn:gwaist}
-\end{equation}
-    
-\begin{equation}
-R(z)=z\left[1+\left(\frac{z_r}{z}\right)^2\right]
-\label{eqn:radiuscurve}
-\end{equation}
+~\Cref{eqn:gwaist,eqn:gouyphase,eqn:rayleighrange,eqn:beamwaist,eqn:radiuscurve} give the defintions of key physical properties as outlinesd above or as shown in~\cref{fig:gbeamills}. 
+$z_r$ is the rayleigh length,~\cref{eqn:rayleighrange}, and defines the point in which the beams wasit grows to $\sqrt{2}$ times the size of the beam at its waist.
+The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, where $f$ is the focal length and $D$ is the $\tfrac{1}{e^2}$ diameter of the beam at the lens.
 
-\begin{equation}
-\varphi(z)=arctan\left(\frac{z}{z_r}\right)
-\label{eqn:gouyphase}
-\end{equation}
-
-\begin{equation}
-z_r = \frac{\pi w_0^2}{\lambda}
-\label{eqn:rayleighrange}
-\end{equation}
-
-\begin{equation}
-w_0=\frac{2\lambda f}{\pi D}
-\label{eqn:beamwiast}
-\end{equation}
+\begin{align}
+    w(z) &= w_0\sqrt{1+\left(\frac{z}{z_r}\right)^2} \label{eqn:gwaist} \\
+    R(z) &= z\left[1+\left(\frac{z_r}{z}\right)^2\right]\label{eqn:radiuscurve}\\
+    \varphi(z) &= arctan\left(\frac{z}{z_r}\right)\label{eqn:gouyphase}\\
+    z_r &= \frac{\pi w_0^2}{\lambda}\label{eqn:rayleighrange}\\
+    w_0 &= \frac{2\lambda f}{\pi D}\label{eqn:beamwaist}\\
+\end{align}
 
 \begin{figure}[!ht]
     \centering
@@ -356,9 +344,36 @@ w_0=\frac{2\lambda f}{\pi D}
     \label{fig:gbeamills}
 \end{figure}
 
+With the physical properties of the Gaussian beam outlined, a Gaussian beam can now be modelled using our algorithm.
+In order to simulate the Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
+The lens used is convex-plano lens, with radius of curvature $4.6~mm$, and thickness of $2.2~mm$.
+A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $1~mm$, is incident on the lens.
+Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3\mu m$.
 
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[]{}
+    \caption{Simulation setup of focusing a Gaussian beam through a lens.}
+    \label{fig:gausssetup}
+\end{figure}
     
+The photons initial z position is set just in front of the lens.
+The x and y are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
+The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
 
+The photon is then propagated to the surface of the convex side of the lens.
+This is achieved by finding the intersection of a sphere which represents the convex side of the lens, and the packets path.
+With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
+If the packet is reflected the packet is killed and the process starts again.
+If the packet is refracted, and moved in the new direction to the planar surface of the lens.
+The packets is then uniformly sampled onto the surface of the voxel medium and the usual~\gls*{mcrt} method is used to propagate the packet whilst tracking the phase.
+
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[]{}
+    \caption{Results of \textit{in-silico} experiment.}
+    \label{fig:simgaussexp}
+\end{figure}
 
 % gaussian beam theory
 % geometry

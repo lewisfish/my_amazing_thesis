@@ -290,6 +290,84 @@ The number of bins, and photons packets simulated had to be increased for the ca
 
 \FloatBarrier
 
+\section{Gaussian Beams}
+
+Now that the method of tracking the phase of photon packets has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
+
+The first beam type we will examine is the Gaussian beam.
+Traditional \gls*{mcrt} cannot model Gaussian beams, as Gaussian beam have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
+\Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist
+
+A the electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}.
+
+\begin{equation}
+E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\varphi(z))}
+\label{eqn:gaussefield}
+\end{equation}
+
+\noindent Where:
+
+    \indent $r$ is the radial distance from the optical axis [$m$];
+
+    \indent $z$ is the axial distance from  the beams waist [$m$];
+
+    \indent $k$ is the wavenumber, $k=\frac{2\pi}{\lambda}$ [$m^{-1}$];
+
+    \indent $E_0$ is the electric field amplitude at the origin [$Vm^{-1}$];
+
+    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along the beam [$m$];
+
+    \indent $w_0$ is the waist radius [$m$];
+
+    \indent $R(z)$ is the radius of curvature of the beams wavefronts at z [$m$];
+
+    \indent and finally, $\varphi(z)$ is the Gouy phase at z [-].
+
+
+\begin{equation}
+    w(z)= w_0\sqrt{1+\left(\frac{z}{z_r}\right)^2}
+\label{eqn:gwaist}
+\end{equation}
+    
+\begin{equation}
+R(z)=z\left[1+\left(\frac{z_r}{z}\right)^2\right]
+\label{eqn:radiuscurve}
+\end{equation}
+
+\begin{equation}
+\varphi(z)=arctan\left(\frac{z}{z_r}\right)
+\label{eqn:gouyphase}
+\end{equation}
+
+\begin{equation}
+z_r = \frac{\pi w_0^2}{\lambda}
+\label{eqn:rayleighrange}
+\end{equation}
+
+\begin{equation}
+w_0=\frac{2\lambda f}{\pi D}
+\label{eqn:beamwiast}
+\end{equation}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.95\textwidth]{gaussian-radius-curve.pdf}
+    \caption{Illustration of a Gaussian beam focusing to its waist then diverging away. Image shows the various defined properties of a Gaussian beam along side the radius of curvature changing direction at the waist.}
+    \label{fig:gbeamills}
+\end{figure}
+
+
+    
+
+
+% gaussian beam theory
+% geometry
+% implementation of lens's -> plano-convex and aspheric
+% emphasis no coding of focal distance
+% spherical aberrations 
+% curvature of phase change
+
+
 \section{Bessel Beams}
 
 Bessel beams, as described in the introduction to this chapter, are ``non--diffracting'' beams, that can ``self heal''.
@@ -554,77 +632,6 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 \end{figure}
 
 \FloatBarrier
-
-\section{Gaussian Beams}
-
-
-\begin{equation}
-E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\varphi(z))}
-\label{eqn:gaussefield}
-\end{equation}
-
-\noindent Where:
-
-    \indent $r$ is the radial distance from the optical axis [$m$];
-
-    \indent $z$ is the axial distance from  the beams waist [$m$];
-
-    \indent $k$ is the wavenumber, $k=\frac{2\pi}{\lambda}$ [$m^{-1}$];
-
-    \indent $E_0$ is the electric field amplitude at the origin [$Vm^{-1}$];
-
-    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along the beam [$m$];
-
-    \indent $w_0$ is the waist radius [$m$];
-
-    \indent $R(z)$ is the radius of curvature of the beams wavefronts at z [$m$];
-
-    \indent and finally, $\varphi(z)$ is the Gouy phase at z [-].
-
-
-\begin{equation}
-    w(z)= w_0\sqrt{1+\left(\frac{z}{z_r}\right)^2}
-\label{eqn:gwaist}
-\end{equation}
-    
-\begin{equation}
-R(z)=z\left[1+\left(\frac{z_r}{z}\right)^2\right]
-\label{eqn:radiuscurve}
-\end{equation}
-
-\begin{equation}
-\varphi(z)=arctan\left(\frac{z}{z_r}\right)
-\label{eqn:gouyphase}
-\end{equation}
-
-\begin{equation}
-z_r = \frac{\pi w_0^2}{\lambda}
-\label{eqn:rayleighrange}
-\end{equation}
-
-\begin{equation}
-w_0=\frac{2\lambda f}{\pi D}
-\label{eqn:beamwiast}
-\end{equation}
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.95\textwidth]{gaussian-radius-curve.pdf}
-    \caption{Illustration of a Gaussian beam focusing to its waist then diverging away. Image shows the various defined properties of a Gaussian beam along side the radius of curvature changing direction at the waist.}
-    \label{fig:gbeamills}
-\end{figure}
-
-
-    
-
-
-% gaussian beam theory
-% geometry
-% implementation of lens's -> plano-convex and aspheric
-% emphasis no coding of focal distance
-% spherical aberrations 
-% curvature of phase change
-
 
 \section{Higher order Bessel beams}
 

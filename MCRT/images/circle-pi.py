@@ -19,9 +19,11 @@ def stylize_axes(ax):
     ax.xaxis.set_tick_params(left=False, direction='out', width=1)
     ax.yaxis.set_tick_params(bottom=False, direction='out', width=1)
 
+rng = random.seed(5564750958806547488)  # yields pi = 3.12
+
 
 width = 6.510  # inches
-height = width / 1.618
+height = 6.510  # width / 1.618
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)

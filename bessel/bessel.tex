@@ -93,17 +93,7 @@ The Huygens-Fresnel principle allows the modelling of diffraction in both the ne
 As the principle states that every point on the wavefront is a source of secondary spherical waves, this implies that there are ``backward'' waves.
 These ``backward'' waves are unphysical, and there is no evidence of their existence.
 Thus Fresnel introduced and inclination factor to eliminate these ``backward'' waves.
-This inclination factor was later put on rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory.~\cite{kirchhoff1883ann,born2000principles}
-
-\medskip
-
-Our algorithm uses the Huygens-Fresnel principle to simulate diffraction effects, that would otherwise be absent from the simulation.
-The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point.
-The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
-In practise this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
-The packets are then given a random direction, sampled towards the detector thus avoiding the non-existent ``backward'' waves.
-For the case of modelling propagation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
-When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
+This inclination factor was later put on rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
 
 
 \begin{equation}
@@ -121,6 +111,16 @@ u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0
     \indent $k$ is the wavenumber [$m^{-1}$];
 
     \indent and $r_n$ are spatial coordinates [-].
+
+\medskip
+
+Our algorithm uses the Huygens-Fresnel principle to simulate diffraction effects, that would otherwise be absent from the simulation.
+The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point.
+The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
+In practise this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
+The packets are then given a random direction, sampled towards the detector thus avoiding the non-existent ``backward'' waves.
+For the case of modelling propagation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
+When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
 
 \medskip
 

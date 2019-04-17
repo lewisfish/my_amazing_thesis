@@ -9,23 +9,28 @@ import matplotlib.pylab as plt
 def stylize_axes(ax):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
 
     ax.xaxis.set_tick_params(top=False, direction='out', width=1)
     ax.yaxis.set_tick_params(right=False, direction='out', width=1)
+    ax.xaxis.set_tick_params(bottom=False, direction='out', width=1)
+    ax.yaxis.set_tick_params(left=False, direction='out', width=1)
 
+rng = random.seed(95185235)  # yields pi = 3.101
 
 width = 6.510  # inches
-height = width / 1.618
+height = 6.510  # width / 1.618
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=8)
+plt.rc('xtick', labelsize=15)
+plt.rc('ytick', labelsize=15)
+plt.rc('axes', labelsize=15)
 
 
 fig, ax = plt.subplots()
-fig.subplots_adjust(left=.15, bottom=.16, right=.99, top=.97)
+fig.subplots_adjust(left=.01, bottom=.01, right=.99, top=.99)
 
 
 def lineFormula(x1, x2, y1, y2):
@@ -88,7 +93,10 @@ for i in range(trials):
                 ax.plot([x1, x2], [y1, y2], color="red")
     if counter > 0:
         print(float(trials) * 2. * needleLength / (lineDist * float(counter)))
-ax.legend()
+ax.legend(fontsize=18)
+stylize_axes(ax)
+ax.set_yticks([])
+ax.set_xticks([])
 fig.set_size_inches(width, height)
 fig.savefig('buffon.pdf')
 plt.show()

@@ -94,10 +94,11 @@ As the principle states that every point on the wavefront is a source of seconda
 These ``backward'' waves are unphysical, and there is no evidence of their existence.
 Thus Fresnel introduced and inclination factor to eliminate these ``backward'' waves.
 This inclination factor was later put on rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
-
+\Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane as derived by Kirchoff.
 
 \begin{equation}
 u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0}} \cdot (\mathbf{r_1} - \mathbf{r_0})}{\left|\mathbf{r_1} - \mathbf{r_0}\right|^2}e^{ik\left|\mathbf{r_1} - \mathbf{r_0}\right|}dS_0
+\label{eqn:kirchhoffeqn}
 \end{equation}
 
 \noindent Where:
@@ -110,7 +111,7 @@ u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0
 
     \indent $k$ is the wavenumber [$m^{-1}$];
 
-    \indent and $r_n$ are spatial coordinates [-].
+    \indent and $r_n$ are spatial coordinates [-]. 
 
 \medskip
 
@@ -121,6 +122,8 @@ In practise this means when for example, a plane wave is incident on a slit widt
 The packets are then given a random direction, sampled towards the detector thus avoiding the non-existent ``backward'' waves.
 For the case of modelling propagation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
 When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
+Essentially the Huygens-Fresnel method calculates the complex amplitude of the electric field at a point.
+Thus running a Huygens-Fresnel simulation gives the solution to~\cref{eqn:kirchhoffeqn}.
 
 \medskip
 
@@ -295,10 +298,15 @@ The number of bins, and photons packets simulated had to be increased for the ca
 Now that the method of tracking the phase of photon packets has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
 
 The first beam type we will examine is the Gaussian beam.
-Traditional \gls*{mcrt} cannot model Gaussian beams, as Gaussian beam have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
-\Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist
+Traditional \gls*{mcrt} cannot model Gaussian beams, as Gaussian beams have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
+\Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist.
+Various authors have tried to model Gaussian beams in a \gls*{mcrt} or geometric optics regime.
+Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation} ...***blah
+However all these techniques fail in one way or another to accurately model all the physical phenomena presented by a Gaussian beams.
+This section will show that $\varphi MC$ can accurately model all the physical phenomena of Gaussian beams, within the \gls*{mcrt} regime.
 
-The electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}.
+Before modelling a Gaussian beam, the theory and various physical parameters must be described. 
+The electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}:
 
 \begin{equation}
 E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\varphi(z))}
@@ -325,8 +333,8 @@ E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\va
 
 \medskip
 
-~\Cref{eqn:gwaist,eqn:gouyphase,eqn:rayleighrange,eqn:beamwaist,eqn:radiuscurve} give the defintions of key physical properties as outlinesd above or as shown in~\cref{fig:gbeamills}. 
-$z_r$ is the rayleigh length,~\cref{eqn:rayleighrange}, and defines the point in which the beams wasit grows to $\sqrt{2}$ times the size of the beam at its waist.
+~\Cref{eqn:gwaist,eqn:gouyphase,eqn:rayleighrange,eqn:beamwaist,eqn:radiuscurve} give the definitions of key physical properties as outlined above or as shown in~\cref{fig:gbeamills}. 
+$z_r$ is the Rayleigh length,~\cref{eqn:rayleighrange}, and defines the point in which the beams waist grows to $\sqrt{2}$ times the size of the beam at its waist.
 The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, where $f$ is the focal length and $D$ is the $\tfrac{1}{e^2}$ diameter of the beam at the lens.
 
 \begin{align}
@@ -346,26 +354,30 @@ The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, whe
 
 With the physical properties of the Gaussian beam outlined, a Gaussian beam can now be modelled using our algorithm.
 In order to simulate the Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
-The lens used is convex-plano lens, with radius of curvature $4.6~mm$, and thickness of $2.2~mm$.
-A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $1~mm$, is incident on the lens.
+The lens used is convex-plano lens, with radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
+A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $0.5~mm$, is incident on the lens.
 Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3\mu m$.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{gaussiansetup.pdf}
-    \caption{Simulation setup of focusing a Gaussian beam through a lens.}
+    \caption{Simulation setup of focusing a Gaussian beam through a lens. Lens is convex-plano and is modelled on ThorLabs LA4249 UV fused silica lens~\cite{thorlens}.}
     \label{fig:gausssetup}
 \end{figure}
-    
-The photons initial z position is set just in front of the lens.
+
+To model the lens in $\varphi$ the photons initial z position is set just in front of the lens.
 The x and y are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
+This is due to the fact that the electric field is $\propto e^{\tfrac{-r^2}{4\sigma`^2}}$, and the intensity is $\propto e^{\tfrac{-r^2}{2\sigma^2}}$.
+Thus for the input electric field waist to be equal to the intensity waist, i.e $\sigma`=\sigma$, $\sigma`=\sqrt{2}\sigma$.
 
 The photon is then propagated to the surface of the convex side of the lens.
 This is achieved by finding the intersection of a sphere which represents the convex side of the lens, and the packets path.
 With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
 If the packet is reflected the packet is killed and the process starts again.
+%***need exlanation of refraction here***
 If the packet is refracted, and moved in the new direction to the planar surface of the lens.
+The new direction vector is calculated using a vector version of Snell's law, as shown in~\cref{eqn:snelllaw}.
 The packets is then uniformly sampled onto the surface of the voxel medium and the usual~\gls*{mcrt} method is used to propagate the packet whilst tracking the phase.
 
 \begin{figure}[!ht]
@@ -375,13 +387,34 @@ The packets is then uniformly sampled onto the surface of the voxel medium and t
     \label{fig:simgaussexp}
 \end{figure}
 
-% gaussian beam theory
-% geometry
-% implementation of lens's -> plano-convex and aspheric
-% emphasis no coding of focal distance
-% spherical aberrations 
-% curvature of phase change
 
+\Cref{fig:simgaussexp} shows the comparison of theory and \textit{in-silico} experiment, with excellent agreement between the two.
+
+$\varphi MC$ also correctly models the change of direction of the radius of curvature, $R(z)$, as is predicted by theory.
+This can be seen in~\cref{fig:proofchgrz}
+
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[]{}
+    \caption{Slice through the real part of the complex electric field of the \textit{in-silico} experiment as in~\cref{fig:gausssetup}. Figure shows the radius of curvature changing direction at the waist as predicted by theory.}
+    \label{fig:proofchgrz}
+\end{figure}
+
+$\varphi MC$ can also model spherical aberrations caused by lenses.
+~\cref{fig:spheraberr} shows aberrations caused by a plano-convex lens.
+
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[]{}
+    \caption{Illustration of $\varphi MC$`s ability to model spherical aberrations. Image generated using same setup as in~\cref{fig:gausssetup}, but with a $D=2~mm$.}
+    \label{fig:spheraberr}
+\end{figure}
+
+% gaussian beam theory
+% implementation of lens's -> aspheric
+
+This section has shown that Gaussian beams, and their physical phenomena can be accurately modelled using $\varphi MC$.
+A convex-plano lens was used to focus a Gaussian beam, but it is simple to implement other other lenses given a triangulated mesh of the lens or an equation that describes the shape of the lens. 
 
 \section{Bessel Beams}
 

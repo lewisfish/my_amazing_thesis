@@ -16,6 +16,9 @@ As discussed in~\nameref{sec:diffusionapprox}, this method has many downside whe
 However this turns out to be computationally intensive and requires a grid resolution of $\lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 
 
+This chapter modifies the MCRT method, which is `ballistic' photon method into a quasi `ballistic/wave' photon method so that the wave behaviour of photons can be modelled.
+This allows the modelling of complex shaped beams such as Bessel beams and Gaussian beams.
+
 Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
 %Bessel beams have since been used for blah blah
 %They are really good and like are better than Gaussian beams allegedly.
@@ -39,6 +42,16 @@ However for the work presented in this chapter, wave like behaviour is crucial t
 
 To convert a ballistic simulation of photon packets into a ballistic/wave-like simulation, the complex phase of each photon packet is tracked.
 This is achieved, by simply tracking the complex phase of the photon as it propagates through a medium.
+The packet is also given an initial complex electric field of the form:
+
+\begin{equation}
+E_0 = \frac{1}{N}\sqrt{\frac{P}{A}}
+\label{eqb:initefield}
+\end{equation}
+
+Where $N$ is the number of photons run in a simulation, $P$ is the power of the incident beam, and $A$ is the area of the beam.
+
+
 ~\Cref{eqn:phase} shows how the phase is calculated.
 
 \begin{equation}
@@ -62,7 +75,7 @@ Thus, interference takes place in a volume, $dV$, or area element, $dA$, instead
 To calculate the interference from the phase, the phase is summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
 \begin{equation}
-I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\xi}sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \xi=(x,y,z)
+I(\xi)= \left| \sum\limits_{\xi}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\xi}E_0\ sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \xi=(x,y,z)
 \label{eqn:intense}
 \end{equation}
 
@@ -73,6 +86,8 @@ I(\xi)=\left| \sum\limits_{\xi}cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\l
 \indent $\lambda$ is the wavelength of the photon [$m$];
 
 \indent $I$ is the intensity at the $\xi^{th}$ cell [$W m^{-2}$];
+
+\indent $E_0$ is the initial electric field of the packets as in~\cref{eqn:initefield} [$Vm^{-1}$]
 
 \indent and $\xi$ is the $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
 
@@ -104,7 +119,7 @@ As the principle states that every point on the wavefront is a source of seconda
 These ``backward'' waves are unphysical, and there is no evidence of their existence.
 Thus Fresnel introduced and inclination factor to eliminate these ``backward'' waves.
 This inclination factor was later put on rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
-\Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane as derived by Kirchoff.
+\Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane as derived by Kirchoff with the inclination factor.
 
 \begin{equation}
 u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0}} \cdot (\mathbf{r_1} - \mathbf{r_0})}{\left|\mathbf{r_1} - \mathbf{r_0}\right|^2}e^{ik\left|\mathbf{r_1} - \mathbf{r_0}\right|}dS_0
@@ -286,6 +301,7 @@ Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves cur
 In $\varphi MC$, the above experiment is simulated. 
 A square slit is uniformly sampled in the $y$, and $z$ direction in order to get the packets initial position. 
 A random direction is then sampled, ensuring that the direction points towards the detector screen.
+As we assume a plane wave is incident of the aperture each photon is given the same initial complex electric field.
 
 The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture, as Huygens wavelets.
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
@@ -380,6 +396,7 @@ The x and y are randomly sampled from a Gaussian distribution with a waist of $\
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
 This is due to the fact that the electric field is $\propto e^{\tfrac{-r^2}{4\sigma`^2}}$, and the intensity is $\propto e^{\tfrac{-r^2}{2\sigma^2}}$.
 Thus for the input electric field waist to be equal to the intensity waist, i.e $\sigma`=\sigma$, $\sigma`=\sqrt{2}\sigma$.
+The packet is given an electric field of the form~\cref{eqn:initefield}, with $P=1~mW$, and $A=\tfrac{1}{2}\piw_0^2$.
 
 The photon is then propagated to the surface of the convex side of the lens.
 This is achieved by finding the intersection of a sphere which represents the convex side of the lens, and the packets path.
@@ -545,7 +562,7 @@ Finally, the spacing between Bessel beam rings is:
 
 \subsection{Validation}
 
-To ensure that the method described in~\namecref{sec:bestheory} works as intended for Bessel beams several tests are run against theoretical expressions and experimental data.
+To ensure that the method described in~\nameref{sec:bestheory} works as intended for Bessel beams several tests are run against theoretical expressions and experimental data.
 
 \subsubsection*{Comparison to theoretical Bessel beam}
 
@@ -555,7 +572,7 @@ To compare against a theoretical Bessel beam, a Bessel beam is modelled in the~\
 The Bessel beam is created with an axicon (conical) lens with an opening angle ($\alpha$) of $5^{\circ}$, and a radius of $12.7~mm$.
 The input beam is Gaussian in profile with a $\tfrac{1}{e^2}$ diameter of $1~mm$, and a wavelength of $488~nm$.
 The Bessel beam is then propagated to a detector screen $10~mm$ away from the tip of the axicon, which is in the middle of the ``Bessel region'' for the first test.
-for the second test the Bessel beam is propagated past the ``Bessel region'' into the far field.
+For the second test the Bessel beam is propagated past the ``Bessel region'' into the far field.
 The detector screen has a size of $40~mu m$ $\times$ $40~mu m$ with a bin resolution of $1~\mu m$.
 $8^10$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeon 3.5Ghz machine.
 
@@ -599,7 +616,7 @@ The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$.
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
 The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra}.
-~\Cref{fig:ilscatprop} shows the optical propeties of Intralipid $20~\%$.
+~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.
 Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime.
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with out algorithm.
@@ -776,6 +793,61 @@ This method is similar to using a spatial light modulator in an experiment to im
 
 \FloatBarrier
 \section{Comparison}
+
+As Bessel and Gaussian beams are radically different from one another it is hard to directly compare the two beams.
+Gaussian beams carry all their power in the `central core' of the beam, whereas in a Bessel beam, it carries the same amount of power in each ring.
+Bessel beams also have a much larger depth of focus than Gaussian beams.
+This section attempts to compare the two beams, to see which beam preform better in a heavily scattering medium.
+
+To ensure a fairer comparison the Bessel beams central core width is set to that of the Gaussian beam's waist.
+
+\begin{equation}
+r_0=\frac{\kappa}{k\ sin\beta}  
+\end{equation}
+
+Where $\kappa$ is a constant that determines the metric used to measure the Bessel beam's core, and the other symbols have the same meanings as before.
+For $\kappa=2.408$ the radius is measured from the maximum of the core to the first zero of the Bessel beam.
+$\kappa=1.75$ measures the Bessel beam's core from the maximum to $\tfrac{1}{e^2}$ of the maximum.
+For both beams central cores to be equal, the axicon used to generate the Bessel beam is adjusted.
+This is achieved by calculating the `correct' $\alpha$ based upon the optical setup used to focus the Gaussian beam. 
+Using the small angle approximation\footnote{for small $\alpha$ and $\beta$: $\beta=(n-1)\alpha$.} and $\kappa=1.75$ we can compare the Bessel beam's core radius to a Gaussian beam's waist:
+
+\begin{align}
+\frac{1.75\lambda}{2\pi sin\beta}&=\frac{2\lambda f}{\pi D} \\
+\alpha &= \frac{1}{n-1}asin\left(\frac{1.75 D}{4 f}\right)
+\end{align}
+
+Where $\alpha$ axicon angle as before, n is the refractive index of the axicon, $D$ is the $\tfrac{1}{e^2}$ diameter of the incident Gaussian beam on the lens, and $f$ is the focal length of the lens.
+Both $D$ and $f$ are properties of the optical system used to focus the Gaussian beam.
+
+The first comparison carried out between the Bessel and Gaussian beams is to use the same power to generate both beams.
+The beams are the propagated through mediums of varying degrees of Intralipid solution.
+Volumes of 0, 20, 40, 60 $\mu L$ are used of Intralipid in 500 $\mu L$ of water.
+The medium has a volume of $0.04~mm \times 0.04~mm \times 0.2~mm$.%***check
+For both beams a wavelength of $488~nm$ and a power of $1~mW$ is used.
+One hundred million packets are simulated for each simulation.
+The results of this are shown in~\cref{fig:1stcomp}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{.pdf}
+    \caption{First comparison of Bessel and Gaussian beams, with equal power used to generate both beams.}
+    \label{fig:1stcomp}
+\end{figure}
+
+The results show that for the same power, Gaussian beams propagate deeper into the medium compared to Bessel beams.
+This is to be expected as in a Gaussian beam all the power is in its `central core', whilst the power is evenly distributed between all the Bessel beam's rings.
+Therefore for a second comparison the power given to the Bessel beam is such that the central core maximum matches that of the Gaussian beam's for the case where there is no scattering.
+To achieve this the Bessel beam was given $1000mW$.%***fill this in
+The results of this comparison are illustrated in~\cref{fig:2ndcomp}.
+
+\begin{figure}[!ht]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{.pdf}
+    \caption{Second comparison of Bessel and Gaussian beams for the case where the maximums of both Gaussian and Bessel beams match in the non scattering case.}
+    \label{fig:2ndcomp}
+\end{figure}
+
 
 \section{Discussion}
 

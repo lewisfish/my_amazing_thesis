@@ -4,6 +4,16 @@
 
 %Intro = mention complex beams and their uses then move onto gaussian and bessel beams
 
+Complex shaped light beams have been used for a variety of tasks in biophotonics.
+From using Airy beams to move particles and cells~\cite{baumgartl2008optically}, Bessel beam `tractor beams'~\cite{ruffner2012optical}, using Airy and Bessel beams for better field of view in light-sheet microscopy~\cite{vettenburg2014light}, and using Laguerre-Gaussian beams to optical trap optically reflective particles~\cite{simpson1996optical}.
+
+
+However simulation techniques for modelling complex shaped beams in biological tissue is lacking.
+Currently there are a number of techniques that can model these beams in biological tissue, however they all have downsides.
+These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpm}, and \gls*{mcrt}.
+As discussed in~\nameref{sec:diffusionapprox}, this method has many downside when it comes to modelling light propagation in biological tissue.
+\gls{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
+However this turns out to be computationally intensive and requires a grid resolution of $\lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 
 
 Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
@@ -11,7 +21,7 @@ Bessel beams have been the subject of intense research since their discovery in 
 %They are really good and like are better than Gaussian beams allegedly.
 
 This chapter examines how Bessel beams compare to other beam in a scattering medium. 
-We investigate if the Bessel beams self-healing property has any effect in a turbid medium.
+We investigate if the Bessel beams self-healing property has any effect in a turbid medium.{}
 We examine Bessel beams and the other beams by creating a novel~\gls*{mcrt} algorithm that allows the tracking of a photon as it propagates through a medium. 
 The main focus of this chapter, is validation of our new novel technique, followed by using the new algorithm ($\varphi MC$) to compare Gaussian and Bessel beams, to see which one preforms better in a turbid medium. 
 This chapter also extends out novel algorithm to other complex, diffraction less beams

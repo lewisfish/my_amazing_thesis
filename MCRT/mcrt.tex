@@ -156,7 +156,7 @@ With the irradiance defined, as well as the other quantities that follow, the \g
 
 \indent $dP_{div}$ is the energy loss due to the divergence of the radiation beam per unit time;
 
-\indent $dP_{ext}$ is the energy loss due to absorption and scattering within $dA\ ds\ d\Omega$;
+\indent $dP_{ext}$ is the energy loss due to absorption and scattering within the volume $dA\ ds$ within the solid angle, $d\Omega$;
 
 \indent $dP_{scatt}$ is the energy gain due to scattering from $\hat{s}'$ into $d\Omega$ per unit time;
 
@@ -239,7 +239,10 @@ In general, the \gls*{rte} is hard to solve in arbitrary 3D geometries, however 
 \gls*{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls*{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform with only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
 
 These assumptions make \gls*{km} poor for modelling light-tissue interactions.
-This is because in tissue, scattering is not isotropic but rather forward biased (see~\cref{sec:optprop}). Tissue is rarely, planar and infinitely wide. Tissue also has some reflections at its external and internal boundaries, due to change in refractive indices. Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls*{km} is not able to model, along with polarization. 
+This is because in tissue, scattering is not isotropic but rather forward biased (see~\cref{sec:optprop}). 
+Tissue is rarely, planar and infinitely wide. 
+Tissue also has some reflections at its external and internal boundaries, due to changes in refractive indices. 
+Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls*{km} is not able to model, along with polarization. 
 \gls*{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple media, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications~\cite{prahl1990light}.
 
 \subsubsection*{Diffusion Approximation}
@@ -287,7 +290,7 @@ Anisotropy is the degree of deviation that light undergoes at each scattering ev
 	\int_{\Omega}\Phi(\theta,\phi)\ d\Omega = 1
 \end{equation}
 
-Where $\theta$, and $\phi$ are the usual polar and azimuthal spherical angles.
+Where $\theta$, and $\phi$ are the usual polar and azimuthal spherical angles, and $d\Omega=sin\theta d\theta d\phi$.
 Thus for Rayleigh and isotropic scattering, their phase function's are:
 
 \begin{align}

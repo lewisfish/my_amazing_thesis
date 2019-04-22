@@ -86,7 +86,7 @@ The theory that governs the transport of radiation through a medium is the radia
 Before describing~\gls*{mcrt} which is a numerical simulation of the~\gls*{rte}, the theory of radiation transport must be examined.
 
 \subsubsection*{Radiative Transfer}
-Transport of photons through turbid media, can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
+Transport of radiant energy through turbid media, can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
 
 
 The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction $\mathbf{\hat{n}}$, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
@@ -330,12 +330,13 @@ Absorption of light by a medium is defined by the absorption coefficient $\mu_a$
 \end{equation}
 This, again like the scattering coefficient, gives inverse distance for the unit of the absorption coefficient (and its is also usually measured in units of $cm^{-1}$).
 
-There are various sources of absorbers in tissue: blood, water, fat, melanin, $\beta$-carotene, bilirubin are among the more absorbing chromophores. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, see~\cref{fig:absorb}. 
+There are various sources of absorbers in tissue: blood, water, fat, melanin, $\beta$-carotene, bilirubin are among the more absorbing chromophores. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, see~\cref{fig:absorb}.
+The absorbed photons can then be remitted as fluorescence or stored as absorbed energy/heat. 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.95\textwidth]{absorbers.pdf}
-	\caption{Spectra of some of the more common absorbers found in the skin~\cite{dixon2005photochemcad,photoprahl2017,segelstein1981complex,pope1997absorption,jacques2013optical,van2004determination,saidi1992transcutaneous,iglesias2015biophysically,bashkatov2011optical,sarna2006physical}.}
+	\caption{Examples of wavelength dependent absorption coefficients for some common tissue chromophores~\cite{dixon2005photochemcad,photoprahl2017,segelstein1981complex,pope1997absorption,jacques2013optical,van2004determination,saidi1992transcutaneous,iglesias2015biophysically,bashkatov2011optical,sarna2006physical}.}
 	\label{fig:absorb}
 \end{figure}
 
@@ -343,15 +344,15 @@ There are various sources of absorbers in tissue: blood, water, fat, melanin, $\
 \subsubsection{Derived Parameters}
 
 There are also some derived parameters that are useful to use.
-These are the albedo and the transmission coefficient.
+These are the albedo and the total attenuation coefficient.
 
-The transmission/attenuation coefficient is defined as the sum of the scattering coefficient and the absorption coefficient:
+The total attenuation coefficient is defined as the sum of the scattering coefficient and the absorption coefficient:
 
 \begin{equation}
 \mu_t=\mu_s+\mu_a
 \end{equation}
 
-The albedo, or scattering probability, is defined as the ratio of the scattering coefficient to the transmission coefficient:
+The albedo, or scattering probability, is defined as the ratio of the scattering coefficient to the total attenuation coefficient:
 
 \begin{equation}
 a = \frac{\mu_s}{\mu_a+\mu_s}=\frac{\mu_s}{\mu_t}
@@ -464,7 +465,7 @@ Using this position the voxel the packet is in is calculated.
 \end{figure}
 \subsubsection*{Photon Move}\label{sec:photmove}
 
-The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the interaction probability (see~\nameref{sec:optprop}). Thus, the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
+The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the total extinction coefficient (see~\nameref{sec:optprop}). Thus, the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
 
 \begin{align}
 P(L) &= (1-\mu_t\frac{L}{N}) \cdot (1-\mu_t\frac{L}{N}) ...\ (1-\mu_t\frac{L}{N}) = (1-\mu_t\frac{L}{N})^N \\
@@ -508,10 +509,11 @@ L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
 with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. 
 
 Moving the photon through a voxelised medium is more involved than propagating a photon through a non voxelised medium. 
-This is mainly due to the fact the ``book keeping'' needed in tracking where the photon is and in what voxel it is in.
+This is because the voxel the photon is in needs to be updated as the photon moves from voxel to voxel.
+% This is mainly due to the fact the ``book keeping'' needed in tracking where the photon is and in what voxel it is in.
 The first step of moving the photon through a voxelised medium is drawing a random optical depth.
 This optical depth will be the full optical depth the photon travels before an interaction event.
-The generation of a random optical depth is as outlined above.
+The generation of a random optical depth is as outlined above, $\tau=-log(\xi)$.
 As the photon travels through the voxel grid, a running total of the current optical distance travelled is kept.
 This is then compared to the randomly generated optical depth.
 When the running total optical depth equals the randomly generated optical depth the photon propagation is stopped, and the photon undergoes an interaction.
@@ -553,7 +555,9 @@ The next step in the algorithm is the interaction event, which can consist of ei
 The next section of the algorithm is to decide how the photon interacts with the medium, either via scattering or absorption. There are other interaction events that can occur, however descriptions of these are left for the chapters that detail these behaviours.
 \medskip
 
-To decide whether a packet scatters or absorbs involves generating a random number and comparing it against the albedo. The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
+To decide whether a packet scatters or absorbs involves generating a random number, $\xi$, and comparing it against the albedo, $a$. 
+If $\xi < a$ then the packet scatters, otherwise it is absorbed. 
+% The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
 
 \paragraph{Packet Absorption}\hspace{0pt}\\
 \\
@@ -564,9 +568,9 @@ If the interaction event is a photon packet absorption, then the algorithm termi
 If the interaction event is a packet scattering, then the packet is scattered into a new direction and the above processes are carried out until a termination clause is met, see~\nameref{sec:terminator}.
 
 Depending on the medium being simulated, it can either be isotropic or anisotropic scattering. 
-For the isotropic case, new $\theta$ and $\phi$ angles are sampled uniformly, and the direction vectors set as in section~\nameref{sec:photlaunch}.
+For the isotropic case, new $cos\left(\theta\right)$ and $\phi$ angles are sampled uniformly, and the direction vectors set as in section~\nameref{sec:photlaunch}.
 For the case where the scattering is anisotropic the calculation of the scattering angles, $\theta$ and $\phi$, is more complicated.
-The random sampling of the scattering angles, $\theta$ and $\phi$, are valid in the ``centre of mass'' frame containing the scatter, incident and scattered particle.
+The random sampling of the scattering angles, $\theta$ and $\phi$, are valid in the ``centre of mass'' frame containing the scatter, incident and scattered ray.
 The photons position is updated in the lab frame, thus the direction vectors also have to be updated in the lab frame.
 This means that the scattering angles need to be rotated into the lab frame.
 For the isotropic case assume that the scattering is also isotropic in the lab frame, thus the new direction vector is easily calculated.
@@ -625,7 +629,7 @@ J_i = \frac{L}{NV_{\varsigma}}\sum l
 
 \noindent Where:
 
-\indent $J_i$ is the fluence or mean intensity [$W\ m^{-2}$];
+\indent $J_i$ is the mean intensity such that the fluence is $\Phi=4\pi J$ [$W\ m^{-2}$];
 
 \indent $L$ is the luminosity or power of the light source [$W$];
 
@@ -649,7 +653,7 @@ This section describes the various implementation details such as how the code i
 \subsubsection*{Code}
 
 All code in this thesis is written in modern Fortran\footnote{modern Fortran is considered anything past Fortran 95~\cite{metcalf2011modern}.}.
-All subroutines and functions are contained in modules (with the exception of the main program---mcpolar.f90).
+All subroutines and functions are contained in modules (with the exception of the main program---main.f90).
 This is done in order to be able to ``hide'' data from subroutines and functions, and to arrange the code that relates to other parts of the code in the same file.
 Having the code in modules also allows the use of runtime allocation of memory for arrays.
 This enables the user to specify the size of arrays depending on the need of the user for the problem at hand.
@@ -757,8 +761,8 @@ Or to put it another way:
 
 Thus the code has to be validated against various theoretical/experimental and other simulations, to determine whether the results are correct.
 
-For the first test of a~\gls*{mcrt} code, it is compared against a experimental expression,~\cref{eqn:jacqmatch}, for fluence as a function of depth~\cite{gardner1993fluorescence}.
-This expression has also been matched by other~\gls*{mcrt} simulations~\cite{jacques1993photobleaching}.
+The main benchmark of the~\gls*{mcrt} code, is a comparison against an expression for fluence as a function of depth~\cite{gardner1993fluorescence}.
+This expression has also been fitted to by other~\gls*{mcrt} simulations~\cite{jacques1993photobleaching}.
 
 \begin{equation}
 \Psi(z)=\Psi_0(C_1e^{-k_1z/\delta}-C_2e^{-k_2z/\delta})
@@ -808,7 +812,7 @@ This yielded the result as in~\cref{fig:matchjacq}.
 
 Fitting~\cref{eqn:jacqmatch} to the data calculated by our~\gls*{mcrt} code for $630~nm$, gave: $C_1 = 6.425$, $C_2=1.083$, $k_1=1.0$, and $k_2=12.966$.
 For $420~nm$ gave: $C_1 = 5.600$, $C_2=0.838$, $k_1=1.003$, and $k_2=9.846$.
-These are in good agreement with Jacques \textit{et al.} results.
+These are in good agreement (with in code differences) with Jacques \textit{et al.} results.
 
 \section{Conclusion}
 
@@ -819,5 +823,5 @@ The Monte Carlo method can be used to calculate radiation transport in order to 
 However the~\gls*{mcrt} method does have the downside, that for some problems, many photon packets must be run in order to achieve a good signal to noise ratio.
 Though this is becoming less of an issue due to increased computational available capacity and~\gls*{mcrt} being classed as an ``embarrassingly parallel'' problem, allowing it to be easily parallelised.
 
-The algorithm covered in this chapter is the underpinning algorithm for this whole thesis, and validating it against experimental and simulation data fro other authors.
-Each subsequent chapter builds upon the algorithm in order to solve the problem at hand.
+The MCRT algorithm as described in this chapter forms the basis for this thesis.
+Each subsequent chapter builds upon the algorithm in order to solve new problems.

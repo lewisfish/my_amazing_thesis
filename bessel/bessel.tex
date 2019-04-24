@@ -46,11 +46,10 @@ The packet is also given an initial complex electric field of the form:
 
 \begin{equation}
 E_0 = \frac{1}{N}\sqrt{\frac{P}{A}}
-\label{eqb:initefield}
+\label{eqn:initefield}
 \end{equation}
 
 Where $N$ is the number of photons run in a simulation, $P$ is the power of the incident beam, and $A$ is the area of the beam.
-
 
 ~\Cref{eqn:phase} shows how the phase is calculated.
 
@@ -216,7 +215,7 @@ F = l\sqrt{\frac{2}{\lambda r_0}}
 
 In order to compare $\varphi MC$ to the theory, the theory must first be examined.
 Consider the setup as shown in~\cref{fig:aperture}, in order to calculate the intensity at a point $P$, the contribution by an area element $dS$ at the point a, to the optical disturbance at a point \textit{P} is considered.
-Accounting for the the unobstructed optical disturbance from $S$ as well, yields: 
+Accounting for the the unobstructed optical disturbance from $S$ as well and using~\cref{eqn:kirchhoffeqn}, yields: 
 
 
 \begin{equation}
@@ -321,18 +320,19 @@ The number of bins, and photons packets simulated had to be increased for the ca
 
 \section{Gaussian Beams}
 
-Now that the method of tracking the phase of photon packets has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
+Now that the method of tracking the phase of photon packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
 
 The first beam type we will examine is the Gaussian beam.
+Gaussian beams are important as most laser beams have the profile of the fundamental (TEM$_{00}$) Gaussian mode.
 Traditional \gls*{mcrt} cannot model Gaussian beams, as Gaussian beams have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
 \Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist.
 Various authors have tried to model Gaussian beams in a \gls*{mcrt} or geometric optics regime.
-Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation} ...***blah
-However all these techniques fail in one way or another to accurately model all the physical phenomena presented by a Gaussian beams.
+Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}. %***maybe move this to intro section??***
+However all these techniques inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt}).
 This section will show that $\varphi MC$ can accurately model all the physical phenomena of Gaussian beams, within the \gls*{mcrt} regime.
 
-Before modelling a Gaussian beam, the theory and various physical parameters must be described. 
-The electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}:
+Before discussing how modelling of a Gaussian beam is achieved, the theory and various physical parameters of the beam must be described. 
+The electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}~\cite{milonni2010laser}:
 
 \begin{equation}
 E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\varphi(z))}

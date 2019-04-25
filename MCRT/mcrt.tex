@@ -1,7 +1,7 @@
 \chapter{Monte Carlo Radiation Transport Technique}
 \label{sec:mcrt}
 \section{Introduction and Background}
-This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls*{mcrt}. The chapter will then present the details of the \gls*{mcrt} code used as the basis of the subsequent chapters. Validation of this code and details of computational speed up are also presented. Subsequent chapters will expand upon the code modifications and extensions for each individual projects needs.
+This chapter will provide an overview of the Monte Carlo method and how it is used within the context of \gls*{mcrt}. The chapter will then present the details of the \gls*{mcrt} code developed during this project and used as the basis of the results reported in subsequent chapters. Validation of this code and details of computational speed up are also presented.
 
 \subsection*{Monte Carlo Method}\label{sec:mcmethod}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems~\cite{cashwell1959practical,rogers1990monte}. 
@@ -42,7 +42,7 @@ The inverted sampling method can be summarised by the following steps for drawin
 
 \medskip
 
-1. Compute the CDF\footnote{The CDF is the cumulative distribution function.} $P(x)=\int^{x}_{0}p(x')dx'$
+1. Compute the \gls*{cdf} $P(x)=\int^{x}_{0}p(x')dx'$
 
 2. Compute the inverse $P^{-1}(x)$
 
@@ -86,7 +86,7 @@ The theory that governs the transport of radiation through a medium is the radia
 Before describing~\gls*{mcrt} which is a numerical simulation of the~\gls*{rte}, the theory of radiation transport must be examined.
 
 \subsubsection*{Radiative Transfer}
-Transport of radiant energy through turbid media, can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses, and gains by a beam of radiation as it travels through a medium, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
+Transport of radiant energy through turbid media, can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses, and gains by a beam of radiation as it propagates, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
 
 
 The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction $\mathbf{\hat{n}}$, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
@@ -258,17 +258,17 @@ The diffusion approximation also has a number of assumptions and restrictions. T
 Diffusion theory is computationally fast, and simple to implement. However it is poor at modelling light-tissue interactions due to its assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. However it can be used to speed up \gls*{mcrt} in optically thick regions~\cite{robitaille2010modified,min2009radiative}.
 
 \subsubsection*{MCRT}
-The final method, \gls*{mcrt}, is a method that is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics including fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams, to diffuse light sources. The only downside that is noted in the literature is that the \gls*{mcrt} can be expensive computationally. However with computational power growing faster with each year, this is less of a problem going forward. The next several sections give an in depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
+The final method, \gls*{mcrt}, is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics including fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams to diffuse light sources. The only downside that is noted in the literature is that the \gls*{mcrt} can be expensive computationally. However with computational power growing faster with time, this is less of a problem going forward. The next several sections give an in depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
 
 \subsection{Optical Properties}\label{sec:optprop}
 
-Before an in depth description of the \gls*{mcrt} method is outlined, a discussion of the optical properties of materials is presented, which the \gls*{mcrt} method needs in order to simulate the transport of photons in a material.
+Before an in-depth description of the \gls*{mcrt} method is outlined, a discussion of the optical properties of materials is presented, which the \gls*{mcrt} method requires in order to simulate the transport of photons in a material.
 
-Optical properties of a medium are the properties that describe how light is transported though that medium. Usually the optical properties of a medium are defined by three main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), and the anisotropy coefficient ($g$). There are several other optical properties the medium can be defined with, however these in general are only used for specific applications, such as Raman cross-sections for Raman scattering.
+Optical properties of a medium are the properties that describe how light is transported though that medium. Usually the optical properties of a medium are defined by three main parameters: the scattering and absorption coefficients ($\mu_s$ and $\mu_a$), and the anisotropy coefficient ($g$).
 
 \subsubsection*{Scattering}\label{sec:scatt}
 
-The scattering coefficient, along with the anisotropy value (see ~\nameref{sec:ansio}), define how light is scattered in a medium. Scattering occurs in skin due to a number of different scatterers, and inhomogeneities found within the skin. The main scatters in the skin are filamentous proteins such as collagen and elastin. These proteins are generally found within the dermis and epidermis~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
+The scattering coefficient, along with the anisotropy value (see ~\nameref{sec:ansio}), define how light is scattered in a medium. Scattering occurs in skin due to a number of different scatterers, and inhomogeneities. The main scatters in the dermis and epidermis are filamentous proteins such as collagen and elastin~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
 The size of the scatters affect how light is scattered and into which direction that light is scattered into.
 
 \medskip
@@ -330,8 +330,8 @@ Absorption of light by a medium is defined by the absorption coefficient $\mu_a$
 \end{equation}
 This, again like the scattering coefficient, gives inverse distance for the unit of the absorption coefficient (and its is also usually measured in units of $cm^{-1}$).
 
-There are various sources of absorbers in tissue: blood, water, fat, melanin, $\beta$-carotene, bilirubin are among the more absorbing chromophores. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, see~\cref{fig:absorb}.
-The absorbed photons can then be remitted as fluorescence or stored as absorbed energy/heat. 
+There are various sources of absorbers in tissue including blood, water, fat, melanin, $\beta$-carotene, bilirubin. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, as shown in~\cref{fig:absorb}.
+The absorbed photons can then be remitted as fluorescence or absorbed as heat. 
 
 \begin{figure}
 	\centering
@@ -360,7 +360,7 @@ a = \frac{\mu_s}{\mu_a+\mu_s}=\frac{\mu_s}{\mu_t}
 
 
 \subsection*{Other Parameters}\label{sec:other}
-The preceding subsection, described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
+The preceding subsection described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
 
 
 
@@ -404,7 +404,7 @@ Fluorescence will be described in more depth in~\cref{chap:salvo,sec:madrid}.
 \leavevmode
 \FloatBarrier
 
-A \gls*{mcrt} algorithm can range in complexity from a simple 20 line program, to tens of thousands of lines, depending on the application. This section will provide an in depth description of the \gls*{mcrt} algorithm for the propagating photons thorough a spherical medium with optical properties $\mu_s$, and $\mu_a$. The section following this one, will provide details of how the \gls*{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the parallelisation of the code.
+This section will provide an in depth description of the \gls*{mcrt} algorithm for the propagating photons thorough a spherical medium with optical properties $\mu_s$, and $\mu_a$. The subsequent section provides details of how the \gls*{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the parallelisation of the code.
 
 \Cref{fig:algo} shows a flow chart of the~\gls*{mcrt} algorithm described in this chapter.
 
@@ -463,7 +463,7 @@ Using this position the voxel the packet is in is calculated.
 \label{fig:voxel-model}
 \vspace{-20pt}
 \end{figure}
-\subsubsection*{Photon Move}\label{sec:photmove}
+\subsubsection*{Photon Propagation}\label{sec:photmove}
 
 The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the total extinction coefficient (see~\nameref{sec:optprop}). Thus, the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
 
@@ -508,6 +508,8 @@ L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
 
 with $\mu_{t,\zeta}$ the $\mu_t$ for the $\zeta^{th}$ voxel. 
 
+\medskip
+
 Moving the photon through a voxelised medium is more involved than propagating a photon through a non voxelised medium. 
 This is because the voxel the photon is in needs to be updated as the photon moves from voxel to voxel.
 % This is mainly due to the fact the ``book keeping'' needed in tracking where the photon is and in what voxel it is in.
@@ -518,7 +520,7 @@ As the photon travels through the voxel grid, a running total of the current opt
 This is then compared to the randomly generated optical depth.
 When the running total optical depth equals the randomly generated optical depth the photon propagation is stopped, and the photon undergoes an interaction.
 
-The next step is to calculate the distance to the nearest wall in the $x,\ y,\ \text{and}\ z$ directions.
+We then calculate the distance to the nearest voxel boundary in the $x,\ y,\ \text{and}\ z$ directions.
 The distance is calculated for each direction.~\Cref{eqn:walldist} shows for the $x$ direction:
 
 \begin{equation}
@@ -530,7 +532,7 @@ Where $d_x$ is the distance to the nearest wall in the $x$ direction. $x_{face}$
 With three distances calculated, [$d_x, d_y, d_z$], the minimum of these is thus the distance to the nearest voxel wall.
 
 The next step is to calculate the optical depth for this distance.
-The optical depth is calculated by rearranging~\cref{eqn:voxeloptdist} for $\tau$, with $L$ now the distance to the nearest wall.
+The optical depth is found by rearranging~\cref{eqn:voxeloptdist} for $\tau$, with $L$ now the distance to the nearest wall.
 With the optical distance to the nearest wall calculated, the next step is to determine if there is ``enough'' optical distance left to travel the full distance to the nearest wall.
 Therefore the running total optical distance is compared to the randomly generated optical distance.
 If the running total + the new optical distance to the nearest wall, is less than the randomly generated optical depth, then the photon travels to the nearest wall.
@@ -647,8 +649,7 @@ Other common scored quantities are the exit location of a photon, the wavelength
 
 \subsection{Code Details}
 
-The preceding section gave an overview of the algorithm and how it works.
-This section describes the various implementation details such as how the code is parallelised.
+This section describes the implementation of the \gls*{MRCT} code and a description of  parallelisation.
 
 \subsubsection*{Code}
 

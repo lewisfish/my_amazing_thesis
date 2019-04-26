@@ -146,17 +146,21 @@ Solving the \gls*{rte} yields the irradiance which gives the distribution of lig
 With the irradiance defined, as well as the other quantities that follow, the \gls*{rte} can be derived~\cite{chandrasekhar2013radiative,wang2012biomedical}. First considering the conservation of energy, as shown in~\cref{eqn:enegyconvo}.
 
 \begin{equation}
-	dP = -dp_{div} - dp_{ext} + dP_{scatt} + dP_{src}
+	dP = -dP_{div} - dP_{ext} + dP_{scatt} + dP_{src}
 	\label{eqn:enegyconvo}
 \end{equation}
 
 \noindent Where:
 
-\indent $dP$ is the total change in energy in the volume $dA\ ds$ within the solid angle, $d\Omega$, per unit time (see~\cref{fig:energydiag2});
+\indent $dP$ is the total change in energy in the volume $dA\ ds$ within the solid angle, $d\Omega$, per unit 
+
+\indent time (see~\cref{fig:energydiag2});
 
 \indent $dP_{div}$ is the energy loss due to the divergence of the radiation beam per unit time;
 
-\indent $dP_{ext}$ is the energy loss due to absorption and scattering within the volume $dA\ ds$ within the solid angle, $d\Omega$;
+\indent $dP_{ext}$ is the energy loss due to absorption and scattering within the volume $dA\ ds$ within the
+
+\indent  solid angle, $d\Omega$;
 
 \indent $dP_{scatt}$ is the energy gain due to scattering from $\hat{s}'$ into $d\Omega$ per unit time;
 
@@ -197,7 +201,7 @@ $dP_{ext}$ is the second loss term, and accounts for energy loss due to scatteri
 	\label{eqn:pext}
 \end{equation}
 
-Where $\mu_t$ is the extinction coefficient [$m^{-1}$], see \nameref{sec:optprop} for further details.
+Where $\mu_t$ is the extinction coefficient [$m^{-1}$], see \cref{sec:optprop} for further details.
 
 The first energy gain term, $dP_{src}$, is due to emission in the volume element within the solid angle $d\Omega$. 
 
@@ -255,7 +259,7 @@ The diffusion approximation for the \gls*{rte}, is where the irradiance is separ
 Where $L_c$ is the unscattered contribution, which satisfies Beer's law\footnote{Beer's law (or Beer-Lambert law) states that the transmission, $T$, is equal to $e^{-\mu L}$, where $L$ is the distance and $\mu$ is the attenuation coefficient.}, and $L_d$ is the diffuse contribution. The $L_d$ component is expanded using Legendre polynomials and truncated. 
 The diffusion approximation also has a number of assumptions and restrictions. The main assumption is that scattering dominates over absorption, and that the scattering is nearly isotropic. This restricts the types of scattering the Diffusion approximation can model, though using similarity relations can partially model scattering in tissue~\cite{graaff1993similarity,yoon1989accuracies}.
 
-Diffusion theory is computationally fast, and simple to implement. However it is poor at modelling light-tissue interactions due to its assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. However it can be used to speed up \gls*{mcrt} in optically thick regions~\cite{robitaille2010modified,min2009radiative}.
+Diffusion theory is computationally fast, and simple to implement. However it is poor at modelling light-tissue interactions due to its assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. However it can be used to speed up \gls*{mcrt} in mediums where scattering dominates~\cite{robitaille2010modified,min2009radiative}.
 
 \subsubsection*{MCRT}
 The final method, \gls*{mcrt}, is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics including fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams to diffuse light sources. The only downside that is noted in the literature is that the \gls*{mcrt} can be expensive computationally. However with computational power growing faster with time, this is less of a problem going forward. The next several sections give an in depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
@@ -268,7 +272,7 @@ Optical properties of a medium are the properties that describe how light is tra
 
 \subsubsection*{Scattering}\label{sec:scatt}
 
-The scattering coefficient, along with the anisotropy value (see ~\nameref{sec:ansio}), define how light is scattered in a medium. Scattering occurs in skin due to a number of different scatterers, and inhomogeneities. The main scatters in the dermis and epidermis are filamentous proteins such as collagen and elastin~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
+The scattering coefficient, along with the anisotropy value (see ~\nameref{sec:ansio}), define how light is scattered in a medium. The main scatters in the dermis and epidermis are filamentous proteins such as collagen and elastin~\cite{jacques1996origins}. In the upper layers of the skin, the main scatters are keratins and various chromophores such as melanin. 
 The size of the scatters affect how light is scattered and into which direction that light is scattered into.
 
 \medskip
@@ -290,7 +294,7 @@ Anisotropy is the degree of deviation that light undergoes at each scattering ev
 	\int_{\Omega}\Phi(\theta,\phi)\ d\Omega = 1
 \end{equation}
 
-Where $\theta$, and $\phi$ are the usual polar and azimuthal spherical angles, and $d\Omega=sin\theta d\theta d\phi$.
+Where $\theta$, and $\phi$ are the usual polar and azimuthal spherical angles, and $d\Omega=\sin\theta d\theta d\phi$.
 Thus for Rayleigh and isotropic scattering, their phase function's are:
 
 \begin{align}
@@ -301,7 +305,7 @@ Thus for Rayleigh and isotropic scattering, their phase function's are:
 For simplicity, the phase function is usually cast as the anisotropy value g, which is defined as the average angle of deflection:
 
 \begin{equation}
-	g=\left<cos(\theta)\right>=\int_{\Omega}cos(\theta)\Phi(\theta,\phi)\ d\Omega
+	g=\left<cos(\theta)\right>=\int_{\Omega}\cos\theta\ \Phi(\theta,\phi)\ d\Omega
 \end{equation}
 The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is totally back scattering, $0$ is isotopic scattering, and $1$ is totally forward scattering (see~\cref{fig:henyey}).
 
@@ -317,7 +321,7 @@ The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{polar.pdf}
-	\caption{Figure show the g factor for the Henyey-Greenstein phase function, for various configurations of back, forward or isotropic scattering.}
+	\caption{Figure shows the g factor for the Henyey-Greenstein phase function, for various configurations of back, forward or isotropic scattering. Arrow indicates the photons initial direction before scattering.}
 	\label{fig:henyey}
 \end{figure}
 
@@ -364,16 +368,16 @@ The preceding subsection described the optical properties that this thesis will 
 
 
 
-\medskip
+% \medskip
 
-\subsubsection*{Refractive Index}
-The refractive index of a medium, defines how fast light propagates through that medium. Generally, for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin. Details on how refraction is implemented with the code can  be found in~\cref{chap:salvo}.
+% \subsubsection*{Refractive Index}
+% The refractive index of a medium, defines how fast light propagates through that medium. Generally, for tissue, the refractive index is given as a bulk refractive index. Meaning that the medium is divided into sections, with each section given a refractive index. For example, skin's refractive indices are divided up by the different layers of skin. Details on how refraction is implemented with the code can  be found in~\cref{chap:salvo}.
 
-\medskip
+% \medskip
 
-\subsubsection*{Raman Scattering}
-Raman scattering is where a photon is scattered inelastically, which excites the molecule the photon scattered off, thus decreasing the energy of the photon and increasing the photons wavelength. 
-The optical property needed to model Raman scattering is the Raman scattering cross section. The cross section, like the absorption or scattering coefficient, is the likelihood of a photon undergoing a Raman scattering event. Raman scattering has been modelled in \gls*{mcrt} in order to simulate spatially offset Raman spectroscopy for breast tumour analysis~\cite{keller2010monte}.
+% \subsubsection*{Raman Scattering}
+% Raman scattering is where a photon is scattered inelastically, which excites the molecule the photon scattered off, thus decreasing the energy of the photon and increasing the photons wavelength. 
+% The optical property needed to model Raman scattering is the Raman scattering cross section. The cross section, like the absorption or scattering coefficient, is the likelihood of a photon undergoing a Raman scattering event. Raman scattering has been modelled in \gls*{mcrt} in order to simulate spatially offset Raman spectroscopy for breast tumour analysis~\cite{keller2010monte}.
 
 \medskip
 
@@ -422,9 +426,9 @@ For this example a sphere is inscribed into a cubic volume, by setting the optic
 The second step in the \gls*{mcrt} algorithm, is to initialise the photon. Initialisation of the photon involves setting its initial position and direction. Again how this is done depends on the experiments being simulated. Here the photon is initialised to the centre of the sphere. The initial direction is sampled isotropically, and set accordingly:
 
 \begin{align}
-n_{xp}&=sin(\theta) \cdot cos(\phi) \label{eqn:dirvec1}\\
-n_{yp}&=sin(\theta) \cdot sin(\phi) \label{eqn:dirvec2}\\
-n_{zp}&=cos(\theta) \label{eqn:dirvec3}
+n_{xp}&=\sin\theta \cdot \cos\phi \label{eqn:dirvec1}\\
+n_{yp}&=\sin\theta \cdot \sin\phi \label{eqn:dirvec2}\\
+n_{zp}&=\cos\theta \label{eqn:dirvec3}
 \end{align}
 
 
@@ -649,7 +653,7 @@ Other common scored quantities are the exit location of a photon, the wavelength
 
 \subsection{Code Details}
 
-This section describes the implementation of the \gls*{MRCT} code and a description of  parallelisation.
+This section describes the implementation of the \gls*{mcrt} code and a description of  parallelisation.
 
 \subsubsection*{Code}
 
@@ -747,8 +751,6 @@ This yielded a $P$ of $0.999010 \pm 0.000045$, and a maximum speedup of 1010.1.
 \end{figure}
 
 
-There are other ways the code could be parallelised, including task farms and domain decomposition~\cite{barney2010introduction}.
-However these methods are more involved to set up and validate, so the simplest approach was taken.
 \FloatBarrier
 \section{Validation of MCRT Code}\label{sec:validation}
 
@@ -799,7 +801,7 @@ The $g$ value is in the range 0.7 -- 0.9, and the optical properties are as in~\
 \end{table}
 
 Using these values Jacques \textit{et al.} calculated values for $C_1,\ C_2,\ k_1$ and $k_2$ using their \gls*{mcrt} code.
-The above optical properties and medium dimensions\footnote{The infinitely wide slab is implemented so that when a photon leaves the one of the sides of the voxel grid, it is moved to the other side of the grid, retaining its original direction vectors.} are recreated in the code and a value of 0.9 was chosen for $g$.
+The above optical properties and medium dimensions\footnote{The infinitely wide slab is implemented so that when a photon leaves one of the sides of the voxel grid, it is moved to the other side of the grid, retaining its original direction vectors.} are recreated in the code and a value of 0.9 was chosen for $g$.
 8 million photons were run for the simulation.
 This yielded the result as in~\cref{fig:matchjacq}.
 
@@ -817,12 +819,10 @@ These are in good agreement (with in code differences) with Jacques \textit{et a
 
 \section{Conclusion}
 
-The Monte Carlo method relies on generating random numbers in order to calculate unknown variables in problems.
-The Monte Carlo method can be used to calculate radiation transport in order to numerically solve the~\gls*{rte}.
-\Gls*{mcrt} is the most flexible of the methods available to solve the~\gls*{rte}, allowing arbitrary geometries, light sources and turbid media.
-\Gls*{mcrt} also allows the inclusion of various microphysics such as polarisation, Raman scattering and fluorescence.
-However the~\gls*{mcrt} method does have the downside, that for some problems, many photon packets must be run in order to achieve a good signal to noise ratio.
-Though this is becoming less of an issue due to increased computational available capacity and~\gls*{mcrt} being classed as an ``embarrassingly parallel'' problem, allowing it to be easily parallelised.
-
-The MCRT algorithm as described in this chapter forms the basis for this thesis.
-Each subsequent chapter builds upon the algorithm in order to solve new problems.
+There are various methods available to model the radiative transport equation.
+\Gls*{mcrt} is the most flexible of the methods available, allowing arbitrary geometries, light sources, multiple anisotropic scattering, and various microphysics to be modelled.
+This chapter presented an overview of the \gls*{mcrt} algorithm that will be the basis of the results presented in the following chapters.
+The code described in this chapter is based upon K. Wood's \gls{mcrt} code for light propagation in galactic dust clouds.
+It has been modernised to modern Fortran and adapted so that the code can model biological tissue so that the code can be applied to various medical and biophotonic problems.
+The optical properties required in a \gls*{mcrt} simulation have been discussed, and will be utilised to subsequent chapters.
+A description of how the code has been parallelised and validated against a standard literature code has also been presented.

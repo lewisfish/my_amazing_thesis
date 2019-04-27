@@ -11,37 +11,42 @@ From using Airy beams to move particles and cells~\cite{baumgartl2008optically},
 However simulation techniques for modelling complex shaped beams in biological tissue is lacking.
 Currently there are a number of techniques that can model these beams in biological tissue, however they all have downsides.
 These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpm}, and \gls*{mcrt}.
-As discussed in~\nameref{sec:diffusionapprox}, this method has many downside when it comes to modelling light propagation in biological tissue.
-\gls{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
-However this turns out to be computationally intensive and requires a grid resolution of $\lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
+As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has many downsides when it comes to modelling light propagation in biological tissue.
+\gls*{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
+However this is computationally intensive and requires a grid resolution of $\lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
+\gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
+\gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
+However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be utilised for.
+\Gls*{bpm} also generally is a uni-directional propagation method, though it can be adapted to model bi-directional propagation, this can lead to issue in the models accuracy~\cite{van1981beam,glaser2016fractal}.
 
+\medskip
 
-This chapter modifies the MCRT method, which is `ballistic' photon method into a quasi `ballistic/wave' photon method so that the wave behaviour of photons can be modelled.
-This allows the modelling of complex shaped beams such as Bessel beams and Gaussian beams.
+The final method,~\gls*{mcrt}, in general cannot model complex beams where the wave like behaviour of photons is required to form, or propagate the beam.
+For example traditional \gls*{mcrt} methods cannot model Gaussian beams, as Gaussian beams have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
+\Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist.
 
-Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
-%Bessel beams have since been used for blah blah
-%They are really good and like are better than Gaussian beams allegedly.
+Various authors have tried to model complex beams that require wavelike behaviours using~\gls*{mcrt}.
+Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}.
+However all these techniques either inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt}).
 
-This chapter examines how Bessel beams compare to other beam in a scattering medium. 
-We investigate if the Bessel beams self-healing property has any effect in a turbid medium.{}
-We examine Bessel beams and the other beams by creating a novel~\gls*{mcrt} algorithm that allows the tracking of a photon as it propagates through a medium. 
-The main focus of this chapter, is validation of our new novel technique, followed by using the new algorithm ($\varphi MC$) to compare Gaussian and Bessel beams, to see which one preforms better in a turbid medium. 
-This chapter also extends out novel algorithm to other complex, diffraction less beams
+This chapter modifies the MCRT method, from a `ballistic' photon method into a quasi `ballistic/wave' photon method so that the wave behaviour of photons can be modelled.
+This algorithm, $\varphi MC$, allows the modelling of complex shaped beams such as Bessel beams and Gaussian beams, without much modification of the underlying code.
 
-
-%motivation = better imaging of chick embryos etc
+We present a through investigation of the method used to turn a ballistic regime~\gls*{mcrt} method in to a quasi wave/ballistic method.
+The method is validated against theoretical and experimental data for various different beam types including: Bessel (including higher orders), Gaussian and Airy beams.
+Treatment of the propagation through scattering media is also discussed.
 
 
 \section{Theory}\label{sec:bestheory}
 
-The \gls*{mcrt} algorithm as described in~\cref{sec:mcrt}, must be adjusted so that wave phenomena such as interference and diffraction can be modelled. 
-Modelling these wave behaviours allows us to model complex beams, where these phenomena are required to form the beam, e.g Bessel beams. 
-As \gls*{mcrt} is a ballistic simulation of photon packets, meaning that the \gls*{mcrt} simulation presented thus far in this thesis only modelled the ballistic behaviour of photons. 
-However for the work presented in this chapter, wave like behaviour is crucial to modelling the various experiments and phenomena.
+To convert a MCRT simulation to be able to model wave like behaviour of photons, we introduce two concepts: tracking the phase of packets and the Huygens-Fresnel principle.
+This section presents a description of the modifications to the traditional MCRT algorithm needed to include these concepts, along side the theoretical background to both the concepts
 
-To convert a ballistic simulation of photon packets into a ballistic/wave-like simulation, the complex phase of each photon packet is tracked.
-This is achieved, by simply tracking the complex phase of the photon as it propagates through a medium.
+\subsection{Phase tracking}
+
+The first concept we add to the MCRT method is assigning a phase to each packet.
+This phase represents the phase a light wave would have, if we modelled light waves.
+The phase is given to a packet at the beginning of the simulation depending on the input field.
 The packet is also given an initial complex electric field of the form:
 
 \begin{equation}
@@ -51,6 +56,7 @@ E_0 = \frac{1}{N}\sqrt{\frac{P}{A}}
 
 Where $N$ is the number of photons run in a simulation, $P$ is the power of the incident beam, and $A$ is the area of the beam.
 
+The phase is then tracked as the packets moves through the medium, over a distance $l$.
 ~\Cref{eqn:phase} shows how the phase is calculated.
 
 \begin{equation}
@@ -68,7 +74,7 @@ Now we can calculate the phase of a photon at a position $P_o$, if we know the d
     \label{fig:phase-diag}
 \end{figure}
 
-To be able model the wave-like behaviour of photons, we let the photons packets interfere with one another in a volume or area element. 
+To model interference, we let the photons packets interfere with one another in a volume or area element. 
 We do not model the interference at a point in space where photons packets cross one another as due to the ballistic nature of the \gls*{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
 Thus, interference takes place in a volume, $dV$, or area element, $dA$, instead.
 To calculate the interference from the phase, the phase is summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
@@ -97,7 +103,6 @@ As the \gls*{mcrt} simulation is now a quasi ballistic/wave simulation of photon
 \subsection{Huygens-Fresnel Principle}
 
 The Huygens-Fresnel principle is a method that is used to help model the propagation of waves in the far field limit and the near field limit. 
-
 The Huygens principle states~\cite{huygens2012treatise,hecht2017optics,huygens1900wave}: 
 
 \medskip
@@ -139,19 +144,17 @@ u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0
 
 \medskip
 
-Our algorithm uses the Huygens-Fresnel principle to simulate diffraction effects, that would otherwise be absent from the simulation.
-The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point.
 The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
 In practise this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
 The packets are then given a random direction, sampled towards the detector thus avoiding the non-existent ``backward'' waves.
 For the case of modelling propagation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
 When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
-Essentially the Huygens-Fresnel method calculates the complex amplitude of the electric field at a point.
-Thus running a Huygens-Fresnel simulation gives the solution to~\cref{eqn:kirchhoffeqn}.
 
 \medskip
 
-This is the principle that underpins the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for various complex beam propagation.
+Our algorithm uses the Huygens-Fresnel principle and the tracking of complex phase to simulate diffraction effects, that would otherwise be absent from the simulation.
+The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point, essentially numerically simulating~\cref{eqn:kirchhoffeqn}.
+These two concepts underpin the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for various complex beam propagation.
 
 \begin{figure}[!ht]
     \centering
@@ -165,30 +168,29 @@ This is the principle that underpins the algorithm that allows various complex b
 \subsubsection*{Double Slit Experiment}
 
 The first test of our phase tracking algorithm, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $a$, and width $b$, and the interference pattern is observed on a screen a distance $d$ away from the slits.
+The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $d$, and width $b$, and the interference pattern is observed on a screen a distance $L$ away from the slits.
 
 This experiment, first carried out by Thomas Young and thus sometimes called Young's slits experiment, is usually carried out with the detector screen in the far field. The so called Fraunhofer regime.
 The intensity pattern on the detector screen is as in\cref{eqn:doubleslit}:
 
 \begin{equation}
-    I(\theta) \propto cos^2\left(\frac{\pi d\ sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ sin\theta}{\lambda}\right)
+    I(\theta) \propto cos^2\left(\frac{\pi d\ \sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ \sin\theta}{\lambda}\right)
     \label{eqn:doubleslit}
 \end{equation}
 
 Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, d is the slit separation and $\theta$ is the angular spacing of the fringes.
 
-The simulation was carried out for a wavelength of , a slit width of, and a slit separation of .
+The simulation was carried out for a wavelength of $488~nm$, a slit width of $10\lambda$, a slit separation of $80\lambda$, and the detector screen positioned $10000\lambda$ away from the slits.
 Using the Huygens-Fresnel principle, each slit is a source of Huygens wavelets.
 The initial position of the photon packets is sampled uniformly from the slit area, after randomly choosing one of the slits.
 A random direction is then chosen to ensure that the packets will hit the detector screen.
-The simulation was run with photon packets, which took to run on an 8 core Intel Xeon machine.
+The simulation was run with $10^9$ packets, which took $\approx\ 10~mins$ to run on an 8 core Intel Xeon machine.
 This gave an accurate match to the theoretical expression, as seen in~\cref{fig:doubleslitcomp}.
-
 
 \begin{figure}[!ht]
     \centering
-    % \includegraphics[]{}
-    \caption{Comparison of theory and simulation for the double slit experiment. $\lambda$ is $x nm$, $b$ is, and $d$}
+    \includegraphics[width=0.75\textwidth]{doubleslit.pdf}
+    \caption{Comparison of theory and simulation for the double slit experiment.}
     \label{fig:doubleslitcomp}
 \end{figure}
 
@@ -324,11 +326,7 @@ Now that the method of tracking the phase of photon packets and using the Huygen
 
 The first beam type we will examine is the Gaussian beam.
 Gaussian beams are important as most laser beams have the profile of the fundamental (TEM$_{00}$) Gaussian mode.
-Traditional \gls*{mcrt} cannot model Gaussian beams, as Gaussian beams have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
-\Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist.
-Various authors have tried to model Gaussian beams in a \gls*{mcrt} or geometric optics regime.
-Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}. %***maybe move this to intro section??***
-However all these techniques inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt}).
+
 This section will show that $\varphi MC$ can accurately model all the physical phenomena of Gaussian beams, within the \gls*{mcrt} regime.
 
 Before discussing how modelling of a Gaussian beam is achieved, the theory and various physical parameters of the beam must be described. 
@@ -444,6 +442,12 @@ This section has shown that Gaussian beams, and their physical phenomena can be 
 A convex-plano lens was used to focus a Gaussian beam, but it is simple to implement other other lenses given a triangulated mesh of the lens or an equation that describes the shape of the lens. 
 
 \section{Bessel Beams}
+
+
+
+Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
+%Bessel beams have since been used for blah blah
+%They are really good and like are better than Gaussian beams allegedly.
 
 Bessel beams, as described in the introduction to this chapter, are ``non--diffracting'' beams, that can ``self heal''.
 This means, in reality, that the central core of the beam does not spread out, and that if a blockage is placed in front of the beam, the beam reforms further down the optical axis.

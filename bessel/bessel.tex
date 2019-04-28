@@ -1,4 +1,4 @@
-\chapter{3D Phase Tracking Monte Carlo Algorithm}\label{sec:phase}
+\chapter{Quasi-wave/particle Monte Carlo Algorithm, \texorpdfstring{$\varphi MC$}{phiMC}}\label{sec:phase}
 
 \section{Introduction}\label{sec:besintro}
 
@@ -167,30 +167,29 @@ These two concepts underpin the algorithm that allows various complex beams, and
 
 \subsubsection*{Double Slit Experiment}
 
-The first test of our phase tracking algorithm, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $d$, and width $b$, and the interference pattern is observed on a screen a distance $L$ away from the slits.
-
-This experiment, first carried out by Thomas Young and thus sometimes called Young's slits experiment, is usually carried out with the detector screen in the far field. The so called Fraunhofer regime.
-The intensity pattern on the detector screen is as in\cref{eqn:doubleslit}:
+The first test of our quasi-wave/particle MCRT algorithm, $\varphi MC$, is to compare our simulation to a double slit experiment.
+The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $d$, and width $b$, and the interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field. The so called Fraunhofer regime.
+The intensity pattern on the detector screen is as in~\cref{eqn:doubleslit}:
 
 \begin{equation}
-    I(\theta) \propto cos^2\left(\frac{\pi d\ \sin \theta}{\lambda}\right)sinc^2\left(\frac{\pi b\ \sin\theta}{\lambda}\right)
+    I(x) \propto cos^2\left(\frac{kdx}{2\sqrt{L^2+x^2}}\right)sinc^2\left(\frac{kax}{\sqrt{L^2+x^2}}\right)
     \label{eqn:doubleslit}
 \end{equation}
 
-Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, d is the slit separation and $\theta$ is the angular spacing of the fringes.
+Where the $sinc$ function is defined as $\tfrac{sin(x)}{x}$, for $x\ \neq 0$, k is the wavevector, $k=\tfrac{2\pi}{\lambda}$, and x is the horizontal position on the detector screen.
 
-The simulation was carried out for a wavelength of $488~nm$, a slit width of $10\lambda$, a slit separation of $80\lambda$, and the detector screen positioned $10000\lambda$ away from the slits.
+The simulation was carried out for a wavelength, $\lambda$,  of $488~nm$, a slit width of $10\lambda$, slit separation of $80\lambda$, and the detector screen positioned $10000\lambda$ away from the slits.
 Using the Huygens-Fresnel principle, each slit is a source of Huygens wavelets.
-The initial position of the photon packets is sampled uniformly from the slit area, after randomly choosing one of the slits.
+The detector screen has dimensions, $1~mm^2$ and there are $2051^2$ bins, giving a bins an effective size: $\sim 488~nm$ or $\sim \lambda$.
+The initial position of the photon packets is sampled uniformly from the slit area, after randomly choosing one of the slits to emit from.
 A random direction is then chosen to ensure that the packets will hit the detector screen.
-The simulation was run with $10^9$ packets, which took $\approx\ 10~mins$ to run on an 8 core Intel Xeon machine.
+The simulation was run with $10^9$ packets, which took $\approx10~mins$ to run on an 8 core Intel Xeon machine.
 This gave an accurate match to the theoretical expression, as seen in~\cref{fig:doubleslitcomp}.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{doubleslit.pdf}
-    \caption{Comparison of theory and simulation for the double slit experiment.}
+    \caption{Comparison of theory and simulation for the double slit experiment. For clarity only every $5^{th}$ MCRT data point is plotted.}
     \label{fig:doubleslitcomp}
 \end{figure}
 
@@ -215,7 +214,7 @@ F = l\sqrt{\frac{2}{\lambda r_0}}
     \label{fig:aperture}
 \end{figure}
 
-In order to compare $\varphi MC$ to the theory, the theory must first be examined.
+In order to compare $\varphi MC$ to the theory, the theory must first be discussed.
 Consider the setup as shown in~\cref{fig:aperture}, in order to calculate the intensity at a point $P$, the contribution by an area element $dS$ at the point a, to the optical disturbance at a point \textit{P} is considered.
 Accounting for the the unobstructed optical disturbance from $S$ as well and using~\cref{eqn:kirchhoffeqn}, yields: 
 
@@ -226,7 +225,7 @@ U(P)=\frac{1}{i\lambda}\iint\limits_{\Sigma} \frac{Ae^{i(k\rho-\omega t)}}{\rho}
 \end{equation}
 
 
-In the case where $\rho_0$ and $r_0$ are large compared to the size of the aperture, then $cos(\theta) = 1$ and $\tfrac{1}{\rho r}=\tfrac{1}{\rho_0 r_0}$.
+In the case where $\rho_0$ and $r_0$ are large compared to the size of the aperture, then $\cos(\theta) = 1$ and $\tfrac{1}{\rho r}=\tfrac{1}{\rho_0 r_0}$.
 The lengths of $r_0$ and $\rho_0$ are:
 
 \begin{align}
@@ -278,7 +277,8 @@ C(w)&=\int^w_0 cos\left(\frac{\pi w'^2}{2}\right)dw'\label{eqn:fresint2}
 \end{align}
 
 
-Using~\cref{eqn:fresneleqn}, where $C(w)$ and $S(w)$ are the Fresnel integrals as in~\cref{eqn:fresint1,eqn:fresint2},~\cref{eqn:pentdisturb} can then be transformed into an intensity, by taking the absolute value and squaring, yielding~\cref{eqn:fresIntensityp}:
+Using~\cref{eqn:fresneleqn}, where $C(w)$ and $S(w)$ are the Fresnel integrals as in~\cref{eqn:fresint1,eqn:fresint2}.
+\Cref{eqn:pentdisturb} can then be transformed into an intensity, by taking the absolute value and squaring, yielding~\cref{eqn:fresIntensityp}:
 
 
 \begin{equation}
@@ -329,7 +329,7 @@ Gaussian beams are important as most laser beams have the profile of the fundame
 
 This section will show that $\varphi MC$ can accurately model all the physical phenomena of Gaussian beams, within the \gls*{mcrt} regime.
 
-Before discussing how modelling of a Gaussian beam is achieved, the theory and various physical parameters of the beam must be described. 
+Before discussing how $\varphi MC$ can model a Gaussian beam, the theory and various physical parameters of the beam must be described. 
 The electric field of a Gaussian beam can be defined as in~\cref{eqn:gaussefield}~\cite{milonni2010laser}:
 
 \begin{equation}
@@ -347,7 +347,9 @@ E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\va
 
     \indent $E_0$ is the electric field amplitude at the origin [$Vm^{-1}$];
 
-    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along the beam,~\cref{eqn:gwaist} [$m$];
+    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along 
+
+    \indent the beam,~\cref{eqn:gwaist} [$m$];
 
     \indent $w_0$ is the waist radius [$m$];
 
@@ -389,7 +391,7 @@ Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3\mu m$.
     \label{fig:gausssetup}
 \end{figure}
 
-To model the lens in $\varphi$ the photons initial z position is set just in front of the lens.
+To model the lens in $\varphi MC$ the photons initial z position is set just in front of the lens.
 The x and y are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
 This is due to the fact that the electric field is $\propto e^{\tfrac{-r^2}{4\sigma`^2}}$, and the intensity is $\propto e^{\tfrac{-r^2}{2\sigma^2}}$.
@@ -405,7 +407,7 @@ If the packet is refracted, and moved in the new direction to the planar surface
 The new direction vector is calculated using a vector version of Snell's law, as shown in~\cref{eqn:snelllaw}.
 The packets is then uniformly sampled onto the surface of the voxel medium and the usual~\gls*{mcrt} method is used to propagate the packet whilst tracking the phase.
 
-\begin{figure}[!ht]
+\begin{figure}[!htp]
     \centering
     \includegraphics[width=0.75\textwidth]{gaussian.pdf}
     \caption{Results of \textit{in-silico} experiment of focusing a Gaussian beam though a convex-plano lens. $L_t$ is the lens thickness, D is the $\tfrac{1}{e^2}$ input beam diameter, $W_d$ is the working distance or back focal length, $2\dot z_{max}$ is the depth of the medium, and $w_0$ is the beam waist.}
@@ -418,9 +420,9 @@ The packets is then uniformly sampled onto the surface of the voxel medium and t
 $\varphi MC$ also correctly models the change of direction of the radius of curvature, $R(z)$, as is predicted by theory.
 This can be seen in~\cref{fig:proofchgrz}
 
-\begin{figure}[!ht]
+\begin{figure}[!htp]
     \centering
-    % \includegraphics[]{}
+    \includegraphics[width=0.75\textwidth]{radcurveproof.pdf}
     \caption{Slice through the real part of the complex electric field of the \textit{in-silico} experiment as in~\cref{fig:gausssetup}. Figure shows the radius of curvature changing direction at the waist as predicted by theory.}
     \label{fig:proofchgrz}
 \end{figure}
@@ -428,19 +430,17 @@ This can be seen in~\cref{fig:proofchgrz}
 $\varphi MC$ can also model spherical aberrations caused by lenses.
 ~\cref{fig:spheraberr} shows aberrations caused by a plano-convex lens.
 
-\begin{figure}[!ht]
+\begin{figure}[!hbtp]
     \centering
-    % \includegraphics[]{}
-    \caption{Illustration of $\varphi MC$`s ability to model spherical aberrations. Image generated using same setup as in~\cref{fig:gausssetup}, but with a $D=2~mm$.}
+    \includegraphics[width=0.75\textwidth]{spherabbr.pdf}
+    \caption{Illustration of $\varphi MC$`s ability to model spherical aberrations. Image generated using same setup as in~\cref{fig:gausssetup}, but with a $D=1.5~mm$.}
     \label{fig:spheraberr}
 \end{figure}
 
-% gaussian beam theory
-% implementation of lens's -> aspheric
 
 This section has shown that Gaussian beams, and their physical phenomena can be accurately modelled using $\varphi MC$.
 A convex-plano lens was used to focus a Gaussian beam, but it is simple to implement other other lenses given a triangulated mesh of the lens or an equation that describes the shape of the lens. 
-
+\FloatBarrier
 \section{Bessel Beams}
 
 

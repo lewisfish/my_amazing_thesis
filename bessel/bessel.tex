@@ -2,8 +2,6 @@
 
 \section{Introduction}\label{sec:besintro}
 
-%Intro = mention complex beams and their uses then move onto gaussian and bessel beams
-
 Complex shaped light beams have been used for a variety of tasks in biophotonics.
 From using Airy beams to move particles and cells~\cite{baumgartl2008optically}, Bessel beam `tractor beams'~\cite{ruffner2012optical}, using Airy and Bessel beams for better field of view in light-sheet microscopy~\cite{vettenburg2014light}, and using Laguerre-Gaussian beams to optical trap optically reflective particles~\cite{simpson1996optical}.
 
@@ -28,6 +26,9 @@ For example traditional \gls*{mcrt} methods cannot model Gaussian beams, as Gaus
 Various authors have tried to model complex beams that require wavelike behaviours using~\gls*{mcrt}.
 Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}.
 However all these techniques either inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt}).
+There has been some attempts of using the techniques presented in this chapter, to modify MCRT algorithms into algorithms that can model diffraction and interference~\cite{mignon2016fractional,peter2014combining,mahan2018monte,mout2016simulating,fischer2008monte}.
+These authors have good results, but either do not detail their methods, attempt to treat scattering or are in the xray regime.
+
 
 This chapter modifies the MCRT method, from a `ballistic' photon method into a quasi `ballistic/wave' photon method so that the wave behaviour of photons can be modelled.
 This algorithm, $\varphi MC$, allows the modelling of complex shaped beams such as Bessel beams and Gaussian beams, without much modification of the underlying code.
@@ -441,40 +442,25 @@ $\varphi MC$ can also model spherical aberrations caused by lenses.
 This section has shown that Gaussian beams, and their physical phenomena can be accurately modelled using $\varphi MC$.
 A convex-plano lens was used to focus a Gaussian beam, but it is simple to implement other other lenses given a triangulated mesh of the lens or an equation that describes the shape of the lens. 
 \FloatBarrier
+
 \section{Bessel Beams}
 
+Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. 
+Durnin noticed that the solution to the Helmholtz equation of the Bessel type were independent of the direction of propagation.
+What this means is that the central core of the beam is generally more diffraction resistant when compared to a Gaussian beam with a similar spot size.
+Bessel beams also have a property of ``self-healing'', this means if an obstruction is placed in the path of the central lobe of the Bessel beam, the Bessel beam can then ``heal'' and reform past the obstruction~\cite{mcgloin2005bessel}.
+However it is physically impossible to create a `real' Bessel beam, as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require infinite amount of power~\cite{durnin1987diffraction}.
+Therefore all Bessel beams that are created are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
 
 
-Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. Durnin noticed that the blah blah.
-%Bessel beams have since been used for blah blah
-%They are really good and like are better than Gaussian beams allegedly.
+These two properties make Bessel beams an attractive avenue of research, as novel solutions to imaging problems.
+There is also some debate amongst physicists as to whether these phenomena are justly labelled, or if they glib terms used to make Bessel beams seem better than they are~\cite{debeer1987comment,harvey1984spot,durnin1987reply,sprangle1991comment,durnin1991durnin}.
 
-Bessel beams, as described in the introduction to this chapter, are ``non--diffracting'' beams, that can ``self heal''.
-This means, in reality, that the central core of the beam does not spread out, and that if a blockage is placed in front of the beam, the beam reforms further down the optical axis.
-There is some debate amongst physicists as to weather these phenomena are justly labelled, or if they glib terms used to make Bessel beams seem like the solution to everything.
-
-The first ``complex'' beam simulated using $\varphi MC$ is a Bessel beam. 
-Bessel beams are non-diffractive solutions to the wave equation. 
-Bessel beams were first shown to blah
-
-
-% *** Bessel beams non diffracting
-%     but are they - some debate over this
-%     self reconstructing
-%     central core does not diffract like Gaussian
-%     quasi Bessel beam -> infinite rings not possible -> infinite energy
-%     Bessel beam theory form of equation -> intensity
-%     pics of Bessel beam + higher orders
-%     geometry of Bessel beams
-%     Bessel beams in code
-%     results
-% ***
-
-% *** add in general lth order eqn***
-From the scalar description of the electric component of the beam, we get:
+\subsection{Theory}
+As before with the Gaussian beam, some theory behind the Bessel beam must be discussed before we can model the beam in $\varphi MC$.
 
 \begin{equation}
-    E(r,z)=E_0\sqrt{\frac{2\pi k z w_0sin(\beta)}{z_{max}}}\ \text{exp}^{\left(-\frac{z^2}{z_{max}^2}-\frac{i\pi}{4}\right)}\ J_0\left(krsin(\beta)\right)\ \text{exp}^{\left(ikzcos(\beta)\right)}
+    E(r,z)=E_0\sqrt{\frac{2\pi k z w_0\sin(\beta)}{z_{max}}}\ \text{exp}^{\left(-\frac{z^2}{z_{max}^2}-\frac{i\pi}{4}\right)}\ J_0\left(kr\sin(\beta)\right)\ \text{exp}^{\left(ikz\cos(\beta)\right)}
     \label{eqn:besselEfield}
 \end{equation}
 
@@ -535,9 +521,9 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 Bessel beam can be formed by an axicon lens or by diffraction through a ring.
 All the simulations of Bessel beams in this thesis use the axicon method of generating a Bessel beam, thus only axicons will be discussed.
 \Cref{fig:besselgeo} shows the geometry of a Bessel beam formed by an axicon.
-Using simple geometry and Snell's law the following equation can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization,}.
+Using simple geometry and Snell's law the following equation can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
 
-The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However in reality the Bessel beam will continue to propagate slightly passed this depth.%***source
+The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However in reality the Bessel beam will continue to propagate slightly passed this depth.
 ~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function.
 \begin{equation}
 z_{max}=R\left(cot\left(\beta\right) - tan\left(\alpha\right)\right)
@@ -706,7 +692,7 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.7\textwidth]{compare-med-size.pdf}
-    \caption{Comparison of a larger medium, $2~mm^3$ versus that of a smaller medium, $0.5~mm \times 0.5~mm \time 2.00~mm$.}
+    \caption{Comparison of a larger medium, $2~mm^3$ versus that of a smaller medium, $0.5~mm \times 0.5~mm \times 2.00~mm$.}
     \label{fig:compareBigSmall}
 \end{figure}
 
@@ -714,14 +700,15 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 
 \section{Higher order Bessel beams}
 
+\Gls*{hobb}, are Bessel beams where the electric field has an extra term of $e^{-il\varphi}$, as shown in~\cref{eqn:hobb}.
+\Gls*{hobb} have found use for optical trapping targets that are reflective/low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}
 Our technique outlined in the preceding sections, can also be applied to arbitrary higher order Bessel beams. 
 
-%why higher order useful
-
-The electric field of a Bessel beam is:
+As before, the electric field of a $l^{th}$ order Bessel beam is:
 
 \begin{equation}
 E(r,\varphi,z)=E_0J_l(k_r r)e^{-i k_z z}e^{-i l \varphi}
+\label{eqn:hobb}
 \end{equation}
 
 \noindent Where:
@@ -791,7 +778,7 @@ This method is similar to using a spatial light modulator in an experiment to im
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.85\textwidth]{higher-order-bessel.pdf}
-    \caption{Higher order Bessel beams. a) to d) show the phase shift due to the helical element. e) to h) show line plots of the simulation data compared to the theory. i) to l) and m) to p) show the higher order Bessel beam images for theory and simulation data respectively.}
+    \caption{\Gls*{hobb}. a) to d) show the phase shift due to the helical element. e) to h) show line plots of the simulation data compared to the theory. i) to l) and m) to p) show the higher order Bessel beam images for theory and simulation data respectively.}
     \label{fig:highordershow}
 \end{figure}
 
@@ -853,15 +840,20 @@ The results of this comparison are illustrated in~\cref{fig:2ndcomp}.
 \end{figure}
 
 
-\section{Discussion}
+\subsection{Discussion}
 
 %talk about comparison of beams. methods validity -> downside and upsides
 
-a~\cite{mignon2016fractional}
 \section{Conclusion}
 
-%conclude shit
-
+This chapter has shown that it is possible to transform a traditional particle behaviour MCRT method into a method that allows the simulation of quasi-wave/particle behaviour of photons.
+This is achieved by introducing two principles to the algorithm: the tracking of complex phase of each packets and the the Huygens-Fresnel principle.
+The tracking of the complex phase of each packets allows interference of the quasi-wave/particles to be simulated.
+The Huygens-Fresnel principle allows diffraction to be accurately modelled.
+$\varphi MC$ has be thoroughly validated against several experiments where modelling the wave behaviour of light is vital to the experiment.
+Also presented in this chapter is the modelling of complex beam types: Gaussian and Bessel beams.
+Both beams types have been validated against either both theoretical and experimental results.
+Finally Gaussian beams and Bessel beams were compared against one another in a highly scattering medium, where n beam appears to give better performance.
 
 %sources
 %cizmar thesis

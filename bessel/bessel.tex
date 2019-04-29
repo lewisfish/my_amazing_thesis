@@ -813,7 +813,7 @@ Both $D$ and $f$ are properties of the optical system used to focus the Gaussian
 
 The first comparison carried out between the Bessel and Gaussian beams is to use the same power to generate both beams.
 The beams are the propagated through mediums of varying degrees of Intralipid solution.
-Volumes of m, n, l, and p $\mu L$ are used of Intralipid in 500 $\mu L$ of water.
+Volumes of $0.0$, $26$, $52$, $78$, and $104$ $\mu L$ are used of Intralipid in 500 $\mu L$ of water.
 The medium has a volume of $0.1~mm \times 0.1~mm \times 0.2~mm$, and resolution of $1~\mu m$.
 For both beams a wavelength of $488~nm$ and a power of $1~mW$ is used.
 One hundred million packets are simulated for each simulation.
@@ -821,28 +821,45 @@ The results of this are shown in~\cref{fig:1stcomp}
 
 \begin{figure}[!ht]
     \centering
-    % \includegraphics[width=0.75\textwidth]{.pdf}
-    \caption{First comparison of Bessel and Gaussian beams, with equal power used to generate both beams.}
+    \includegraphics[width=0.75\textwidth]{Compare-BvdG-xyplane-1mW-equal-focus.pdf}
+    \caption{First comparison of Bessel and Gaussian beams, with equal power used to generate both beams. Plots taken at the Gaussian beams focus.}
     \label{fig:1stcomp}
 \end{figure}
 
 The results show that for the same power, Gaussian beams propagate deeper into the medium compared to Bessel beams.
 This is to be expected as in a Gaussian beam all the power is in its `central core', whilst the power is evenly distributed between all the Bessel beam's rings.
 Therefore for a second comparison the power given to the Bessel beam is such that the central core maximum matches that of the Gaussian beam's for the case where there is no scattering.
-To achieve this the Bessel beam was given $1000mW$.%***fill this in
+To achieve this the Bessel beam was given $\sim 15\times$ the power given to the Gaussian beam.
 The results of this comparison are illustrated in~\cref{fig:2ndcomp}.
 
 \begin{figure}[!ht]
     \centering
-    % \includegraphics[width=0.75\textwidth]{.pdf}
-    \caption{Second comparison of Bessel and Gaussian beams for the case where the maximums of both Gaussian and Bessel beams match in the non scattering case.}
+    \includegraphics[width=0.75\textwidth]{Compare-BvdG-xyplane-1mW-15mW-unequal-focus.pdf}
+    \caption{Second comparison of Bessel and Gaussian beams for the case where the power given to each beam, yields the same maximum at the Gaussian beams focus. These plots are taken from the Gaussian beams focus}
     \label{fig:2ndcomp}
 \end{figure}
 
 
 \subsection{Discussion}
 
-%talk about comparison of beams. methods validity -> downside and upsides
+For equal power beams in the previous section, Gaussian beams preform, `better'.
+Though this is expected due to the Bessel beams property that the power in the beam is spread evenly over its rings.
+Thus the power in the central lobe is much less than that of the Gaussian beam.
+
+To give a slightly more fair comparison, the Bessel beam was given $15\times$ more power than the Gaussian beam.
+This gave a comparable intensity between the beams at the location of the Gaussian beams focus.
+In this case, the Bessel beam appears to preform better in a highly scattering medium, as shown in~\cref{fig:2ncompbottom}.
+The Bessel beam shows comparable intensity with the Gaussian beam in the first three mediums, though out preforms the Gaussian beam in the more highly scattering media.
+Though the performance of the Bessel beam in the $104~\mu L$ IL medium, is suspect, as the Bessel beam is no longer a Bessel beam, where as the Gaussian beam still retains some semblance of the Gaussian beam profile.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Compare-BvdG-xyplane-1mW-15mW-unequal-bottom.pdf}
+    \caption{Comparisons of unequal powered beams at the bottom of scattering medium.}
+    \label{fig:2ncompbottom}
+\end{figure}
+
+\FloatBarrier
 
 \section{Conclusion}
 
@@ -853,7 +870,7 @@ The Huygens-Fresnel principle allows diffraction to be accurately modelled.
 $\varphi MC$ has be thoroughly validated against several experiments where modelling the wave behaviour of light is vital to the experiment.
 Also presented in this chapter is the modelling of complex beam types: Gaussian and Bessel beams.
 Both beams types have been validated against either both theoretical and experimental results.
-Finally Gaussian beams and Bessel beams were compared against one another in a highly scattering medium, where n beam appears to give better performance.
+Finally Gaussian beams and Bessel beams were compared against one another in a highly scattering medium, where Bessel beams appear to give better performance.
 
 %sources
 %cizmar thesis

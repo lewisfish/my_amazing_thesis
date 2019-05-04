@@ -9,13 +9,14 @@ From using Airy beams to move particles and cells~\cite{baumgartl2008optically},
 However simulation techniques for modelling complex shaped beams in biological tissue is lacking.
 Currently there are a number of techniques that can model these beams in biological tissue, however they all have downsides.
 These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpm}, and \gls*{mcrt}.
+
 As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has many downsides when it comes to modelling light propagation in biological tissue.
 \gls*{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
-However this is computationally intensive and requires a grid resolution of $\lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
+However this is computationally intensive and requires a grid resolution of $\sim \lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 \gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
 \gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
 However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be utilised for.
-\Gls*{bpm} also generally is a uni-directional propagation method, though it can be adapted to model bi-directional propagation, this can lead to issue in the models accuracy~\cite{van1981beam,glaser2016fractal}.
+\Gls*{bpm} is also generally is a uni-directional propagation method, though it can be adapted to model bi-directional propagation, this can lead to issue in the models accuracy~\cite{van1981beam,glaser2016fractal}.
 
 \medskip
 
@@ -27,26 +28,25 @@ Various authors have tried to model complex beams that require wavelike behaviou
 Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}.
 However all these techniques either inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt}).
 There has been some attempts of using the techniques presented in this chapter, to modify MCRT algorithms into algorithms that can model diffraction and interference~\cite{mignon2016fractional,peter2014combining,mahan2018monte,mout2016simulating,fischer2008monte}.
-These authors have good results, but either do not detail their methods, attempt to treat scattering or are in the xray regime.
+These authors have good results, but either do not detail their methods, attempt to treat scattering or are in the x-ray regime.
 
 
 This chapter modifies the MCRT method, from a `ballistic' photon method into a quasi `ballistic/wave' photon method so that the wave behaviour of photons can be modelled.
 This algorithm, $\varphi MC$, allows the modelling of complex shaped beams such as Bessel beams and Gaussian beams, without much modification of the underlying code.
 
-We present a through investigation of the method used to turn a ballistic regime~\gls*{mcrt} method in to a quasi wave/ballistic method.
-The method is validated against theoretical and experimental data for various different beam types including: Bessel (including higher orders), Gaussian and Airy beams.
+We present a through investigation of the method used to turn a ballistic regime~\gls*{mcrt} method in to a quasi-wave/ballistic method.
+The method is validated against theoretical and experimental data for various different beam types including: Bessel (including higher orders), and Gaussian beams.
 Treatment of the propagation through scattering media is also discussed.
 
 
 \section{Theory}\label{sec:bestheory}
 
-To convert a MCRT simulation to be able to model wave like behaviour of photons, we introduce two concepts: tracking the phase of packets and the Huygens-Fresnel principle.
-This section presents a description of the modifications to the traditional MCRT algorithm needed to include these concepts, along side the theoretical background to both the concepts
+To convert a MCRT simulation to be able to model wave like behaviour of photons, we introduce two concepts: tracking the complex phase of packets and the Huygens-Fresnel principle.
+This section presents a description of the modifications to the traditional MCRT algorithm, along side the theoretical background to both the concepts
 
-\subsection{Phase tracking}
+\subsection{Complex Phase tracking}
 
-The first concept we add to the MCRT method is assigning a phase to each packet.
-This phase represents the phase a light wave would have, if we modelled light waves.
+The first concept we add to the MCRT method is assigning a complex phase to each packet.
 The phase is given to a packet at the beginning of the simulation depending on the input field.
 The packet is also given an initial complex electric field of the form:
 
@@ -55,7 +55,8 @@ E_0 = \frac{1}{N}\sqrt{\frac{P}{A}}
 \label{eqn:initefield}
 \end{equation}
 
-Where $N$ is the number of photons run in a simulation, $P$ is the power of the incident beam, and $A$ is the area of the beam.
+Where $N$ is the number of packets run in a simulation, $P$ is the power of the incident beam, and $A$ is the area of the beam.
+This initial electric field is needed to compare different beams as in~\cref{sec:compBeams}, and to normalise for number of packets run.
 
 The phase is then tracked as the packets moves through the medium, over a distance $l$.
 ~\Cref{eqn:phase} shows how the phase is calculated.
@@ -65,8 +66,8 @@ The phase is then tracked as the packets moves through the medium, over a distan
     \label{eqn:phase}
 \end{equation}
 
-Where $\varphi~[-]$ is the phase of a photon packet, $l\ [m]$ is the distance the photons has travelled, $\lambda~[m]$ is the wavelength of the photon, and \textit{i} is the solution to $x^2=-1$.
-Now we can calculate the phase of a photon at a position $P_o$, if we know the distance it has travelled, and its original phase,~\cref{fig:phase-diag}.
+Where $\varphi~[-]$ is the complex phase of a photon packet, $l\ [m]$ is the distance the photons has travelled, $\lambda~[m]$ is the wavelength of the photon, and \textit{i} is the solution to $x^2=-1$.
+Now we can calculate the complex phase of a packet at a position $P_o$, if we know the distance it has travelled, and its original phase,~\cref{fig:phase-diag}.
 
 \begin{figure}[!ht]
     \centering
@@ -76,12 +77,12 @@ Now we can calculate the phase of a photon at a position $P_o$, if we know the d
 \end{figure}
 
 To model interference, we let the photons packets interfere with one another in a volume or area element. 
-We do not model the interference at a point in space where photons packets cross one another as due to the ballistic nature of the \gls*{mcrt} simulation, this does not occur with enough frequency in order to give a good signal to noise ratio. 
-Thus, interference takes place in a volume, $dV$, or area element, $dA$, instead.
+We do not model the interference at a point in space where photons packets cross, due to the ballistic nature of the \gls*{mcrt} simulation this does not occur with enough frequency in order to give a good signal to noise ratio. 
+TTherfore, interference takes place in a volume, $dV$, or area element, $dA$, instead.
 To calculate the interference from the phase, the phase is summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
 \begin{equation}
-I(\xi)= \left| \sum\limits_{\xi}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\xi}E_0\ sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \xi=(x,y,z)
+I(\zeta)= \left| \sum\limits_{\zeta}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\zeta}E_0\ sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \zeta=(x,y,z)
 \label{eqn:intense}
 \end{equation}
 
@@ -91,15 +92,15 @@ I(\xi)= \left| \sum\limits_{\xi}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i 
 
 \indent $\lambda$ is the wavelength of the photon [$m$];
 
-\indent $I$ is the intensity at the $\xi^{th}$ cell [$W m^{-2}$];
+\indent $I$ is the intensity at the $\zeta^{th}$ cell [$W m^{-2}$];
 
 \indent $E_0$ is the initial electric field of the packets as in~\cref{eqn:initefield} [$Vm^{-1}$]
 
-\indent and $\xi$ is the $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
+\indent and $\zeta$ is the $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
 
 \medskip
 
-As the \gls*{mcrt} simulation is now a quasi ballistic/wave simulation of photon behaviour, comparisons between the simulations and, theoretical and experimental data to prove this model is accurate. However before validation of the model takes place, one further principle needs to be introduced that is required for our model to work.
+In addition to tracking the phase, the next principle needed to simulate the wave behaviour of light in MCRT is the Huygens-Fresnel principle.
 
 \subsection{Huygens-Fresnel Principle}
 
@@ -160,7 +161,7 @@ These two concepts underpin the algorithm that allows various complex beams, and
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.7\textwidth]{huygens.pdf}
-    \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle.}
+    \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle. Dashed lines illustrate the wavefront position at the previous time step, and is the source of the Huygens-Fresnel wavelets.}
     \label{fig:huygensillis}
 \end{figure}
 
@@ -204,19 +205,18 @@ F = l\sqrt{\frac{2}{\lambda r_0}}
 \label{eqn:fnumber}
 \end{equation}
 
-\Cref{eqn:fnumber} is the Fresnel number, a measure of whether diffraction is in the Fresnel regime or the Fraunhofer regime.
-\textit{l} is the slit width, $\lambda$ is the wavelength of the incident radiation, and $r_0$ is the distance from the aperture to the detector screen, as shown in~\cref{fig:aperture}. 
+\Cref{eqn:fnumber} is the Fresnel number, where \textit{l} is the slit width, $\lambda$ is the wavelength of the incident radiation, and $r_0$ is the distance from the aperture to the detector screen, as shown in~\cref{fig:aperture}. 
 
 \medskip
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{aperture.pdf}
-    \caption{Fresnel diffraction at a square aperture.}
+    \caption{Geometry of the square aperture used in the validation.}
     \label{fig:aperture}
 \end{figure}
 
 In order to compare $\varphi MC$ to the theory, the theory must first be discussed.
-Consider the setup as shown in~\cref{fig:aperture}, in order to calculate the intensity at a point $P$, the contribution by an area element $dS$ at the point a, to the optical disturbance at a point \textit{P} is considered.
+Consider the setup as shown in~\cref{fig:aperture}, in order to calculate the intensity at a point $P$, the contribution by an area element $dS$ at the point $a$, to the optical disturbance at a point \textit{P} is considered.
 Accounting for the the unobstructed optical disturbance from $S$ as well and using~\cref{eqn:kirchhoffeqn}, yields: 
 
 
@@ -293,7 +293,7 @@ I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2
 
 As the mathematics of calculating the optical disturbances at all points on a plane at point $P$ is difficult, instead the aperture is moved by small displacements, with $\overrightarrow{SOP}$ fixed.
 This effectively achieves the translation of the origin, $O$, with respect to the fixed aperture. 
-Thus, for each displacement new aperture coordinates $y_1, y_2, z_1, \text{and } z_2$ are generated and therefore new $u_1, u_2, v_1, \text{and }v_2$.
+Thus, for each displacement new aperture coordinates $y_1$, $y_2$, $z_1$, and $z_2$ are generated and therefore new $u_1$, $u_2$, $v_1$, and $v_2$.
 Therefore the intensity at a point $P +\delta d$, where $\delta d$ is the displacement, can be calculated.
 This approximation holds for displacements that are small compared to the $\rho_0$~\cite{born2000principles,hecht2017optics,goodman2017introduction}.
 Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves curves in~\cref{fig:frescompare}.
@@ -301,15 +301,16 @@ Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves cur
 \medskip
 
 In $\varphi MC$, the above experiment is simulated. 
-A square slit is uniformly sampled in the $y$, and $z$ direction in order to get the packets initial position. 
+A square slit is uniformly sampled in the $x$, and $z$ direction in order to get the packets initial position. 
 A random direction is then sampled, ensuring that the direction points towards the detector screen.
-As we assume a plane wave is incident of the aperture each photon is given the same initial complex electric field.
+As we assume a plane wave is incident of the aperture and each photon is given the same initial complex electric field.
 
-The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture, as Huygens wavelets.
+The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture as Huygens wavelets.
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
 For the case of Fraunhofer diffraction, the number of bins is 100 covering a distance of 6000~$\mu m$.
 The simulations take $\sim$ 3 minutes for $10^{10}$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
-The number of bins, and photons packets simulated had to be increased for the cases where the Fresnel number was large (i.e the detector screen was near the aperture)
+The number of bins, and photons packets simulated had to be increased for the cases where the Fresnel number was large (i.e the detector screen was near the aperture).
+This is due to the diffraction pattern becoming ``noisy'' and thus needs a higher resolution to accurately simulate.
 \cref{fig:frescompare} shows the comparison between the theory and the $\varphi MC$ simulations.
 
 \begin{figure}[!ht]
@@ -323,7 +324,7 @@ The number of bins, and photons packets simulated had to be increased for the ca
 
 \section{Gaussian Beams}
 
-Now that the method of tracking the phase of photon packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
+Now that the method of tracking the complex phase of packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
 
 The first beam type we will examine is the Gaussian beam.
 Gaussian beams are important as most laser beams have the profile of the fundamental (TEM$_{00}$) Gaussian mode.
@@ -380,27 +381,27 @@ The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, whe
 \end{figure}
 
 With the physical properties of the Gaussian beam outlined, a Gaussian beam can now be modelled using our algorithm.
-In order to simulate the Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
+To simulate a Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
 The lens used is convex-plano lens, with radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
 A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $0.5~mm$, is incident on the lens.
-Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3\mu m$.
+Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.11\mu m$.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{gaussiansetup.pdf}
-    \caption{Simulation setup of focusing a Gaussian beam through a lens. Lens is convex-plano and is modelled on ThorLabs LA4249 UV fused silica lens~\cite{thorlens}.}
+    \caption{Simulation setup of focusing a Gaussian beam through a lens. Lens is convex-plano and is modelled on ThorLabs LA4249 UV fused silica lens~\cite{thorlens}.  $L_t$ is the lens thickness, D is the $\tfrac{1}{e^2}$ input beam diameter, $W_d$ is the working distance or back focal length, $2 \cdot z_{max}$ is the depth of the medium, and $w_0$ is the beam waist.}
     \label{fig:gausssetup}
 \end{figure}
 
 To model the lens in $\varphi MC$ the photons initial z position is set just in front of the lens.
 The x and y are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
-This is due to the fact that the electric field is $\propto e^{\tfrac{-r^2}{4\sigma`^2}}$, and the intensity is $\propto e^{\tfrac{-r^2}{2\sigma^2}}$.
-Thus for the input electric field waist to be equal to the intensity waist, i.e $\sigma`=\sigma$, $\sigma`=\sqrt{2}\sigma$.
+This is due to the fact that the electric field is $\propto e^{\tfrac{-r^2}{4\sigma'^2}}$, and the intensity is $\propto e^{\tfrac{-r^2}{2\sigma^2}}$.
+Thus for the input electric field waist to be equal to the intensity waist, i.e $\sigma'=\sigma$, $\sigma'=\sqrt{2}\sigma$.
 The packet is given an electric field of the form~\cref{eqn:initefield}, with $P=1~mW$, and $A=\tfrac{1}{2}\pi w_0^2$.
 
 The photon is then propagated to the surface of the convex side of the lens.
-This is achieved by finding the intersection of a sphere which represents the convex side of the lens, and the packets path.
+This is achieved by finding the intersection of a sphere, which represents the convex side of the lens, and the packets path.
 With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
 If the packet is reflected the packet is killed and the process starts again.
 %***need exlanation of refraction here***
@@ -411,7 +412,7 @@ The packets is then uniformly sampled onto the surface of the voxel medium and t
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=0.75\textwidth]{gaussian.pdf}
-    \caption{Results of \textit{in-silico} experiment of focusing a Gaussian beam though a convex-plano lens. $L_t$ is the lens thickness, D is the $\tfrac{1}{e^2}$ input beam diameter, $W_d$ is the working distance or back focal length, $2\dot z_{max}$ is the depth of the medium, and $w_0$ is the beam waist.}
+    \caption{Results of \textit{in-silico} experiment of focusing a Gaussian beam though a convex-plano lens.}
     \label{fig:simgaussexp}
 \end{figure}
 
@@ -434,13 +435,13 @@ $\varphi MC$ can also model spherical aberrations caused by lenses.
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=0.75\textwidth]{spherabbr.pdf}
-    \caption{Illustration of $\varphi MC$`s ability to model spherical aberrations. Image generated using same setup as in~\cref{fig:gausssetup}, but with a $D=1.5~mm$.}
+    \caption{Illustration of $\varphi MC$`s ability to model spherical aberrations. Image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$.}
     \label{fig:spheraberr}
 \end{figure}
 
 
 This section has shown that Gaussian beams, and their physical phenomena can be accurately modelled using $\varphi MC$.
-A convex-plano lens was used to focus a Gaussian beam, but it is simple to implement other other lenses given a triangulated mesh of the lens or an equation that describes the shape of the lens. 
+A convex-plano lens was used to focus a Gaussian beam, but it is simple to implement other other lenses given a triangulated mesh of the lens or an equation that describes the shape of the lens, e.g an aspheric lens.
 \FloatBarrier
 
 \section{Bessel Beams}
@@ -450,14 +451,15 @@ Durnin noticed that the solution to the Helmholtz equation of the Bessel type we
 What this means is that the central core of the beam is generally more diffraction resistant when compared to a Gaussian beam with a similar spot size.
 Bessel beams also have a property of ``self-healing'', this means if an obstruction is placed in the path of the central lobe of the Bessel beam, the Bessel beam can then ``heal'' and reform past the obstruction~\cite{mcgloin2005bessel}.
 However it is physically impossible to create a `real' Bessel beam, as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require infinite amount of power~\cite{durnin1987diffraction}.
-Therefore all Bessel beams that are created are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
+Therefore all Bessel beams that are created experimentally are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
 
 
 These two properties make Bessel beams an attractive avenue of research, as novel solutions to imaging problems.
 There is also some debate amongst physicists as to whether these phenomena are justly labelled, or if they glib terms used to make Bessel beams seem better than they are~\cite{debeer1987comment,harvey1984spot,durnin1987reply,sprangle1991comment,durnin1991durnin}.
 
 \subsection{Theory}
-As before with the Gaussian beam, some theory behind the Bessel beam must be discussed before we can model the beam in $\varphi MC$.
+As before with the Gaussian beam, the theory behind the Bessel beam must be discussed before we can model the beam in $\varphi MC$.
+The electric field can be described using~\cref{eqn:besselEfield}~\cite{vcivzmar2006opticke}:
 
 \begin{equation}
     E(r,z)=E_0\sqrt{\frac{2\pi k z w_0\sin(\beta)}{z_{max}}}\ \text{exp}^{\left(-\frac{z^2}{z_{max}^2}-\frac{i\pi}{4}\right)}\ J_0\left(kr\sin(\beta)\right)\ \text{exp}^{\left(ikz\cos(\beta)\right)}
@@ -468,13 +470,13 @@ As before with the Gaussian beam, some theory behind the Bessel beam must be dis
 
     \indent k is the wavevector, $k=\tfrac{2\pi}{\lambda}$ [$m$];
 
-    \indent z is the distance from the axicon tip [$m$]; 
+    \indent z is the propagated distance [$m$]; 
 
     \indent $\beta$ is the angle the wavefront propagates at (see~\cref{fig:besselgeo}) [$rad$]; 
 
     \indent $w_0$ is the $\tfrac{1}{e^2}$ width of the input Gaussian beam [$m$]; 
 
-    \indent $J_0$ is the Bessel function of the first order; 
+    \indent $J_0$ is the Bessel function of the first kind, zeroth order; 
 
     \indent r is radial distance from the optical axis [$m$]. 
 
@@ -514,17 +516,17 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 
     \indent $k_r$ is the radial wavevector, $k_r=k\ sin(\beta)$;
 
-    \indent P is the power of the incident Gaussian beam.
+    \indent $P$ is the power of the incident Gaussian beam.
 
     \medskip
 
-Bessel beam can be formed by an axicon lens or by diffraction through a ring.
+A Bessel beam can be formed by an axicon lens or by diffraction through a ring.
 All the simulations of Bessel beams in this thesis use the axicon method of generating a Bessel beam, thus only axicons will be discussed.
 \Cref{fig:besselgeo} shows the geometry of a Bessel beam formed by an axicon.
-Using simple geometry and Snell's law the following equation can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
+Using simple geometry and Snell's law the following equations can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
 
 The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However in reality the Bessel beam will continue to propagate slightly passed this depth.
-~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function.
+~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function ($cot x = \tfrac{1}{\tan x}$).
 \begin{equation}
 z_{max}=R\left(cot\left(\beta\right) - tan\left(\alpha\right)\right)
 \label{eqn:besselzmax}
@@ -552,25 +554,25 @@ Finally, the spacing between Bessel beam rings is:
 
 \subsection{Validation}
 
-To ensure that the method described in~\nameref{sec:bestheory} works as intended for Bessel beams several tests are run against theoretical expressions and experimental data.
+To ensure that the method described in~\cref{sec:bestheory} works as intended for Bessel beams several tests are run against theoretical expressions and experimental data.
 
 \subsubsection*{Comparison to theoretical Bessel beam}
 
-To compare against a theoretical Bessel beam, a Bessel beam is modelled in the~\gls*{mcrt} phase simulation, and propagated through air into the ``Bessel region'' and then propagated into the far field to ensure the beam follows the theory in both these regions.
+To compare against a theoretical Bessel beam, a Bessel beam is modelled in $\varphi MC$, and propagated through air into the ``Bessel region'' and then propagated into the far field to ensure the beam follows the theory in both these regions.
 
 \Cref{fig:besselgeo} shows the setup for the \textit{in-silico} experiments.
 The Bessel beam is created with an axicon (conical) lens with an opening angle ($\alpha$) of $5^{\circ}$, and a radius of $12.7~mm$.
 The input beam is Gaussian in profile with a $\tfrac{1}{e^2}$ diameter of $1~mm$, and a wavelength of $488~nm$.
 The Bessel beam is then propagated to a detector screen $10~mm$ away from the tip of the axicon, which is in the middle of the ``Bessel region'' for the first test.
 For the second test the Bessel beam is propagated past the ``Bessel region'' into the far field.
-The detector screen has a size of $40~mu m$ $\times$ $40~mu m$ with a bin resolution of $1~\mu m$.
-$8^10$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeon 3.5Ghz machine.
+The detector screen has a size of $40~\mu m$ $\times$ $40~\mu m$ with a bin resolution of $1~\mu m$.
+$8^{10}$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeon 3.5Ghz machine.
 
 \medskip
 
-~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation when $\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1$, with the simulation similarly normalised, by normalising to the maximum intensity of the image generated. ~\Cref{fig:besselCompare} shows this comparison.
+~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation when $\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1$, with the simulation similarly normalised to the maximum intensity of the image generated. ~\Cref{fig:besselCompare} shows this comparison.
 
-\Cref{fig:farfield} shows the profile of the Bessel beam in the far field, where the theory predicts that it becomes a circular beam.
+\Cref{fig:farfield} shows the profile of the Bessel beam in the far field, where the theory predicts it becomes a circular beam.
 
 \begin{figure}[!ht]
     \centering
@@ -609,7 +611,7 @@ The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is dilute
 ~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.
 Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime.
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
-Images of the Bessel beam as it emerges from the cuvette are taken for comparison with out algorithm.
+Images of the Bessel beam as it emerges from the cuvette are taken for comparison with our algorithm.
 ~\Cref{fig:expsetup} shows the experimental setup.
 
 \begin{figure}[ht!]
@@ -633,7 +635,7 @@ Images of the Bessel beam as it emerges from the cuvette are taken for compariso
         \multicolumn{1}{c|}{10}   & 500     & \multicolumn{1}{c|}{1.96078} & 0.4534                               & 2785.71                         \\
         \multicolumn{1}{c|}{12}   & 500     & \multicolumn{1}{c|}{2.34375} & 0.5448                               & 3342.84                         \\ \hline
     \end{tabular}
-    \caption{Intralipid solutions used for experiment.}
+    \caption{Intralipid solutions used for experiment, see also~\cref{fig:ilscatprop}.}
     \label{tab:intra}
 \end{table}
 
@@ -645,22 +647,22 @@ Images of the Bessel beam as it emerges from the cuvette are taken for compariso
     \vspace{-10pt}
 \end{figure}
 
-To model within $\varphi MC$, the experimental setup we simplify the setup considerably.
+To model within $\varphi MC$, we simplify the experimental setup considerably.
 The simulation models the propagation of a photon packet through the axicon to its conical surface. 
 On the conical surface the Huygens-Fresnel principle is invoked, and the packet is sampled onto the surface of the medium (cuvette).
 The sampling of the photon onto the surface of the medium, speeds the algorithm up, as it does not need to simulate the photons that would ``miss'' the medium.
 From there the usual~\gls*{mcrt} method propagates the packet through the medium while tracking its phase, and scattering the packet until it leaves the medium.
 If the packet leaves the medium to any side other than the far side of the cuvette (e.g any side of the cuvette not facing the objective lens), then it is discarded.
 If the packet leaves the medium on the objective lens facing side, then the packet is recorded by its phase onto an area element.
-For each intralipid concentration $6.4\times10^{10}$ photons are run over 64 cores, taking $\sim 3$ hours for the 0.5448\% intralipid concentration.
-Once all the photon packets have been run, the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
+For each intralipid concentration $6.4\times10^{10}$ photons are run over 64 cores, taking $\sim 3$ hours for the $12\mu L$ intralipid volume.
+Once all the packets have been run, the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
 
-\Cref{fig:compareexpbessel} shows the results from the experiment and simulation. The simulation shows good agreement with experimental data.
+\Cref{fig:compareexpbessel} shows the results from the experiment and simulation. The simulation shows good agreement with experimental data within experimental and simulation uncertainty.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{compare-exp.pdf}
-\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Volumes along the top is the volume of Intralipid in each solution as in~\cref{tab:intra}. All images cropped so they are the same size.}
+\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Volumes along the top is the volume of Intralipid in each solution as in~\cref{tab:intra}. All images cropped so they are the same size and normalised to the maximum value in each image.}
 \label{fig:compareexpbessel}
 \end{figure}
 
@@ -669,19 +671,19 @@ Once all the photon packets have been run, the phase is converted into intensity
 Originally the medium was modelled as in the experiment, a $2~mm^3$ volume.
 The image created was thus a $2001 \times 2001$ with a resolution of $1~\mu m$.
 In order to achieve a good signal to noise ratio for this setup $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
-This was enough packets to get a good signal to noise ration on all the simulations up to $6~\mu L$.
+This was sufficient to get a good signal to noise ration on all the simulations up to $6~\mu L$.
 However the amount of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
 Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
 This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
 Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons are hit the plane in comparison to the larger medium. 
 
 Shrinking the mediums size does have some draw backs.
-Firstly Bessel beams propagation depth rely on the input beams width\ see~\cref{eqn:besselzmax}.
+Firstly the Bessel beams propagation depth rely on the input beams width\ see~\cref{eqn:besselzmax}.
 The input beams width was kept constant between the shrinking of the volumes size.
-However shrink the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
+However shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
 Therefore the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
 The second issue with shrinking the medium is that some packets may be lost.
-What this means is that, in the larger medium a packet may scatter towards an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
+This means that in the larger medium a packet may scatter towards an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
 However this same packet in the smaller medium would be lost as the packet would exit the medium and ceased to be tracked.
 It is not expected that this will cause much of an issue as any scattering event already degraded the quality of the beam, as that packet is no longer coherent with the rest of the packets, thus it will not contribute positively to the Bessel beam.
 To ensure this is not an issue, results from a larger medium are compared to that of the smaller medium in~\cref{fig:compareBigSmall}.
@@ -700,8 +702,8 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 
 \section{Higher order Bessel beams}
 
-\Gls*{hobb}, are Bessel beams where the electric field has an extra term of $e^{-il\varphi}$, as shown in~\cref{eqn:hobb}.
-\Gls*{hobb} have found use for optical trapping targets that are reflective/low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}
+Higher order Bessel beams (HOBBs), are Bessel beams where the electric field has an extra term of $e^{-il\varphi}$, as shown in~\cref{eqn:hobb}, and $l \neq 0$.
+\Gls*{hobb} have found use for optical trapping targets that are reflective/low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}.
 Our technique outlined in the preceding sections, can also be applied to arbitrary higher order Bessel beams. 
 
 As before, the electric field of a $l^{th}$ order Bessel beam is:
@@ -717,7 +719,7 @@ E(r,\varphi,z)=E_0J_l(k_r r)e^{-i k_z z}e^{-i l \varphi}
 
 \indent $k_{z}^{2} + k_{r}^{2} =k^2$, where $k^2$ is the wavevector [$m^{-1}$];
 
-\indent $r, \varphi, and z$ are the cylindrical coordinates [$m$, $rad$, $m$];
+\indent $r$, $\varphi$, and $z$ are the cylindrical coordinates [$m$, $rad$, $m$];
 
 \indent and $J_l$ is the l-order Bessel function of the first kind [-].
 
@@ -733,35 +735,35 @@ The helical element imparts a helical phase delay to photon packets as they pass
 
 The distance travelled though the helicon is shown in~\cref{eqn:helix,eqn:axicon,eqn:heightdiff}\cite{wei2015generation}.
 $h_1$ is the path length travelled by a photon through the helical element.
-$h_2$ is the path through an axicon.
+$h_2$ is the path through an axicon, and $\Delta h$ is the height of the helical discontinuity.
 
 \begin{align}
-h_1&=\frac{l\varphi\lambda}{(n-1)2\pi} \label{eqn:helix}\\
+h_1&=\frac{l\phi\lambda}{(n-1)2\pi} \label{eqn:helix}\\
 h_2&=r\ tan(\alpha)\label{eqn:axicon}\\
 h_3&=h_1+h_2 \label{eqn:helicon}\\
 \Delta h &= \frac{l\lambda}{n-1}\label{eqn:heightdiff}
 \end{align}
 
-Where $\varphi$ is the azimuthal angle, $r$ is the radial position, $l$ is  blah, and $\alpha$ is the axicon angle.
+Where $\phi$ is the azimuthal angle, $r$ is the radial position, $l$ is an integer that describes the order of the Bessel beam, and $\alpha$ is the axicon angle.
 
 The path length in the above equations can be converted into a phase delay by considering the transmission functions of the individual elements~\cite{khonina1992trochoson,kotlyar2006diffraction,topuzoski2009conversion,qiong2012generalization}:
 
 
 \begin{align}
-T_1(\varphi)&=e^{-ik(n-1)h_1}=e^{-il\varphi}\\
+T_1(\varphi)&=e^{-ik(n-1)h_1}=e^{-il\phi}\\
 T_2(r)&=e^{-ik(n-1)h_2}=e^{-ik_rr}\\
-T_3(r,\varphi)&=T_1*T_2=e^{-ik_rr-il\varphi}\\
+T_3(r,\varphi)&=T_1*T_2=e^{-ik_rr-il\phi}\\
 \end{align}
 
 Where $T_1$ is the transmission function for the helical element, $T_2$ is the transmission function for the axicon, and $T_3$ is the total transmission function.
 Using the small angle approximation  for $\beta$ and~\cref{eqn:betaangle}, and knowing $k_r=sin\left(\beta\right)$ yields the phase delay as a function of angle and radial position:
 
 \begin{equation}
-\phi(\varphi,r)=k(n-1)r\alpha+l\varphi
+\varphi(\phi,r)=k(n-1)r\alpha+l\phi
 \end{equation}
 
 To implement a helicon in the $\varphi MC$ algorithm, an additional helical phase delay is added.
-The additional delay is implemented by adding $l\varphi$ where $0<varphi<\tfrac{2\pi}{l}$.
+The additional delay is implemented by adding $l\phi$ where $0<\phi<\tfrac{2\pi}{l}$.
 An actual helix element is not modelled explicitly in the code, but rather just the phase delay.
 This method is similar to using a spatial light modulator in an experiment to impart a phase delay on a beam.
 
@@ -770,7 +772,7 @@ This method is similar to using a spatial light modulator in an experiment to im
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.4\textwidth]{helicon-2.pdf}
-    \caption{Helical delay element attached to an axicon. Axicon introduces an additional radial delay in addition to that of the helical element. Input beam is a Gaussian, output beam is a higher order Bessel beam, $l>0$.}
+    \caption{Helical delay element attached to an axicon. The Axicon introduces a radial delay in addition to that of the helical element. If the input beam is a Gaussian, the output beam is a higher order Bessel beam, $l>0$.}
     \label{fig:helix-2}
     \vspace{-10pt}
 \end{figure}
@@ -784,7 +786,7 @@ This method is similar to using a spatial light modulator in an experiment to im
 
 \FloatBarrier
 \section{Comparison}
-
+\label{sec:compBeams}
 As Bessel and Gaussian beams are radically different from one another it is hard to directly compare the two beams.
 Gaussian beams carry all their power in the `central core' of the beam, whereas in a Bessel beam, it carries the same amount of power in each ring.
 Bessel beams also have a much larger depth of focus than Gaussian beams.

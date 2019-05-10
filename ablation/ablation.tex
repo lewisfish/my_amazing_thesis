@@ -756,6 +756,28 @@ Two different temperatures were tried: half the ablation temperature and room te
 Setting the voxel temperature to either half the ablation temperature or to room temperature has a large effect on the ablation depth, with a difference of $\approx 0.1~mm$.
 However there is a small difference between setting the voxel temperature to room temperature and to half of the ablation temperature though.
 
+\section{Application of model for spy disposal}
+
+In the 1964 James Bond film, Goldfinger, the British spy is threatened with a laser  by the titular character.
+Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane in his choice of laser for the task?
+
+As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the `laser' shown on screen being red, the likely laser portrayed is a ruby laser.
+
+To asses whether Bond would die due to the laser we used the model outlined in this chapter with the following parameters.
+
+We assumed the power of the laser was around 1 KW, as industrial lasers used to cut metal, are high powered continuous operation lasers.
+
+We assumed that the Bond is completely made of skin, with no organs or bones.
+We ran two simulations, one for the Ruby $694~nm$ and one for the $CO_2$ $10.6~\mu m$.
+For the $CO_2$ as before there is no scattering due to high absorption coefficient. The Ruby laser's wavelength is highly scattering, so we model both scattering and absorption.
+The medium we model is a $2~cm^3$ cube of homogeneous skin.
+
+$CO_2$ takes $22~ms$, Ruby takes $11~s$ to ablate through the $2~cm$ medium.
+From timing the movie, the laser moves at a round $1~cms^{-1}$.
+Therefore the Ruby laser used by Goldfinger would only give Bond some serious burns, but would leave him in one piece.
+If Goldfinger used a $CO_2$ laser then Bond would have been cleanly cut in two.
+
+
 \section{Conclusion}
 
 Using \gls*{mcrt} and a finite difference method, a fully 3D model of photon and heat transport within tissue has been created. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered lasers and the resultant thermal damage surrounding the ablation crater.

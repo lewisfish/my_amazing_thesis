@@ -539,7 +539,7 @@ The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \
 
 The laser was used in ``Pixel beam'' mode. This means that the laser beam is split into an array of smaller beams. The laser used an array $9 \times 9$ of 81 pixel beams, each with a diameter of $250\ \mu m$. The Pixel CO$_2$ rated laser power is $\sim$ 70~$W$.
 
-The laser delivered one single pulse of varying total energy delivered over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode''. The experiment consisted of ablating the porcine tissue, as a function of energy per ``pixel'' beam. This was achieved by adjusting the pulse length of the laser, $\tau$, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$. The energy range for the laser was kept the same pre and post-upgrade, with the pulse length differing.
+The laser delivered one single pulse of varying total energy delivered over the range 50~$mJ$ to 400~$mJ$, in so called ``super pulsed mode''. The experiment consisted of ablating the porcine tissue, as a function of energy per ``pixel'' beam. This was achieved by adjusting the pulse length of the laser, $\tau$, so that the energy per pulse was varied over a range 50~$mJ$ to 400~$mJ$.
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|}
@@ -755,6 +755,27 @@ Two different temperatures were tried: half the ablation temperature and room te
 
 Setting the voxel temperature to either half the ablation temperature or to room temperature has a large effect on the ablation depth, with a difference of $\approx 0.1~mm$.
 However there is a small difference between setting the voxel temperature to room temperature and to half of the ablation temperature though.
+
+\section{Application of model for spy disposal}
+
+In the 1964 James Bond film, Goldfinger, the British spy is threatened with a laser  by the titular character.
+Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane in his choice of laser for the task?
+
+As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the `laser' shown on screen being red, the likely laser portrayed is a ruby laser.
+
+To asses whether Bond would die due to the laser we used the model outlined in this chapter with the following parameters.
+
+We assumed the power of the laser was around 1 KW, as industrial lasers used to cut metal, are high powered continuous operation lasers.
+
+We assumed that the Bond is completely made of skin, with no organs or bones.
+We ran two simulations, one for the Ruby $694~nm$ and one for the $CO_2$ $10.6~\mu m$.
+For the $CO_2$ as before there is no scattering due to high absorption coefficient. The Ruby laser's wavelength is highly scattering, so we model both scattering and absorption.
+The medium we model is a $2~cm^3$ cube of homogeneous skin.
+
+$CO_2$ takes $22~ms$, Ruby takes $11~s$ to ablate through the $2~cm$ medium.
+From timing the movie, the laser moves at a round $1~cms^{-1}$.
+Therefore the Ruby laser used by Goldfinger would only give Bond some serious burns, but would leave him in one piece.
+If Goldfinger used a $CO_2$ laser then Bond would have been cleanly cut in two.
 
 \section{Conclusion}
 

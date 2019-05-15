@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:xhtml="http://www.w3.org/1999/xhtml"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="800"
+   height="900"
+   viewBox="-0.5 -0.5 800 900"
+   content="&lt;mxfile modified=&quot;2019-05-15T12:09:07.181Z&quot; host=&quot;www.draw.io&quot; agent=&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36&quot; etag=&quot;VIPzqtUHQoUp1Kak6zbY&quot; version=&quot;10.6.7&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;692365ea-5b78-9ba0-fd25-40e2ea899c7e&quot; name=&quot;Page-1&quot;&gt;7Vxbe6o4FP01PrYfEALJ46m9zkyn840PM31EiMIpEgdj1fn1EyAoEFCsctFOH1qTcMvae+2V7I0dgOFs/RRac/eVOsQfaIqzHoD7gaapqoH5n6hnk/QgEyYd09BzxEG7jpH3LxGdiuhdeg5Z5A5klPrMm+c7bRoExGa5PisM6Sp/2IT6+bvOrSmROka25cu9f3kOc4vzigaeiTd1xa2RZiYDY8v+mIZ0GYj7DTQwiX+S4ZmVXktMdOFaDl1lusDDAAxDSlnyabYeEj/CNoUtOe+xYnT73CEJWK0TdPEcbJPOnTgcCtGkIXPplAaW/7DrvYvnR6IrKLzlspnPP6r8I1l77O+o+xaK1rsY+UkY2wg7W0tGedfu2r9ROhfHyc8vphQ9VaZDzOaJ0Blh4YYfEBLfYt5n3oCW8IPp9rjtqX9Qj99CU4TPGikSwmOxkr8Cs8IpYeKkLKDSdcCtgbABoWpqeuGiunKrZAYBhvmbLOgytIl0E/4hM9VdV2zLcruK+35a/lIgMuIzYJKx86ZcuR4jo7llR6MrTu28eSee7w+pT8P4XOBAghyd9y9YSD9IZgRpY2AY+8z5SUJG1nsNKkYhzGOYhohVhpcpm9wMJQ2l2gVywO5BETy5+i/+/ezu5n14/8+jOwrXjzd8YqdSptT1SyhSi1rR5/u1uHLc2KSNgM83c1LUfM+O7U6LW+l5lVZL/DPp0mApMXmgjpkiAGyHrFunOMDWLxApnWaGSX+SiR+JjuQFvs/1iRzNI64Omm2X8cgxxgZsiEe4Jo9QUzwyT5eek3hk9oRIoFzhCkQqQxBpzbArdY2UXTW18EcYWpvMYfPogMWe++h66X0qpbXiuXZOmDzBV6n+c/hJXl+oN3l+e3u/Gb9u1uT5BirdeqnWlpdK7lfTbQ96abL0P7uXQqTfagiaqi5+53wDKI0pQjrxjCK8LOL5xLLAzc6xE8865lYmYYSSS4K4vWDbYfB43uWYRdCkVEYMG5HxpKHlWF0dOcd6TDck6N/JQkKRT4XlocpDEtCAFPATXZbvTQPetDlA3G7gLgLG4/vCH2Jg5jmOXyXxeeudAWwdwhzYOlJvoQS3XoK21phqm93Gw/rhsF4Uq45YdUKbURo7T4h1p9lGXqs+rOdW4Mgm6/VSVYc4H8zVMrdvebWKv8k64EuEMeoSBvWKMKjjxV1vtiBHBLc6+5KGdv1KXg2htg0LDazy9kFSXPqROMpWrfys61j5FaOyrtWOyo3l4tJ4kjHIr4TMtyY5n/Ahm5QL3xhBHZ5pvQfMgoeD7oUPydsdAXF47jxYKxhDgPuHMehWh9pYVCPt3NJfoRIFDulq2yqBLiex2X9zIuWr5jw2HWlq+fQiwFr2cgefrHD8yenIvbAfmXyKlyA+XS42l70GMUDBRlrX1UAk77kvWh4NtZJv3cljxzmnI/beJwTUs+eSKsIcqFxjtqWP6DvoY0vmREbn5qzYFJdJ0oqGPPJtFSlqXviu2NS/HC+b0yQsWeSqyyRGIaSB7sskaVXsu5igqCo9qFTh/9/TqsZGbCMOpnKxfm4ZO82mJdufYOE5kabYlINjXdx7WYbZv3wUvpgibwfUAXWpU/6CZGfUARJ13pbssrmD1P7ly1VF65Y8va4Up3pykD1q+gLXmTdQR2cFC1k+U0HCxarygtA4cEYzmUFV6biI0Otidm2/w/16QyF97uLmOiCrQXWm9wr21cUyjlE/tDe2r1aVjis7/Q7tdd+aw7hXFFPTCH8BgbMF66hKM9+4O1Z48dHCyxWwE+XFcgnoe8To4vK7DzEay28EjdzQCz5kjve7DmfkK52mhuoh21xSQM4qi0rn2/DCwC06Lge3B/tGOWX8keD7cmn4wmLs7gW+8otsi0uMDNiUwO06MsjIXnWxAxZqfls1a6HUUf4lRdkAv9Ne4y+BXWKSam2ESs/w174V/sXvALZb7Cu3gJzdvmYLmIUcIzC7ZoCcp7pm/FGn5e5yC8i70Gu2AC58NdbA3VtAfhHqmi1gFnaoBsbNWYA3d/8UK0nc7P7zGHj4Dw==&lt;/diagram&gt;&lt;/mxfile&gt;"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="flowchart.svg">
+  <metadata
+     id="metadata282">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     id="namedview280"
+     showgrid="false"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="0.62631431"
+     inkscape:cx="646.11696"
+     inkscape:cy="520.04783"
+     inkscape:window-x="1280"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g6">
+    <sodipodi:guide
+       position="400,376.97008"
+       orientation="1,0"
+       id="guide4418"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="563.56066,529.73349"
+       orientation="0,1"
+       id="guide4573" />
+    <sodipodi:guide
+       position="359.92109,591.97548"
+       orientation="1,0"
+       id="guide4575" />
+    <sodipodi:guide
+       position="440.42976,634.59771"
+       orientation="1,0"
+       id="guide4577" />
+    <sodipodi:guide
+       position="313.57787,541.23472"
+       orientation="0,1"
+       id="guide4579" />
+    <sodipodi:guide
+       position="599.89909,835.2662"
+       orientation="1,0"
+       id="guide4581" />
+    <sodipodi:guide
+       position="199.96636,505.80076"
+       orientation="1,0"
+       id="guide4583" />
+    <sodipodi:guide
+       position="100,575.73844"
+       orientation="1,0"
+       id="guide4593"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="300.52038,190.91883"
+       orientation="1,0"
+       id="guide4595"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="500,821.87132"
+       orientation="1,0"
+       id="guide4597"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="700,808.47644"
+       orientation="1,0"
+       id="guide4599"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="468.34227,489.86975"
+       orientation="0,1"
+       id="guide4601" />
+    <sodipodi:guide
+       position="335.22726,379.20258"
+       orientation="0,1"
+       id="guide4605" />
+    <sodipodi:guide
+       position="590.09213,417.3939"
+       orientation="0,1"
+       id="guide4607" />
+    <sodipodi:guide
+       position="725,701.57551"
+       orientation="1,0"
+       id="guide4639"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="675,504.69979"
+       orientation="1,0"
+       id="guide4641"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="560,474.25693"
+       orientation="1,0"
+       id="guide4643"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="825.5,269.5"
+       orientation="0,1"
+       id="guide4645" />
+    <sodipodi:guide
+       position="750,255"
+       orientation="1,0"
+       id="guide4689"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="535,180"
+       orientation="1,0"
+       id="guide4691"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="585,218.5"
+       orientation="1,0"
+       id="guide4693"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="869.5,124"
+       orientation="0,1"
+       id="guide4695" />
+    <sodipodi:guide
+       position="762.96821,186.32264"
+       orientation="0,1"
+       id="guide4697" />
+    <sodipodi:guide
+       position="515.65762,168.29141"
+       orientation="0,1"
+       id="guide4699" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4" />
+  <g
+     id="g6"
+     transform="translate(0,100)">
+    <path
+       d="m 399.53,-45 -0.4,18.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path8"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 399.02,-21.12 -3.35,-7.07 3.46,1.82 3.54,-1.67 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path10"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="339.99792"
+       y="-100.00206"
+       width="119.00413"
+       height="60.004124"
+       pointer-events="none"
+       id="rect12"
+       style="fill:#d5e8d4;stroke:#82b366;stroke-width:0.99587607" />
+    <g
+       transform="translate(385.81116,-80.882717)"
+       id="g14">
+      <switch
+         id="switch16">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="25"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 27px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Start</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="13"
+           y="12"
+           font-size="12px"
+           id="text18"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Start</text>
+      </switch>
+    </g>
+    <path
+       d="m 399.53,59.71 0,13.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path20"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 399.53,78.59 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path22"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <ellipse
+       cx="399"
+       cy="20"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse24"
+       style="fill:#fff2cc;stroke:#d6b656" />
+    <g
+       transform="translate(379.5,12.5)"
+       id="g26">
+      <switch
+         id="switch28">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="37"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 39px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Reflect</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="19"
+           y="12"
+           font-size="12px"
+           id="text30"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Reflect</text>
+      </switch>
+    </g>
+    <path
+       d="m 439.93383,139.71 0.16914,29.71465 159.33722,0.23919 0,34.26616"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path32"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 599.41198,209.18 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path34"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 359.63753,139.71 0,30.58 -160.1646,0 0,32.67284"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path36"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 199.49577,208.5934 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path38"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       style="fill:#dae8fc;stroke:#6c8ebf"
+       d="m 339,80 120,0 0,60 -120,0 z"
+       id="rect40"
+       inkscape:connector-curvature="0" />
+    <g
+       transform="translate(126.9293,381.67582)"
+       id="g48">
+      <switch
+         id="switch50">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="20"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 20px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Yes</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="10"
+           y="12"
+           font-size="12px"
+           id="text52"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+      </switch>
+    </g>
+    <path
+       d="m 199.4366,282.06 0,20 0,3.07"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path54"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 199.4366,310.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path56"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <ellipse
+       cx="200"
+       cy="250"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse58"
+       style="fill:#fff2cc;stroke:#d6b656" />
+    <g
+       transform="translate(178.5,242.5)"
+       id="g60">
+      <switch
+         id="switch62">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="41"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 41px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Expand</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="21"
+           y="12"
+           font-size="12px"
+           id="text64"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Expand</text>
+      </switch>
+    </g>
+    <path
+       d="m 171.65,371.47 0,24.71 -72.119365,0 -0.0299,19.51"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path66"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 99.53,419.47493 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path68"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 231.65,371.47 0,24.71 67.77094,0 0.0423,19.51"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path70"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 299.50852,420.94 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path72"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="142"
+       y="311.5"
+       width="120"
+       height="60"
+       pointer-events="none"
+       id="rect74"
+       style="fill:#dae8fc;stroke:#6c8ebf" />
+    <ellipse
+       cx="101.49559"
+       cy="460.79395"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse82"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(64.995599,454.29395)"
+       id="g84">
+      <switch
+         id="switch86">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="71"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 71px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep expand</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="36"
+           y="12"
+           font-size="12px"
+           id="text88"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep expand</text>
+      </switch>
+    </g>
+    <ellipse
+       cx="299.22198"
+       cy="461"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse90"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(265.72198,454.5)"
+       id="g92">
+      <switch
+         id="switch94">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="65"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 65px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep reflect</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="33"
+           y="12"
+           font-size="12px"
+           id="text96"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep reflect</text>
+      </switch>
+    </g>
+    <path
+       d="m 641.41,270.29 0,11.77 58.06128,0 0.0598,22.36059"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path102"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 699.56567,310.1579 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path104"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="541"
+       y="210"
+       width="120"
+       height="60"
+       pointer-events="none"
+       id="rect106"
+       style="fill:#dae8fc;stroke:#6c8ebf" />
+    <ellipse
+       cx="500"
+       cy="351"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse114"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(467.59632,341.11728)"
+       id="g116">
+      <switch
+         id="switch118">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="65"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 65px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep reflect</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="33"
+           y="12"
+           font-size="12px"
+           id="text120"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep reflect</text>
+      </switch>
+    </g>
+    <path
+       d="m 674.71033,371.45691 0,34.19388 -115.20941,0 -9.8e-4,10.79988"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path122"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 559.48789,419.06007 -3.61,-6.94 3.53,1.69 3.47,-1.8 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path124"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 724.54254,371.11864 0,34.31348 -0.0236,2.21328 -0.0154,7.69305"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path126"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 724.54844,419.96703 -3.47,-7.01 3.49,1.76 3.51,-1.73 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path128"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="640.67651"
+       y="311.5"
+       width="120"
+       height="60"
+       pointer-events="none"
+       id="rect130"
+       style="fill:#dae8fc;stroke:#6c8ebf" />
+    <g
+       transform="translate(516.14541,269.23773)"
+       id="g138">
+      <switch
+         id="switch140">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="20"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 20px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Yes</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="10"
+           y="12"
+           font-size="12px"
+           id="text142"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(608.15069,390.99321)"
+       id="g144">
+      <switch
+         id="switch146">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="20"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 20px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Yes</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="10"
+           y="12"
+           font-size="12px"
+           id="text148"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+      </switch>
+    </g>
+    <ellipse
+       cx="560.56677"
+       cy="460.52332"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse154"
+       style="fill:#fff2cc;stroke:#d6b656" />
+    <g
+       transform="translate(520.06675,455.44013)"
+       id="g156">
+      <switch
+         id="switch158">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="79"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 79px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Inside contract</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="40"
+           y="12"
+           font-size="12px"
+           id="text160"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Inside contract</text>
+      </switch>
+    </g>
+    <ellipse
+       cx="725.50177"
+       cy="460.93195"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse166"
+       style="fill:#fff2cc;stroke:#d6b656" />
+    <g
+       transform="translate(681.00186,454.432)"
+       id="g168">
+      <switch
+         id="switch170">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="87"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 89px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Outside contract</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="44"
+           y="12"
+           font-size="12px"
+           id="text172"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Outside contract</text>
+      </switch>
+    </g>
+    <path
+       d="m 534.59363,596.44322 -0.0442,16.47 -245.49149,0 -0.0252,56.76352"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path174"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 429.57441,674.62425 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path176"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 584.62656,594.94322 -0.13258,36.26346 -155.01475,0 -0.029,41.21269"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path178"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 289.03167,674.25032 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path180"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="499.31332"
+       y="535.88324"
+       width="120"
+       height="60"
+       pointer-events="none"
+       id="rect182"
+       style="fill:#dae8fc;stroke:#6c8ebf" />
+    <path
+       d="m 700.60489,596.25692 0,17.08318 -96.6946,0.17678 -0.0215,57.5318"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path190"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 603.76489,675.35692 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path192"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 749.63262,597.08014 0,16.47 -11.22399,0 0.0183,55.88149"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path194"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 738.49899,674.73346 -3.67,-6.91 3.55,1.66 3.45,-1.83 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path196"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="663.98486"
+       y="536.69696"
+       width="120"
+       height="60"
+       pointer-events="none"
+       id="rect198"
+       style="fill:#dae8fc;stroke:#6c8ebf" />
+    <ellipse
+       cx="427.81332"
+       cy="716.38324"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse206"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(409.31332,708.88322)"
+       id="g208">
+      <switch
+         id="switch210">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="35"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 35px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Shrink</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="18"
+           y="12"
+           font-size="12px"
+           id="text212"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Shrink</text>
+      </switch>
+    </g>
+    <ellipse
+       cx="603.23492"
+       cy="716.44696"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse214"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(577.73489,708.94692)"
+       id="g216">
+      <switch
+         id="switch218">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="49"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 51px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep OC</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="25"
+           y="12"
+           font-size="12px"
+           id="text220"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep OC</text>
+      </switch>
+    </g>
+    <ellipse
+       cx="290.56332"
+       cy="715.63324"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse222"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(269.06332,708.13322)"
+       id="g224">
+      <switch
+         id="switch226">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="41"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 43px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">keep IC</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="21"
+           y="12"
+           font-size="12px"
+           id="text228"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep IC</text>
+      </switch>
+    </g>
+    <ellipse
+       cx="738.73492"
+       cy="715.94696"
+       rx="60"
+       ry="40"
+       pointer-events="none"
+       id="ellipse230"
+       style="fill:#f8cecc;stroke:#b85450" />
+    <g
+       transform="translate(721.23489,708.44692)"
+       id="g232">
+      <switch
+         id="switch234">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="33"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 33px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">shrink</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="17"
+           y="12"
+           font-size="12px"
+           id="text236"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Shrink</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(288.861,154.79505)"
+       id="g238">
+      <switch
+         id="switch240">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="20"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 20px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Yes</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="10"
+           y="12"
+           font-size="12px"
+           id="text242"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(442.41195,154.737)"
+       id="g244">
+      <switch
+         id="switch246">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="16"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 16px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">No</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="8"
+           y="12"
+           font-size="12px"
+           id="text248"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(259.02455,382.15421)"
+       id="g250">
+      <switch
+         id="switch252">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="16"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 16px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">No</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="8"
+           y="12"
+           font-size="12px"
+           id="text254"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(673.5,263.5)"
+       id="g256">
+      <switch
+         id="switch258">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="16"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 16px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">No</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="8"
+           y="12"
+           font-size="12px"
+           id="text260"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(728.08279,389.42654)"
+       id="g262">
+      <switch
+         id="switch264">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="16"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 16px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">No</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="8"
+           y="12"
+           font-size="12px"
+           id="text266"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(743.61483,626.92053)"
+       id="g268">
+      <switch
+         id="switch270">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="16"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 16px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">No</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="8"
+           y="12"
+           font-size="12px"
+           id="text272"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(495.20924,631.20555)"
+       id="g274">
+      <switch
+         id="switch276">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="16"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 16px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">No</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="8"
+           y="12"
+           font-size="12px"
+           id="text278"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+      </switch>
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       id="flowRoot4510"><flowRegion
+         id="flowRegion4512"><use
+           x="0"
+           y="0"
+           xlink:href="#rect40"
+           id="use4514"
+           width="100%"
+           height="100%" /></flowRegion><flowPara
+         id="flowPara4516">Is reflected point better then best  point?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       id="flowRoot4521"><flowRegion
+         id="flowRegion4523"><use
+           x="0"
+           y="0"
+           xlink:href="#rect106"
+           id="use4525"
+           width="100%"
+           height="100%" /></flowRegion><flowPara
+         id="flowPara4527">Is reflected point better than lousy point?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       id="flowRoot4543"
+       transform="translate(0.6765434,0)"><flowRegion
+         id="flowRegion4545"><use
+           x="0"
+           y="0"
+           xlink:href="#rect130"
+           id="use4547"
+           width="100%"
+           height="100%"
+           transform="translate(-0.6765434,0)" /></flowRegion><flowPara
+         id="flowPara4549">Is reflected point worse than worst point?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       id="flowRoot4585"><flowRegion
+         id="flowRegion4587"><use
+           x="0"
+           y="0"
+           xlink:href="#rect74"
+           id="use4589"
+           width="100%"
+           height="100%" /></flowRegion><flowPara
+         id="flowPara4591">Is expanded point better than best  point?</flowPara></flowRoot>    <path
+       d="m 557.64043,270.42801 0,11.77 -58.06128,0 -0.0598,22.36059"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path102-9"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 499.50786,309.46316 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path104-5"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 559.59096,500.75399 0,33.47379"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path126-5"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 724.45311,501.44118 0,29.40793"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path126-3"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 724.45265,535.05765 -3.47,-7.01 3.49,1.76 3.51,-1.73 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path128-8"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 559.5383,534.26215 -3.47,-7.01 3.49,1.76 3.51,-1.73 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path128-6"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <g
+       transform="translate(388.64297,598.36)"
+       id="g48-0">
+      <switch
+         id="switch50-3">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="20"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 20px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Yes</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="10"
+           y="12"
+           font-size="12px"
+           id="text52-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(641.64297,619.61)"
+       id="g48-6">
+      <switch
+         id="switch50-1">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="20"
+           height="12"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 20px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Yes</xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="10"
+           y="12"
+           font-size="12px"
+           id="text52-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+      </switch>
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       id="flowRoot3505"><flowRegion
+         id="flowRegion3507"><use
+           x="0"
+           y="0"
+           xlink:href="#rect182"
+           id="use3509" /></flowRegion><flowPara
+         id="flowPara3511">Is new point better than worst point?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       id="flowRoot3513"><flowRegion
+         id="flowRegion3515"><use
+           x="0"
+           y="0"
+           xlink:href="#rect198"
+           id="use3517" /></flowRegion><flowPara
+         id="flowPara3519">Is new point better than worst point?</flowPara></flowRoot>  </g>
+</svg>

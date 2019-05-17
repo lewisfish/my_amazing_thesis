@@ -19,29 +19,23 @@ fig, ax = plt.subplots()
 fig.subplots_adjust(left=.05, bottom=.05, right=.98, top=.99)
 
 
-def banana(x, y):
-    a = 1.
-    b = 100.
-    return (a - x)**2 + b * (y - x**2)**2
-
-#sum(100.0*(x[1:] - x[:-1]**2.0)**2.0 + (1 - x[:-1])**2.0
-
-
 def himmelblau(x, y):
     return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
-    # return sum((x[1:]**2 + x[:-1] - 11)**2 + (x[1:] + x[:-1]**2 - 7)**2)
 
 
 def sphere(x):
     return sum(x[1:]**2 + x[:-1]**2)
 
 
+def ackley(x, y):
+    return -20. * np.exp(-0.2 * np.sqrt(0.5 * (x**2 + y**2))) - np.exp(0.5 * (np.cos(2. * np.pi * x) + np.cos(2. * np.pi * y))) + np.exp(1.) + 20.
+
 npts = 201
 x, y = np.mgrid[-5:5:npts * 1j, -5:5:npts * 1j]
 x.shape = (npts**2)
 y.shape = (npts**2)
-# z = himmelblau(np.vstack((x, y)))
-z = himmelblau(x, y)
+# z = rosen(np.vstack((x, y)))
+z = ackley(x, y)
 x.shape = (npts, npts)
 y.shape = (npts, npts)
 z.shape = (npts, npts)
@@ -49,7 +43,7 @@ z.shape = (npts, npts)
 
 def animate(i):
 
-    x, y, fit = np.loadtxt("himmelblau-thesis.dat", unpack=True)
+    x, y, fit = np.loadtxt("ackley-thesis.dat", unpack=True)
 
     for i in range(0, len(x), 3):
         p1 = [x[i], y[i]]  # seperate points
@@ -63,15 +57,15 @@ def animate(i):
         ax.plot(xs, ys)
 
 
-ax.scatter(3., 2., marker="o", s=50, color="black", zorder=10)
-ax.scatter(-2.805118, 3.283186, marker="o", s=50, color="black", zorder=10)
-ax.scatter(-3.779310, -3.283186, marker="o", s=50, color="black", zorder=10)
-ax.scatter(3.584458, -1.848126, marker="o", s=50, color="black", zorder=10)
+ax.scatter(0., 0., marker="o", s=50, color="black", zorder=10)
+# ax.scatter(-2.805118, 3.113186, marker="o", s=50, color="black", zorder=10)
+# ax.scatter(-3.779310, -3.283186, marker="o", s=50, color="black", zorder=10)
+# ax.scatter(3.584458, -1.848126, marker="o", s=50, color="black", zorder=10)
 
 animate(0)
-levels = np.logspace(0.00001, 5.5, 10.)
+levels = np.logspace(0.35, 3.2, 30)
 ax.contour(x, y, z, levels, colors="k")
 
 fig.set_size_inches(width, height)
-fig.savefig('himmelblau.pdf')
+fig.savefig('ackley.pdf')
 plt.show()

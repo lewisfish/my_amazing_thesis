@@ -1,6 +1,6 @@
-\chapter{AF}
+\chapter{AmoebaMCRT, modelling autofluorescence in skin for novel biomarkers of cardiovascular disease}
 \label{chap:salvo}
-\section{Problem}
+\section{Introduction}
 
 % motivation
 % explain fluro method
@@ -13,7 +13,27 @@
 % future work
 
 
-\section{Nelder-Mead method}
+\section{Skin Model}
+
+So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
+However this is not the case.
+Tissue is very un-homogeneous, with non-uniform optical properties.
+However to create a 1 to 1 model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent part of the tissue.
+Therefore we need to make a compromise between reality and what is possible to model efficiently.
+To this end the section presents a 5 layer model of human skin. 
+Dermatologists usually split the skin into 5 layers: Stratum Corneum, Epidermis\footnote{The epidermis can be split into several more layers, however these layers are optical similar and are rather small so we model just one layer here.}, Papillary Dermis, Reticular Dermis, and Hypodermis, see~\cref{fig:skinexample}.
+
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Skin_layers.pdf}
+    \caption{Illustration of skin layers in human skin.}
+    \label{fig:skinexample}
+\end{figure}
+
+
+\section{Modelling Fluorescence}
+
+\section{Nelder-Mead Method}
 
 The \gls*{nm} method is an algorithm for unconstrained optimisation. 
 The algorithm is based upon iteratively updating a simplex. 
@@ -64,6 +84,20 @@ x_{oc} &= c + \beta(x_r - c)\label{eqn:outsidecontract}\\
 x_{ic} &= c + \beta(x_w - c)\label{eqn:insidecontract}
 \end{align}
 
+As the Nelder-Mead method has no inbuilt convergence criteria, this must be added.
+We use two different criteria based upon simplex size, and vertex fitness.
+The criteria for the simplex size is as; if the size of the simplex(~\cref{eqn:sizeof})
+Where $p_i$ and $p_{i+1}$ are vertices in the simplex that are connected by and edge. 
+
+\begin{equation}
+size=\sum\limits_{i=1}^{n+1}|p_{i}-p_{i+1}|
+\label{eqn:sizeof}
+\end{equation}
+
+If the size of the simplex falls below a pre-set value, then we preform a factorial test to see if the simplex should be restarted or if the algorithm should terminate.
+The factorial test checks the space around the current simplex to ensure that we have converged to a global minima.
+If the check fails then the algorithm is restarted with the current best point kept, and new vertices generated.
+
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.65\textwidth]{flowchart.pdf}
@@ -71,35 +105,55 @@ x_{ic} &= c + \beta(x_w - c)\label{eqn:insidecontract}
     \label{fig:NM-algo}
 \end{figure}
 
+The other convergence criteria is the a check to see if the best point is `good enough'.
+The current best point is compared to a pre-set fitness value.
+If the best point is better than the pre-set value then the algorithm terminates.
 
+\FloatBarrier
+\section{Validation}
 The~\gls*{nm} method was coded in Fortran, so that it could be easily interfaced with the~\gls*{mcrt} code developed as part of this thesis.
-To test that the method works as intended a number of trial functions were tested.
+To test that the method works as intended a number of trial functions were tested, see~\cref{tab:testfuncs}.
+This was achieved by selecting an initial simplex, and the method allowed to iterate until it converged.
+The results of this are shown in~\cref{fig:nmtest}.
 
 
 \begin{table}[]
-    \begin{tabular}{c|c|c|c}
-        Name                  & Formula                          & Global Minumum & Domain                    \\ \hline
-        Sphere       & $x^2+y^2$                 & $f(0,0)=0.$     & $-\infty \leq x,y \leq \infty $ \\
-        Rosenbrock   & $(a-x)^2+b(y-x^2)^2$      & $f(1,1)=0.$     & $-5 \leq x,y \leq 10 $ \\
-        Himmelblau's & $(x^2+y-11)^2+(x+y^2-7)^2$ & $f(3,2)=0., $  & $-6 \leq x,y \leq 6$     \\
-        & & $f(-2.805118,3.131312)=0.,$ &\\
-        & & $f(-3.779310,-3.283186)=0.,$&\\  
-        & & $f(3.584428,-1.848126)=0.$&
+    \begin{tabular}{|c|c|c|}
+    \hline
+        Name         & Formula                                                                & Global Minumum                \\ \hline
+        Sphere       & $x^2+y^2$                                                              & $f(0,0)=0.$                   \\ \hline
+        Rosenbrock   & $(a-x)^2+b(y-x^2)^2$                                                   & $f(1,1)=0.$                   \\ \hline
+        Ackely       & $ -20\exp\left[-0.2\sqrt{0.5\left(x^{2}+y^{2}\right)}\right] - $       & $f(0,0)=0.$                   \\
+                     & $\exp\left[0.5\left(\cos 2\pi x + \cos 2\pi y \right)\right] + e + 20$ &                               \\ \hline
+        Himmelblau's & $(x^2+y-11)^2+(x+y^2-7)^2$                                             & $f(3,2)=0., $                 \\
+                     &                                                                        & $f(-2.805118,3.131312)=0.,$   \\
+                     &                                                                        & $f(-3.779310,-3.283186)=0.,$  \\  
+                     &                                                                        & $f(3.584428,-1.848126)=0.$    \\ \hline
     \end{tabular}
+    \caption{Table of standard test functions for numerical optimisation.}
+    \label{tab:testfuncs}
 \end{table}
+
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.75\textwidth]{bannana.pdf}
-    \caption{Example of Nelder-Mead method on the Rosenbrock function. Global minimum is at (1,1), as represented by the black dot. Initial simplex is the blue triangle.}
-    \label{fig:bannana}
+    \includegraphics[width=0.75\textwidth]{all-nm-tests.pdf}
+    \caption{Contour plots of test functions with Nelder-Mead simplexes over plotted. Top left is the Ackely function, top right is the sphere function, bottom left is the Himmelblau's function, and the bottom right is the Rosenbrock function. Blue simplex is the initial simplex, and the large black dots represent the Global minima.}
+    \label{fig:nmtest}
 \end{figure}
+
+To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autoflurophores, we test the method with a known model.
+This model consists of three different fluorophores: NADH, FAD, and a fictions fluorophore that has similar properties to NADH and tyrosine.
+We first run this model through the MCRT to get an output spectrum.
+We then test the~\gls*{nm} method for $n=2$ and $n=3$.
+
+\section{Results}
+\section{Discussion}
+\section{Conclusion}
+
+We have presented out code, AmoebaMCRT, which combines the Nelder-Mead method and MCRT in order to determine the concentrations of naturally occurring fluorophores in human skin.
 
 
 %AF Code works, tested against toy model, may need further validation. 
 
 %No paper or aim for project. Need contact with Dundee/Ninewells to proceed.
-
-\section{Validation}
-\section{Practical application}
-\section{Conclusion}

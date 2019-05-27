@@ -16,9 +16,9 @@
 \section{Skin Model}
 
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
-However this is not the case.
+However this is not the case in reality.
 Tissue is very un-homogeneous, with non-uniform optical properties.
-However to create a 1 to 1 model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent part of the tissue.
+However to create a 1 to 1 model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent part of the tissue down to the cell level.
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
 To this end the section presents a 5 layer model of human skin. 
 Dermatologists usually split the skin into 5 layers: Stratum Corneum, Epidermis\footnote{The epidermis can be split into several more layers, however these layers are optical similar and are rather small so we model just one layer here.}, Papillary Dermis, Reticular Dermis, and Hypodermis, see~\cref{fig:skinexample}.
@@ -30,9 +30,94 @@ Dermatologists usually split the skin into 5 layers: Stratum Corneum, Epidermis\
     \label{fig:skinexample}
 \end{figure}
 
+Each of these layers have various amounts of chromophores and scatterers.
+To accurately model these various chromophores and scatterers, and therefore the skin, we must discuss the chemical makeup of the skin.
+
+\subsection{Stratum Corenum} % (fold)
+\label{sub:stratum}
+
+The top most layer of the skin is the stratum corenum.
+This layer mostly consists of dead skin cells (keratinocytes).
+The function of this layer is to be a protection barrier to prevent damage, infection and diffusion of unwanted chemicals.
+
+% subsection stratum_corenum (end)
+
+\subsubsection{Epidermis} % (fold)
+\label{ssub:epidermis}
+
+Below the stratum corenum is the epidermis.
+The epidermis consist of several layers that are optically similar so we restrict out model to modelling as one whole layer.
+The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum~\footnote{The stratum corenum is usually part of the epidermis, however as its optical properties are different than that of the epidermis we model it as a separate layer.}.
+The purpose of the epidermis is as before to provide a protective barrier to the underlying layers. 
+The epidermis contains melanin which protects the stem cell keratinocyte which divide to form keratinocyte which form much of the upper layers of the skin.
+In the stratum basale there is also melanocyte which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
+Other types of cells found i the epidermis are Langerhans cells and Merkel cells which are part of the immune system and nervous system respectively.
+
+% subsubsection epidermis (end)
+
+\subsection{Dermis} % (fold)
+\label{sub:dermis}
+
+The dermis is split into three different layers in our model: the papillary dermis, reticular dermis and the hypodermis.
+
+The papillary dermis has blood
+
+The reticular dermis has blood
+
+The hypodermis consists of fat and  
+
+% subsection dermis (end)
+
+\subsubsection{Optical Properties} % (fold)
+\label{sub:optical_properties}
+
+\begin{equation}
+\mu_{a,oxy/deoxy}=150\ \ln10\ \frac{\epsilon}{64458}
+\label{eqn:oxy}
+\end{equation}
+
+\begin{equation}
+\mu_{a,b}(\lambda) = SO_2\mu_{a,Oxy}+(1-SO_2)\mu_{a,DeOxy}
+\label{eqn:blood}
+\end{equation}
+
+\begin{equation}
+\mu_{a,Bilirubin}(\lambda)=\frac{\epsilon_{bilirubin}}{585}\ ln10\ C_{bilirubin}
+\label{eqn:bili}
+\end{equation}
+
+\begin{equation}
+\mu_{a,\beta-Caro}(\lambda)=\frac{\epsilon_{\beta-Caro}}{537}\ ln10\ C_{\beta-Caro}
+\label{eqn:caro}
+\end{equation}
+
+\begin{equation}
+\mu_{a,mel}(\lambda)=6.66\times10^{11} \times \lambda^{-3.33}
+\label{eqn:eqn:melanin}
+\end{equation}
+
+\begin{equation}
+\mu_{a,b}=7.84\times10^{8}\times\lambda^{-3.255}
+\label{eqn:base}
+\end{equation}
+
+
+\begin{figure}[!htpb]
+	\centering
+	% \includegraphics[width=0.75\textwidth]{}
+	\caption{Absorption coefficients for the various chromophores found in skin.}
+	\label{fig:absorcoeff}
+\end{figure}
+
+
+
+
+
+% subsubsection optical_properties (end)
+
 
 \section{Modelling Fluorescence}
-
+TO model Fluorescence, we treat the physical process as an absorption event that changes the wavelength, not to dissimilar to the real life process.
 \section{Nelder-Mead Method}
 
 The \gls*{nm} method is an algorithm for unconstrained optimisation. 
@@ -143,7 +228,23 @@ The results of this are shown in~\cref{fig:nmtest}.
 \end{figure}
 
 To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autoflurophores, we test the method with a known model.
-This model consists of three different fluorophores: NADH, FAD, and a fictions fluorophore that has similar properties to NADH and tyrosine.
+This model consists of three different fluorophores: NADH (nicotinamide adenine dinucleotide), FAD (flavin adenine dinucleotide), and a fictitious fluorophore that has similar properties to NADH and tyrosine, such that the excitation spectrum is that of NADH and the emission spectrum is that of tyrosine.
+The three fluorophores are distributed in the stratum corenum (NADH), epidermis (FAD), and the papillary dermis (fictitious).
+The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $x$, FAD $y$, and the fictitious fluorophore has a concentration of $z$.
+
+As many models need to be run in order to determine whether a global maxima has been reached using the NM method and the fluorophore concentration low many packets need to be run.
+Therefore the ~\gls*{mcrt} algorithm has to be computationally efficient in order to arrive at an answer within a reasonable time.
+To this end the 3D skin model is shrunk to a 1D model so that the optical integration routine can efficiently move the photon through the simulated medium.
+The optical properties of the incident wavelength are also stored so that when a new photon is started the optical properties can easily be adjusted without need for any calculation.
+
+
+\begin{figure}[!htbp]
+	\centering
+	% \includegraphics[width=0.75\textwidth]{}
+	\caption{Example of toy model for testing NM method. The three peaks correspond to the fictitious fluorophores, NADH, and FAD respectively.}
+	\label{fig:figure1}
+\end{figure}
+
 We first run this model through the MCRT to get an output spectrum.
 We then test the~\gls*{nm} method for $n=2$ and $n=3$.
 

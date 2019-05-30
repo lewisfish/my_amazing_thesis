@@ -31,7 +31,7 @@ Dermatologists usually split the skin into 5 layers: Stratum Corneum, Epidermis\
 \end{figure}
 
 Each of these layers have various amounts of chromophores and scatterers.
-To accurately model these various chromophores and scatterers, and therefore the skin, we must discuss the chemical makeup of the skin.
+To accurately model these various chromophores and scatterers, and therefore the skin, we must discuss the chemical makeup and spatial structure of the skin.
 
 \subsection*{Stratum Corenum} % (fold)
 \label{sub:stratum}
@@ -47,7 +47,7 @@ The function of this layer is to be a protection barrier to prevent damage, infe
 
 Below the stratum corenum is the epidermis.
 The epidermis consist of several layers that are optically similar so we restrict out model to modelling as one whole layer.
-The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum~\footnote{The stratum corenum is usually part of the epidermis, however as its optical properties are different than that of the epidermis we model it as a separate layer.}.
+The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum\footnote{The stratum corenum is usually part of the epidermis, however as its optical properties are different than that of the epidermis we model it as a separate layer.}.
 The purpose of the epidermis is as before to provide a protective barrier to the underlying layers. 
 The epidermis contains melanin which protects the stem cell keratinocyte which divide to form keratinocyte which form much of the upper layers of the skin.
 In the stratum basale there is also melanocyte which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
@@ -71,6 +71,10 @@ The hypodermis consists of fat and
 \subsubsection*{Optical Properties} % (fold)
 \label{sub:optical_properties}
 
+With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model, models the optical properties of skin.
+
+To model blood, we first split blood into Deoxygenated and Oxygenated. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from%~\cite{}
+
 \begin{equation}
 \mu_{a,oxy/deoxy}=150\ \ln10\ \frac{\epsilon}{64458}
 \label{eqn:oxy}
@@ -80,6 +84,9 @@ The hypodermis consists of fat and
 \mu_{a,b}(\lambda) = SO_2\mu_{a,Oxy}+(1-SO_2)\mu_{a,DeOxy}
 \label{eqn:blood}
 \end{equation}
+
+The next chromophores are bilirubin and $\beta$-carotene.
+The absorption coefficients are calculated using the blah 
 
 \begin{equation}
 \mu_{a,Bilirubin}(\lambda)=\frac{\epsilon_{bilirubin}}{585}\ ln10\ C_{bilirubin}
@@ -91,10 +98,14 @@ The hypodermis consists of fat and
 \label{eqn:caro}
 \end{equation}
 
+To model melanin`'s absorption coefficient we use~\cref{eqn:eqn:melanin}, taken from...
+
 \begin{equation}
 \mu_{a,mel}(\lambda)=6.66\times10^{11} \times \lambda^{-3.33}
 \label{eqn:eqn:melanin}
 \end{equation}
+
+Finally we use a base absorption coefficient to model the absorption due to the other parts of the skin that contribute to its optical properties, but individually do not have a large effect.
 
 \begin{equation}
 \mu_{a,b}=7.84\times10^{8}\times\lambda^{-3.255}
@@ -117,7 +128,92 @@ The hypodermis consists of fat and
 
 
 \section{Modelling Fluorescence}
-TO model Fluorescence, we treat the physical process as an absorption event that changes the wavelength, not to dissimilar to the real life process.
+
+Fluroescene is the process in which light of a certain wavelength is incident on a molecule, the molecule absorbs the light and re-emits the light at a new longer wavelength.
+
+\Cref{fig:Jabo} shows an example of Jablonski diagram.
+
+\begin{figure}[!htpb]
+	\centering
+	\includegraphics[width=0.45\textwidth]{jabo-diag.pdf}
+	\caption{Jablonski diagram for PPIX. a) excitation of the ground state via absorption of a photon, b) non-radiative transition, and c) fluorescence.}
+	\label{fig:Jabo}
+\end{figure}
+
+To model fluorescence from multiple fluorophores requires a change of the \gls*{mcrt} code presented thus far.
+This change is to the interaction portion of the algorithm, so that it will now include the option for a packet to undergo fluorescence.
+To calculate whether a packet absorbs, scatters or fluoresces, first the probability of each of these events must be calculated.
+Discussion of scattering and absorption (by the bulk medium) was described in~\cref{sec:opticalprops}.
+To calculate the probability of fluorescence, we first assume that the quantum yield of the molecule is unity.
+This is physically unrealistic, however it does not affect the simulations accuracy, as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ration would be worse than if we assume a quantum yield of unity.
+To calculate the probability of fluorescence, the absorption coefficient of the florescent molecule must be calculated.
+This is shown in~\cref{eqn:flurodef}:
+
+\begin{equation}
+\mu_f=\ln\left(10\right) C \varepsilon
+\label{eqn:flurodef}
+\end{equation}
+
+Where $C$ is the concentration of the fluorophore, $\varepsilon$ is the extinction coefficient of the fluorophore, and $ln(10)$ is the natural logarithm of 10\footnote{This factor appears as historically $\varepsilon$ was measured in base 10~\cite{jacques2013optical}.}.\\
+
+The next step is to calculate the total attenuation coefficient for a given species as in~\cref{eqn:totdef}
+
+\begin{equation}
+\mu_{t_i}=\mu_{s_i}+\mu_{a_i}+\mu_{f_i}
+\label{eqn:totdef}
+\end{equation}
+
+Where as usual $\mu_a$ and $\mu_s$ are the absorption and scattering coefficients, and $\mu_f$ is the fluorescence coefficient as defined in~\cref{eqn:flurodef}.
+As the absorption coefficient of fluorophores are small in comparison to the medium, and that the absorption coefficient of fluorescent molecules are generally much larger than that of their scattering coefficient, we assume that the scattering coefficient is negligible.
+Finally we calculate the probability of interacting with a given species using~\cref{eqn:totspec}
+
+\begin{equation}
+P_i=\frac{\mu_{t,i}}{\sum\limits_{i=1}^{N} \mu_{t,i}}
+\label{eqn:totspec}
+\end{equation}
+
+Where $P_i$ is the probability of interacting with the $i^{th}$ species, the numerator is the attenuation coefficient for $i^{th}$ species, and the denominator is the total attenuation coefficient for all the species.
+
+\cref{algo:speciespick} shows the process used to determine which species to interact with.
+
+\newpage
+
+\begin{center}
+\begin{algorithm}[H]
+\SetAlgoLined
+  set $\mu_{tot}$\;
+  set all $P_i$'s\;
+  set $\xi_1$\;
+  \uIf{$\xi_1 < P_1$}{
+    set $\xi_2$\;
+    \uIf{$\xi_2 < a_m$}{
+      Scatter in medium\;
+     }
+     \Else{
+      Absorb in medium\;
+     }
+  }
+  \uElseIf{$\xi_1 < P_1 + P_2$}{
+    Species 1 fluoresces\;
+  }
+  \uElseIf{$\xi_1 < P_1 + P_2 + P_3$}{
+    Species 2 fluoresces\;
+  }
+  \uElseIf{$\xi_1 < P_1 + P_2 + P_3 + ... + P_n$}{
+    Species n fluoresces\;
+  }
+  \Else{
+    Error\;
+  }
+\
+\caption{\textit{An algorithm to determine which species to interact with. $P_1$ is the probability of interacting with the bulk medium, $P_2$ to $P_n$ is the probability of interacting with a fluorescent species, $a_m$ is the albedo of the bulk medium, $\xi_i$ is a random number, and $\mu_{tot}$ is the total attenuation coefficient of all the species summed.}}
+\label{algo:speciespick}
+\end{algorithm}
+\end{center}
+
+This method allows an arbitrary number of fluorophores to be modelled.
+
+
 \section{Nelder-Mead Method}
 
 The \gls*{nm} method is an algorithm for unconstrained optimisation. 

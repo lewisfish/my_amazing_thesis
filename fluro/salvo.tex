@@ -220,13 +220,17 @@ The \gls*{nm} method is an algorithm for unconstrained optimisation.
 The algorithm is based upon iteratively updating a simplex. 
 A simplex is a structure in $n-dimensional$ space, consisting of $n+1$ points that are not in the same plane. 
 Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, etc.. 
-The Nelder-Mead method is a gradient free method, meaning that it does not require derivative to be calculated and that the search space does not need to be smooth.
+The Nelder-Mead method is a gradient free method, meaning that it does not require derivatives to be calculated and that the search space does not need to be smooth.
+This makes it ideal for problems where derivates are not able to be computed easily, or the search space is not smooth.
+However the NM method can also get stuck at local minima so care must be taken to avoid this.
 
-The algorithm works by removing the worst vertex of the simplex and replacing it with a `better' vertex calculated via a number of different operations.
-These operations can be seen in~\cref{fig:NM-operations}.
+The NM algorithm works by removing the worst vertex of the simplex and replacing it with a `better' vertex calculated via a number of different operations.
+These operations can be seen in~\cref{fig:NM-operations}.\\
 
 The first step of the~\gls*{nm} method is to sort the initial vertices according to their fitness.
-For $n=2$, we define $x_w$ as the `worst' point, $x_l$ and the `lousy' point, and $x_b$ the `best' point, such that $f(x_b)\leq f(x_l)\leq f(x_w)$, where $f(x)$ is evaluating the `fitness' of a point $x$.
+For $n=2$, we define $x_w$ as the `worst' point, $x_l$ and the `lousy' point, and $x_b$ the `best' point, such that $f(x_b)\leq f(x_l)\leq f(x_w)$, where $f(x)$ is evaluating the `fitness' of a point $x$. 
+The fitness function varies from problem to problem, and usually takes the form of the function that is being optimised.
+
 With the vertices sorted, the centroid of the simplex is calculated as in~\cref{eqn:centroid}.
 The centroid is the mean of all the vertices bar the `worst' point.
 
@@ -239,7 +243,7 @@ The centroid is the mean of all the vertices bar the `worst' point.
 
 The next step is to move the simplex via a reflection.
 To calculate the new vertex via reflection~\cref{eqn:reflect} is used, where $\alpha$ is the reflection factor.
-If this new point, $x_r$, is better\footnote{Here better means the point has a lower fitness score, as we use $\chi^2$ metric to assess the fitness of a point.} than the current `best' point then we calculate a new point in the same direction but further using the expansion operation~\cref{eqn:expand}, where $\gamma$ is the expansion factor.
+If this new point, $x_r$, is better\footnote{Here better means the point has a lower fitness score} than the current `best' point then we calculate a new point in the same direction but further using the expansion operation~\cref{eqn:expand}, where $\gamma$ is the expansion factor.
 If this new point, $x_e$, is better than the `best' point then we replace $x_w$ with $x_e$ and start the process again.
 However is $x_e$ is not better than the `best' point, then we discard it and replace the worst point with $x_r$ the reflected point.
 
@@ -255,7 +259,7 @@ If $x_{oc}$ is better than $x_w$, then we keep it, otherwise again we shrink aro
 
 The process described above is summarised in~\cref{fig:NM-algo}.
 Standard values for the factors are: $\alpha=1$, $\beta=\frac{1}{2}$, and $\gamma=2$.
-Though in practise these values are adjusted for the problem at hand.
+Though in practice these values are adjusted for the problem at hand.
 
 \begin{align}
 c &= \frac{1}{n}\sum \limits_{i=1,i\neq w}^{n+1} x_i \label{eqn:centroid}\\
@@ -267,14 +271,14 @@ x_{ic} &= c + \beta(x_w - c)\label{eqn:insidecontract}
 
 As the Nelder-Mead method has no inbuilt convergence criteria, this must be added.
 We use two different criteria based upon simplex size, and vertex fitness.
-The criteria for the simplex size is as; if the size of the simplex(~\cref{eqn:sizeof})
-Where $p_i$ and $p_{i+1}$ are vertices in the simplex that are connected by and edge. 
+The criteria for the simplex size is as; The size of the simplex is calculated using~\cref{eqn:sizeof}:
 
 \begin{equation}
 size=\sum\limits_{i=1}^{n+1}|p_{i}-p_{i+1}|
 \label{eqn:sizeof}
 \end{equation}
 
+Where $p_i$ and $p_{i+1}$ are vertices in the simplex that are connected by an edge. 
 If the size of the simplex falls below a pre-set value, then we preform a factorial test to see if the simplex should be restarted or if the algorithm should terminate.
 The factorial test checks the space around the current simplex to ensure that we have converged to a global minima.
 If the check fails then the algorithm is restarted with the current best point kept, and new vertices generated.
@@ -323,15 +327,28 @@ The results of this are shown in~\cref{fig:nmtest}.
     \label{fig:nmtest}
 \end{figure}
 
+Some of these functions (Sphere, and Rosenbrock's) can also be extended to arbitrary dimensions. These functions were used to check that the NM method works as intended in these higher dimensions where the NM method will primarily be used in this thesis.
+
 To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autoflurophores, we test the method with a known model.
 This model consists of three different fluorophores: NADH (nicotinamide adenine dinucleotide), FAD (flavin adenine dinucleotide), and a fictitious fluorophore that has similar properties to NADH and tyrosine, such that the excitation spectrum is that of NADH and the emission spectrum is that of tyrosine.
 The three fluorophores are distributed in the stratum corenum (NADH), epidermis (FAD), and the papillary dermis (fictitious).
-The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $x$, FAD $y$, and the fictitious fluorophore has a concentration of $z$.
+The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $1.05~\mu M$, FAD $0.525~m M$, and the fictitious fluorophore has a concentration of $0.125~mM$. % check units
+The fitness function chosen to check whether the NM method is converging is as:
 
-As many models need to be run in order to determine whether a global maxima has been reached using the NM method and the fluorophore concentration low many packets need to be run.
+\begin{equation}
+fitness = \sum\limits_{i=1}^{n}(x_i-m_i)^2
+\end{equation}
+
+Where $x_i$ is a data point at a wavelength $\lambda_i$ produced by the MCRT, and $m_i$ is a data point in the model at a wavelength $\lambda_i$.
+
+As many models need to be run in order to determine whether a global maxima has been reached using the NM method and that the fluorophore concentration is low, means that many packets need to be run to achieve a good single to noise ratio.
+These two constraints result in a computational load that is infeasible to run. 
 Therefore the ~\gls*{mcrt} algorithm has to be computationally efficient in order to arrive at an answer within a reasonable time.
 To this end the 3D skin model is shrunk to a 1D model so that the optical integration routine can efficiently move the photon through the simulated medium.
 The optical properties of the incident wavelength are also stored so that when a new photon is started the optical properties can easily be adjusted without need for any calculation.
+Finally a filter is employed on the output fluorescence spectrum to smooth the noise out.
+The filter used is a Savitzky–Golay filter.
+This filter fits multiple low-degree polynomials to the subsets of the output, thus smoothing the data. 
 
 
 \begin{figure}[!htbp]
@@ -341,10 +358,23 @@ The optical properties of the incident wavelength are also stored so that when a
 	\label{fig:figure1}
 \end{figure}
 
-We first run this model through the MCRT to get an output spectrum.
+The above model is first run through the MCRT to get an output target spectrum.
 We then test the~\gls*{nm} method for $n=2$ and $n=3$.
 
+
 \section{Results}
+
+Before running the NM method on the experimental data, the fluence of the input and fluorescence light is analyses alongside the location as a function of depth of the fluorescent light.
+
+\Cref{fig:uvpen} show the fluence as a function of depth for the indicent UV light.
+The figure shows that most of the incident light is contained within the top three layers, with little getting to the Reticular dermis, with none reaching the Hypodermis.
+
+\Cref{fig:fadnadhboth} shows the fluence of detected fluorescent light (see~\cref{app:lightdect} for discussion of how this is tracked.).
+The figure shows that the fluence is highest in the Papillary dermis this is due to a number of reasons.
+First the refractive indices of the layers are different, this can lead to light getting "trapped" in a layer as it maybe reflected of the layer boundary.
+Secondly, fluorescent light is emitted isotropically which means that fluorescent light emitted in the upper layers of the skin, may be emitted in the direction of the Papillary dermis.
+Finally the optical properties also have an effect on the detected light fluence.
+***expand on this more once I have plotted the optical properties ***
 
 \begin{figure}[!htpb]
     \centering

@@ -10,8 +10,6 @@ def theory(alpha, beta):
     return np.cos(beta)**2 * (np.sin(alpha) / alpha)**2
 
 
-fig, ax = plt.subplots()
-
 width = 6.510  # inches
 height = width / 1.618
 
@@ -21,10 +19,11 @@ plt.rc('xtick', labelsize=8)
 plt.rc('ytick', labelsize=8)
 plt.rc('axes', labelsize=10)
 
-file = "bin/dslit-1.dat"
+file = "/home/lewis/phdshizz/bessel beam/bin/double-slit.dat"
 data = np.fromfile(file, sep="", dtype=np.float64)
 data = data.reshape((2051, 2051))
 
+fig, ax = plt.subplots()
 fig.subplots_adjust(left=.08, bottom=.1, right=.99, top=.99)
 
 
@@ -42,6 +41,7 @@ bet = (k * d * x) / (2. * np.sqrt(L**2 + x**2))
 
 
 yhat = scipy.signal.savgol_filter(data[1025, :], 61, 3)
+x = np.linspace(-.5, .5, 2051)
 
 ax.plot(x, theory(alp, bet), label="Theory")
 ax.scatter(x[::5], yhat[::5] / np.amax(yhat), marker="x", color="orange", label="MCRT data")

@@ -16,7 +16,7 @@ However this is computationally intensive and requires a grid resolution of $\si
 \gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
 \gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
 However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be utilised for.
-\Gls*{bpm} is also generally is a uni-directional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issue in the models accuracy~\cite{van1981beam,glaser2016fractal}.
+\Gls*{bpm} is also generally a uni-directional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issues in the model's accuracy~\cite{van1981beam,glaser2016fractal}.
 
 \medskip
 
@@ -27,8 +27,8 @@ For example, traditional \gls*{mcrt} methods cannot model Gaussian beams, as Gau
 Various authors have tried to model complex beams that require wavelike behaviours using~\gls*{mcrt}.
 Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}.
 However all these techniques either inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt} usually is).
-There has been some attempts of using the techniques presented in this chapter, to modify MCRT algorithms into algorithms that can model diffraction and interference~\cite{mignon2016fractional,peter2014combining,mahan2018monte,mout2016simulating,fischer2008monte}.
-These authors have good results, but either do not detail their methods, attempt to treat scattering or are in the x-ray regime.
+There have been some attempts at using the techniques presented in this chapter, to modify MCRT algorithms into algorithms that can model diffraction and interference~\cite{mignon2016fractional,peter2014combining,mahan2018monte,mout2016simulating,fischer2008monte}.
+These authors have good results, but either do not detail their methods, do not attempt to treat scattering or are in the x-ray regime.
 
 
 This chapter modifies the MCRT method, from a ``ballistic'' photon method into a quasi-ballistic/wave photon method so that the wave behaviour of photons can be modelled.
@@ -58,7 +58,7 @@ E_0 = \frac{1}{N}\sqrt{\frac{P}{A}}
 Where $N$ is the number of packets run in a simulation, $P$ is the power of the incident beam, and $A$ is the area of the beam.
 This initial electric field is needed to compare different beams as in~\cref{sec:compBeams}, and to normalise for number of packets run.
 
-The phase is then tracked as the packets moves through the medium, over a distance $l$.
+The phase is then tracked as the packet moves through the medium, over a distance $l$.
 ~\Cref{eqn:phase} shows how the phase is calculated.
 
 \begin{equation}
@@ -123,8 +123,8 @@ Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-F
 The Huygens-Fresnel principle allows the modelling of diffraction in both the near and far field.
 As the principle states that every point on the wavefront is a source of secondary spherical waves, this implies that there are ``backward'' waves.
 These ``backward'' waves are un-physical, and there is no experimental evidence of their existence.
-Thus Fresnel introduced and inclination factor to eliminate these ``backward'' waves.
-This inclination factor was later put on rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
+Thus Fresnel introduced an inclination factor to eliminate these ``backward'' waves.
+This inclination factor was later put on a rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
 \Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane as derived by Kirchoff with the inclination factor.
 
 \begin{equation}
@@ -156,7 +156,7 @@ When the packet lies on the surface of the lens, the Huygens-Fresnel principle i
 
 Our algorithm uses the Huygens-Fresnel principle and the tracking of complex phase to simulate diffraction effects, that would otherwise be absent from the simulation.
 The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point, essentially numerically simulating~\cref{eqn:kirchhoffeqn}.
-These two concepts underpin the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for various complex beam propagation.
+These two concepts underpin the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for propagation of various complex beams.
 
 \begin{figure}[!ht]
     \centering
@@ -169,8 +169,8 @@ These two concepts underpin the algorithm that allows various complex beams, and
 
 \subsubsection*{Double Slit Experiment}
 
-The first test of our quasi-wave/particle MCRT algorithm, $\varphi MC$, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where monochromatic plane wave of light is incidence on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field. The so called Fraunhofer regime.
+The first test of our quasi-wave/particle MCRT algorithm\footnote{Though this example is not strictly MCRT, but rather ray tracing, as it involves no scattering. The full MCRT method will be used in later sections.}, $\varphi MC$, is to compare our simulation to a double slit experiment.
+The double slit experiment, is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field, the so called Fraunhofer regime.
 The intensity pattern on the detector screen is as in~\cref{eqn:doubleslit}:
 
 \begin{equation}
@@ -302,8 +302,9 @@ Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves in~
 
 In $\varphi MC$, the above experiment is simulated. 
 A square slit is uniformly sampled in the $x$, and $z$ direction in order to get the packets initial position. 
-A random direction is then sampled, ensuring that the direction points towards the detector screen.
-As we assume a plane wave is incident of the aperture and each photon is given the same initial complex electric field.
+A random direction is then sampled, by uniformly picking a point on the detector screen.
+This ensures the algorithm does not waste time by calculating packets trajectories that are not registered by the detector.
+We assume a plane wave is incident on the aperture and each photon is given the same initial complex electric field.
 
 The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture as Huygens wavelets.
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
@@ -325,10 +326,8 @@ This is due to the diffraction pattern becoming ``noisy'' and thus needs a highe
 \section{Gaussian Beams}
 
 Now that the method of tracking the complex phase of packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
-
 The first beam type we will examine is the Gaussian beam.
 Gaussian beams are important as most laser beams have the profile of the fundamental (TEM$_{00}$) Gaussian mode.
-
 This section will show that $\varphi MC$ can accurately model all the physical phenomena of Gaussian beams, within the \gls*{mcrt} regime.
 
 Before discussing how $\varphi MC$ can model a Gaussian beam, the theory and various physical parameters of the beam must be described. 
@@ -362,7 +361,7 @@ E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\va
 \medskip
 
 ~\Cref{eqn:gwaist,eqn:gouyphase,eqn:rayleighrange,eqn:beamwaist,eqn:radiuscurve} give the definitions of key physical properties as outlined above or as shown in~\cref{fig:gbeamills}. 
-$z_r$ is the Rayleigh length,~\cref{eqn:rayleighrange}, and defines the point in which the beams waist grows to $\sqrt{2}$ times the size of the beam at its waist.
+$z_r$ is the Rayleigh length,~\cref{eqn:rayleighrange}, and defines the point at which the beams waist grows to $\sqrt{2}$ times the size of the beam at its waist.
 The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, where $f$ is the focal length and $D$ is the $\tfrac{1}{e^2}$ diameter of the beam at the lens.
 
 \begin{align}
@@ -382,7 +381,7 @@ The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, whe
 
 With the physical properties of the Gaussian beam outlined, a Gaussian beam can now be modelled using our algorithm.
 To simulate a Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
-The lens used is convex-plano lens, with radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
+The simulated lens used is a convex-plano lens, with radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
 A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $0.5~mm$, is incident on the lens.
 Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.11\mu m$.
 
@@ -396,11 +395,11 @@ Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.11\mu m$.
 To model the lens in $\varphi MC$ the photons initial z position is set just in front of the lens.
 The $x$ and $y$ are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
-This is because the electric field is $\propto e^{\tfrac{-r^2}{4\sigma'^2}}$, and the intensity is $\propto e^{\tfrac{-r^2}{2\sigma^2}}$.
-Thus for the input electric field waist to be equal to the intensity waist, i.e $\sigma'=\sigma$, $\sigma'=\sqrt{2}\sigma$.
+This is because the electric field is $\propto \exp{\left(\tfrac{-r^2}{4\sigma'^2}\right)}$, and the intensity is $\propto \exp{\left(\tfrac{-r^2}{2\sigma^2}\right)}$.
+Thus for the input electric field waist to be equal to the intensity,  $\sigma'=\sqrt{2}\sigma$.
 The packet is given an electric field of the form~\cref{eqn:initefield}, with $P=1~mW$, and $A=\tfrac{1}{2}\pi w_0^2$.
 
-The photon is then propagated to the surface of the convex side of the lens.
+The packet is then propagated to the surface of the convex side of the lens.
 This is achieved by finding the intersection of a sphere, which represents the convex side of the lens, and the packets path.
 With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
 If the packet is reflected the packet is killed and the process starts again.
@@ -448,7 +447,7 @@ A convex-plano lens was used to focus a Gaussian beam, but it is simple to imple
 
 Bessel beams have been the subject of intense research since their discovery in 1987~\cite{durnin1987diffraction,durnin1987exact}. 
 Durnin noticed that the solution to the Helmholtz equation of the Bessel type were independent of the direction of propagation.
-This means is that the central core of the beam is generally more diffraction resistant when compared to a Gaussian beam with a similar spot size.
+This means that the central core of the beam is generally more diffraction resistant when compared to a Gaussian beam with a similar spot size.
 Bessel beams also have a property of ``self-healing'', this means if an obstruction is placed in the path of the central lobe of the Bessel beam, the Bessel beam can then ``heal'' and reform past the obstruction~\cite{mcgloin2005bessel}.
 However it is physically impossible to create a ``real'' Bessel beam, as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require infinite amount of power~\cite{durnin1987diffraction}.
 Therefore all Bessel beams that are created experimentally are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
@@ -520,7 +519,7 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 
     \medskip
 
-A Bessel beam can be formed by an axicon lens or by diffraction through a ring.
+A Bessel beam can be formed by an axicon lens (see~\cref{fig:besselgeo}) or by diffraction through a ring.
 All the simulations of Bessel beams in this thesis use the axicon method of generating a Bessel beam, thus only axicons will be discussed.
 \Cref{fig:besselgeo} shows the geometry of a Bessel beam formed by an axicon.
 Using simple geometry and Snell's law the following equations can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
@@ -540,7 +539,7 @@ The propagation angle of the conical waves, $\beta$ can be calculated using Snel
 \end{equation}
 
 The central core of a Bessel beam is defined as the distance to the first zero of the Bessel beam.
-\Cref{eqn:coreradius} shows the radius of the core, where $2.405$ is derived from position of the first zero of the Bessel function.
+\Cref{eqn:coreradius} shows the radius of the core, where $2.405$ is derived from the position of the first zero of the Bessel function.
 
 \begin{equation}
 r_o = \frac{2.405}{k\ sin\left(\beta\right)}
@@ -554,11 +553,11 @@ Finally, the spacing between Bessel beam rings is:
 
 \subsection{Validation}
 
-To ensure that the method described in~\cref{sec:bestheory} works as intended for Bessel beams several tests are run against theoretical expressions and experimental data.
+To ensure that the method described in~\cref{sec:bestheory} works as intended for Bessel beams several tests are compared to theoretical expressions and experimental data.
 
-\subsubsection*{Comparison to theoretical Bessel beam}
+\subsubsection*{Comparison to a theoretical Bessel beam}
 
-To compare against a theoretical Bessel beam, a Bessel beam is modelled in $\varphi MC$, and propagated through air into the ``Bessel region'' and then propagated into the far field to ensure the beam follows the theory in both these regions.
+To compare with a theoretical Bessel beam, a Bessel beam is modelled in $\varphi MC$, and propagated through air into the ``Bessel region'' and then propagated into the far field to ensure the beam follows the theory in both these regions.
 
 \Cref{fig:besselgeo} shows the set-up for the \textit{in-silico} experiments.
 The Bessel beam is created with an axicon (conical) lens with an opening angle ($\alpha$) of $5^{\circ}$, and a radius of $12.7~mm$.
@@ -566,13 +565,19 @@ The input beam is Gaussian in profile with a $\tfrac{1}{e^2}$ diameter of $1~mm$
 The Bessel beam is then propagated to a detector screen $10~mm$ away from the tip of the axicon, which is in the middle of the ``Bessel region'' for the first test.
 For the second test the Bessel beam is propagated past the ``Bessel region'' into the far field.
 The detector screen has a size of $40~\mu m$ $\times$ $40~\mu m$ with a bin resolution of $1~\mu m$.
-$8^{10}$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeon 3.5Ghz machine.
+$8\times 10^{10}$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeon 3.5Ghz machine.
 
 \medskip
 
-~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation when $\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1$, with the simulation similarly normalised to the maximum intensity of the image generated. ~\Cref{fig:besselCompare} shows this comparison.
+~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation setting the various constants to (see~\cref{eqn:normalise}), with the simulation similarly normalised to the maximum intensity of the image generated. ~\Cref{fig:besselCompare} shows this comparison.
 
-\Cref{fig:farfield} shows the profile of the Bessel beam in the far field, where the theory predicts it becomes a circular beam.
+\begin{equation}
+\tfrac{4k_rPz}{w_0z_{max}}e^{-2\left(\tfrac{z}{z_{max}}\right)^2}=1
+\label{eqn:normalise}
+\end{equation}
+
+
+\Cref{fig:farfield} shows the profile of the Bessel beam in the far field, where the theory predicts it becomes a ring.
 $\varphi$MC can also model the self-healing property of Bessel beams, this is shown in~\cref{fig:selfheal}.
 
 \begin{figure}[!htbp]
@@ -614,7 +619,7 @@ The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$.
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
 The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra}.
-~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.
+~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.%“Independent” and “dependent” scattering by particles in a multi-particle group
 Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime.
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with our algorithm.
@@ -654,7 +659,7 @@ Images of the Bessel beam as it emerges from the cuvette are taken for compariso
 \end{figure}
 
 To model within $\varphi MC$, we simplify the experimental setup considerably.
-The simulation models the propagation of a photon packet through the axicon to its conical surface. 
+The simulation models the propagation of photon packets through the axicon to its conical surface. 
 On the conical surface the Huygens-Fresnel principle is invoked, and the packet is sampled onto the surface of the medium (cuvette).
 The sampling of the photon onto the surface of the medium, speeds the algorithm up, as it does not need to simulate the photons that would ``miss'' the medium.
 From there the usual~\gls*{mcrt} method propagates the packet through the medium while tracking its phase, and scattering the packet until it leaves the medium.
@@ -677,20 +682,20 @@ Once all the packets have been run, the phase is converted into intensity, as in
 Originally the medium was modelled as in the experiment, a $2~mm^3$ volume.
 The image created was thus a $2001 \times 2001$ with a resolution of $1~\mu m$.
 To achieve a good signal to noise ratio for this setup $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
-This was sufficient to get a good signal to noise ration on all the simulations up to $6~\mu L$.
-However the amount of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
+This was sufficient to get a good signal to noise ratios for all the simulations up to $6~\mu L$.
+However the number of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
 Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
 This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
-Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons are hit the plane in comparison to the larger medium. 
+Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons hit the plane in comparison to the larger medium. 
 
 Shrinking the mediums size does have some draw backs.
-First the Bessel beams propagation depth rely on the input beams width\ see~\cref{eqn:besselzmax}.
+First the Bessel beams propagation depth rely on the input beams width (see~\cref{eqn:besselzmax}).
 The input beams width was kept constant between the shrinking of the volumes size.
 However shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
 Therefore the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
 The second issue with shrinking the medium is that some packets may be lost.
 This means that in the larger medium a packet may scatter towards an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
-However this same packet in the smaller medium would be lost as the packet would exit the medium and ceased to be tracked.
+However this same packet in the smaller medium would be lost as the packet would exit the medium and cease to be tracked.
 It is not expected that this will cause much of an issue as any scattering event already degraded the quality of the beam, as that packet is no longer coherent with the rest of the packets, thus it will not contribute positively to the Bessel beam.
 To ensure this is not an issue, results from a larger medium are compared to that of the smaller medium in~\cref{fig:compareBigSmall}.
 The larger and smaller medium yield the same results (within Monte Carlo noise) for Intralipid volumes less than $8~\mu L$.
@@ -796,11 +801,11 @@ This method is similar to using a spatial light modulator in an experiment to im
 As Bessel and Gaussian beams are radically different from one another it is hard to directly compare the two beams.
 Gaussian beams carry all their power in the ``central core'' of the beam, whereas in a Bessel beam, it carries the same amount of power in each ring.
 Bessel beams also have a much larger depth of focus than Gaussian beams.
-This section attempts to compare the two beams, to predict which beam preform better in a heavily scattering medium using $\varphi$MC\@.
-Bessel beams are expected to preform better than Gaussian beams, due to their self-healing properties and non-diffractive core, this section aims to quantify how this property may or may not help penetration though highly scattering medium. 
+This section attempts to compare the two beams, to predict which beam preforms better in a heavily scattering medium using $\varphi$MC\@.
+Bessel beams are expected to preform better than Gaussian beams, due to their self-healing properties and non-diffractive core, this section aims to quantify how this property may or may not help penetration though a highly scattering medium. 
 
 
-As mentioned, Bessel beams and Gaussian beams are not alike, so to ensure a fairer comparison the Bessel beams central core width is set to that of the Gaussian beam's waist.
+As mentioned, Bessel beams and Gaussian beams are not alike, so to ensure a fair comparison the Bessel beams central core width is set to that of the Gaussian beam's waist.
 
 \begin{equation}
 r_0=\frac{\kappa}{k\ sin\beta}  
@@ -818,14 +823,14 @@ Using the small angle approximation\footnote{for small $\alpha$ and $\beta$: $\b
 \alpha &= \frac{1}{n-1}asin\left(\frac{1.75 D}{4 f}\right)
 \end{align}
 
-Where $\alpha$ axicon angle as before, n is the refractive index of the axicon, $D$ is the $\tfrac{1}{e^2}$ diameter of the incident Gaussian beam on the lens, and $f$ is the focal length of the lens used to focus the Gaussian beam.
+Where $\alpha$ is the axicon angle as before, n is the refractive index of the axicon, $D$ is the $\tfrac{1}{e^2}$ diameter of the incident Gaussian beam on the lens, and $f$ is the focal length of the lens used to focus the Gaussian beam.
 Both $D$ and $f$ are properties of the optical system used to focus the Gaussian beam.
 The lens used to focus the Gaussian beam is the same as used in the previous section to validate that $\varphi$MC can model a Gaussian beam, a convex-plano lens, with radius of curvature $4.6~mm$, a working distance of $8.5~mm$ and thickness of $2.2~mm$.
 
 \medskip
 
-The first comparison carried out between the Bessel and Gaussian beams is to use the same power to generate both beams.
-The beams are the propagated through mediums of varying degrees of Intralipid solution.
+The first simulation comparisons carried out between the Bessel and Gaussian beams is to use the same power to generate both beams.
+The beams are then propagated through mediums of varying degrees of Intralipid solution.
 Volumes of $0.0$, $26$, $52$, $78$, and $104$ $\mu L$ are used of Intralipid in 500 $\mu L$ of water.
 The medium has a volume of $0.1~mm \times 0.1~mm \times 0.2~mm$, and voxel resolution of $1~\mu m$.
 For both beams a wavelength of $488~nm$ and a power of $1~mW$ is used.
@@ -904,18 +909,18 @@ Bessel beams do have their positives, their self-healing property does help ``re
 \section{Conclusion}
 
 This chapter has shown that it is possible to transform a traditional particle behaviour MCRT method into a method that allows the simulation of quasi-wave/particle behaviour of photons.
-This is achieved by introducing two principles to the algorithm: the tracking of complex phase of each packets and the Huygens-Fresnel principle.
-The tracking of the complex phase of each packets allows interference of the quasi-wave/particles to be simulated.
+This is achieved by introducing two principles to the algorithm: the tracking of the complex phase of each packets and the Huygens-Fresnel principle.
+The tracking of the complex phase of each packet allows interference of the quasi-wave/particles to be simulated.
 The Huygens-Fresnel principle allows diffraction to be accurately modelled.
-$\varphi MC$ has be thoroughly validated against several experiments where modelling the wave behaviour of light is vital to the experiment.
+$\varphi MC$ has been thoroughly validated against several experiments where modelling the wave behaviour of light is vital to the experiment.
 Alongside the above, presented in this chapter is the modelling of complex beam types: Gaussian and Bessel beams.
-Both beams types have been validated against either both theoretical and experimental results.
-Finally Gaussian beams and Bessel beams were compared against one another in a highly scattering medium, where Bessel beams appear to give better performance.
+Both beam types have been validated against both theoretical and experimental results.
+Finally Gaussian beams and Bessel beams were compared with one another in a highly scattering medium, where Bessel beams appear to give better performance.
 However, $\varphi$MC is not a silver bullet for modelling these complex beams in a scattering medium.
 Depending on the problem at hand, the computational load can be excessive.
 For example, if you want to know the intensity of the beam at all locations though a large ($> 1mm^3$) scattering medium with a complex 3D structure, then the time taken to get a good signal to noise ration may be computationally prohibitive.
 Though it is expected that in most cases the intensity is not needed at all locations in a medium, and an image is all that is need to be calculated, then even in a complex 3D structure $\varphi$MC should preform better than the methods listed at the start of this chapter\footnote{Though to achieve better performance with the current code, adaptive mesh grids would have to be implemented.}.
-Were $\varphi$ excels is that it can accurately model scattering effects on the propagation of complex beams through scattering media, if that media is simple in terms of structure.
+Were $\varphi$MC excels is that it can accurately model scattering effects on the propagation of complex beams through scattering media.
 
 %sources
 %cizmar thesis

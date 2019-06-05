@@ -125,7 +125,7 @@ As the principle states that every point on the wavefront is a source of seconda
 These ``backward'' waves are un-physical, and there is no experimental evidence of their existence.
 Thus Fresnel introduced an inclination factor to eliminate these ``backward'' waves.
 This inclination factor was later put on a rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
-\Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane as derived by Kirchoff with the inclination factor.
+\Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane.
 
 \begin{equation}
 u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0}} \cdot (\mathbf{r_1} - \mathbf{r_0})}{\left|\mathbf{r_1} - \mathbf{r_0}\right|^2}e^{ik\left|\mathbf{r_1} - \mathbf{r_0}\right|}dS_0
@@ -191,7 +191,7 @@ This gave an accurate match to the theoretical expression, as seen in~\cref{fig:
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{doubleslit.pdf}
-    \caption{Comparison of theory and simulation for the double slit experiment. For clarity only every $5^{th}$ MCRT data point is plotted.}
+    \caption{Comparison of theory and simulation for the double slit experiment. Top image shows a slice through the computed image and the expected profile from theory. For clarity only every $5^{th}$ MCRT data point is plotted. Bottom image shows the computed image.}
     \label{fig:doubleslitcomp}
 \end{figure}
 
@@ -316,13 +316,13 @@ This is due to the diffraction pattern becoming ``noisy'' and thus needs a highe
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{Fresnel-compare.pdf}
+    \includegraphics[width=0.95\textwidth]{Fresnel-compare.pdf}
     \caption{Comparison of theory and simulation for diffraction through a square aperture in the Fresnel and Fraunhofer regimes.}
     \label{fig:frescompare}
 \end{figure}
 
 \FloatBarrier
-
+\newpage
 \section{Gaussian Beams}
 
 Now that the method of tracking the complex phase of packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
@@ -429,12 +429,12 @@ This can be seen in~\cref{fig:proofchgrz}
 \end{figure}
 
 $\varphi MC$ can also model spherical aberrations caused by lenses.
-\Cref{fig:spheraberr} shows aberrations caused by a plano-convex lens.
+\Cref{fig:spheraberr} shows aberrations caused by a plano-convex lens along side an illustration of the paths that light take through the imperfect lens, causing spherical aberrations.
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=0.75\textwidth]{spherabbr.pdf}
-    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$.}
+    \includegraphics[width=0.65\textwidth]{spher-aber.pdf}
+    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top) Image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Bottom) Illustration of rays traced through a lens which suffers from spherical aberration.}
     \label{fig:spheraberr}
 \end{figure}
 
@@ -619,8 +619,8 @@ The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$.
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
 The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra}.
-~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.%“Independent” and “dependent” scattering by particles in a multi-particle group
-Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime.
+~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.
+Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime\footnote{The independent scattering regime is where $g$ is dependent on the size, shape and material properties of the scattering particle, and the material properties of the bulk material, but not the number of scattering particles~\cite{aernouts2013supercontinuum,mishchenko2018independent}.}.
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with our algorithm.
 ~\Cref{fig:expsetup} shows the experimental set-up.

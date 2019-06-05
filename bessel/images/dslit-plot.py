@@ -23,8 +23,8 @@ file = "/home/lewis/phdshizz/bessel beam/bin/double-slit.dat"
 data = np.fromfile(file, sep="", dtype=np.float64)
 data = data.reshape((2051, 2051))
 
-fig, ax = plt.subplots()
-fig.subplots_adjust(left=.08, bottom=.1, right=.99, top=.99)
+fig, axs = plt.subplots(2, 1)
+fig.subplots_adjust(left=.08, bottom=.1, right=.99, top=.99, hspace=0.)
 
 
 wave = 488e-9
@@ -40,15 +40,17 @@ alp = (k * 0.5 * a * x) / np.sqrt(L**2 + x**2)
 bet = (k * d * x) / (2. * np.sqrt(L**2 + x**2))
 
 
-yhat = scipy.signal.savgol_filter(data[1025, :], 61, 3)
+yhat = scipy.signal.savgol_filter(data[1025, :], 61, 2)
 x = np.linspace(-.5, .5, 2051)
 
-ax.plot(x, theory(alp, bet), label="Theory")
-ax.scatter(x[::5], yhat[::5] / np.amax(yhat), marker="x", color="orange", label="MCRT data")
-ax.set_xlabel("Distance/mm")
-ax.set_ylabel("Intensity/arb.")
-ax.legend()
+axs[0].plot(x, theory(alp, bet), label="Theory")
+axs[0].scatter(x[::5], yhat[::5] / np.amax(yhat), marker="x", color="orange", label="MCRT data")
+axs[0].set_ylabel("Intensity/arb.")
+axs[0].legend()
 
+axs[1].imshow(data, extent=[-.5, .5, -.5, .5], aspect="auto")
+axs[1].set_xlabel("Distance/mm")
+axs[1].set_ylabel("Distance/mm")
 
 fig.set_size_inches(width, height)
 fig.savefig('doubleslit.pdf')

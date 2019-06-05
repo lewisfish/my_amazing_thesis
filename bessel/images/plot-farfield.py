@@ -4,7 +4,7 @@ import matplotlib.pylab as plt
 import numpy as np
 
 width = 6.510  # inches
-height = width / 1.618
+height = width
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)

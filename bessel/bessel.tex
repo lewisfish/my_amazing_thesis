@@ -26,7 +26,7 @@ For example, traditional \gls*{mcrt} methods cannot model Gaussian beams, as Gau
 
 Various authors have tried to model complex beams that require wavelike behaviours using~\gls*{mcrt}.
 Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}.
-However all these techniques either inaccurately model Gaussian beams, are complex to implement, or computational intensive (more so than \gls*{mcrt} usually is).
+However all these techniques either inaccurately model Gaussian beams, can model Gaussian beams but are complex to implement or computational intensive (more so than \gls*{mcrt} usually is).
 There have been some attempts at using the techniques presented in this chapter, to modify MCRT algorithms into algorithms that can model diffraction and interference~\cite{mignon2016fractional,peter2014combining,mahan2018monte,mout2016simulating,fischer2008monte}.
 These authors have good results, but either do not detail their methods, do not attempt to treat scattering or are in the x-ray regime.
 
@@ -605,7 +605,7 @@ $\varphi$MC can also model the self-healing property of Bessel beams, this is sh
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.75\textwidth]{selfheal.pdf}
-\caption{Illustration of the Bessel beams self-healing property. Highly absorbing cube placed near the top of the medium. Figure shows that the Bessel beam forms further down the optical axis.}
+\caption{Illustration of the Bessel beams self-healing property. Highly absorbing cube placed near the top of the medium. Figure shows that the Bessel beam forms further down the optical axis. a) shows side on view with the obstacle at $0.02~mm$, b) shows top down view at surface of the simulated b=medium before the obstacle, c) shows top down view in the middle of the obstacle, and  d) shows the top down view after the Bessel beam has ``healed''.}
 \label{fig:selfheal}
 \end{figure}
 
@@ -668,7 +668,7 @@ If the packet leaves the medium on the objective lens facing side, then the pack
 For each intralipid concentration $6.4\times10^{10}$ photons are run over 64 cores, taking $\sim 3$ hours for the $12\mu L$ intralipid volume.
 Once all the packets have been run, the phase is converted into intensity, as in~\cref{eqn:intense}, but in 2D.
 
-\Cref{fig:compareexpbessel} shows the results from the experiment and simulation. The simulation shows good agreement with experimental data within experimental and simulation uncertainty.
+\Cref{fig:compareexpbessel,fig:compareexpbesselLine} show the results from the experiment and simulation. The simulation shows good agreement with experimental data within experimental and simulation uncertainty.
 
 \begin{figure}[!ht]
 \centering
@@ -677,11 +677,38 @@ Once all the packets have been run, the phase is converted into intensity, as in
 \label{fig:compareexpbessel}
 \end{figure}
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Exp-sim-lineplots.pdf}
+    \caption{Line graph plots of slices taken through the generated and experimental images as shown in~\cref{fig:compareexpbessel}.}
+    \label{fig:compareexpbesselLine}
+\end{figure}
+
 \subsubsection*{Discussion}
+
+As mentioned in previous sections, the power of the MRT method is that we can track virtually any quantity in the simulation.
+Alongside generating intensity images, we can also track the average number of scattering per packet, a quantity that is hard to measure experimentally.
+\Cref{tab:numscatt} shows the average number of scattering per packet alongside the optical depth of the medium from the source to the image plane.
+The simulations show that above $\approx$ 2 scatterings of a packet the Bessel beam is ``destroyed'' and the generated image becomes washed out with noise.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{c|c|c}
+    Volume IL/$\mu L$ & Avg \# scatterings & Optical depth \\ \hline
+    2      & 0.734              & 1.114         \\
+    4      & 1.225              & 2.229         \\
+    6      & 1.594              & 3.342         \\
+    8      & 1.899              & 4.457         \\
+    10     & 2.168              & 5.571         \\
+    12     & 2.417              & 6.686        
+    \end{tabular}
+    \caption{Average number of scattering per packet and the optical depths for different volumes of Intralipid.}
+    \label{tab:numscatt}
+\end{table}
 
 Originally the medium was modelled as in the experiment, a $2~mm^3$ volume.
 The image created was thus a $2001 \times 2001$ with a resolution of $1~\mu m$.
-To achieve a good signal to noise ratio for this setup $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
+To achieve a good signal to noise ratio for this set-up $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
 This was sufficient to get a good signal to noise ratios for all the simulations up to $6~\mu L$.
 However the number of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
 Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.

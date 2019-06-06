@@ -2,6 +2,14 @@
 \label{chap:salvo}
 \section{Introduction}
 
+
+Cardiovascular disease is one of the leading causes of death in the west ***source this***.
+Mention stuff about trad methods do not fully explain incidence of disease -> novel biomarkers
+
+explain NADH and FAD as source of biomarkers for diabetes and cardiovascular irregularity 
+
+fluro as biomarker been used for various diagnoses
+
 % motivation
 % explain fluro method
 % explain skin model
@@ -73,7 +81,7 @@ The hypodermis consists of fat and
 
 With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model, models the optical properties of skin.
 
-To model blood, we first split blood into Deoxygenated and Oxygenated. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from%~\cite{}
+To model blood, we first split blood into deoxygenated and oxygenated. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from%~\cite{}
 
 \begin{equation}
 \mu_{a,oxy/deoxy}=150\ \ln10\ \frac{\epsilon}{64458}
@@ -98,7 +106,7 @@ The absorption coefficients are calculated using the blah
 \label{eqn:caro}
 \end{equation}
 
-To model melanin`'s absorption coefficient we use~\cref{eqn:eqn:melanin}, taken from...
+To model melanin's absorption coefficient we use~\cref{eqn:eqn:melanin}, taken from...
 
 \begin{equation}
 \mu_{a,mel}(\lambda)=6.66\times10^{11} \times \lambda^{-3.33}
@@ -121,8 +129,37 @@ Finally we use a base absorption coefficient to model the absorption due to the 
 \end{figure}
 
 
+AS the scattering properties do not vary from layer to layer by too much we use the same equation to describe the scattering coefficient. ***ref jacques, louise thesis and iglesias***
+
+\begin{equation}
+\mu'_s(\lambda)=a'\left(f_{ray}\left(\frac{\lambda}{500(nm)}\right)^4+(1-f_{ray})\left(\frac{\lambda}{500(nm)}\right)^{-b_{\text{mie}}}\right)
+\label{eqn:scattrest}
+\end{equation}
+
+\begin{equation}
+\mu'_s(\lambda)=1050.60\times\lambda^{-0.68}
+\label{eqn:hyposcat}
+\end{equation}
 
 
+\noindent Where:
+
+	$\mu'_s$ is the reduced scattering coefficient [$cm^-1$];
+
+	$a'$ is a scaling factor [$cm^-1$];
+
+	$f_{ray}$ is the fraction of Raylieigh scattering [-];
+
+	$\lambda$ is the wavelength of light [$m$];
+
+	and $b_{\text{mie}}$ is the ``scattering power'' [-].
+
+\begin{figure}[!htpb]
+	\centering
+	\includegraphics[width=0.75\textwidth]{scat-plot.pdf}
+	\caption{Figure shows the reduced scattering coefficient for the different layers of our skin model.}
+	\label{fig:scatplot}
+\end{figure}
 
 % subsubsection optical_properties (end)
 

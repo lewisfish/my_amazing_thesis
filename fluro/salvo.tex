@@ -123,7 +123,7 @@ Finally we use a base absorption coefficient to model the absorption due to the 
 
 \begin{figure}[!htpb]
 	\centering
-	% \includegraphics[width=0.75\textwidth]{optical-props.pdf}
+	\includegraphics[width=0.75\textwidth]{absorbs.pdf}
 	\caption{Absorption coefficients for the various chromophores found in skin.}
 	\label{fig:absorcoeff}
 \end{figure}
@@ -171,6 +171,17 @@ AS the scattering properties do not vary from layer to layer by too much we use 
 
 % subsubsection optical_properties (end)
 
+\subsubsection*{Fluorophores in the Skin}
+
+
+NADH, trytophan, tyrosine, collagen, FAD, elastin
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=.75\textwidth]{fluros.pdf}
+	\caption{Top) Extinction coefficients for a selection fluorophores found in the skin. Bottom) shows the fluorescent emission for the various different fluorophores.}
+	\label{fig:flurosshow}
+\end{figure}
 
 \section{Modelling Fluorescence}
 
@@ -221,8 +232,6 @@ Where $P_i$ is the probability of interacting with the $i^{th}$ species, the num
 
 \cref{algo:speciespick} shows the process used to determine which species to interact with.
 
-\newpage
-
 \begin{center}
 \begin{algorithm}[H]
 \SetAlgoLined
@@ -257,14 +266,38 @@ Where $P_i$ is the probability of interacting with the $i^{th}$ species, the num
 \end{center}
 
 This method allows an arbitrary number of fluorophores to be modelled.
+To ensure that this method works as intended, the method is compared to experimental data taken by Campbell \textit{et al.}.
 
+$405~nm$ light was shone on a cuvette of area $10~mm \times 10~mm$.
+The cuvette was filled with Intrlipid $20\%$ diluted with water, and a fluorescent agent Cop III.
+The total volume of this mixture was $6~ml$, consisting of $1~ml$ of Cop III, $4.99~ml$ of water, and $0.0~1ml$ of Intrlipid $20\%$, of which $2~ml$ was pipetted into the cuvette.
+$405~nm$ light was shone on the cuvette, and collected via the same fiber, of diameter $600~\mu m$.
+The fiber has a NA of 0.22.
+The signal is the recorded by a blah blah blah..
+
+\begin{figure}[!htpb]
+	\centering
+	% \includegraphics[width=0.75\textwidth]{copor3.pdf}
+	\caption{Optical properties of coporIII}
+	\label{fig:coporiii}
+\end{figure}
+
+The simulation is setup to mimic the experimental setup.
+A medium of $10~mm^3$ is used with 1 voxel to increase the speed of computation.
+As before Intralipid is assumed to be wholly scattering with no absorption, so an albedo of 1 is used.
+Conversely the CoporIII is wholly absorbing with no scattering.
+CoporIII absorption coefficient is as shown along side its emission spectrum in~\cref{fig:coporiii}.
+If a photon packets leave the top face of the simulated medium, within the radius of the fiber at an angle the fiber could accept, then the packet is recorded.
+The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
 
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.75\textwidth]{Fluro-valid.pdf}
-  \caption{Validation of florescence modelling technique}
+  \caption{Validation of florescence modelling technique ***fix labels, they are back to front***}
   \label{fig:flurovalid}
 \end{figure}
+
+\FloatBarrier
 
 \section{Nelder-Mead Method}
 
@@ -457,6 +490,9 @@ Finally the optical properties also have an effect on the detected light fluence
 \end{figure}
 
 \section{Discussion}
+
+\section{Future Work}
+
 \section{Conclusion}
 
 We have presented out code, AmoebaMCRT, which combines the Nelder-Mead method and MCRT in order to determine the concentrations of naturally occurring fluorophores in human skin.

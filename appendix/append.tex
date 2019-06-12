@@ -1,94 +1,94 @@
 \begin{appendices}
-% \crefalias{chapter}{appsec}
-% \chapter{Heat Equation Derivation}
-% \label{app:heatderive}
+\crefalias{chapter}{appsec}
+\chapter{Heat Equation Derivation}
+\label{app:heatderive}
 
-% To derive the heat equation we consider the conversation of energy in a volume R, with a flux out, $\phi(x,y,z,t)$, and unit outer normal $\mathbf{\hat{n}}$. We need just the normal component of $\phi$ 
-% : $\phi \cdot \mathbf{\hat{n}}$.
-% \medskip
+To derive the heat equation we consider the conversation of energy in a volume R, with a flux out, $\phi(x,y,z,t)$, and unit outer normal $\mathbf{\hat{n}}$. We need just the normal component of $\phi$ 
+: $\phi \cdot \mathbf{\hat{n}}$.
+\medskip
 
-% The rate of change of heat inside the volume R is equal to the heat generated inside the volume R plus the heat flowing in/out of the boundary surface:
+The rate of change of heat inside the volume R is equal to the heat generated inside the volume R plus the heat flowing in/out of the boundary surface:
 
-% \begin{equation}
-% \parbox{70pt}{Rate of change of heat energy}\ =\ \parbox{60pt}{Rate of heat generation in R} +\ \parbox{105pt}{Rate of heat energy flowing through boundary surface}
-% \label{eqn:word}
-% \end{equation}
+\begin{equation}
+\parbox{70pt}{Rate of change of heat energy}\ =\ \parbox{60pt}{Rate of heat generation in R} +\ \parbox{105pt}{Rate of heat energy flowing through boundary surface}
+\label{eqn:word}
+\end{equation}
 
-% \medskip
-% The total heat energy is:
+\medskip
+The total heat energy is:
 
-% \begin{equation}
-% e(x,y,z,t)=c(x,y,z)\cdot \rho(x,y,z)\cdot T(x,y,z,t)
-% \end{equation} 
+\begin{equation}
+e(x,y,z,t)=c(x,y,z)\cdot \rho(x,y,z)\cdot T(x,y,z,t)
+\end{equation} 
 
-% and therefore the rate of change of heat energy is
+and therefore the rate of change of heat energy is
 
-% \begin{equation}
-% \frac{d}{dt} \iiint\limits_{R} e\ dV= \frac{d}{dt}\iiint\limits_{R} c\rho T\ dV
-% \label{eqn:rotenergy}
-% \end{equation}
+\begin{equation}
+\frac{d}{dt} \iiint\limits_{R} e\ dV= \frac{d}{dt}\iiint\limits_{R} c\rho T\ dV
+\label{eqn:rotenergy}
+\end{equation}
 
-% We denote the heat generated inside the volume R as $Q(x,y,z,t)$:
+We denote the heat generated inside the volume R as $Q(x,y,z,t)$:
 
-% \begin{equation}
-% \iiint\limits_{R} Q\ dV
-% \label{eqn:rotheatgen}
-% \end{equation}
+\begin{equation}
+\iiint\limits_{R} Q\ dV
+\label{eqn:rotheatgen}
+\end{equation}
 
-% and the rate of heat energy flowing through the boundary surface is:
+and the rate of heat energy flowing through the boundary surface is:
 
-% \begin{equation}
-% -\iint \limits_{\partial R} \phi\cdot \mathbf{\hat{n}}\ dS\footnote[3]{This is negative as outward flow $\phi$ is positive, but the flow would result in a reduction of energy.}
-% \label{eqn:rotheatloss}
-% \end{equation}
+\begin{equation}
+-\iint \limits_{\partial R} \phi\cdot \mathbf{\hat{n}}\ dS\footnote[3]{This is negative as outward flow $\phi$ is positive, but the flow would result in a reduction of energy.}
+\label{eqn:rotheatloss}
+\end{equation}
 
-% Substituting \cref{eqn:rotenergy,eqn:rotheatgen,eqn:rotheatloss} into \cref{eqn:word}, yields:
+Substituting \cref{eqn:rotenergy,eqn:rotheatgen,eqn:rotheatloss} into \cref{eqn:word}, yields:
 
-% \begin{equation}
-% \frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \phi\cdot \mathbf{\hat{n}}\ dV +  \iiint\limits_{R} Q\ dV
-% \end{equation}
+\begin{equation}
+\frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \phi\cdot \mathbf{\hat{n}}\ dV +  \iiint\limits_{R} Q\ dV
+\end{equation}
 
-% Using the divergence theorem, and simplifying gives: 
+Using the divergence theorem, and simplifying gives: 
 
-% %\begin{equation}
-% %\iint \limits_{\partial R} \phi\cdot \mathbf{\hat{n}}\ dS = \iiint \limits_{R} \nabla\cdot \phi\ dV
-% %\end{equation}
+%\begin{equation}
+%\iint \limits_{\partial R} \phi\cdot \mathbf{\hat{n}}\ dS = \iiint \limits_{R} \nabla\cdot \phi\ dV
+%\end{equation}
 
-% \begin{equation}
-% \frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \nabla\cdot \phi\ dV +  \iiint\limits_{R} Q\ dV
-% \end{equation}
+\begin{equation}
+\frac{\partial}{\partial t} \iiint\limits_{R} c\rho T\ dV = -\iiint \limits_{R} \nabla\cdot \phi\ dV +  \iiint\limits_{R} Q\ dV
+\end{equation}
 
-% \begin{equation}
-% \iiint\limits_{R} \left[ c\rho \frac{\partial}{\partial t} T + \nabla\cdot \phi - Q\right] dV = 0
-% \end{equation}
+\begin{equation}
+\iiint\limits_{R} \left[ c\rho \frac{\partial}{\partial t} T + \nabla\cdot \phi - Q\right] dV = 0
+\end{equation}
 
-% Which holds for an arbitrary R, thus:
+Which holds for an arbitrary R, thus:
 
-% \begin{equation}
-% c\rho\frac{\partial}{\partial t}T = - \nabla \cdot \phi + Q
-% \label{eqn:heatpreq}
-% \end{equation}
+\begin{equation}
+c\rho\frac{\partial}{\partial t}T = - \nabla \cdot \phi + Q
+\label{eqn:heatpreq}
+\end{equation}
 
 
 
-% Using Fourier's law of heat conduction, which states that the local heat flux density, $\phi$, is proportional to the negative local temperature gradient. The proportionality constant being equal to the thermal conductivity, $\kappa$:
+Using Fourier's law of heat conduction, which states that the local heat flux density, $\phi$, is proportional to the negative local temperature gradient. The proportionality constant being equal to the thermal conductivity, $\kappa$:
 
-% \begin{equation}
-% \phi(x,y,z,t)=\kappa(x,y,z)\nabla T(x,y,z,t)
-% \label{eqn:fourier}
-% \end{equation}
+\begin{equation}
+\phi(x,y,z,t)=\kappa(x,y,z)\nabla T(x,y,z,t)
+\label{eqn:fourier}
+\end{equation}
 
-% Substituting \cref{eqn:fourier} into \cref{eqn:heatpreq} yields the heat equation:
+Substituting \cref{eqn:fourier} into \cref{eqn:heatpreq} yields the heat equation:
 
-% \begin{equation}
-% c\rho\frac{\partial}{\partial t}T = \nabla\cdot (\kappa\nabla T) + Q
-% \end{equation}
+\begin{equation}
+c\rho\frac{\partial}{\partial t}T = \nabla\cdot (\kappa\nabla T) + Q
+\end{equation}
 
-% Which can be simplified into the homogeneous medium heat equation with the following assumptions: Q=0 and $\kappa,\ \rho,\ and\ c$ are constant, and $\alpha=\tfrac{\kappa}{c\rho}$
+Which can be simplified into the homogeneous medium heat equation with the following assumptions: Q=0 and $\kappa,\ \rho,\ and\ c$ are constant, and $\alpha=\tfrac{\kappa}{c\rho}$
 
-% \begin{equation}
-% \frac{\partial T}{\partial t} = \alpha \nabla^2 T
-% \end{equation}
+\begin{equation}
+\frac{\partial T}{\partial t} = \alpha \nabla^2 T
+\end{equation}
 
 
 \crefalias{chapter}{appsec}

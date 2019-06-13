@@ -1,0 +1,39 @@
+plan for fluro chapter
+
+test effect of tissue optics on fluros: trytophan, tyrosine, elastin, collagen, nadh, fad
+eem maps? => 250-400nm
+~30s a spectrum => ~1.25 hrs a fluro => ~8hrs in total
+
+do this with normal blood, double blood and no blood => 24hrs to do all simulations
+
+stratum        nadh, fad, trytophan
+epidermis	   nadh, fad, tyrosine, trytophan
+pap            nadh, elastin, collagen, tyrosine, trytophan
+ret            nadh, elastin, collagen, tyrosine, trytophan
+hypo           nadh, elastin, collagen, tyrosine, trytophan
+
+tyrosine in collagen -> FLUORESCENCE OF COLLAGEN - PROPERTIES OF TYROSINE RESIDUES AND ANOTHER FLUORESCENT ELEMENT IN CALF SKIN COLLAGEN 
+tyrosine in melanin -> common sense + some source
+trytophan -> fluuorescence excitation spectroscopy provides information about human skin in vivo
+fad, nadh -> In-vivo imaging of psoriatic lesions with polarization multispectral dermoscopy and multiphoton microscopy
+elastin, collagen -> common sense + some source
+
+
+max absoprtion peaks
+nadh 		350
+fad			358, 371, 450, 477
+tyrosine    274
+trytophan   278
+collagen    254
+elastin     267
+
+argon    -> 454nm, 488nm
+krypton  -> 416nm
+nitrogen -> 337.1nm
+excimer  -> 353nm, 308nm, 248nm
+
+
+melanins effect
+blood effect both volume and 02 stat
+which layers does signal arise from
+which fluros dominate

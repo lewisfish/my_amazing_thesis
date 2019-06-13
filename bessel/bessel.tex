@@ -3,24 +3,24 @@
 \section{Introduction}\label{sec:besintro}
 
 Complex shaped light beams have been used in a wide variety of applications in biophotonics and medicine.
-From using Airy beams to move particles and cells~\cite{baumgartl2008optically}, Bessel beam ``tractor beams''~\cite{ruffner2012optical}, using Airy and Bessel beams for better field of view in light-sheet microscopy~\cite{vettenburg2014light}, and using Laguerre-Gaussian beams to optical trap optically reflective particles~\cite{simpson1996optical}.
+From using Airy beams to move particles and cells~\cite{baumgartl2008optically}, Bessel beam ``tractor beams''~\cite{ruffner2012optical}, Airy and Bessel beams for better field of view in light-sheet microscopy~\cite{vettenburg2014light}, and utilising Laguerre-Gaussian beams to optical trap optically reflective particles~\cite{simpson1996optical}.
 
 
 However simulation techniques for modelling complex shaped beams in biological tissue is lacking.
 Currently there are a number of techniques that can model these beams in biological tissue, however they all have downsides.
-These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpm}, and \gls*{mcrt}.
+These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpms}, and \gls*{mcrt}.
 
-As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has many downsides when it comes to modelling light propagation in biological tissue.
+As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has many issues when it comes to modelling light propagation in biological tissue.
 \gls*{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
-However this is computationally intensive and requires a grid resolution of $\sim \lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
+This is computationally intensive and requires a grid resolution of $\sim \lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 \gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
 \gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
-However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be utilised for.
+However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be applied to.
 \Gls*{bpm} is also generally a uni-directional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issues in the model's accuracy~\cite{van1981beam,glaser2016fractal}.
 
 \medskip
 
-The final method,~\gls*{mcrt}, in general cannot model complex beams where the wave like behaviour of photons is required to form, or propagate the beam.
+The final method,~\gls*{mcrt}, in general, cannot model complex beams where the wave-like behaviour of photons is required to form, or propagate the beam.
 For example, traditional \gls*{mcrt} methods cannot model Gaussian beams, as Gaussian beams have a finite beam waist at their focus (see~\cref{fig:gbeamills}).
 \Gls*{mcrt} (along with geometric optics) predicts that Gaussian beams have an infinitely small waist.
 
@@ -41,14 +41,14 @@ Treatment of the propagation through scattering media is also discussed.
 
 \section{Theory}\label{sec:bestheory}
 
-To convert a MCRT simulation to be able to model wave like behaviour of photons, we introduce two concepts: tracking the complex phase of packets and the Huygens-Fresnel principle.
-This section presents a description of the modifications to the traditional MCRT algorithm, along side the theoretical background to both the concepts.
+To convert a MCRT simulation to be able to model wave-like behaviour of photons, we introduce two concepts: tracking the complex phase of packets and the Huygens-Fresnel principle.
+This section presents a description of the modifications to the traditional MCRT algorithm, alongside the theoretical background to both the concepts.
 
 \subsection{Complex Phase Tracking}
 
 The first concept we add to the MCRT method is assigning a complex phase to each packet.
 The phase is given to a packet at the beginning of the simulation depending on the input field.
-The packet is also given an initial complex electric field of the form:
+The packet is also given an initial electric field of the form:
 
 \begin{equation}
 E_0 = \frac{1}{N}\sqrt{\frac{P}{A}}
@@ -66,20 +66,21 @@ The phase is then tracked as the packet moves through the medium, over a distanc
     \label{eqn:phase}
 \end{equation}
 
-Where $\varphi~[-]$ is the complex phase of a photon packet, $l\ [m]$ is the distance the packet has travelled, $\lambda~[m]$ is the wavelength of the packet, and \textit{i} is the solution to $x^2=-1$.
+Where $\varphi$ is the complex phase of a photon packet, $l\ [m]$ is the distance the packet has travelled, $\lambda~[m]$ is the wavelength of the packet.
 Now we can calculate the complex phase of a packet at a position $P_o$, if we know the distance it has travelled, and its original phase, see~\cref{fig:phase-diag}.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.5\textwidth]{phase-diag.pdf}
-    \caption{Example of phase calculation when a photon has travelled a distance l. Figure also show an example of interference between two photons via addition of the complex amplitudes at the point $P_0$.}
+    \caption{Example of phase calculation when a photon has travelled a distance l. The figure also shows an example of interference between two photons via addition of the complex amplitudes at the point $P_0$.}
     \label{fig:phase-diag}
 \end{figure}
 
 To model interference, we let the photon packets interfere with one another in a volume or area element. 
 We do not model the interference at a point in space where photon packets cross, due to the ballistic nature of the \gls*{mcrt} simulation this does not occur with enough frequency in order to give a good signal to noise ratio. 
 Therefore, interference takes place in a volume, $dV$, or area element, $dA$, instead.
-To calculate the interference from the phase, the phase is summed in each volume or area element and the absolute value taken, and then squared.~\Cref{eqn:intense} shows the equation for interference for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
+To calculate the intensity from the complex phase, the absolute value of the phase is squared.
+Then to calculate the intensity for a given voxel or area, the phase is first summed in each voxel or area before the absolute value is squared.~\Cref{eqn:intense} shows the equation for intensity for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
 \begin{equation}
 I(\zeta)= \left| \sum\limits_{\zeta}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\zeta}E_0\ sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \zeta=(x,y,z)
@@ -105,19 +106,19 @@ In addition to tracking the phase, the next principle needed to simulate the wav
 \subsection{Huygens-Fresnel Principle}
 
 The Huygens-Fresnel principle is a method that is used to help model the propagation of waves in the far field limit and the near field limit. 
-The Huygens principle states~\cite{huygens2012treatise,hecht2017optics,huygens1900wave}: 
+The Huygens principle was first postulated in 1678 and states~\cite{huygens2012treatise,hecht2017optics,huygens1900wave}: 
 
 \medskip
 
-``Every point on a propagating wavefront serves as the source of spherical secondary wavelets, such as the source at some time later is the envelope of these wavelets.''
+``\textit{Every point on a propagating wavefront serves as the source of spherical secondary wavelets, such as the source at some time later is the envelope of these wavelets.}''
 
 \medskip
 
-The principle is illustrated in~\cref{fig:huygensillis}. Christiaan Huygens postulated this principle in 1678.
+The principle is illustrated in~\cref{fig:huygensillis}.
 The principle allowed Huygens to derive laws of refraction and reflection, but it failed to describe diffraction effects.
 This led to Augustin-Jean Fresnel in 1818, combining the Huygens principle with his own theory of interference~\cite{fresnel1819memoire,huygens1900wave}.
-This principle, the Huygens-Fresnel principle, gave an accurate description of the propagation of light and diffraction effects.
-This was achieved by allowing the secondary wavelets to self interfere with one another, giving rise to an accurate description of the physical phenomena.
+This Huygens-Fresnel principle, gave an accurate description of the propagation of light and diffraction effects.
+This was achieved by allowing the secondary wavelets to self interfere, giving rise to an accurate description of the physical phenomena.
 Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory~\cite{kirchhoff1883ann,born2000principles}. 
 
 The Huygens-Fresnel principle allows the modelling of diffraction in both the near and far field.
@@ -170,7 +171,7 @@ These two concepts underpin the algorithm that allows various complex beams, and
 \subsubsection*{Double Slit Experiment}
 
 The first test of our quasi-wave/particle MCRT algorithm\footnote{Though this example is not strictly MCRT, but rather ray tracing, as it involves no scattering. The full MCRT method will be used in later sections.}, $\varphi MC$, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field, the so called Fraunhofer regime.
+The double slit experiment, is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far-field (the so called Fraunhofer regime).
 The intensity pattern on the detector screen is as in~\cref{eqn:doubleslit}:
 
 \begin{equation}
@@ -196,7 +197,7 @@ This gave an accurate match to the theoretical expression, as seen in~\cref{fig:
 \end{figure}
 
 \subsubsection*{Diffraction by a Square Slit}
-$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field, the so call Fresnel and Fraunhofer regimes. 
+$\varphi MC$ is also validated by simulating diffraction from a square aperture in the far and near field. 
 Fresnel diffraction occurs in the near field when the \textit{Fresnel number},~\cref{eqn:fnumber}, is greater than 1.0.
 Fraunhofer diffraction occurs when the \textit{Fresnel number} is less than 1.0.
 
@@ -361,7 +362,7 @@ E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\va
 \medskip
 
 ~\Cref{eqn:gwaist,eqn:gouyphase,eqn:rayleighrange,eqn:beamwaist,eqn:radiuscurve} give the definitions of key physical properties as outlined above or as shown in~\cref{fig:gbeamills}. 
-$z_r$ is the Rayleigh length,~\cref{eqn:rayleighrange}, and defines the point at which the beams waist grows to $\sqrt{2}$ times the size of the beam at its waist.
+$z_r$ is the Rayleigh range,~\cref{eqn:rayleighrange}, and defines the point at which the beams waist grows to $\sqrt{2}$ times the size of the beam at its waist.
 The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, where $f$ is the focal length and $D$ is the $\tfrac{1}{e^2}$ diameter of the beam at the lens.
 
 \begin{align}
@@ -383,7 +384,7 @@ With the physical properties of the Gaussian beam outlined, a Gaussian beam can 
 To simulate a Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
 The simulated lens used is a convex-plano lens, with radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
 A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $0.5~mm$, is incident on the lens.
-Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.11\mu m$.
+Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.1\mu m$.
 
 \begin{figure}[!ht]
     \centering
@@ -519,7 +520,7 @@ Substituting~\cref{eqn:besselEfield,eqn:intdef,eqn:pwrdef} into~\cref{eqn:bessel
 
     \medskip
 
-A Bessel beam can be formed by an axicon lens (see~\cref{fig:besselgeo}) or by diffraction through a ring.
+A Bessel beam can be formed by an axicon lens (see~\cref{fig:besselgeo}) or by diffraction through a ring, or through the use of a spatial light modulator.
 All the simulations of Bessel beams in this thesis use the axicon method of generating a Bessel beam, thus only axicons will be discussed.
 \Cref{fig:besselgeo} shows the geometry of a Bessel beam formed by an axicon.
 Using simple geometry and Snell's law the following equations can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
@@ -624,6 +625,7 @@ Dilutions of Intralipid are kept below 2\% scattering particle concentration, so
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with our algorithm.
 ~\Cref{fig:expsetup} shows the experimental set-up.
+The experiments described were preformed by S. Reidt \textit{et al.} at the University of Dundee.
 
 \begin{figure}[ht!]
     \centering
@@ -715,7 +717,7 @@ Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} direct
 This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
 Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons hit the plane in comparison to the larger medium. 
 
-Shrinking the mediums size does have some draw backs.
+Shrinking the mediums size does have some drawbacks.
 First the Bessel beams propagation depth rely on the input beams width (see~\cref{eqn:besselzmax}).
 The input beams width was kept constant between the shrinking of the volumes size.
 However shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.

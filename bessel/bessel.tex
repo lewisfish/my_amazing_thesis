@@ -420,11 +420,12 @@ The packets are then uniformly sampled onto the surface of the voxel medium and 
 \Cref{fig:simgaussexp} shows the comparison of theory and \textit{in-silico} experiment, with excellent agreement between the two.
 
 $\varphi MC$ also correctly models the change of direction of the radius of curvature, $R(z)$, as is predicted by theory.
-This can be seen in~\cref{fig:proofchgrz}
+This process is described by~\cref{eqn:radiuscurve}, before the waist the curvature is negative, at the waist it is infinite, and past the waist its is positive.
+This can be seen in~\cref{fig:proofchgrz}, where the beam (direction of propagation right to left) undergoes this:
 
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.75\textwidth]{radcurveproof.pdf}
+    \includegraphics[width=0.75\textwidth]{radcurvechange.pdf}
     \caption{Slice through the real part of the complex electric field of the \textit{in-silico} experiment as in~\cref{fig:gausssetup}. Figure shows the radius of curvature changing direction at the waist as predicted by theory.}
     \label{fig:proofchgrz}
 \end{figure}

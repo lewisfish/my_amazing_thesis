@@ -26,15 +26,17 @@ fluro as biomarker been used for various diagnoses
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
 However this is not the case in reality.
 Tissue is very un-homogeneous, with non-uniform optical properties.
-However to create a 1 to 1 model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent part of the tissue down to the cell level.
+However, to create a 1 to 1 model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent part of the tissue down to the cell level.
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
 To this end the section presents a 5 layer model of human skin. 
-Dermatologists usually split the skin into 5 layers: Stratum Corneum, Epidermis\footnote{The epidermis can be split into several more layers, however these layers are optical similar and are rather small so we model just one layer here.}, Papillary Dermis, Reticular Dermis, and Hypodermis, see~\cref{fig:skinexample}.
+Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer.
+The layers are named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, reticular dermis and hypodermis.
+As not all these layers are optically distinct or are too small to model, we therefore simplify the layers into just 5 layers: Stratum Corneum, Epidermis Papillary Dermis, Reticular Dermis, and Hypodermis, see~\cref{fig:skinexample}.
 
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.7\textwidth]{Skin_layers.pdf}
-    \caption{Illustration of skin layers in human skin.}
+    \caption{Illustration of our 5 layer skin model.}
     \label{fig:skinexample}
 \end{figure}
 

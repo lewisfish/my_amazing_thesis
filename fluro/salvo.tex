@@ -79,6 +79,35 @@ The hypodermis consists of fat and
 \subsubsection*{Optical Properties} % (fold)
 \label{sub:optical_properties}
 
+
+\begin{table}[tb] 
+  \centering
+
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  Layer & Thickness/ & Refractive & Blood & Melanin & Bilirubin/ & $\beta$-Carotene/ & Water\\
+    &cm & index & volume/\% & volume/\% & $gL^{-1}$ & $gL^{-1}$ & volume/\%\\
+  \hline
+  Stratum Corenum  & 0.02 & 1.50  & 0.0 & 0.0 & 0.0  & 0.0 & 0.05\\
+  Epidermis        & 0.08 & 1.34  & 0.0 & 1.0 & 0.0  & 2.1e-4 & 20.0\\
+  Papillary Dermis & 0.18 & 1.40  & 6.0 & 0.0 & 0.05 & 7e-5 & 50.0\\
+  Reticular Dermis & 1.82 & 1.395 & 4.5 & 0.0 & 0.05 & 7e-5 & 70.0\\
+  Hypodermis       & 5.90 & 1.41  & 5.0 & 0.0 & 0.0  & 0.0 & 70.0\\
+
+  \hline
+  \end{tabular}
+    \caption{Table of values used for the various concentrations and volumes fraction of the chromophores in the five layer skin model. Values taken from\cite{krishnaswamy2004biophysically,meglinski2002quantitative,campbell20153d,iglesias2015biophysically}.}
+  \label{tab:optpropsvals}
+\end{table}
+
+
+%refractive indices from mm02
+%blood from louise + inglesias
+%melanin from louise + layers thickness
+% bilirubin from krishnaswamy04 et al
+% carotene  from krishnaswamy04 et al
+%water from mm02
+
 With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model, models the optical properties of skin.
 
 To model blood, we first split blood into deoxygenated and oxygenated. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from%~\cite{}

@@ -80,7 +80,7 @@ To model interference, we let the photon packets interfere with one another in a
 We do not model the interference at a point in space where photon packets cross, due to the ballistic nature of the \gls*{mcrt} simulation this does not occur with enough frequency in order to give a good signal to noise ratio. 
 Therefore, interference takes place in a volume, $dV$, or area element, $dA$, instead.
 To calculate the intensity from the complex phase, the absolute value of the phase is squared.
-Then to calculate the intensity for a given voxel or area, the phase is first summed in each voxel or area before the absolute value is squared.~\Cref{eqn:intense} shows the equation for intensity for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
+Therefore to calculate the intensity for a given voxel or area, the phase is first summed in each voxel or area before the absolute value is squared.~\Cref{eqn:intense} shows the equation for intensity for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
 \begin{equation}
 I(\zeta)= \left| \sum\limits_{\zeta}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\zeta}E_0\ sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \zeta=(x,y,z)
@@ -126,7 +126,7 @@ As the principle states that every point on the wavefront is a source of seconda
 These ``backward'' waves are un-physical, and there is no experimental evidence of their existence.
 Thus Fresnel introduced an inclination factor to eliminate these ``backward'' waves.
 This inclination factor was later put on a rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
-\Cref{eqn:kirchhoffeqn} shows the equation for the complex field at a point on a plane.
+\Cref{eqn:kirchhoffeqn}, the Rayleigh-Sommerfeld diffraction integral of the first kind\footnote{If diffraction occurs in a plane, the Kirchoff diffraction integral can be modified to this}, shows the equation for the complex field at a point on a plane.
 
 \begin{equation}
 u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0}} \cdot (\mathbf{r_1} - \mathbf{r_0})}{\left|\mathbf{r_1} - \mathbf{r_0}\right|^2}e^{ik\left|\mathbf{r_1} - \mathbf{r_0}\right|}dS_0
@@ -436,7 +436,7 @@ $\varphi MC$ can also model spherical aberrations caused by lenses.
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=0.65\textwidth]{spher-aber.pdf}
-    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top) Image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Bottom) Illustration of rays traced through a lens which suffers from spherical aberration.}
+    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top) Image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Image shows the elongated focus and characteristic interference pattern behind the focus. Bottom) Illustration of rays traced through a lens which suffers from spherical aberration.}
     \label{fig:spheraberr}
 \end{figure}
 
@@ -600,7 +600,7 @@ $\varphi$MC can also model the self-healing property of Bessel beams, this is sh
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.75\textwidth]{farfield.pdf}
-\caption{Bessel beam in the far field.}
+\caption{Bessel beam in the far field. Bessel beams in the far field become ring beams. Image shows a slice of intensity through the medium.}
 \label{fig:farfield}
 \end{figure}
 
@@ -615,7 +615,9 @@ $\varphi$MC can also model the self-healing property of Bessel beams, this is sh
 
 \subsubsection*{Comparison to experimental data}
 
-To ensure our algorithm works in turbid media, we carried out an experiment where a Bessel beam was propagated through a medium of varying turbidity.
+To ensure our algorithm works in turbid media, experiments were carried out by our collaborators, S. Reidt \textit{et al.}, at the University of Dundee.
+These experiments allow us to test our algorithms ability to simulate scattering of Bessel beams in turbid media.
+S. Reidt \textit{et al.} carried out an experiment where a Bessel beam was propagated through a medium of varying turbidity.
 A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens, with angle $5^{\circ}$.
 The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$. 
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
@@ -626,7 +628,7 @@ Dilutions of Intralipid are kept below 2\% scattering particle concentration, so
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with our algorithm.
 ~\Cref{fig:expsetup} shows the experimental set-up.
-The experiments described were preformed by S. Reidt \textit{et al.} at the University of Dundee.
+
 
 \begin{figure}[ht!]
     \centering
@@ -735,7 +737,7 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.7\textwidth]{compare-med-size.pdf}
-    \caption{Comparison of a larger medium, $2~mm^3$ versus that of a smaller medium, $0.5~mm \times 0.5~mm \times 2.00~mm$.}
+    \caption{Comparison of a larger medium, $2~mm^3$ versus that of a smaller medium, $0.5~mm \times 0.5~mm \times 2.00~mm$. The figure shows that the smaller medium gives a better signal to noise ratio, whilst still accurately modelling the experiment.}
     \label{fig:compareBigSmall}
 \end{figure}
 
@@ -912,7 +914,7 @@ For equal power beams in the previous section, Gaussian beams preform, ``better'
 Though this is expected due to the Bessel beams property that the power in the beam is spread evenly over its rings.
 Thus the power in the central lobe is much less than that of the Gaussian beam.
 
-To give a slightly more fair comparison, the Bessel beam was given $15\times$ more power than the Gaussian beam.
+To give a slightly more fair comparison, the Bessel beam was given $15\times$ more power than the Gaussian beam, this allows a better comparisons between the Gaussian beams' core and the Bessel beam's core.
 This gave a comparable intensity between the beams at the location of the Gaussian beams focus.
 In this case, the Bessel beam appears to preform better in a highly scattering medium, as shown in~\cref{fig:2ncompbottom}.
 The Bessel beam shows comparable intensity with the Gaussian beam in the first three mediums, though the Gaussian beam out preforms the Bessel beam in the higher scattering media.

@@ -3,12 +3,27 @@
 \section{Introduction}
 
 
-Cardiovascular disease is one of the leading causes of death in the west ***source this***.
-Mention stuff about trad methods do not fully explain incidence of disease -> novel biomarkers
+\Gls*{cvds} are the leading cause of death in the world~\cite{whodeath}.
+It is estimated that around 18 million people dies in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
+Despite decreasing burden of \gls*{cvd} in the UK, it was still the number two cause of death in the Uk in 2014~\cite{bhatnagar2016trends}.
+Traditional markers for do not fully explain incidence of disease.
+Therefore research has moved to examining more novel biomarkers for detecting the disease.
+Amongst these novel biomarker, the autofluorescence response of tissue is of much interest.
+Changes in the autofluorescencent response of tissue has been linked to cancer, Alzheimers, diabetes and \gls*{cvds}.
+Autofluorescence is particularly attractive as a biomarker for these disease as they requires no exogenous dyes, which can be toxic, non-specific, or interfere with biological function~\cite{kollias1998endogenous}.
 
-explain NADH and FAD as source of biomarkers for diabetes and cardiovascular irregularity 
+%explain how nadh for cvds and not anything else
 
-fluro as biomarker been used for various diagnoses
+Despite their appeal, using these novel biomarkers to diagnose and asses disease risks, information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over small and large length scales.
+
+
+% Mention stuff about trad methods do not fully explain incidence of disease -> novel biomarkers
+
+% explain NADH and FAD as source of biomarkers for diabetes and cardiovascular irregularity 
+
+% fluro as biomarker been used for various diagnoses
+
+% explain it is hard to determine which fluros contribute to signal, and where from within skin can try to sue mcrt to alleviate this
 
 % motivation
 % explain fluro method
@@ -26,11 +41,12 @@ fluro as biomarker been used for various diagnoses
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
 However this is not the case in reality.
 Tissue is very un-homogeneous, with non-uniform optical properties.
-However, to create a 1 to 1 model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent part of the tissue down to the cell level.
+However, to create a one to one model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent parts of the tissue down to the cell level.
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
 To this end the section presents a 5 layer model of human skin. 
+
 Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer.
-The layers are named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, reticular dermis and hypodermis.
+The layers named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, Reticular dermis and Hypodermis.
 As not all these layers are optically distinct or are too small to model, we therefore simplify the layers into just 5 layers: Stratum Corneum, Epidermis Papillary Dermis, Reticular Dermis, and Hypodermis, see~\cref{fig:skinexample}.
 
 \begin{figure}[!htpb]
@@ -46,7 +62,7 @@ To accurately model these various chromophores and scatterers, and therefore the
 \subsection*{Stratum Corenum} % (fold)
 \label{sub:stratum}
 
-The top most layer of the skin is the stratum corenum.
+The outer most layer of the skin is the Stratum corenum.
 This layer mostly consists of dead skin cells (keratinocytes).
 The function of this layer is to be a protection barrier to prevent damage, infection and diffusion of unwanted chemicals.
 
@@ -55,13 +71,13 @@ The function of this layer is to be a protection barrier to prevent damage, infe
 \subsubsection*{Epidermis} % (fold)
 \label{ssub:epidermis}
 
-Below the stratum corenum is the epidermis.
-The epidermis consist of several layers that are optically similar so we restrict out model to modelling as one whole layer.
+Below the Stratum corenum is the epidermis.
+The epidermis consist of several layers that are optically similar so we restrict our model to modelling this as one whole layer.
 The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum\footnote{The stratum corenum is usually part of the epidermis, however as its optical properties are different than that of the epidermis we model it as a separate layer.}.
 The purpose of the epidermis is as before to provide a protective barrier to the underlying layers. 
-The epidermis contains melanin which protects the stem cell keratinocyte which divide to form keratinocyte which form much of the upper layers of the skin.
-In the stratum basale there is also melanocyte which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
-Other types of cells found i the epidermis are Langerhans cells and Merkel cells which are part of the immune system and nervous system respectively.
+The epidermis contains melanin which protects the stem cell keratinocytes which divide to form keratinocyte which form much of the upper layers of the skin.
+In the stratum basale there is also melanocytes which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
+Other types of cells found in the epidermis are Langerhans cells and Merkel cells which are part of the immune system and nervous system respectively.
 
 % subsubsection epidermis (end)
 
@@ -80,6 +96,163 @@ The hypodermis consists of fat and
 
 \subsubsection*{Optical Properties} % (fold)
 \label{sub:optical_properties}
+
+
+%refractive indices from mm02
+%blood from louise + inglesias
+%melanin from louise + layers thickness
+% bilirubin from krishnaswamy04 et al
+% carotene  from krishnaswamy04 et al
+%water from mm02
+
+With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model models the optical properties of skin.
+
+To model blood, we first split blood into its deoxygenated and oxygenated components.
+This is done as the absorption coefficient differs between the two types of blood. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from S. Prahl~\cite{prahlblood}.
+
+\begin{equation}
+\mu_{a,oxy/deoxy}=150\ \ln10\ \frac{\epsilon}{64458}
+\label{eqn:oxy}
+\end{equation}
+
+\begin{equation}
+\mu_{a,b}(\lambda) = SO_2\mu_{a,Oxy}+(1-SO_2)\mu_{a,DeOxy}
+\label{eqn:blood}
+\end{equation}
+
+The next chromophores are bilirubin and $\beta$-carotene.
+These chromophores are yellow/ornage pigments. 
+Bilirubin is usually responsible for the yellow skin colour seen in people with jaundice.
+The absorption coefficients are calculated using the blah 
+The spectra are taken from S. Prahl's compilation of PhotochemCAD data~\cite{prahlcaro,prahlbili}.
+
+\begin{equation}
+\mu_{a,Bilirubin}(\lambda)=\frac{\epsilon_{bilirubin}}{585}\ ln10\ C_{bilirubin}
+\label{eqn:bili}
+\end{equation}
+
+\begin{equation}
+\mu_{a,\beta-Caro}(\lambda)=\frac{\epsilon_{\beta-Caro}}{537}\ ln10\ C_{\beta-Caro}
+\label{eqn:caro}
+\end{equation}
+
+To model melanin's absorption coefficient we use~\cref{eqn:melanin}, taken from...
+
+\begin{align}
+\mu_{a,eumel}(\lambda)&=6.66\times10^{11} \times \lambda^{-3.33}\\
+\mu_{a,phomel}(\lambda)&=2.9\times10^{15} \times \lambda^{-4.75}
+\label{eqn:melanin}
+\end{align}
+
+Finally we use a base absorption coefficient to model the absorption due to the other parts of the skin that contribute to its optical properties, but individually do not have a large effect.
+The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcutaneous}
+
+\begin{equation}
+\mu_{a,b}=7.84\times10^{8}\times\lambda^{-3.255}
+\label{eqn:base}
+\end{equation}
+
+
+\Cref{fig:absorcoeff} shows the absorption spectra for the above chromophores as a function of wavelength.
+
+\begin{figure}[!htpb]
+	\centering
+	\includegraphics[width=0.75\textwidth]{absorbs.pdf}
+	\caption{Absorption coefficients for the various chromophores found in skin.}
+	\label{fig:absorcoeff}
+\end{figure}
+
+With the absorption properties of the various chromophores in the skin defined we can now discuss the scattering properties of the skin.
+As the scattering properties do not vary from layer to layer by too much we use the same equation to describe the scattering coefficient.~\cite{jacques2013optical,iglesias2015biophysically,louisethesis}.
+
+\begin{equation}
+\mu'_s(\lambda)=a'\left(f_{ray}\left(\frac{\lambda}{500(nm)}\right)^4+(1-f_{ray})\left(\frac{\lambda}{500(nm)}\right)^{-b_{\text{mie}}}\right)
+\label{eqn:scattrest}
+\end{equation}
+
+\begin{equation}
+\mu'_s(\lambda)=1050.60\times\lambda^{-0.68}
+\label{eqn:hyposcat}
+\end{equation}
+
+
+\noindent Where:
+
+	$\mu'_s$ is the reduced scattering coefficient [$cm^{-1}$];
+
+	$a'$ is a scaling factor [$cm^-1$];
+
+	$f_{ray}$ is the fraction of Raylieigh scattering [-];
+
+	$\lambda$ is the wavelength of light [$m$];
+
+	and $b_{\text{mie}}$ is the ``scattering power'' [-].
+
+\begin{table}[!htpb]
+  \centering
+
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+
+  Layer & $a'/cm^{-1}$ & $f_{ray}$ & $b_{mie}$ \\
+  \hline
+   Epidermis         & 66.7 & 0.29 & 0.69 \\
+   Dermis  & 43.6 & 0.41 & 0.35 \\
+
+  \hline
+  \end{tabular}
+  \caption{Values of the constants for the scattering equations for the different layers of our skin model. Here epidermis represents the stratum corenum and the epidermis, and dermis represents the papillary, reticular and hypodermis in our model.}
+  \label{tab:valscat}
+
+\end{table}
+
+\begin{figure}[!htpb]
+	\centering
+	\includegraphics[width=0.75\textwidth]{scat-plot.pdf}
+	\caption{Figure shows the reduced scattering coefficient for the different layers of our skin model.}
+	\label{fig:scatplot}
+\end{figure}
+
+
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{optical-props.pdf}
+  \caption{Absorption coefficients for the different layers in the skin.***swap the labels!!!***}
+  \label{fig:absoplayers}
+\end{figure}
+
+
+\begin{equation}
+\mu_{a,strat}= ((0.1 - 0.3\times10^{-4}\cdot\lambda) + (0.125(\lambda/10.))\times \mu_{a,b}(\lambda))\times(1. - W) + W\cdot\mu_{H_20}(\lambda)
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\mu_{a,epi}= (\nu_m \cdot (\mu_{phomel}(\lambda) + \mu_{eumel}(\lambda)) + (\mu_{a,b}(\lambda) + \ln10 \cdot \mu_{a,\beta-caro}(\lambda) \cdot C_{caro}) \\ \times (1. - \nu_m)) \times(1. - W) + W \cdot \mu_{H_2O}(\lambda)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\mu_{a,pap}=((S \cdot \mu_{a,oxy}(\lambda) + (1. - S) \cdot \mu_{a,deoxy}(\lambda) + \ln10 \cdot \mu_{a,\beta-caro}(\lambda) \cdot C_{caro} + \\ \ln10 \cdot \mu_{a,bili}(\lambda)\cdot C_{bili})\cdot B + \mu_{a,b}(\lambda) \times (1. - B)) \times (1. - W) + W \cdot \mu_{H_2O}(\lambda)
+\end{split}
+\end{equation}
+
+% \begin{equation}
+% \mu_{a,ret}=((S * \mu_{a,oxy}(\lambda) + (1. - S) * \mu_{a,deoxy}(\lambda) + ln10 * carotene(\lambda) * C_caro + \mu_{(\lambda) * C_bili) *&
+%                        B + base(\lambda) * (1. - B)) * (1. - W) + W * Water(\lambda)
+
+% \end{equation}
+
+
+\begin{equation}
+\mu_{a,hypo}=
+\end{equation}
+
+
+To create our 5 layer skin model, we mix different amounts of the above chromophores to match what appears in each layer.
+\Cref{tab:optpropsvals} shows the amount of each chromophore is included in each layer.
 
 
 \begin{table}[tb] 
@@ -103,105 +276,8 @@ The hypodermis consists of fat and
 \end{table}
 
 
-%refractive indices from mm02
-%blood from louise + inglesias
-%melanin from louise + layers thickness
-% bilirubin from krishnaswamy04 et al
-% carotene  from krishnaswamy04 et al
-%water from mm02
-
-With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model, models the optical properties of skin.
-
-To model blood, we first split blood into deoxygenated and oxygenated. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from%~\cite{}
-
-\begin{equation}
-\mu_{a,oxy/deoxy}=150\ \ln10\ \frac{\epsilon}{64458}
-\label{eqn:oxy}
-\end{equation}
-
-\begin{equation}
-\mu_{a,b}(\lambda) = SO_2\mu_{a,Oxy}+(1-SO_2)\mu_{a,DeOxy}
-\label{eqn:blood}
-\end{equation}
-
-The next chromophores are bilirubin and $\beta$-carotene.
-The absorption coefficients are calculated using the blah 
-
-\begin{equation}
-\mu_{a,Bilirubin}(\lambda)=\frac{\epsilon_{bilirubin}}{585}\ ln10\ C_{bilirubin}
-\label{eqn:bili}
-\end{equation}
-
-\begin{equation}
-\mu_{a,\beta-Caro}(\lambda)=\frac{\epsilon_{\beta-Caro}}{537}\ ln10\ C_{\beta-Caro}
-\label{eqn:caro}
-\end{equation}
-
-To model melanin's absorption coefficient we use~\cref{eqn:eqn:melanin}, taken from...
-
-\begin{equation}
-\mu_{a,mel}(\lambda)=6.66\times10^{11} \times \lambda^{-3.33}
-\label{eqn:eqn:melanin}
-\end{equation}
-
-Finally we use a base absorption coefficient to model the absorption due to the other parts of the skin that contribute to its optical properties, but individually do not have a large effect.
-
-\begin{equation}
-\mu_{a,b}=7.84\times10^{8}\times\lambda^{-3.255}
-\label{eqn:base}
-\end{equation}
-
-
-\begin{figure}[!htpb]
-	\centering
-	\includegraphics[width=0.75\textwidth]{absorbs.pdf}
-	\caption{Absorption coefficients for the various chromophores found in skin.}
-	\label{fig:absorcoeff}
-\end{figure}
-
-
-\begin{figure}[!htpb]
-  \centering
-  \includegraphics[width=0.75\textwidth]{optical-props.pdf}
-  \caption{Absorption coefficients for the different layers in the skin.}
-  \label{fig:absoplayers}
-\end{figure}
-
-
-AS the scattering properties do not vary from layer to layer by too much we use the same equation to describe the scattering coefficient. ***ref jacques, louise thesis and iglesias***
-
-\begin{equation}
-\mu'_s(\lambda)=a'\left(f_{ray}\left(\frac{\lambda}{500(nm)}\right)^4+(1-f_{ray})\left(\frac{\lambda}{500(nm)}\right)^{-b_{\text{mie}}}\right)
-\label{eqn:scattrest}
-\end{equation}
-
-\begin{equation}
-\mu'_s(\lambda)=1050.60\times\lambda^{-0.68}
-\label{eqn:hyposcat}
-\end{equation}
-
-
-\noindent Where:
-
-	$\mu'_s$ is the reduced scattering coefficient [$cm^-1$];
-
-	$a'$ is a scaling factor [$cm^-1$];
-
-	$f_{ray}$ is the fraction of Raylieigh scattering [-];
-
-	$\lambda$ is the wavelength of light [$m$];
-
-	and $b_{\text{mie}}$ is the ``scattering power'' [-].
-
-\begin{figure}[!htpb]
-	\centering
-	\includegraphics[width=0.75\textwidth]{scat-plot.pdf}
-	\caption{Figure shows the reduced scattering coefficient for the different layers of our skin model.}
-	\label{fig:scatplot}
-\end{figure}
-
 % subsubsection optical_properties (end)
-
+\FloatBarrier
 \subsubsection*{Fluorophores in the Skin}
 
 
@@ -300,24 +376,24 @@ This method allows an arbitrary number of fluorophores to be modelled.
 To ensure that this method works as intended, the method is compared to experimental data taken by Campbell \textit{et al.}.
 
 $405~nm$ light was shone on a cuvette of area $10~mm \times 10~mm$.
-The cuvette was filled with Intrlipid $20\%$ diluted with water, and a fluorescent agent Cop III.
-The total volume of this mixture was $6~ml$, consisting of $1~ml$ of Cop III, $4.99~ml$ of water, and $0.0~1ml$ of Intrlipid $20\%$, of which $2~ml$ was pipetted into the cuvette.
+The cuvette was filled with Intrlipid $20\%$ diluted with water, and a fluorescent agent Coproporphyrin III.
+The total volume of this mixture was $6~ml$, consisting of $1~ml$ of Coproporphyrin III, $4.99~ml$ of water, and $0.0~1ml$ of Intrlipid $20\%$, of which $2~ml$ was pipetted into the cuvette.
 $405~nm$ light was shone on the cuvette, and collected via the same fiber, of diameter $600~\mu m$.
 The fiber has a NA of 0.22.
 The signal is the recorded by a blah blah blah..
 
 \begin{figure}[!htpb]
 	\centering
-	% \includegraphics[width=0.75\textwidth]{copor3.pdf}
-	\caption{Optical properties of coporIII}
+	\includegraphics[width=0.75\textwidth]{cop-optprop.pdf}
+	\caption{Optical properties of Coproporphyrin III. The figure on the left shows the absorption coefficient as a function of wavelength. The figure on the right shows the emission spectrum as a function of wavelength.}
 	\label{fig:coporiii}
 \end{figure}
 
 The simulation is setup to mimic the experimental setup.
 A medium of $10~mm^3$ is used with 1 voxel to increase the speed of computation.
 As before Intralipid is assumed to be wholly scattering with no absorption, so an albedo of 1 is used.
-Conversely the CoporIII is wholly absorbing with no scattering.
-CoporIII absorption coefficient is as shown along side its emission spectrum in~\cref{fig:coporiii}.
+Conversely the Coproporphyrin III is wholly absorbing with no scattering.
+Coproporphyrin III absorption coefficient is as shown along side its emission spectrum in~\cref{fig:coporiii}.
 If a photon packets leave the top face of the simulated medium, within the radius of the fiber at an angle the fiber could accept, then the packet is recorded.
 The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
 
@@ -521,6 +597,16 @@ Finally the optical properties also have an effect on the detected light fluence
 \end{figure}
 
 \section{Discussion}
+
+\section{Effect of Tissue Optics on Fluorescent Signal}
+
+One of the problems in using autofluroescence as a biomarker for various diseases is that information about which fluorophore you are measuring can be hard blah blah
+
+use eem
+
+fad from diff layers
+nadh from different layers
+
 
 \section{Future Work}
 

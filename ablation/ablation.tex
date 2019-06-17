@@ -559,7 +559,7 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser (a volume of  0.06~$cm$ $\times$ 0.06~$cm$ $\times$ 0.18~$cm$) 
 As a check to ensure that no physical phenomena are omitted by focusing on just one ablation crater, an initial simulation that models the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives reassurance that the shrinking of the volume of interest is a valid approximation to make, as there is no overlap between the separate ablation crater.
 
-\begin{figure}[!h]
+\begin{figure}[!htbp]
 	\centering
     \includegraphics[width=.95\textwidth]{slice.pdf}
     \caption{Simulation of 81 pixel beams. Figure a) shows a a slice through the optical properties at the end of the simulation in the z-y plane. Figure b) shows the optical properties in the x-y plane at the top surface. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}\label{fig:sizecheck}
@@ -632,7 +632,7 @@ As stated in~\cref{sec:coagdamage}, the Arrhenius damage integral is used to est
 \label{eqn:thermalbound}
 \end{equation}
 
-\begin{figure}[!h]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=.95\textwidth]{damage-slice.pdf}
 	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}

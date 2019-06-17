@@ -1,15 +1,15 @@
-\chapter{AmoebaMCRT, modelling autofluorescence in skin for novel biomarkers of cardiovascular disease}
+\chapter{Modelling Autofluorescence in Skin for Novel Biomarkers of Cardiovascular Diseases}
 \label{chap:salvo}
 \section{Introduction}
 
 
 \Gls*{cvds} are the leading cause of death in the world~\cite{whodeath}.
-It is estimated that around 18 million people dies in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
-Despite decreasing burden of \gls*{cvd} in the UK, it was still the number two cause of death in the Uk in 2014~\cite{bhatnagar2016trends}.
+It is estimated that around 18 million people died in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
+Despite decreasing burden of \gls*{cvds} in the UK, it was still the number two cause of death in the Uk in 2014~\cite{bhatnagar2016trends}.
 Traditional markers for do not fully explain incidence of disease.
 Therefore research has moved to examining more novel biomarkers for detecting the disease.
 Amongst these novel biomarker, the autofluorescence response of tissue is of much interest.
-Changes in the autofluorescencent response of tissue has been linked to cancer, Alzheimers, diabetes and \gls*{cvds}.
+Changes in the autofluorescencent response of tissue has been linked to cancer, Alzheimers, diabetes and \gls*{cvds}~\cite{drakaki2009laser}.
 Autofluorescence is particularly attractive as a biomarker for these disease as they requires no exogenous dyes, which can be toxic, non-specific, or interfere with biological function~\cite{kollias1998endogenous}.
 
 %explain how nadh for cvds and not anything else
@@ -43,7 +43,7 @@ These include NADH (nicotinamide adenine dinucleotide), structural proteins like
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=.75\textwidth]{fluros.pdf}
-  \caption{Top) Shows the fluorescent emission for the various different fluorophores. Bottom) Extinction coefficients for a selection fluorophores found in the skin~\cite{prahltyro,prahltryto}.}
+  \caption{Top) Shows the fluorescent emission for the various different fluorophores. Bottom) Extinction coefficients for a selection fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence}.}
   \label{fig:flurosshow}
 \end{figure}
 
@@ -232,7 +232,7 @@ As the scattering properties do not vary from layer to layer by too much we use 
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.75\textwidth]{optical-props.pdf}
-  \caption{Absorption coefficients for the different layers in the skin.***swap the labels!!!***}
+  \caption{Absorption coefficients for the different layers in the skin.}
   \label{fig:absoplayers}
 \end{figure}
 
@@ -270,8 +270,9 @@ To create our 5 layer skin model, we mix different amounts of the above chromoph
 
 
 \begin{table}[tb] 
-  \centering
+    \begin{adjustwidth}{-.5in}{-.5in}  
 
+  \begin{center}
   \begin{tabular}{|c|c|c|c|c|c|c|c|}
   \hline
   Layer & Thickness/ & Refractive & Blood & Melanin & Bilirubin/ & $\beta$-Carotene/ & Water\\
@@ -287,6 +288,9 @@ To create our 5 layer skin model, we mix different amounts of the above chromoph
   \end{tabular}
     \caption{Table of values used for the various concentrations and volumes fraction of the chromophores in the five layer skin model. Values taken from\cite{krishnaswamy2004biophysically,meglinski2002quantitative,campbell20153d,iglesias2015biophysically}.}
   \label{tab:optpropsvals}
+  \end{center}
+      \end{adjustwidth}
+
 \end{table}
 
 
@@ -403,7 +407,7 @@ The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.75\textwidth]{Fluro-valid.pdf}
-  \caption{Validation of florescence modelling technique ***fix labels, they are back to front***}
+  \caption{Validation of florescence modelling technique.}
   \label{fig:flurovalid}
 \end{figure}
 
@@ -497,7 +501,7 @@ This was achieved by selecting an initial simplex, and the method allowed to ite
 The results of this are shown in~\cref{fig:nmtest}.
 
 
-\begin{table}[]
+\begin{table}[!htbp]
     \begin{tabular}{|c|c|c|}
     \hline
         Name         & Formula                                                                & Global Minumum                \\ \hline
@@ -581,22 +585,36 @@ Finally the optical properties also have an effect on the detected light fluence
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.75\textwidth]{FAD.pdf}
-    \caption{Penetration of UV radiation as a function of depth.}
+    \caption{Detected fluence for FAD and NADH fluorescence.}
     \label{fig:fadnadhboth}
 \end{figure}
 
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.75\textwidth]{fluro-loc.pdf}
-    \caption{Penetration of UV radiation as a function of depth.}
+    \caption{Amount of packets escaping as a function of depth for FAD and NADH fluorescence.}
     \label{fig:floc}
 \end{figure}
 
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.75\textwidth]{show-eps-and-fluro-out.pdf}
-    \caption{Penetration of UV radiation as a function of depth.}
+    \caption{NADH and FAD absorption and emission spectra.}
     \label{fig:epsfluro}
+\end{figure}
+
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{FAD-eem.pdf}
+    \caption{eem-esque map of FAD fluro.}
+    \label{fig:fadeem}
+\end{figure}
+
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{NADH-eem.pdf}
+    \caption{eem-esque map of NADH fluro.}
+    \label{fig:nadheem}
 \end{figure}
 
 \section{Discussion}

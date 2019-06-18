@@ -2,7 +2,12 @@
 
 \section{Thesis outline and objective}
 
-% here be monte carlo shite
+This thesis concerns the development of advanced 3D light transport algorithm for various biophotonic and medical applications.
+The technique that is adopted to calculate the light transport for the majority of the thesis is the \gls*{mcrt} method.
+This method allows the tracking of photon packets through 3D simulated mediums, with the inclusion of multiple anisotropic scattering events along with the modelling of various other micro-physics that light may undergo. in a medium.
+
+
+This chapter details the background to the Monte Carlo method and its various application to a myriad of different fields.
 
 \section{Monte Carlo Method}\label{sec:mcmethod}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems~\cite{cashwell1959practical,rogers1990monte}. 
@@ -82,6 +87,9 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \section{Synopsis and thesis objectives}
 %sign post chapters
 
+Again repeat first para -> talk about dev of MCRT and why use it i.e non invasive digital twin thing ilas mentioned. mcrt is flexable etc
+
+
 Chapter two details the Monte Carlo radiation transport method that is used for the bulk of this thesis.
 Presented in this chapter are details of the algorithm and various code details that underpin the whole thesis.
 Details of speed up techniques such as parallelisation are also presented.
@@ -100,8 +108,6 @@ Finally the algorithm is used to compare Bessel beams and Gaussian beam in highl
 Chapter five details the modelling of a novel biomarker for cardiovascular disease, autofluorescence.
 The theoretical groundwork for the biomaker is outlay-ed, along with discussion of how Monte Carlo radiation transport can model fluorescence.
 Presented alongside this is ameombaMCRT, a Monte Carlo radiation transfer simplex algorithm used to determine concentrations of fluorophores in different layers of tissue for a given spectrum.\\
-
-
 Chapter six details ....\\
 
 

@@ -1,27 +1,5 @@
 \chapter{Modelling Autofluorescence in Skin for Novel Biomarkers of Cardiovascular Diseases}
 \label{chap:salvo}
-\section{Introduction}
-
-
-\Gls*{cvds} are the leading cause of death in the world~\cite{whodeath}.
-It is estimated that around 18 million people died in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
-Despite decreasing burden of \gls*{cvds} in the UK, it was still the number two cause of death in the Uk in 2014~\cite{bhatnagar2016trends}.
-Traditional markers for do not fully explain incidence of disease.
-Therefore research has moved to examining more novel biomarkers for detecting the disease.
-Amongst these novel biomarker, the autofluorescence response of tissue is of much interest.
-Changes in the autofluorescencent response of tissue has been linked to cancer, Alzheimers, diabetes and \gls*{cvds}~\cite{drakaki2009laser}.
-Autofluorescence is particularly attractive as a biomarker for these disease as they requires no exogenous dyes, which can be toxic, non-specific, or interfere with biological function~\cite{kollias1998endogenous}.
-
-%explain how nadh for cvds and not anything else
-
-Despite their appeal, using these novel biomarkers to diagnose and asses disease risks, information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over small and large length scales.
-
-
-% Mention stuff about trad methods do not fully explain incidence of disease -> novel biomarkers
-
-% explain NADH and FAD as source of biomarkers for diabetes and cardiovascular irregularity 
-
-% fluro as biomarker been used for various diagnoses
 
 % explain it is hard to determine which fluros contribute to signal, and where from within skin can try to sue mcrt to alleviate this
 
@@ -34,21 +12,42 @@ Despite their appeal, using these novel biomarkers to diagnose and asses disease
 % results in "2d" 
 % results in 3d + higher
 % future work
-\section*{Fluorophores in the Skin}
 
-There are various different molecules and compounds responsible for the autofluorescence response in tissue.
-These include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
+\section{Introduction}
 
 
-\begin{figure}[!htbp]
+\Gls*{cvds} are the leading cause of death in the world~\cite{whodeath}.
+It is estimated that around 18 million people died in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
+Despite decreasing burden of \gls*{cvds} in the UK, it was still the number two cause of death in the UK in 2014~\cite{bhatnagar2016trends}.
+Traditional markers for do not fully explain incidence of disease.
+Therefore research has moved to examining more novel biomarkers for detecting the disease.
+Amongst these novel biomarkers, the autofluorescence response of tissue is of much interest.
+
+Autofluorescence is the natural fluorescence released by biological structures upon excitation by light.
+Autofluorescence is particularly attractive as a biomarker as it requires no exogenous dyes, which can be toxic, non-specific, or interfere with biological function~\cite{kollias1998endogenous}.
+In tissue there are several fluorophores responsible for this autofluorescencent response, including: NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
+Changes in the autofluorescencent response of tissue has been linked to cancer, Alzheimers, diabetes and \gls*{cvds}~\cite{drakaki2009laser}.
+Autofluorescence can be linked to these diseases as the fluorophores responsible for the autofluorescence either originate in the mitochondria, or are involved in important biochemical pathways that regulate apoptosis, free-radical generation, oxidative stress and bimolecular sensing of glucose, oxygen and nitric oxide.
+
+For example NADH is a intracellular co-enzyme that is a biomarker for metabolic activity and mitochondrial anomalies. 
+NADH is involved in mitochondrial function, energy metabolism, calcium homoeostasis, gene expression, oxidative stress, ageing, apoptosis and glycolysis (see fig blah).
+
+%explain how nadh for cvds and not anything else
+
+Despite their appeal, using these novel biomarkers to diagnose and asses disease risks, information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over small and large length scales.
+This chapter aims to determine how much the tissue optics affects the autofluorescencent signal, which fluorophores contribute to the signal, and from which layer of the skin do they contribute from.
+Finally we introduce out ameboaMCRT algorithm, created to determine the relative concentrations of the intrinsic flurophores in the skin, in order to assess clinical outcomes.
+
+
+\begin{figure}[!htpb]
   \centering
-  \includegraphics[width=.75\textwidth]{fluros.pdf}
-  \caption{Top) Shows the fluorescent emission for the various different fluorophores. Bottom) Extinction coefficients for a selection fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence}.}
-  \label{fig:flurosshow}
+  \includegraphics[width=0.75\textwidth]{nadh-cycle.png}
+  \caption{Simplified schematic showing the roles of NADH and FAD in various different metabolic pathways. The star boxes indicate fluorescing forms of NADH and FAD. Taken from~\cite{croce2014autofluorescence}.}
+  \label{fig:figure1}
 \end{figure}
 
-***sources for above fluro info***
 
+\FloatBarrier
 
 \section{Skin Model}
 
@@ -292,7 +291,26 @@ To create our 5 layer skin model, we mix different amounts of the above chromoph
 
 \end{table}
 
+\subsection*{Fluorophores in the Skin}
 
+There are various different molecules and compounds responsible for the autofluorescence response in tissue.
+As mentioned in the previous section, these include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
+\Cref{fig:flurosshow} shows the emission and absorption spectrum for theses fluorophores.
+
+***talk about where fluros are in skin***
+
+% stratum        nadh, fad, trytophan
+% epidermis    nadh, fad, tyrosine, trytophan
+% pap            nadh, elastin, collagen, tyrosine, trytophan
+% ret            nadh, elastin, collagen, tyrosine, trytophan
+% hypo           nadh, elastin, collagen, tyrosine, trytophan
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=.75\textwidth]{fluros.pdf}
+  \caption{Top) Shows the fluorescent emission for the various different fluorophores. Bottom) Extinction coefficients for a selection fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence}.}
+  \label{fig:flurosshow}
+\end{figure}
 % subsubsection optical_properties (end)
 \FloatBarrier
 
@@ -483,7 +501,7 @@ If the check fails then the algorithm is restarted with the current best point k
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.65\textwidth]{flowchart.pdf}
+    \includegraphics[width=0.65\textwidth]{flowchart-nelder.pdf}
     \caption{Nelder-Mead decision tree}
     \label{fig:NM-algo}
 \end{figure}

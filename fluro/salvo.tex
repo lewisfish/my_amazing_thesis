@@ -56,21 +56,21 @@ However this is not the case in reality.
 Tissue is very un-homogeneous, with non-uniform optical properties.
 However, to create a one to one model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent parts of the tissue down to the cell level.
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
-To this end the section presents a 5 layer model of human skin. 
+To this end the section presents a five layer model of human skin. 
 
 Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer.
 The layers named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, Reticular dermis and Hypodermis.
-As not all these layers are optically distinct or are too small to model, we therefore simplify the layers into just 5 layers: Stratum Corneum, Epidermis Papillary Dermis, Reticular Dermis, and Hypodermis, see~\cref{fig:skinexample}.
+As not all these layers are optically distinct or are too small to model, we therefore simplify the layers into just 5 layers: Stratum Corneum, Epidermis Papillary Dermis, Reticular Dermis, and Hypodermis, with the epidermis compromising of Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale.\Cref{fig:skinexample} shows the geometry of this model.
 
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.7\textwidth]{Skin_layers.pdf}
-    \caption{Illustration of our 5 layer skin model.}
+    \caption{Illustration of our five layer skin model.}
     \label{fig:skinexample}
 \end{figure}
 
 Each of these layers have various amounts of chromophores and scatterers.
-To accurately model these various chromophores and scatterers, and therefore the skin, we must discuss the chemical makeup and spatial structure of the skin.
+To accurately model these various chromophores and scatterers, and therefore the skin, we must discuss the biological make up and spatial structure of the skin.
 
 \subsection*{Stratum Corenum} % (fold)
 \label{sub:stratum}

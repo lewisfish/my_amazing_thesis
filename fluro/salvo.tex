@@ -59,8 +59,8 @@ Therefore we need to make a compromise between reality and what is possible to m
 To this end the section presents a five layer model of human skin. 
 
 Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer.
-The layers named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, Reticular dermis and Hypodermis.
-As not all these layers are optically distinct or are too small to model, we therefore simplify the layers into just 5 layers: Stratum Corneum, Epidermis Papillary Dermis, Reticular Dermis, and Hypodermis, with the epidermis compromising of Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale.\Cref{fig:skinexample} shows the geometry of this model.
+The layers named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, Reticular dermis, and Hypodermis.
+As not all these layers are optically distinct or are too small to model, we therefore simplify the layers into just 5 layers: Stratum Corneum, Epidermis, Papillary Dermis, Reticular Dermis, and Hypodermis, with the epidermis compromising of Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale.\Cref{fig:skinexample} shows the geometry of this model.
 
 \begin{figure}[!htpb]
     \centering
@@ -77,7 +77,11 @@ To accurately model these various chromophores and scatterers, and therefore the
 
 The outer most layer of the skin is the Stratum corenum.
 This layer mostly consists of dead skin cells (keratinocytes).
-The function of this layer is to be a protection barrier to prevent damage, infection and diffusion of unwanted chemicals.
+Keratinocytes, which make up approximately 80 percent of the cells in the epidermis, are born in the stratum basale, and live for approximately 14 days.
+During this period they move upwards to the surface of the skin undergoing a series of complex morphological and metabolic events, which ends with the cells undergoing apoptosis by the time the reach the stratum corenum.
+The keratinocytes are flat in shape, cornified and stacked on top each other in this layer.
+The function of this layer is to be a protection barrier to prevent damage, infection and diffusion of unwanted chemicals further into the skin.
+The stratum corenum also prevents water loss and provides some UV protection.
 
 % subsection stratum_corenum (end)
 
@@ -86,24 +90,33 @@ The function of this layer is to be a protection barrier to prevent damage, infe
 
 Below the Stratum corenum is the epidermis.
 The epidermis consist of several layers that are optically similar so we restrict our model to modelling this as one whole layer.
-The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum\footnote{The stratum corenum is usually part of the epidermis, however as its optical properties are different than that of the epidermis we model it as a separate layer.}.
+The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum\footnote{The stratum lucidium only appears in areas of the body where skin is thick, e.g the palm or the sole of the foot.}.
+Each of these layers are distinct from one another, in the fact that the keratinocytes in each layer are different from one another.
+In the stratum lucidium the keratinocytes are dead, and fairly flat.
+The stratum granulosum the keratinocytes are grainy are are becoming fairly flat in comparison to the below layers.
+Stratum spinosum, the keratinocytes appears spiny (hence the name of the layer), and are polyhedral in shape.
+It is in the stratum spinosum that the cells begin to become keratinized and start the process of dying as they move upwards.
+Finally the last layer of the epidermis, the startum basale, is the layer where the keratinocytes are born.
+Here the keratinocytes are columnar or cuboid in shape.
+
 The purpose of the epidermis is as before to provide a protective barrier to the underlying layers. 
-The epidermis contains melanin which protects the stem cell keratinocytes which divide to form keratinocyte which form much of the upper layers of the skin.
 In the stratum basale there is also melanocytes which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
 Other types of cells found in the epidermis are Langerhans cells and Merkel cells which are part of the immune system and nervous system respectively.
+Overall the epidermis provides protection form mechanical stress, flexibility to the skin, UV protection, retains water, stops foreign bodies or chemicals from entering the skin.
 
 % subsubsection epidermis (end)
 
 \subsection*{Dermis} % (fold)
 \label{sub:dermis}
+The dermis is the layer of skin below the epidermis, and makes up the majority of the skin by size.
+The cellular makeup of the dermis is different from that of the epidermis, as the dermis is mostly made up of filamentous or fibrous proteins such as elastin or collagen.
+The dermis also contains various nerves and blood vessels.
+The dermis is split into three layers, the papillary dermis, the reticular dermis, and the hypodermis.
+The boundary between the papillary and reticular layers is demarcated by the subpapilliary plexus, which is a horizontal plane of blood vessels.
+The boundary between the reticular and the hypodermis is marked by a abrupt change from fibrous to adipose tissue.
 
-The dermis is split into three different layers in our model: the papillary dermis, reticular dermis and the hypodermis.
-
-The papillary dermis has blood
-
-The reticular dermis has blood
-
-The hypodermis consists of fat and  
+The function of the dermis is to protect from mechanical injury, thermal regulation, contains receptors of sensory stimuli, gives the skin pliability, elasticity and tensile strength.
+ 
 
 % subsection dermis (end)
 
@@ -563,9 +576,16 @@ Therefore the ~\gls*{mcrt} algorithm has to be computationally efficient in orde
 To this end the 3D skin model is shrunk to a 1D model so that the optical integration routine can efficiently move the photon through the simulated medium.
 The optical properties of the incident wavelength are also stored so that when a new photon is started the optical properties can easily be adjusted without need for any calculation.
 Finally a filter is employed on the output fluorescence spectrum to smooth the noise out.
-The filter used is a Savitzky–Golay filter.
-This filter fits multiple low-degree polynomials to the subsets of the output, thus smoothing the data. 
+The filter used is a Savitzky-Golay filter.
+This filter fits multiple low-degree polynomials to subsets of the data, thus smoothing the data. 
+\Cref{fig:sgfilter} shows the use of the Savitzky-Golay filter on sample output data from the \gls*{mcrt} simulation.
 
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.75\textwidth]{sgfilter-prrof.pdf}
+  \caption{Illustration of how the Savitzky-Golay filter works on noisy data and recovers the roughly the same signal on the same dataset with less noise. Left image shows the raw signal for a simulation run with less photons and more photons. Right image shows the dataset after the Savitzky-Golay filter is applied.}
+  \label{fig:sgfilter}
+\end{figure}
 
 \begin{figure}[!htbp]
 	\centering
@@ -574,8 +594,12 @@ This filter fits multiple low-degree polynomials to the subsets of the output, t
 	\label{fig:figure1}
 \end{figure}
 
+
+
 The above model is first run through the MCRT to get an output target spectrum.
 We then test the~\gls*{nm} method for $n=2$ and $n=3$.
+
+
 
 
 \section{Results}

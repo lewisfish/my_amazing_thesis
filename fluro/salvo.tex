@@ -366,7 +366,7 @@ g(\lambda)=0.62+0.29\lambda\times10^{-3}
 
 \indent $\lambda$ is the wavelength [$nm$].
 
-The refractive indices of each layer is broadly the same and does ot vary form layer to layer by a large amount.
+The refractive indices of each layer is broadly the same and does not vary form layer to layer by a large amount.
 \Cref{tab:refindex} shows the refractive indices adopted for our skin model.
 
 \begin{table}[!htpb]
@@ -402,7 +402,7 @@ Elastin and collagen are only found in the dermis.
 Tyrosine is found in all layers of the skin bar the stratum corenum.
 Finally trytophan is generally found in all layers of the skin.
 
-***talk about where fluros are in skin***
+***talk about where fluros are in skin + need sources for this, think I wrote them down somewhere***
 
 % stratum        nadh, fad, trytophan
 % epidermis    nadh, fad, tyrosine, trytophan
@@ -421,7 +421,7 @@ Finally trytophan is generally found in all layers of the skin.
 
 \section{Modelling Fluorescence}
 
-Fluroescene is the process in which light of a certain wavelength is incident on a molecule, the molecule absorbs the light and re-emits the light at a new longer wavelength.
+Fluorescence is the process in which light of a certain wavelength is incident on a molecule, the molecule absorbs the light and re-emits the light at a new longer wavelength.
 
 \Cref{fig:Jabo} shows an example of Jablonski diagram.
 
@@ -437,12 +437,12 @@ This change is to the interaction portion of the algorithm, so that it will now 
 To calculate whether a packet absorbs, scatters or fluoresces, first the probability of each of these events must be calculated.
 Discussion of scattering and absorption (by the bulk medium) was described in~\cref{sec:opticalprops}.
 To calculate the probability of fluorescence, we first assume that the quantum yield of the molecule is unity.
-This is physically unrealistic, however it does not affect the simulations accuracy, as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ration would be worse than if we assume a quantum yield of unity.
+This is physically unrealistic, however it does not affect the simulations accuracy, as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ratio would be worse than if we assume a quantum yield of unity.
 To calculate the probability of fluorescence, the absorption coefficient of the florescent molecule must be calculated.
 This is shown in~\cref{eqn:flurodef}:
 
 \begin{equation}
-\mu_f=\ln\left(10\right) C \varepsilon
+\mu_f=\ln\left(10\right)\varepsilon C
 \label{eqn:flurodef}
 \end{equation}
 
@@ -471,29 +471,29 @@ Where $P_i$ is the probability of interacting with the $i^{th}$ species, the num
 \begin{center}
 \begin{algorithm}[H]
 \SetAlgoLined
-  set $\mu_{tot}$\;
+  set $\mu_{t_{i}}$\;
   set all $P_i$'s\;
   set $\xi_1$\;
-  \uIf{$\xi_1 < P_1$}{
+  \uIf{$\xi_1 <= P_1$}{
     set $\xi_2$\;
-    \uIf{$\xi_2 < a_m$}{
+    \uIf{$\xi_2 <= a_m$}{
       Scatter in medium\;
      }
      \Else{
       Absorb in medium\;
      }
   }
-  \uElseIf{$\xi_1 < P_1 + P_2$}{
+  \uElseIf{$\xi_1 <= P_1 + P_2$}{
     Species 1 fluoresces\;
   }
-  \uElseIf{$\xi_1 < P_1 + P_2 + P_3$}{
+  \uElseIf{$\xi_1 <= P_1 + P_2 + P_3$}{
     Species 2 fluoresces\;
   }
-  \uElseIf{$\xi_1 < P_1 + P_2 + P_3 + ... + P_n$}{
+  \uElseIf{$\xi_1 <= P_1 + P_2 + P_3 + ... + P_n$}{
     Species n fluoresces\;
   }
   \Else{
-    Error\;
+    Error, no interaction\;
   }
 \
 \caption{\textit{An algorithm to determine which species to interact with. $P_1$ is the probability of interacting with the bulk medium, $P_2$ to $P_n$ is the probability of interacting with a fluorescent species, $a_m$ is the albedo of the bulk medium, $\xi_i$ is a random number, and $\mu_{tot}$ is the total attenuation coefficient of all the species summed.}}
@@ -502,12 +502,11 @@ Where $P_i$ is the probability of interacting with the $i^{th}$ species, the num
 \end{center}
 
 This method allows an arbitrary number of fluorophores to be modelled.
-To ensure that this method works as intended, the method is compared to experimental data taken by Campbell \textit{et al.}.
+To ensure that this method works as intended, the method is compared to experimental data taken by Campbell \textit{et al.}~\cite{louisethesis}.
 
-$405~nm$ light was shone on a cuvette of area $10~mm \times 10~mm$.
 The cuvette was filled with Intrlipid $20\%$ diluted with water, and a fluorescent agent Coproporphyrin III\@.
 The total volume of this mixture was $6~ml$, consisting of $1~ml$ of Coproporphyrin III, $4.99~ml$ of water, and $0.0~1ml$ of Intrlipid $20\%$, of which $2~ml$ was pipetted into the cuvette.
-$405~nm$ light was shone on the cuvette, and collected via the same fiber, of diameter $600~\mu m$.
+$405~nm$ light was shone on a cuvette of area $10~mm \times 10~mm$., and collected via the same fiber, of diameter $600~\mu m$.
 The fiber has a NA of 0.22.
 The signal is the recorded by a blah blah blah..
 
@@ -522,14 +521,14 @@ The simulation is setup to mimic the experimental setup.
 A medium of $10~mm^3$ is used with 1 voxel to increase the speed of computation.
 As before Intralipid is assumed to be wholly scattering with no absorption, so an albedo of 1 is used.
 Conversely the Coproporphyrin III is wholly absorbing with no scattering.
-Coproporphyrin III absorption coefficient is as shown along side its emission spectrum in~\cref{fig:coporiii}.
-If a photon packets leave the top face of the simulated medium, within the radius of the fiber at an angle the fiber could accept, then the packet is recorded.
+Coproporphyrin III absorption spectrum is as shown along side its emission spectrum in~\cref{fig:coporiii}.
+If a photon packet leaves the top face of the simulated medium, within the radius of the fiber at an angle the fiber could accept, then the packet is recorded.
 The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
 
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.75\textwidth]{Fluro-valid.pdf}
-  \caption{Validation of florescence modelling technique.}
+  \caption{Validation of florescence modelling technique as described above. Figure shows that the MCRT method matches closely to the experimental results.}
   \label{fig:flurovalid}
 \end{figure}
 
@@ -539,7 +538,7 @@ The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
 
 The \gls*{nm} method is an algorithm for unconstrained optimisation. 
 The algorithm is based upon iteratively updating a simplex. 
-A simplex is a structure in $n-dimensional$ space, consisting of $n+1$ points that are not in the same plane. 
+A simplex is a structure in $n dimensional$ space, consisting of $n+1$ points that are not in the same plane. 
 Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, etc. 
 The Nelder-Mead method is a gradient free method, meaning that it does not require derivatives to be calculated and that the search space does not need to be smooth.
 This makes it ideal for problems where derivates are not able to be computed easily, or the search space is not smooth.
@@ -577,10 +576,13 @@ If this new point, $x_{ic}$, is better than the ``worst'' point then we keep it,
 If $x_r$ is not worse than the ``worst'' point then we preform an outside contraction~\cref{eqn:outsidecontract}.
 This computes a new point $x_{oc}$.
 If $x_{oc}$ is better than $x_w$, then we keep it, otherwise again we shrink around the ``best'' point.
-
 The process described above is summarised in~\cref{fig:NM-algo}.
+
 Standard values for the factors are: $\alpha=1$, $\beta=\frac{1}{2}$, and $\gamma=2$.
 Though in practice these values are adjusted for the problem at hand.
+For higher dimensions, i.e. where $n > 2$ F. Gao \textit{et al}. suggest that the parameters should be changed based upon how many dimensions are used for the simplex~\cite{gao2012implementing}.
+The values F. Gao \textit{et al} suggest are: $\alpha=1$, $\beta=1+\tfrac{2}{n}$, $\gamma=0.75-\tfrac{1}{2n}$, and $\delta=1-\tfrac{1}{n}$.
+Where $n$ is the order of dimensions.
 
 \begin{align}
 c &= \frac{1}{n}\sum \limits_{i=1,i\neq w}^{n+1} x_i \label{eqn:centroid}\\
@@ -617,7 +619,7 @@ If the best point is better than the pre-set value then the algorithm terminates
 
 \FloatBarrier
 \section{Validation}
-The~\gls*{nm} method was coded in Fortran, so that it could be easily interfaced with the~\gls*{mcrt} code developed as part of this thesis.
+The~\gls*{nm} method was coded in modern Fortran, so that it could be easily interfaced with the~\gls*{mcrt} code developed as part of this thesis.
 To test that the \gls*{nm} method works as intended a number of trial optimisation functions were tested, see~\cref{tab:testfuncs}.
 This was achieved by selecting an initial simplex, and the method allowed to iterate until it converged.
 The results of this are shown in~\cref{fig:nmtest}.
@@ -664,7 +666,7 @@ Where $x_i$ is a data point at a wavelength $\lambda_i$ produced by the MCRT, an
 
 As many models need to be run in order to determine whether a global maxima has been reached using the NM method and that the fluorophore concentration is low, means that many packets need to be run to achieve a good single to noise ratio.
 These two constraints result in a computational load that is infeasible to run. 
-Therefore the ~\gls*{mcrt} algorithm has to be computationally efficient in order to arrive at an answer within a reasonable time.
+Therefore the~\gls*{mcrt} algorithm has to be computationally efficient in order to arrive at an answer within a reasonable time.
 To this end the 3D skin model is shrunk to a 1D model in the z direction so that the optical integration routine can efficiently move the photon through the simulated medium.
 The optical properties of the incident wavelength are also stored so that when a new photon is started the optical properties can easily be adjusted without need for any calculation.
 Finally a filter is employed on the output fluorescence spectrum to smooth the noise out.

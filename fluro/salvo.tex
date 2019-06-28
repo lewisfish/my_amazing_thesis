@@ -20,7 +20,10 @@
 It is estimated that around 18 million people died in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
 Despite decreasing burden of \gls*{cvds} in the UK, it was still the number two cause of death in the UK in 2014~\cite{bhatnagar2016trends}.
 
-Traditional markers for do not fully explain incidence of disease.
+Currently risk factors are used to try and determine if a patient has \gls*{cvd}.
+However these risk factors are only a ``causal pathway leading to the disease''~\cite{vasan2006biomarkers}.
+
+The risk factors such as high blood pressure, smoking, diabetes, physical inactivity, and dyslipidemia do not fully explain incidence of disease~\cite{olsen2010assessment,folsom2013classical}.
 Therefore research has moved to examining more novel biomarkers for detecting the disease.
 Among these novel biomarkers, the autofluorescence response of tissue is of much interest.
 
@@ -30,15 +33,14 @@ In tissue there are several fluorophores responsible for this autofluorescencent
 Changes in the autofluorescencent response of tissue has been linked to cancer, Alzheimers, diabetes and \gls*{cvds}~\cite{drakaki2009laser,pu2013native,ramanujam2000fluorescence,tarnawska2018pilot,van2019skin}.
 Autofluorescence can be linked to these diseases as the fluorophores responsible for the autofluorescence either originate in the mitochondria, or are involved in important biochemical pathways that regulate apoptosis, free-radical generation, oxidative stress and bimolecular sensing of glucose, oxygen and nitric oxide.
 
-For example, NADH is a intracellular co-enzyme that is a biomarker for metabolic activity and mitochondrial anomalies. 
+NADH has recently been the subject of interest in particular as a biomarker for \gls*{cvds}~\cite{akbar2014vivo,elahi2009oxidative,blacker2016investigating}.
+NADH is a intracellular co-enzyme that is a biomarker for metabolic activity and mitochondrial anomalies. 
 NADH is involved in mitochondrial function, energy metabolism, calcium homoeostasis, gene expression, oxidative stress, ageing, apoptosis and glycolysis (see~\cref{fig:nadhfadpath}).
-FAD is also heavily involved in various metabolic activities and is part of a redox pair in respiration.
+Therefore is there is dsfuntion, then the autofluroecnet signal from NASH will be affected, thus it can be used as as biomarker for disease.
 
-NADH has recently been the subject of interest in particular as a biomarker for \gls*{cvds}~\cite{akbar2014vivo,elahi2009oxidative,blacker2016investigating}
-nadh oxiative stress indicative of cvds eh...
 %explain how nadh for cvds and not anything else
 
-Despite their appeal, using these novel biomarkers to diagnose and asses disease risks, information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over different location on the body.
+Despite their appeal using these autofluorescence to diagnose and asses disease risk more research needs to be carried out on various unknowns: information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over different location on the body.
 This chapter aims to determine how much the tissue optics affects the autofluorescencent signal, which fluorophores contribute to the signal, and from which layer of the skin do they contribute from.
 Finally we introduce our ameboaMCRT algorithm, created to determine the relative concentrations of the intrinsic fluorophores in the skin, to assess clinical outcomes.
 
@@ -62,7 +64,7 @@ However, to create a one to one model of tissue in a simulation is impractical d
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
 This section presents a five layer model of human skin. 
 
-Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer.
+Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
 The layers named from outer layer to inner most layer: Stratum corenum, Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale, Papillary dermis, Reticular dermis, and Hypodermis.
 As not all these layers are optically distinct, are too small to model or not present in a given location on the body.
 Therefore, we simplify the layers into just 5 layers: Stratum Corneum, Epidermis, Papillary Dermis, Reticular Dermis, and Hypodermis, with the epidermis compromising of Stratum lucidum, Stratum granulosum, Stratum spinosum, Stratum basale.\Cref{fig:skinexample} shows the geometry of this model.
@@ -86,7 +88,7 @@ Keratinocytes, which make up approximately 80 percent of the cells in the epider
 During this period they move upwards to the surface of the skin undergoing a series of complex morphological and metabolic events, which ends with the cells undergoing apoptosis by the time the reach the stratum corenum.
 The keratinocytes are flat in shape, cornified and stacked on top each other in this layer.
 The function of this layer is to be a protection barrier to prevent damage, infection and diffusion of unwanted chemicals further into the skin.
-The stratum corenum also prevents water loss and provides some UV protection.
+The stratum corenum also prevents water loss and provides some UV protection~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
 
 % subsection stratum_corenum (end)
 
@@ -107,7 +109,7 @@ Here the keratinocytes are columnar or cuboid in shape.
 The purpose of the epidermis is as before to provide a protective barrier to the underlying layers. 
 In the stratum basale there is also melanocytes which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
 Other types of cells found in the epidermis are Langerhans cells and Merkel cells which are part of the immune system and nervous system respectively.
-Overall the epidermis provides protection from mechanical stress, flexibility to the skin, UV protection, retains water, and stops foreign bodies or chemicals from entering the skin.
+Overall the epidermis provides protection from mechanical stress, flexibility to the skin, UV protection, retains water, and stops foreign bodies or chemicals from entering the skin~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
 
 % subsubsection epidermis (end)
 
@@ -119,8 +121,7 @@ The dermis also contains various nerves and blood vessels.
 The dermis is split into three layers, the papillary dermis, the reticular dermis, and the hypodermis.
 The boundary between the papillary and reticular layers is demarcated by the subpapilliary plexus, which is a horizontal plane of blood vessels.
 The boundary between the reticular and the hypodermis is marked by a abrupt change from fibrous to adipose tissue.
-
-The function of the dermis is to protect from mechanical injury, thermal regulation, contains receptors of sensory stimuli, gives the skin pliability, elasticity and tensile strength.
+The function of the dermis is to protect from mechanical injury, thermal regulation, contains receptors of sensory stimuli, gives the skin pliability, elasticity and tensile strength~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
  
 
 % subsection dermis (end)
@@ -137,24 +138,43 @@ The function of the dermis is to protect from mechanical injury, thermal regulat
 %water from mm02
 
 With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model models the optical properties of skin.
+First we will discuss the absorber that are found in the skin, and what their absorption properties are as a function of wavelength.
+Scattering properties of the several layers of tissue will then be discussed followed by a quick discussion on refractive indices and anisotropy values.
+Finally a discussion on the fluorophore found in the skin will be presented.
 
+
+The first chromophore we will examine is blood.
 To model blood, we first split blood into its deoxygenated and oxygenated components.
 This is done as the absorption coefficient differs between the two types of blood. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from S. Prahl~\cite{prahlblood}.
 
 \begin{equation}
-\mu_{a,oxy/deoxy}=150\ \ln10\ \frac{\epsilon}{64458}
+\mu_{a,Oxy/DeOxy}=150\ \ln10\ \frac{\epsilon}{64458}
 \label{eqn:oxy}
 \end{equation}
 
 \begin{equation}
-\mu_{a,b}(\lambda) = SO_2\mu_{a,Oxy}+(1-SO_2)\mu_{a,DeOxy}
+\mu_{a,blood}(\lambda) = S\mu_{a,Oxy}+(1-S)\mu_{a,DeOxy}
 \label{eqn:blood}
 \end{equation}
 
+\noindent Where:
+
+\indent $\epsilon$ is the excitation coefficient of hemoglobin [$cm^{-1}$];
+
+\indent $64458$ is the molecular weight of hemoglobin [$g\ mol^{-1}$];
+
+\indent $150$ is the normal concentration of hemoglobin in blood [$g\ L^{-1}$];
+
+\indent and $\mu_{a,Oxy}$, $\mu_{a,DeOxy}$, and $\mu_{a,blood}$ are the absorption coefficients for oxygenated, deoxygenated and blood respectively [$cm^{-1}$].
+
+\medskip
+
+We also include water in our skin model.
+Water's absorption spectrum is taken from the work of Wieliczka \textit{et al} and Segelstein~\cite{wieliczka1989wedge,segelstein1981complex}.
+
 The next chromophores are bilirubin and $\beta$-carotene.
 These chromophores are yellow/orange pigments. 
-Bilirubin is usually responsible for the yellow skin colour seen in people with jaundice.
-The absorption coefficients are calculated using the blah 
+Bilirubin is usually responsible for the yellow skin colour seen in people with jaundice~\cite{jacques1997developing}.
 The spectra are taken from S. Prahl's compilation of PhotochemCAD data~\cite{prahlcaro,prahlbili}.
 
 \begin{equation}
@@ -167,7 +187,22 @@ The spectra are taken from S. Prahl's compilation of PhotochemCAD data~\cite{pra
 \label{eqn:caro}
 \end{equation}
 
-To model melanin's absorption coefficient we use~\cref{eqn:melanin}, taken from...
+\noindent Where:
+
+\indent $\epsilon_{bilirubin}$ and $\epsilon_{\beta-Caro}$ are the excitation coefficients for bilirubin and $\beta$-carotene 
+
+\indent respectively [$cm^{-1}$];
+
+\indent $585$, and $537$ are the molecular weights of bilirubin and $\beta$-carotene [$g$];
+
+\indent finally, $C_{bilirubin}$, and $C_{\beta-Caro}$ are the contaminations of bilirubin and $\beta$-carotene 
+
+\indent in the skin [$g\ L^{-1}$].
+
+\medskip
+
+Melanin is the next chromophore we model.
+To model melanin's absorption coefficient we use~\cref{eqn:melanin}, taken from~\cite{iglesias2015biophysically}.
 
 \begin{align}
 \mu_{a,eumel}(\lambda)&=6.66\times10^{11} \times \lambda^{-3.33}\\
@@ -176,10 +211,10 @@ To model melanin's absorption coefficient we use~\cref{eqn:melanin}, taken from.
 \end{align}
 
 Finally we use a base absorption coefficient to model the absorption due to the other parts of the skin that contribute to its optical properties, but individually do not have a large effect.
-The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcutaneous}
+The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcutaneous}.
 
 \begin{equation}
-\mu_{a,b}=7.84\times10^{8}\times\lambda^{-3.255}
+\mu_{a,base}=7.84\times10^{8}\times\lambda^{-3.255}
 \label{eqn:base}
 \end{equation}
 
@@ -194,7 +229,7 @@ The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcuta
 \end{figure}
 
 With the absorption properties of the various chromophores in the skin defined we can now discuss the scattering properties of the skin.
-As the scattering properties do not vary from layer to layer by too much we use the same equation to describe the scattering coefficient.~\cite{jacques2013optical,iglesias2015biophysically,louisethesis}.
+As the scattering properties do not vary from layer to layer by too much we use the same equation to describe the scattering coefficient~\cite{jacques2013optical,iglesias2015biophysically,louisethesis}.
 
 \begin{equation}
 \mu'_s(\lambda)=a'\left(f_{ray}\left(\frac{\lambda}{500(nm)}\right)^4+(1-f_{ray})\left(\frac{\lambda}{500(nm)}\right)^{-b_{\text{mie}}}\right)
@@ -218,6 +253,12 @@ As the scattering properties do not vary from layer to layer by too much we use 
 	$\lambda$ is the wavelength of light [$m$];
 
 	and $b_{\text{mie}}$ is the ``scattering power'' [-].
+
+\medskip
+
+This equation mixes both Mie and Rayleigh scattering into one equation.
+The first term represents the Rayleigh scattering terms, whilst the second represents the Mie scattering term.
+\Cref{fig:scatplot} shows the reduced scattering coefficients for the different layers of the skin.
 
 \begin{table}[!htpb]
   \centering
@@ -244,14 +285,6 @@ As the scattering properties do not vary from layer to layer by too much we use 
 	\label{fig:scatplot}
 \end{figure}
 
-
-
-\begin{figure}[!htpb]
-  \centering
-  \includegraphics[width=0.75\textwidth]{optical-props.pdf}
-  \caption{Absorption coefficients for the different layers in the skin.}
-  \label{fig:absoplayers}
-\end{figure}
 
 
 \begin{equation}
@@ -281,11 +314,11 @@ As the scattering properties do not vary from layer to layer by too much we use 
 \end{equation}
 
 
-To create our 5 layer skin model, we mix different amounts of the above chromophores to match what appears in each layer.
+To create our five layer skin model, we mix different amounts of the above chromophores to match what appears in each layer.
 \Cref{tab:optpropsvals} shows the amount of each chromophore is included in each layer.
 
 
-\begin{table}[tb] 
+\begin{table}[!tbhp] 
     \begin{adjustwidth}{-.5in}{-.5in}  
 
   \begin{center}
@@ -309,11 +342,65 @@ To create our 5 layer skin model, we mix different amounts of the above chromoph
 
 \end{table}
 
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{optical-props.pdf}
+  \caption{Absorption coefficients for the different layers in the skin.}
+  \label{fig:absoplayers}
+\end{figure}
+
+\FloatBarrier
+
+Finally we discuss the anisotropy values and refractive indices of our model.
+
+First, the anisotropy g value is dependant on wavelength~\cite{louisethesis,van1989skin}.
+
+\begin{equation}
+g(\lambda)=0.62+0.29\lambda\times10^{-3}
+\end{equation}
+
+\noindent Where:
+
+\indent g is the anisotropy value [$-$];
+
+\indent $\lambda$ is the wavelength [$nm$].
+
+The refractive indices of each layer is broadly the same and does ot vary form layer to layer by a large amount.
+\Cref{tab:refindex} shows the refractive indices adopted for our skin model.
+
+\begin{table}[!htpb]
+  \centering
+
+  \begin{tabular}{l|c}
+  \hline
+
+  \hline
+  Layer & Refractive index \\
+  \hline
+    Stratum corenum & 1.5 \\
+    Epidermis &  1.34\\
+    Papilliary dermis & 1.40 \\
+    Reticular dermis &  1.395\\
+    Hypodermis &  1.41\\
+
+  \hline
+  \end{tabular}
+    \caption{Refractive indices used for the five layer skin model. Values are taken from~\cite{meglinski2002quantitative}.}
+  \label{tab:refindex}
+\end{table}
+
+As information on wavelength dependant refractive indices is not readily available, we assume that the refractive indices are the same for all wavelength used in this chapter.
+
 \subsection*{Fluorophores in the Skin}
 
 There are various different molecules and compounds responsible for the autofluorescence response in tissue.
-As mentioned in the previous section, these include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
+As mentioned in the introduction to this chapter, these include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
 \Cref{fig:flurosshow} shows the emission and absorption spectrum for theses fluorophores.
+As NADH is found in cells, NADH is typically found in all layers of the skin.
+Elastin and collagen are only found in the dermis.
+Tyrosine is found in all layers of the skin bar the stratum corenum.
+Finally trytophan is generally found in all layers of the skin.
 
 ***talk about where fluros are in skin***
 

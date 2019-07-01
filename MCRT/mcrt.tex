@@ -1,18 +1,19 @@
 \chapter{Monte Carlo Radiation Transport Technique}
 \label{sec:mcrt}
 \section{Introduction}
-This chapter will provide an overview of the Monte Carlo radiative transfer method and compare it to other methods. Details of the \gls*{mcrt} code developed during this project and used as the basis of the results reported in subsequent chapters is also presented. Validation of this code and details of computational speed up are also presented.
+This chapter will provide an overview of the \gls*{mcrt} method and compares it to other methods. 
+Details of the \gls*{mcrt} code developed during this project and used as the basis of the results reported in subsequent chapters, validation of code, and details of computational speed up are also presented.
 
 \section{Monte Carlo Radiation Transport Algorithm}
 
-\subsection{Introduction \texorpdfstring{$\&$}{and} background}
-The technique that makes up the bulk of this thesis, is the \gls*{mcrt} technique. This method was developed at the end of the Second World War at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty galactic clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.
+\subsection{Introduction and background}
+The technique that makes up the bulk of this thesis is the \gls*{mcrt} technique. This method was developed at the end of the Second World War at the Los Alamos National Laboratory, for the purpose of calculating neutron diffusion though shielding material~\cite{montybeg1,eckhardt1987stan,anderson1986metropolis,ulam1947statistical}. It has since found a myriad of applications from light transport through dusty galactic clouds~\cite{wood1999model}, calculating doses for radiotherapy~\cite{rogers1995beam} to light transport through tissue~\cite{1stmonty}.
 
-The theory that governs the transport of radiation through a medium is the radiative transfer equation.
+The theory that governs the transport of radiation through a medium is the \gls*{rte}.
 Before describing~\gls*{mcrt} which is a numerical simulation of the~\gls*{rte}, the theory of radiation transport must be examined.
 
 \subsubsection*{Radiative Transfer}
-Transport of radiant energy through turbid media, can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses, and gains by a beam of radiation as it propagates, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
+Transport of radiant energy through turbid media can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses and gains by a beam of radiation as it propagates, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
 
 
 The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction $\mathbf{\hat{n}}$, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
@@ -150,7 +151,9 @@ The second energy gain term, and final term, is due to the incident energy on th
 
 \indent $P(\hat{s}',\hat{s})$ is the scattering phase function (see~\cref{sec:optprop} for further discussion);
 
-\indent and $\sigma_s$ is the cross section of the scatters [$m^2$], thus $\mu_s=N_s\sigma_s$, where $\mu_s$ is the scattering coefficient [$m^{-1}$].
+\indent and $\sigma_s$ is the cross section of the scatters [$m^2$], thus $\mu_s=N_s\sigma_s$, where $\mu_s$ is the 
+
+\indent scattering coefficient [$m^{-1}$].
 
 \medskip
 
@@ -166,29 +169,32 @@ Finally substituting~\cref{eqn:pext,eqn:psrc,eqn:pdiv,eqn:pscatt,eqn:p} into~\cr
 In general, the \gls*{rte} is hard to solve in arbitrary 3D geometries, however there are a number of approximations, and numerical methods available. Diffusion approximation, \gls*{km}, and \gls*{mcrt} are the common methods used to approximate or solve the \gls*{rte}.
 
 \subsubsection*{Kubelka-Munk Theory}
-\gls*{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls*{km} are: only scattering and absorption take pace in the medium, the incident light is already diffuse, the medium is uniform with only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
+\gls*{km} was originally developed in order to calculate the light distribution in thin layered materials, such as paint or paper~\cite{barbaric2011kubelka}. The theory is rather simple and makes many assumptions about the medium and the incident light. The main assumptions of \gls*{km} are: only scattering and absorption take place in the medium, the incident light is already diffuse, the medium is uniform with only isotropic scattering, no external or internal reflections, and the medium is planar and infinitely wide~\cite{jasinski2011modelling,cheong1990review,gabriela2013mathematical}.
 
 These assumptions make \gls*{km} poor for modelling light-tissue interactions.
 This is because in tissue, scattering is not isotropic but rather forward biased (see~\cref{sec:optprop}). 
 Tissue is rarely, planar and infinitely wide. 
 Tissue also has some reflections at its external and internal boundaries, due to changes in refractive indices. 
-Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally tissue can also exhibit fluorescence, which \gls*{km} is not able to model, along with polarization. 
-\gls*{km} does have some positive aspects. It is good at calculating the diffuse reflectance of simple media, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications~\cite{prahl1990light}.
+Many medical and biophotonic treatments/methods use laser light which is not diffuse. Finally, tissue can also exhibit fluorescence, which the \gls*{km} is not able to model, along with polarization. 
+\gls*{km} does have some positive aspects.
+\Gls{km} theory is good at calculating the diffuse reflectance of simple media, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications~\cite{prahl1990light}.
 
 \subsubsection*{Diffusion Approximation}
 \label{sec:diffusionapprox}
-The diffusion approximation for the \gls*{rte}, is where the irradiance is separated into two components:
+The diffusion approximation for the \gls*{rte} is where the irradiance is separated into two components:
 
 \begin{equation}
 	L(\vec{r},\hat{s}) = L_c(\vec{r},\hat{s}) + L_d(\vec{r},\hat{s})
 \end{equation}
 Where $L_c$ is the unscattered contribution, which satisfies Beer's law\footnote{Beer's law (or Beer-Lambert law) states that the transmission, $T$, is equal to $e^{-\mu L}$, where $L$ is the distance and $\mu$ is the attenuation coefficient.}, and $L_d$ is the diffuse contribution. The $L_d$ component is expanded using Legendre polynomials and truncated. 
-The diffusion approximation also has a number of assumptions and restrictions. The main assumption is that scattering dominates over absorption, and that the scattering is nearly isotropic. This restricts the types of scattering the Diffusion approximation can model, though using similarity relations can partially model scattering in tissue~\cite{graaff1993similarity,yoon1989accuracies}.
+Also, the diffusion approximation has a number of assumptions and restrictions. The main assumption is that scattering dominates over absorption, and that the scattering is nearly isotropic. This restricts the types of scattering the diffusion approximation can model, though using similarity relations can partially model scattering in tissue~\cite{graaff1993similarity,yoon1989accuracies}.
 
-Diffusion theory is computationally fast, and simple to implement. However it is poor at modelling light-tissue interactions due to its assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. However it can be used to speed up \gls*{mcrt} in mediums where scattering dominates~\cite{robitaille2010modified,min2009radiative}.
+Diffusion theory is computationally fast, and simple to implement. However, it is poor at modelling light-tissue interactions due to its assumptions and restrictions, mainly the inaccurate modelling near the boundaries of the medium and its lack of modelling fluorescence and other microphysics. Though it can be used to speed up \gls*{mcrt} in mediums where scattering dominates~\cite{robitaille2010modified,min2009radiative}.
 
 \subsubsection*{MCRT}
-The final method, \gls*{mcrt}, is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics including fluorescence, and polarisation. It can also model various different light sources, from collimated laser beams to diffuse light sources. The only downside that is noted in the literature is that the \gls*{mcrt} can be expensive computationally. However with computational power growing faster with time, this is less of a problem going forward. The next several sections give an in depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
+The final method, \gls*{mcrt}, is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics including fluorescence, and polarisation. Also it can model various different light sources, from collimated laser beams to diffuse light sources. The only downside noted in the literature is that the \gls*{mcrt} can be expensive computationally. However with computational power growing faster with time, this is less of a problem going forward. 
+
+The next several sections give an in depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
 
 \subsection{Optical Properties}\label{sec:optprop}
 
@@ -258,9 +264,9 @@ Absorption of light by a medium is defined by the absorption coefficient $\mu_a$
 \begin{equation}
 	T=e^{-\mu_aL}
 \end{equation}
-This, again like the scattering coefficient, gives inverse distance for the unit of the absorption coefficient (and its is also usually measured in units of $cm^{-1}$).
+This, again like the scattering coefficient, gives inverse distance for the unit of the absorption coefficient (and usually measured in units of $cm^{-1}$).
 
-There are various sources of absorbers in tissue including blood, water, fat, melanin, $\beta$-carotene, bilirubin. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, as shown in~\cref{fig:absorb}.
+There are various sources of absorbers in tissue including blood, water, fat, melanin, $\beta$-carotene, and bilirubin. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, as shown in~\cref{fig:absorb}.
 The absorbed photons can then be remitted as fluorescence or absorbed as heat. 
 
 \begin{figure}
@@ -290,7 +296,7 @@ a = \frac{\mu_s}{\mu_a+\mu_s}=\frac{\mu_s}{\mu_t}
 
 
 \subsection*{Other Parameters}\label{sec:other}
-The preceding subsection described the optical properties that this thesis will use in every chapter. However there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
+The preceding subsection described the optical properties that this thesis will use in every chapter. However, there are other optical properties that can be used to define a medium. These other parameters generally are used to model microphysics such as Raman scattering, polarization, fluorescence or reflection/refraction. This section will give a brief overview of these other optical properties.
 
 
 
@@ -311,7 +317,7 @@ The preceding subsection described the optical properties that this thesis will 
 
 
 
-Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-emitted with a new wavelength. Fluorescence	is a reactively common phenomena, and is heavily utilised in biophotonics and medicine, in order to image, or monitor molecules in tissue. Again the optical property that models fluorescence is a coefficient that gives the probability of absorption and re-emission of a photon by a certain molecule. Usually this is in the form of an absorption coefficient or extinction coefficient. The extinction coefficient is a measurement of absorption in terms of the concentration of that absorber. Thus if a medium has many fluorophores, then the total absorption coefficient is the bulk absorption of the medium plus the contribution from the fluorophores as in~\cref{eqn:exct}:
+Fluorescence occurs when a photon is absorbed by a fluorescent molecule and re-emitted with a new wavelength. Fluorescence	is a reactively common phenomena, and is heavily utilised in biophotonics and medicine, in order to image, or monitor molecules in tissue. Again the optical property that models fluorescence is a coefficient that gives the probability of absorption and re-emission of a photon by a certain molecule. Usually this is in the form of an absorption coefficient or extinction coefficient. The extinction coefficient is a measurement of absorption in terms of the concentration of that absorber. Thus, if a medium has many fluorophores, then the total absorption coefficient is the bulk absorption of the medium plus the contribution from the fluorophores as in~\cref{eqn:exct}:
 
 \begin{equation}
 \mu_a=ln(10) \sum_i C_i \varepsilon_i
@@ -329,9 +335,8 @@ Fluorescence will be described in more depth in~\cref{chap:salvo,sec:madrid}.
 \includegraphics[width=.45\textwidth]{algopic.pdf}
 \caption{Flowchart of the Monte Carlo radiation transport algorithm as described in this section.}
 \label{fig:algo}
-\vspace{-80pt}
+\vspace{-61pt}
 \end{wrapfigure}
-\leavevmode
 \FloatBarrier
 
 This section will provide an in depth description of the \gls*{mcrt} algorithm for the propagating photons thorough a spherical medium with optical properties $\mu_s$, and $\mu_a$. The subsequent section provides details of how the \gls*{mcrt} algorithm is implemented in the Fortran programming language, along with the various code details, such as the parallelisation of the code.
@@ -340,7 +345,7 @@ This section will provide an in depth description of the \gls*{mcrt} algorithm f
 
 
 \subsubsection*{Medium and Grid Set-up}\label{sec:algomedium}
-The first step of any \gls*{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways that the medium can be set-up, for this section, it is assumed the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity one wavelength is considered, $\lambda$. As the \gls*{mcrt} algorithm presented here is run on a 3D Cartesian grid, the grid is setup before creating the spherical medium. The grid is composed of $n_x \times n_y \times n_z$ voxels\footnote{A voxel is a 3D pixel}, where each voxel can have its own optical properties.
+The first step of any \gls*{mcrt} algorithm, is to set-up the medium the photons will propagate through. There are a variety of ways the medium can be set-up. For this section, it is assumed the medium is an isotropic sphere, radius R, and centred at the origin. For simplicity one wavelength is considered, $\lambda$. As the \gls*{mcrt} algorithm presented here is run on a 3D Cartesian grid, the grid is setup before creating the spherical medium. The grid is composed of $n_x \times n_y \times n_z$ voxels\footnote{A voxel is a 3D pixel}, where each voxel can have its own optical properties.
 The grid is setup by first setting an array that stores the locations of the voxel boundary walls in the $x,\ y$, and $z$ directions. 
 The next step is to setup the actual medium. This is achieved by discretising the medium onto a grid. 
 For this example a sphere is inscribed into a cubic volume, by setting the optical properties of a voxel to that of the medium if the sphere encloses that voxel. The voxels out with sphere are set to that of the ambient medium. An example of a voxelised medium can be seen in~\cref{fig:voxel-model}. 
@@ -349,7 +354,7 @@ For this example a sphere is inscribed into a cubic volume, by setting the optic
 
 \subsubsection*{Photon Launch and Initialisation}\label{sec:photlaunch}
 
-The second step in the \gls*{mcrt} algorithm, is to initialise the photon. Initialisation of the photon involves setting its initial position and direction. Again how this is done depends on the experiments being simulated. Here the photon is initialised to the centre of the sphere. The initial direction is sampled isotropically, and set accordingly:
+The second step in the \gls*{mcrt} algorithm, is to initialise the photon. Initialisation of the photon involves setting its initial position and direction. Again, how this is done depends on the experiments being simulated. Here the photon is initialised to the centre of the sphere. The initial direction is sampled isotropically, and set accordingly:
 
 \begin{align}
 n_{xp}&=\sin\theta \cdot \cos\phi \label{eqn:dirvec1}\\
@@ -395,7 +400,7 @@ Using this position the voxel the packet is in is calculated.
 \end{figure}
 \subsubsection*{Photon Propagation}\label{sec:photmove}
 
-The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the total extinction coefficient (see~\nameref{sec:optprop}). Thus, the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
+The next step in the algorithm is moving a packet to the next interaction point. The probability a packet will interact over a distance $dL$ is $\mu_tdL$, where $\mu_t$ is the total extinction coefficient (see~\nameref{sec:optprop}). Thus, the probability of travelling $dL$ without any interaction is $1-\mu_tdL$. Therefore, over a distance $L$, with N segments of length $L/N$ the probability of travelling $L$ before any interaction:
 
 \begin{align}
 P(L) &= (1-\mu_t\frac{L}{N}) \cdot (1-\mu_t\frac{L}{N}) ...\ (1-\mu_t\frac{L}{N}) = (1-\mu_t\frac{L}{N})^N \\
@@ -421,7 +426,7 @@ $\tau$ is now the optical distance, however this needs to converted into a physi
 L=\frac{\tau}{\mu_t}\label{eqn:physicaldist}
 \end{equation}
 
-Therefore in order to update the packets position it is simply:
+Therefore, to update the packets position it is simply:
 
 \begin{align}
 x_p &= x_p+L\cdot n_{xp}\label{eqn:update1}\\
@@ -429,7 +434,7 @@ y_p &= y_p+L\cdot n_{yp}\label{eqn:update2}\\
 z_p &= z_p+L\cdot n_{zp}\label{eqn:update3}
 \end{align}
 
-However as the code in this thesis is a 3D gridded Cartesian code, the method of updating and moving the packets position is slightly adjusted. As stated in~\nameref{sec:algomedium}, the medium has been discretised onto a grid, so that each voxel can have a different $\mu_t$, thus~\cref{eqn:physicaldist} becomes:
+However, as the code in this thesis is a 3D gridded Cartesian code, the method of updating and moving the packets position is slightly adjusted. As stated in~\nameref{sec:algomedium}, the medium has been discretised onto a grid, so that each voxel can have a different $\mu_t$, thus~\cref{eqn:physicaldist} becomes:
 
 \begin{equation}
 L=\frac{\tau}{\mu_{t,\zeta}}\quad\quad \zeta=(x,y,z)
@@ -464,7 +469,7 @@ With three distances calculated, [$d_x, d_y, d_z$], the minimum of these is thus
 The next step is to calculate the optical depth for this distance.
 The optical depth is found by rearranging~\cref{eqn:voxeloptdist} for $\tau$, with $L$ now the distance to the nearest wall.
 With the optical distance to the nearest wall calculated, the next step is to determine if there is ``enough'' optical distance left to travel the full distance to the nearest wall.
-Therefore the running total optical distance is compared to the randomly generated optical distance.
+Therefore, the running total optical distance is compared to the randomly generated optical distance.
 If the running total + the new optical distance to the nearest wall, is less than the randomly generated optical depth, then the photon travels to the nearest wall.
 The photon is then placed in the next voxel by a distance $\delta$, where $\delta$ is just larger than machine precision.
 If the running total + the new optical distance to the nearest wall is greater than the generated optical distance then an interaction event occurs in the current voxel.
@@ -487,7 +492,7 @@ The next step in the algorithm is the interaction event, which can consist of ei
 The next section of the algorithm is to decide how the photon interacts with the medium, either via scattering or absorption. There are other interaction events that can occur, however descriptions of these are left for the chapters that detail these behaviours.
 \medskip
 
-To decide whether a packet scatters or absorbs involves generating a random number, $\xi$, and comparing it against the albedo, $a$. 
+To decide whether a packet scatters or absorbs, a random number, $\xi$, is generated and compared against the albedo, $a$. 
 If $\xi < a$ then the packet scatters, otherwise it is absorbed. 
 % The random number is compared to the albedo, and if the random number is less than the albedo then the packet scatters, otherwise the packet is absorbed.
 
@@ -506,7 +511,7 @@ The random sampling of the scattering angles, $\theta$ and $\phi$, are valid in 
 The photons position is updated in the lab frame, thus the direction vectors also have to be updated in the lab frame.
 This means that the scattering angles need to be rotated into the lab frame.
 For the isotropic case assume that the scattering is also isotropic in the lab frame, thus the new direction vector is easily calculated.
-However this is not the case for anisotropic scattering, as the centre of mass frame has to be rotated into the lab frame.
+However, this is not the case for anisotropic scattering, as the centre of mass frame has to be rotated into the lab frame.
 
 \medskip
 
@@ -537,7 +542,7 @@ cos\theta_s = \frac{1+g^2-\left(\frac{1-g^2}{(1-g+2g\xi)^{3/2}}\right)^2}{2g}
 
 \subsubsection*{Termination}\label{sec:terminator}
 
-The final section of the \gls*{mcrt} algorithm is to check if tit should be terminated. This is a simple check to see if there are any more photons to run.
+The final section of the \gls*{mcrt} algorithm is to check if it should be terminated. This is a simple check to see if there are any more photons to run.
 If there are more photons to run then the algorithm goes back to the~\nameref{sec:photlaunch} section and continues from there.
 If there are no more photons the algorithm terminates and any results are written out.
 
@@ -546,12 +551,12 @@ If there are no more photons the algorithm terminates and any results are writte
 
 As~\gls*{mcrt} is a computational method, a wealth of information is able to be recorded during the simulation.
 From the paths of individual photons, to average scattering angles and more.
-However it is not practical to record all this information for every simulation, as this would lead to inefficient simulations, and expensive data storage solutions.
+However, it is not practical to record all this information for every simulation, as this would lead to inefficient simulations, and expensive data storage solutions.
 Thus for a given problem only the pertinent information is stored.
 
 One important recorded variable is fluence.
 Fluence is the number of photons entering a sphere per unit cross section area~\cite{rogers1990monte}.
-In practise the average fluence per area is used,~\cref{eqn:jmean}, as this is easier to calculate in an~\gls*{mcrt} code.
+In practice the average fluence per area is used,~\cref{eqn:jmean}, as this is easier to calculate in an~\gls*{mcrt} code.
 Lucy showed that the average fluence per area is proportional to the sum of the path length through a volume~\cite{lucy1999computing}:
 
 \begin{equation}
@@ -573,13 +578,13 @@ J_i = \frac{L}{NV_{\varsigma}}\sum l
 
 \medskip
 
-The majority of the chapters in the thesis make use of~\cref{eqn:jmean} or modified versions of it as the main scored quantity, e.g. to determine absorbed energy.
+The majority of the chapters in this thesis make use of~\cref{eqn:jmean} or modified versions of it as the main scored quantity, e.g. to determine absorbed energy.
 
 Other common scored quantities are the exit location of a photon, the wavelength of an exiting photon or the distribution of photon packet absorption.
 
 \subsection{Code Details}
 
-This section describes the implementation of the \gls*{mcrt} code and a description of  parallelisation.
+This section describes the implementation of the \gls*{mcrt} and of the parallelisation the code.
 
 \subsubsection*{Code}
 
@@ -589,7 +594,7 @@ This is done in order to be able to ``hide'' data from subroutines and functions
 Having the code in modules also allows the use of runtime allocation of memory for arrays.
 This enables the user to specify the size of arrays depending on the need of the user for the problem at hand.
 
-Modules are classified into three different types: data, routines and dependencies.
+Modules are classified into three different types: data, routines, and dependencies.
 Data modules are modules that contain no function or routines, but store variables that can be accessed anywhere in the program when required.
 Routine modules contain the subroutines and functions used in the code.
 Finally dependency modules are the modules that have not been written by me, and thus the code depends upon them in order to run.
@@ -625,7 +630,7 @@ Finally dependency modules are the modules that have not been written by me, and
 
 \noindent {\color{red}\textit{photon_vars}} is a data module that contains the data pertaining to each photon, such as wave length or energy.
 
-\noindent Finally, {\color{red} \textit{opt_prop}} contains the data about the current optical properties such as the albedo, and absorption coefficient.
+\noindent Finally, {\color{red} \textit{opt_prop}} contains the data about the current optical properties such as the albedo and absorption coefficient.
 
 
 \begin{figure}[!ht]
@@ -649,8 +654,8 @@ In reality this means that $n$ copies of the algorithm can run on $n$ cores in a
 All the code in this thesis is parallelised using \gls*{mpi}~\cite{gropp2014using,gropp2014usingadv}, with the only communication taking place at the end, where the results are collated on to all processes.
 The one exception to this is in~\cref{chap:ablation}, where the heat diffusion calculation needs communication between the processes during the calculation.
 
-The parallel efficiency of a code depends on the problem, and the number of photon packets run.
-To determine the speedup of a given problem Amdahl's law is used~\cite{amdahl1967validity}:
+The parallel efficiency of a code depends on the problem and the number of photon packets run.
+To determine the speedup of a given problem, Amdahl's law is used~\cite{amdahl1967validity}:
 
 \begin{equation}
 speedup = \frac{1}{(1-P)+P/N}
@@ -663,10 +668,10 @@ The consequence of Amdahl's law is as $N$ tends to infinity the speedup tends to
 speedup_{max}=\frac{1}{1-P}
 \end{equation}
 
-The value of P varies from problem to problem, and the number of photon packets run.
+The value of P varies from problem to problem and the number of photon packets run.
 \Cref{fig:paratest} shows the results of the profiling of the code, for various numbers of cores.
 This test consisted of running the same number of photons, in a highly scattering medium of size $2~cm^3$.
-This yielded a $P$ of $0.999010 \pm 0.000045$, and a maximum speedup of 1010.1.
+This yielded a $P$ of $0.999010 \pm 0.000045$ and a maximum speedup of 1010.1.
 
 
 \begin{figure}[!ht]
@@ -690,7 +695,7 @@ Or to put it another way:
 
 Thus the code has to be validated against various theoretical/experimental and other simulations, to determine whether the results are correct.
 
-The main benchmark of the~\gls*{mcrt} code, is a comparison against an expression for fluence as a function of depth~\cite{gardner1993fluorescence}.
+The main benchmark of the~\gls*{mcrt} code is a comparison against an expression for fluence as a function of depth~\cite{gardner1993fluorescence}.
 This expression has also been fitted to by other~\gls*{mcrt} simulations~\cite{jacques1993photobleaching}.
 
 \begin{equation}
@@ -700,7 +705,7 @@ This expression has also been fitted to by other~\gls*{mcrt} simulations~\cite{j
 
 \noindent Where:
 
-\indent $\Psi(z)$ is the penetration of the excitation light, or equivalently the fluence rate [$W\ cm^{-2}$];
+\indent $\Psi(z)$ is the penetration of the incident light, or equivalently the fluence rate [$W\ cm^{-2}$];
 
 \indent $\Psi_0$ is a normalisation constant [$W\ cm^{-2}$];
 

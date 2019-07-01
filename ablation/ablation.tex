@@ -3,7 +3,7 @@
 \section{Introduction and Background}
 \label{sec:intro}
 
-This chapter uses \gls*{mcrt} techniques coupled to a heat transfer simulation, to study the thermal damage to tissue due to a laser, with its power spread over many beams to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. This class of laser is called a fractionated ablative laser. This chapter presents experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells hospital, along side my computational model of tissue ablation.
+This chapter uses \gls*{mcrt} techniques coupled to a heat transfer simulation, to study the thermal damage to tissue due to a laser, with its power spread over many beams to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. This class of laser is called a fractionated ablative laser. This chapter presents experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells Hospital, along side my computational model of tissue ablation.
 
 \medskip
 
@@ -65,7 +65,7 @@ E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
 		
 This grid of absorbed energy is then passed to the heat transport portion of the simulation, so that the heat diffusion in the porcine tissue can be calculated.
 
-The next adjustment to the \gls*{mcrt} algorithm, is that the \gls*{mcrt} algorithm is run for every heat simulation time step, as the medium could change at every time step due to the optical, and thermal properties changing as a function of tissue damage.
+The next adjustment to the \gls*{mcrt} algorithm is that the \gls*{mcrt} algorithm is run for every heat simulation time step, as the medium could change at every time step due to the optical, and thermal properties changing as a function of tissue damage.
 
 Finally, to match the experiment undertaken the medium and laser for the \textit{in-silico} experiments must match the practical experiments. As the laser used in the experiments emits an infra-red wavelength ($10.6~\mu m$), the optical properties are dominated by the water content of the tissue. Due to this it is assumed that there is just absorption in the medium, with no scattering. Further discussion can be found in~\cref{sec:opticalprops}. The laser in some of the \textit{in silico} modelling, has multiple beams and the source photon packet routine is adjusted to accommodate this when needed.
 
@@ -100,7 +100,7 @@ The standard heat equation is a partial differential equation of the parabolic f
 \label{eqn:nonlinearheat}
 \end{equation}
 
-Included in~\cref{eqn:nonlinearheat} is a source and sink term, $\dot{q}$ to allow the modelling of heat loss/gain from external sources/sinks. The heat source in this simulation is due to the laser, and it is assumed that the only loss of heat to the surrounding medium is via conduction.
+Included in~\cref{eqn:nonlinearheat} is a source and sink term, $\dot{q}$, to allow the modelling of heat loss/gain from external sources/sinks. The heat source in this simulation is due to the laser, and it is assumed that the only loss of heat to the surrounding medium is via conduction.
 	
 The medium is considered to be at a constant temperature of 5$^{\circ}$C, as the porcine skin was kept cooled prior to experimental work and the simulation volume is smaller than the porcine tissue samples. 
 %The face of the medium on which the laser is incident, has a simple convective BC (based upon Newton's law of cooling):	
@@ -120,11 +120,11 @@ The medium is considered to be at a constant temperature of 5$^{\circ}$C, as the
 	
 	\medskip
 
-As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions a numerical method is employed to solve it.
+As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions, a numerical method is employed to solve it.
 The numerical method employed is a \gls*{fdm}, derived from the Taylor series, see~\cref{eqn:taylor}. 
 
 
-A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.~\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the `forward' direction. The ``backward'' and central difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. Expressions can also be given for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
+A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.~\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the ``forward'' direction. The ``backward'' and central difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. Expressions can also be given for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
 
 \begin{equation}
 f(x_0+\Delta x)=f(x_0) + \frac{f'(x_0)}{1!}\Delta x + \frac{f''(x_0)}{2!}\Delta x^2+...+ \frac{f^{(n)}(x_0)}{n!}\Delta x^n+R_n(x)
@@ -227,7 +227,7 @@ T^{N+1}_{i,j,k} &= \Delta t\ (U_{xx} + U_{yy} + U_{zz}) + T^{N}_{i,j,k} + \tfrac
 
 \medskip
 
-As the laser used in the experimental work, operates in a pulsed mode, this is accounted for this in the simulation. The laser pulse shape is a triangular pulse, with the peak power, $P_{peak}$, and pulse length, $\tau$~\cite{pixelco2manual}. In the heat simulation there has to be an additional variable in the term $laserOn(t)\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, $laserOn(t)$, is a boolean value and a function of time, which is defined as:
+As the laser used in the experimental work operates in a pulsed mode, this is accounted for in the simulation. The laser pulse shape is a triangular pulse, with the peak power, $P_{peak}$, and pulse length, $\tau$~\cite{pixelco2manual}. In the heat simulation there has to be an additional variable in the term $laserOn(t)\cdot\tfrac{\alpha \Delta t}{\kappa}\dot{q_L}$ in \cref{eqn:FDMheat4}. This additional variable, $laserOn(t)$, is a boolean value and a function of time, which is defined as:
 
 \[   
 laserOn = 
@@ -247,7 +247,7 @@ As the time step is small, and the grid resolution large, the resultant simulati
 
 \medskip
 
-Parallelisation of the heat simulation is more involved than the ``embarrassingly parallel'' class of problems where \gls*{mcrt} belongs. This is due to the heat simulation being dependent on neighbouring nodes to update the temperature at the current node. Thus if the medium were to be split up on to separate cores, there would have to be communication between the cores, in order for the simulation to be completed successfully. Therefore it is bot possible to take the `easy' route of running the simulation concurrently $N$ times and collating the result at the end of all the simulations.
+Parallelisation of the heat simulation is more involved than the ``embarrassingly parallel'' class of problems where \gls*{mcrt} belongs. This is due to the heat simulation being dependent on neighbouring nodes to update the temperature at the current node. Thus if the medium were to be split up on to separate cores, there would have to be communication between the cores, in order for the simulation to be completed successfully. Therefore it is not possible to take the ``easy'' route of running the simulation concurrently $N$ times and collating the result at the end of all the simulations.
 
 
 \begin{figure}
@@ -261,7 +261,7 @@ Parallelisation of the heat simulation is more involved than the ``embarrassingl
 
 The heat simulation is parallelised using a technique called ``halo swapping''. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The ``halo swapping'' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large `chunks' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use `halo swapping' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -277,7 +277,7 @@ The heat simulation is parallelised using a technique called ``halo swapping''. 
 \begin{figure}
 \centering
 \includegraphics[scale=.75]{profile.pdf}
-\caption{Figure show the speed up gained by parallelisation of the heat simulation using the ``halo'' swapping technique, for various sizes of computational domain (voxels). Data taken from a Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.}
+\caption{Figure shows the speed up gained by parallelisation of the heat simulation using the ``halo swapping'' technique, for various sizes of computational domain (voxels). Data taken from a Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.}
 \label{fig:parallel}
 \end{figure}
 After one time step of the heat simulation has been completed, the temperature grid is passed to the tissue damage portion of the simulation to calculate the tissue damage that may have accrued during the heat simulation time step.
@@ -305,7 +305,7 @@ T =
 \end{equation}
 
 
-The area of tissue damage termed ``coagulation'' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures, and some cell death~\cite{welch2011optical,wright2015quantitative}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to increased cell death. When temperatures exceed 60$^{\circ}$C, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with little to no function at all~\cite{niemz2013laser}.  %A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~.
+The area of tissue damage termed ``coagulation'' is a multifaceted process. At 43$^{\circ}$C - 50$^{\circ}$C, bonds break within cell membranes, causing ruptures and some cell death~\cite{welch2011optical,wright2015quantitative}. This process is usually termed \textit{hyperthermia}. Around 50$^{\circ}$C, enzyme activity decreases, cells become immobile, and various cell repair mechanisms are disabled, leading to increased cell death. When temperatures exceed 60$^{\circ}$C, proteins become denatured. Thermal denaturation is a structural and functional change in a protein due to the heating it undergoes. This means they change from a highly organised structure with specific purposes, to disorganised structures with little to no function at all~\cite{niemz2013laser}.  %A classic example of denaturation of proteins, is in cooking eggs. Denaturation occurs when the clear fluid egg white, rich in protein albumin, becomes a solid white~.
 
 The next stage in the tissue damage process is the vaporisation of water. As the temperature of the tissue starts to approach 100${^{\circ}}$C (at 1 atm), water starts to vaporise. If the vaporised water cannot escape the tissue it forms steam vacuoles, small pockets of steam. These vacuoles can easily been seen when viewing tissue samples after tissue has been treated with a high powered laser (see \cref{fig:histology}). In certain conditions these steam pockets can explode~\cite{petrella2013popcorn}.
 
@@ -335,10 +335,10 @@ Due to the above mentioned reasons, there is no defined ablation temperature. Th
 	\vspace{-10pt}
 \end{figure}
 
-To model all these tissue damage processes the tissue damage model is split into two sections: ``physical'' damage and coagulation damage. ``Physical'' damage changes the tissue optical and thermal properties. Coagulation damage has no effect on the tissue's bulk optical or thermal properties.
+To model all these tissue damage processes the tissue damage model is split into two sections: coagulation damage and ``physical'' damage. Coagulation damage has no effect on the tissue's bulk optical or thermal properties. ``Physical'' damage changes the tissue optical and thermal properties.
 
 \subsubsection*{Modelling coagulation damage}\label{sec:coagdamage}
-With the description of the various process that tissue undergoes during ablation, a numerical model of these processes can be created.
+With the description of the various processes that tissue undergoes during ablation, a numerical model of these processes can be created.
 First, in order to model the full extent of the damage done under 100${^{\circ}}$C, i.e in the coagulation regime, the Arrhenius damage model is used. The Arrhenius damage model was originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage, and is the \textit{de facto} standard~\cite{hendriques1947studies,jiang2002effects}. These authors and various others, adapted this model by fitting~\cref{eqn:arrhenius} to experimental data for burn damage. The two parameters fitted are A, the frequency factor, and $\Delta E$, the activation energy.
 
 \begin{equation}
@@ -493,10 +493,10 @@ A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-
 	\vspace{-10pt}
 \end{figure}	
 
-\subsubsection*{MCRT \texorpdfstring{$\&$}{and} heat transport validation}
+\subsubsection*{MCRT and heat transport validation}
 
 
-As a first test of the code, both \gls*{mcrt} and heat simulation, is compared to a simple analytical model of ablation. The simple model of ablation is as: The ablation energy ($E_a$), is defined as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in one dimension~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of intensity ($Wcm^{-2}$), P, this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
+As a first test of the code, both \gls*{mcrt} and heat simulation, is compared to a simple analytical model of ablation. The simple model of ablation is as: the ablation energy ($E_a$), is defined as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in one dimension~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of intensity ($Wcm^{-2}$), P, this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
 
 
 \begin{align}
@@ -519,7 +519,7 @@ As the code developed in this chapter simulates the diffusion of heat in a mediu
 
 To match the experimental results,  an accurate model of the experimental setup \textit{in silico} must be created. However due to computational constraints, such as memory and time available, some approximations to the experimental set-up have to be made. The porcine skin was a large thin slice of the top most layers of the skin. However as the area of interest is where the ablation occurs, initially the porcine skin is modelled as a cuboid, dimensions:  1.1 $\times$ 1.1 $\times$ 0.5 cm. The initial temperature of the porcine skin is assumed to be around 5$^{\circ}$, as the tissue was kept on ice or was kept cooled. 
 As mentioned in the previous sections, there are several unknowns in the model: \gls*{ta}, water content, temperature of air after ablation, and the exact thermal and optical properties of the porcine tissue. Therefore several models are run so that the full parameter space of these unknowns can be explored.
-Results from these \textit{in silico} experiments are presented in this section along with a comparison of the model to the experimental work carried out in collaboration with the University of Dundee and the Photobiology department at Ninewells hospital.
+Results from these \textit{in silico} experiments are presented in this section along with a comparison of the model to the experimental work carried out in collaboration with the University of Dundee and the Photobiology department at Ninewells Hospital.
 
 
 \subsubsection*{Optical \& thermal properties}
@@ -571,7 +571,7 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 
 Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range in order to establish the\gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that, a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
 
-Increasing the ablation temperature, has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
+Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
 Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grow, due to the availability of more tissue for the heat to diffuse into.
 
@@ -619,7 +619,7 @@ As stated in~\cref{sec:coagdamage}, the Arrhenius damage integral is used to est
 
 	\medskip
 	
-	Using~\cref{eqn:damagesum} it can thus be estimated that the damage to the tissue on a voxel by voxel basis.~\Cref{fig:damfig} show how far the thermal damage extends around the ablation crater. For ease of visualisation 1-3 is mapped to their respective burns via the following scheme, with $\eta$ as burn severity:
+	Using~\cref{eqn:damagesum} it can thus be estimated that the damage to the tissue on a voxel by voxel basis.~\Cref{fig:damfig} shows how far the thermal damage extends around the ablation crater. For ease of visualisation 1-3 is mapped to their respective burns via the following scheme, with $\eta$ as burn severity:
 	
 \begin{equation}
 \eta = 
@@ -673,11 +673,11 @@ The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{r
 
 \subsubsection*{Investigating beam type}
 
-As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian, and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data, is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
+As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
 
 \subsubsection*{Investigating laser pulse profile}
 
-Pulsed laser have a variety of pulse profiles.
+Pulsed lasers have a variety of pulse profiles.
 The pulse profiles are usually modelled as triangular, tophat, or Gaussian.
 However the pulse profiles in reality are normally less well defined, and rather the pulse profile is something in between these perfect models.
 
@@ -709,7 +709,7 @@ The two different Gaussian pulses trialled are, a Gaussian profile with $\sigma$
 As the experiment was carried out on porcine tissue that was kept on ice before the experiment was conducted, we assumed that the initial temperature of the porcine tissue was around 5$~^{\circ}C$.
 This section investigates whether this is an accurate assumption.
 
-To investigate this, three different temperatures were trialled: 25$~^{\circ}C$, 0$~^{\circ}C$, and 5$~^{\circ}C$.
+To investigate this, three different temperatures were trialled: 0$~^{\circ}C$, 5$~^{\circ}C$, and 25$~^{\circ}C$.
 These temperature correspond to room temperature, the temperature of ice and the original temperature we assumed.
 ~\Cref{fig:pigtempcomp} shows the results of this \textit{in-silco} investigation.
 
@@ -759,11 +759,11 @@ However there is a small difference between setting the voxel temperature to roo
 \section{Application of model for spy disposal}
 
 In the 1964 James Bond film, Goldfinger, James Bond is threatened with a laser by the titular antagonist.
-Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane\footnote{i.e could he use a laser that would lessen Bond's suffering.} in his choice of laser for the task?
+Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane\footnote{i.e could Goldfinger use a laser that would lessen Bond's suffering.} in his choice of laser for the task?
 
-As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the `laser'\footnote{A laser was not used on set, but rather was added in post-production.} shown on screen being red, the likely laser portrayed is a ruby laser.
+As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the ``laser''\footnote{A laser was not used on set, but rather was added in post-production.} shown on screen being red, the likely laser portrayed is a ruby laser.
 
-To asses whether Bond would die due to the laser we used the model outlined in this chapter with the following parameters.
+To assess whether Bond would die due to the laser we used the model outlined in this chapter with the following parameters.
 
 As Auric Goldfinger uses this laser to cut sheets of gold, we assumed the power of the laser was around $1 KW$, as industrial lasers used to cut metal, are high powered continuous operation lasers.
 We assumed that the Bond is completely made of skin, with no organs or bones.

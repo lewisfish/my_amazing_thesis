@@ -14,7 +14,7 @@ As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has m
 \gls*{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
 This is computationally intensive and requires a grid resolution of $\sim \lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 \gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
-\gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
+\Gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
 However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be applied to.
 \Gls*{bpm} is also generally a uni-directional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issues in the model's accuracy~\cite{van1981beam,glaser2016fractal}.
 
@@ -34,7 +34,7 @@ These authors have good results, but either do not detail their methods, do not 
 This chapter modifies the MCRT method, from a ``ballistic'' photon method into a quasi-ballistic/wave photon method so that the wave behaviour of photons can be modelled.
 This algorithm, $\varphi MC$, allows the modelling of complex shaped beams such as Bessel beams and Gaussian beams, without much modification of the underlying \gls*{mcrt} code.
 
-We present a through investigation of the method used to turn a ballistic regime~\gls*{mcrt} method in to a quasi-wave/ballistic method.
+We present a thorough investigation of the method used to turn a ballistic regime~\gls*{mcrt} method in to a quasi-wave/ballistic method.
 The method is validated against theoretical and experimental data for various different beam types including: Bessel (including higher orders), and Gaussian beams.
 Treatment of the propagation through scattering media is also discussed.
 
@@ -307,7 +307,7 @@ A random direction is then sampled, by uniformly picking a point on the detector
 This ensures the algorithm does not waste time by calculating packets trajectories that are not registered by the detector.
 We assume a plane wave is incident on the aperture and each photon is given the same initial complex electric field.
 
-The detector screen's distance from the aperture is then varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture as Huygens wavelets.
+The distance between the detector screen and the aperture is varied and the intensity on the screen is measured for $\sim 10^{10}$ photons released from the aperture as Huygens wavelets.
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
 For the case of Fraunhofer diffraction, the number of bins is 100 covering a distance of 6000~$\mu m$.
 The simulations take $\sim$ 3 minutes for $10^{10}$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
@@ -436,7 +436,7 @@ $\varphi MC$ can also model spherical aberrations caused by lenses.
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=0.65\textwidth]{spher-aber.pdf}
-    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top) Image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Image shows the elongated focus and characteristic interference pattern behind the focus. Bottom) Illustration of rays traced through a lens which suffers from spherical aberration.}
+    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Image shows the elongated focus and characteristic interference pattern behind the focus. Bottom image shows illustration of rays traced through a lens which suffers from spherical aberration.}
     \label{fig:spheraberr}
 \end{figure}
 
@@ -678,7 +678,7 @@ Once all the packets have been run, the phase is converted into intensity, as in
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{compare-exp.pdf}
-\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Volumes along the top is the volume of Intralipid in each solution as in~\cref{tab:intra}. All images cropped so they are the same size and normalised to the maximum value in each image.}
+\caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Volumes along the top are the volume of Intralipid in each solution as in~\cref{tab:intra}. All images are cropped so they are the same size and normalised to the maximum value in each image.}
 \label{fig:compareexpbessel}
 \end{figure}
 
@@ -691,7 +691,7 @@ Once all the packets have been run, the phase is converted into intensity, as in
 
 \subsubsection*{Discussion}
 
-As mentioned in previous sections, the power of the MRT method is that we can track virtually any quantity in the simulation.
+As mentioned in previous sections, the power of the \gls*{mcrt} method is that we can track virtually any quantity in the simulation.
 Alongside generating intensity images, we can also track the average number of scattering per packet, a quantity that is hard to measure experimentally.
 \Cref{tab:numscatt} shows the average number of scattering per packet alongside the optical depth of the medium from the source to the image plane.
 The simulations show that above $\approx$ 2 scatterings of a packet the Bessel beam is ``destroyed'' and the generated image becomes washed out with noise.
@@ -723,11 +723,11 @@ Shrinking the medium also has the benefit that the photons are confined closer t
 Shrinking the mediums size does have some drawbacks.
 First the Bessel beams propagation depth rely on the input beams width (see~\cref{eqn:besselzmax}).
 The input beams width was kept constant between the shrinking of the volumes size.
-However shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
-Therefore the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
+However, shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
+Therefore, the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
 The second issue with shrinking the medium is that some packets may be lost.
 This means that in the larger medium a packet may scatter towards an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
-However this same packet in the smaller medium would be lost as the packet would exit the medium and cease to be tracked.
+However, this same packet in the smaller medium would be lost as the packet would exit the medium and cease to be tracked.
 It is not expected that this will cause much of an issue as any scattering event already degraded the quality of the beam, as that packet is no longer coherent with the rest of the packets, thus it will not contribute positively to the Bessel beam.
 To ensure this is not an issue, results from a larger medium are compared to that of the smaller medium in~\cref{fig:compareBigSmall}.
 The larger and smaller medium yield the same results (within Monte Carlo noise) for Intralipid volumes less than $8~\mu L$.
@@ -833,8 +833,8 @@ This method is similar to using a spatial light modulator in an experiment to im
 As Bessel and Gaussian beams are radically different from one another it is hard to directly compare the two beams.
 Gaussian beams carry all their power in the ``central core'' of the beam, whereas in a Bessel beam, it carries the same amount of power in each ring.
 Bessel beams also have a much larger depth of focus than Gaussian beams.
-This section attempts to compare the two beams, to predict which beam preforms better in a heavily scattering medium using $\varphi$MC\@.
-Bessel beams are expected to preform better than Gaussian beams, due to their self-healing properties and non-diffractive core, this section aims to quantify how this property may or may not help penetration though a highly scattering medium. 
+This section attempts to compare the two beams, to predict which beam performs better in a heavily scattering medium using $\varphi$MC\@.
+Bessel beams are expected to perform better than Gaussian beams, due to their self-healing properties and non-diffractive core, this section aims to quantify how this property may or may not help penetration though a highly scattering medium. 
 
 
 As mentioned, Bessel beams and Gaussian beams are not alike, so to ensure a fair comparison the Bessel beams central core width is set to that of the Gaussian beam's waist.
@@ -872,7 +872,7 @@ The results of this are shown in~\cref{fig:1stcomp,fig:1stcomp-1}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{Compare-BvdG-xyplane-1mW-equal-focus.pdf}
-    \caption{First comparison of Bessel and Gaussian beams, with equal power used to generate both beams. Plots taken at the Gaussian beams focus. The maxima at the sides of the Gaussian beam in the $0.0\mu L$plot are due to simulation effects, mainly the small size of the medium not allowing photons from further off the optical axis to interfere destructively.}
+    \caption{First comparison of Bessel and Gaussian beams with equal power used to generate both beams. Plots taken at the Gaussian beams focus. The maxima at the sides of the Gaussian beam in the $0.0\mu L$plot are due to simulation effects, mainly the small size of the medium not allowing photons from further off the optical axis to interfere destructively.}
     \label{fig:1stcomp}
 \end{figure}
 
@@ -892,11 +892,11 @@ The results of this comparison are illustrated in~\cref{fig:2ndcomp}.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{Compare-BvdG-xyplane-1mW-15mW-unequal-focus.pdf}
-    \caption{Second comparison of Bessel and Gaussian beams for the case where the power given to each beam, yields the same maximum at the Gaussian beams focus. These plots are taken from the Gaussian beams focus}
+    \caption{Second comparison of Bessel and Gaussian beams for the case where the power given to each beam, yields the same maximum at the Gaussian beams focus. These plots are taken from the Gaussian beams focus.}
     \label{fig:2ndcomp}
 \end{figure}
 
-These results show as expected that the Bessel beam now preforms comparably with the Gaussian beam in lower scattering media, with a drop off in performance in the higher scattering media.
+These results show as expected that the Bessel beam now performs comparably with the Gaussian beam in lower scattering media, with a drop off in performance in the higher scattering media.
 
 \begin{figure}[!htpb]
     \centering
@@ -910,14 +910,14 @@ These results show as expected that the Bessel beam now preforms comparably with
 
 \subsection{Discussion}
 
-For equal power beams in the previous section, Gaussian beams preform, ``better'' in the highly scattering mediums.
+For equal power beams in the previous section, Gaussian beams perform ``better'' in the highly scattering mediums.
 Though this is expected due to the Bessel beams property that the power in the beam is spread evenly over its rings.
-Thus the power in the central lobe is much less than that of the Gaussian beam.
+Thus, the power in the central lobe is much less than that of the Gaussian beam.
 
-To give a slightly more fair comparison, the Bessel beam was given $15\times$ more power than the Gaussian beam, this allows a better comparisons between the Gaussian beams' core and the Bessel beam's core.
+To give a slightly more fair comparison, the Bessel beam was given $15\times$ more power than the Gaussian beam, this allows a better comparison between the Gaussian beams' core and the Bessel beam's core.
 This gave a comparable intensity between the beams at the location of the Gaussian beams focus.
-In this case, the Bessel beam appears to preform better in a highly scattering medium, as shown in~\cref{fig:2ncompbottom}.
-The Bessel beam shows comparable intensity with the Gaussian beam in the first three mediums, though the Gaussian beam out preforms the Bessel beam in the higher scattering media.
+In this case, the Bessel beam appears to perform better in a highly scattering medium, as shown in~\cref{fig:2ncompbottom}.
+The Bessel beam shows comparable intensity with the Gaussian beam in the first three mediums, though the Gaussian beam out performs the Bessel beam in the higher scattering media.
 It would appear that the Bessel beams self-healing property does not help a Bessel beam propagate through a highly scattering medium.
 \Cref{fig:bessel-scat-explain} shows how the Bessel beam may become degraded due to scattering.
 As photons propagate though the medium they interfere with one another constructively and destructively to form a Bessel beam.
@@ -932,7 +932,7 @@ Bessel beams do have their positives, their self-healing property does help ``re
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{bessel-scat-explain.pdf}
-    \caption{Illustration of how a Bessel beam becomes degraded due to scattering. Top image shows how two photons propagate through the axicon and constructively interfere to produce a Bessel beams. Bottom imgae shows how scattering can affect this process.}
+    \caption{Illustration of how a Bessel beam becomes degraded due to scattering. Top image shows how two photons propagate through the axicon and constructively interfere to produce a Bessel beams. Bottom image shows how scattering can affect this process.}
     \label{fig:bessel-scat-explain}
 \end{figure}
 
@@ -947,11 +947,11 @@ The Huygens-Fresnel principle allows diffraction to be accurately modelled.
 $\varphi MC$ has been thoroughly validated against several experiments where modelling the wave behaviour of light is vital to the experiment.
 Alongside the above, presented in this chapter is the modelling of complex beam types: Gaussian and Bessel beams.
 Both beam types have been validated against both theoretical and experimental results.
-Finally Gaussian beams and Bessel beams were compared with one another in a highly scattering medium, where Bessel beams appear to give better performance.
+Finally, Gaussian beams and Bessel beams were compared with one another in a highly scattering medium, where Bessel beams appear to give better performance.
 However, $\varphi$MC is not a silver bullet for modelling these complex beams in a scattering medium.
 Depending on the problem at hand, the computational load can be excessive.
 For example, if you want to know the intensity of the beam at all locations though a large ($> 1mm^3$) scattering medium with a complex 3D structure, then the time taken to get a good signal to noise ration may be computationally prohibitive.
-Though it is expected that in most cases the intensity is not needed at all locations in a medium, and an image is all that is need to be calculated, then even in a complex 3D structure $\varphi$MC should preform better than the methods listed at the start of this chapter\footnote{Though to achieve better performance with the current code, adaptive mesh grids would have to be implemented.}.
+Though it is expected that in most cases the intensity is not needed at all locations in a medium, and an image is all that is need to be calculated, then even in a complex 3D structure $\varphi$MC should perform better than the methods listed at the start of this chapter\footnote{Though to achieve better performance with the current code, adaptive mesh grids would have to be implemented.}.
 Were $\varphi$MC excels is that it can accurately model scattering effects on the propagation of complex beams through scattering media.
 
 %sources

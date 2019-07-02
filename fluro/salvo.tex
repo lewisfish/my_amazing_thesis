@@ -652,11 +652,22 @@ The results of this are shown in~\cref{fig:nmtest}.
 
 Some of these functions (Sphere, and Rosenbrock's) can also be extended to arbitrary dimensions. These functions were used to check that the NM method works as intended in these higher dimensions where the NM method will primarily be used in this thesis.
 
-To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autoflurophores, we test the method with a known model.
-This model consists of three different fluorophores: NADH (nicotinamide adenine dinucleotide), FAD (flavin adenine dinucleotide), and a fictitious fluorophore that has similar properties to NADH and tyrosine, such that the excitation spectrum is that of NADH and the emission spectrum is that of tyrosine.
-The three fluorophores are distributed in the stratum corenum (NADH), epidermis (FAD), and the papillary dermis (fictitious).
-The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $1.05~\mu M$, FAD $0.525~m M$, and the fictitious fluorophore has a concentration of $0.125~mM$. % check units
-The fitness function chosen to check whether the NM method is converging is as:
+To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autoflurophores, we test the method with a two different toy models.
+The first model is a 2D model,with two different fluorophores evenly distributed over all 5 layers of our skin model. 
+This two different fluorophores are NADH, and a fictitious fluorophore that has similar properties to FAD and tryptophan, such that the excitation spectrum is that of NADH and the emission spectrum is that of tryptophan.
+The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $1.0~\mu M$, and the fictitious fluorophore has a concentration of $2.5~\mu M$.
+To generate a spectrum to which the \gls*{nm} method can compare to, the \gls*{mcrt} code is run with the above configuration of fluorophores.
+This generated~\cref{fig:toymodelspectra}.
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{target-toy.pdf}
+  \caption{Example of toy model spectrum for testing NM method. The two peaks correspond to the fictitious fluorophore, and NADH.}
+  \label{fig:toymodelspectra}
+\end{figure}
+
+The fitness function chosen to check whether the NM method is converging to the generated spectrum is as:
 
 \begin{equation}
 fitness = \sum\limits_{i=1}^{n}(x_i-m_i)^2
@@ -664,11 +675,12 @@ fitness = \sum\limits_{i=1}^{n}(x_i-m_i)^2
 
 Where $x_i$ is a data point at a wavelength $\lambda_i$ produced by the MCRT, and $m_i$ is a data point in the model at a wavelength $\lambda_i$.
 
-As many models need to be run in order to determine whether a global maxima has been reached using the NM method and that the fluorophore concentration is low, means that many packets need to be run to achieve a good single to noise ratio.
-These two constraints result in a computational load that is infeasible to run. 
+As the \gls*{nm} can get stuck in local minima, we run the method for several different initial simplices to ensure that the method does not get stuck in a local minima.
+As many calls to the \gls*{mcrt} code need to be done, and the fluorophore concentration is low this means that many packets need to be run to achieve a good single to noise ratio.
+These two conditions result in a computational load that is infeasible to run. 
 Therefore the~\gls*{mcrt} algorithm has to be computationally efficient in order to arrive at an answer within a reasonable time.
-To this end the 3D skin model is shrunk to a 1D model in the z direction so that the optical integration routine can efficiently move the photon through the simulated medium.
-The optical properties of the incident wavelength are also stored so that when a new photon is started the optical properties can easily be adjusted without need for any calculation.
+To this end the 3D skin model is shrunk to a 1D model in the z direction so that the optical integration routine can efficiently move the packet through the simulated medium.
+The optical properties of the incident wavelength are also stored so that when a new packet is started the optical properties can easily be adjusted without need for any calculation.
 Finally a filter is employed on the output fluorescence spectrum to smooth the noise out.
 The filter used is a Savitzky-Golay filter.
 This filter fits multiple low-degree polynomials to subsets of the data, thus smoothing the data~\cite{press1990savitzky}. 
@@ -681,21 +693,50 @@ This filter fits multiple low-degree polynomials to subsets of the data, thus sm
   \label{fig:sgfilter}
 \end{figure}
 
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.6\textwidth]{target-toy.pdf}
-	\caption{Example of toy model for testing NM method. The three peaks correspond to the fictitious fluorophore, NADH, and FAD respectively.}
-	\label{fig:figure1}
+
+Using the above set-up with the Savitzky-Golay filter on the output spectrum, allowed the \gls*{nm} method to efficiently run many model of various different concentrations and ``find'' a set of concentration that resulted in a close match with the target spectrum.
+However, as the detected fluorescence spectra are normalised to their peak values we cannot use this method to determine the original concentration, but rather the ratio between the two concentration.
+\Cref{fig:spaceplot2D} shows the search space and the spread of the concentration values calculated by the \gls{nm} method compared to the original target concentration.
+The spread of the concentrations calculated by the \gls*{nm} method follow a linear relationship as would be expected.
+Therefore a line of best fit was fitted to the concentrations.
+This yielded a line ($y=m\ x$) with $m=2.49\pm0.05$.
+The expected relation between the concentration is where $m =2.5$ therefore, the \gls{nm} method can be used to determine the relative difference in concentrations within one standard deviation.
+
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{2d-space-plot-thesis.pdf}
+  \caption{Figure shows the search space for the 2D toy problem outlined above. A line of best fit is fitted to the concentrations found by the \gls*{nm} method. Note also the valley of good fit where the line of best fit lies. The search space is also fairly smooth.}
+  \label{fig:spaceplot2D}
+\end{figure}
+
+
+The \gls*{nm} method was also tested on a toy model for $n=3$.
+Here the fluorophores used were: NADH, FAD, and a fictitious fluorophore with the absorption properties of NADH and the emission properties of Tyrosine.
+The fluorophores had concentrations of $1.05\mu M$ $525\mu M$, and $125\mu M$ respectively.
+The set-up is the same for the above $n=2$ case, with the same filter and computational speed ups used.
+\Cref{fig:3dtoymodel} shows various concentrations as calculated by the \gls*{nm} method compared to the original concentration.
+Again a line of best fit was fitted to the calculated points.
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{3d-nm-example.pdf}
+  \caption{Figure shows the line of best fit for the case where $n=3$. Figure also shows the simplices path over their whole lifetime, from initial guess to final simplex.}
+  \label{fig:3dtoymodel}
+\end{figure}
+
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{NM-update.pdf}
+  \caption{blah}
+  \label{fig:NMupdate}
 \end{figure}
 
 
 
-The above model is first run through the MCRT to get an output target spectrum.
-We then test the~\gls*{nm} method for $n=2$ and $n=3$.
 
-
-
-
+\FloatBarrier
 \section{Results}
 
 Before running the NM method on the experimental data, the fluence of the input and fluorescence light is analysed alongside the location as a function of depth of the fluorescent light.

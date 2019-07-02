@@ -93,7 +93,7 @@ The standard heat equation is a partial differential equation of the parabolic f
 	
 	\medskip
 
-\Cref{eqn:heat} is for a homogeneous system where the thermal properties do not change as a function of time, space and temperature. However in order to model a moving ablation front the nonlinear heat equation must be used, where the thermal properties can be a function of time, space and temperature~(\cref{eqn:nonlinearheat}).
+\Cref{eqn:heat} is for a homogeneous system where the thermal properties do not change as a function of time, space and temperature. However, to model a moving ablation front the nonlinear heat equation must be used, where the thermal properties can be a function of time, space and temperature~(\cref{eqn:nonlinearheat}).
 
 \begin{equation}
 \frac{\partial T}{\partial t} = \frac{1}{(\rho c_p)_{\xi}}(\nabla k_\xi T + k_\xi\nabla^2T)+\dot{q},\quad \text{where}\ \xi=(i,j,k)
@@ -241,7 +241,7 @@ In the instance where there is a train of laser pulses, the laser is turned on a
 
 \medskip
 
-Due to a simple explicit \gls*{fdm} being used, the time step is constrained in order to make the solution stable. For a cubic 3D \gls*{fdm} without prescribed flux boundary conditions, this yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. Along with this time constraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be at least an order of magnitude smaller than the shortest laser pulse.
+Due to a simple explicit \gls*{fdm} being used, the time step is constrained to make the solution stable. For a cubic 3D \gls*{fdm} without prescribed flux boundary conditions, this yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. Along with this time constraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be at least an order of magnitude smaller than the shortest laser pulse.
 
 As the time step is small, and the grid resolution large, the resultant simulation is slow. Thus the code has been fully parallelised to improve performance. Both the \gls*{mcrt} and heat simulation are independently parallelised. 
 
@@ -261,7 +261,7 @@ Parallelisation of the heat simulation is more involved than the ``embarrassingl
 
 The heat simulation is parallelised using a technique called ``halo swapping''. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The ``halo swapping'' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to a number of reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However, if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to several reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -312,15 +312,15 @@ The next stage in the tissue damage process is the vaporisation of water. As the
 
 The third stage of tissue damage is carbonisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical,verdaasdonk1990explosive}.
 
-The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with a number of methods proposed. The three main methods are: photochemical, thermal, and explosive~\cite{husinsky1990mechanisms,kitai1991physics,oraevsky1991pulsed}. 
+The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with several methods proposed. The three main methods are: photochemical, thermal, and explosive~\cite{husinsky1990mechanisms,kitai1991physics,oraevsky1991pulsed}. 
 Photochemical ablation is when the energy of a photon from the irradiating laser, is sufficient enough that it excites the electronic state of the tissues molecules into an anti-boding state, leading to broken bonds and conversion from electronic energy into kinetic energy, and thus ablation.
 Thermal ablation is where tissue is heated sufficiently so that tissue vaporisation takes place. 
 Finally, explosive ablation is an extreme version of thermal ablation. Explosive ablation occurs when large amounts of energy is deposited in a small time scale, so that none of the energy can thermally diffuse away, resulting in explosive ablation.
 Photochemical ablation, is usually applied to UV laser ablation, whereas thermal and explosive ablation regimes are the more likely candidates for IR ablation which is considered here.
 
-The theoretical models behind explosive and thermal ablation models are also not well understood, with many models proposed in order to try to and explain experimental results. These models range from heuristic models to sophisticated models that relate the underlying physical mechanisms to ablation damage. 
+The theoretical models behind explosive and thermal ablation models are also not well understood, with many models proposed to try to and explain experimental results. These models range from heuristic models to sophisticated models that relate the underlying physical mechanisms to ablation damage. 
 The two main heuristic models are: the blow off model, and the steady state model. 
-The blow off model, assumes that the there is thermal confinement (i.e no propagation of heat in time $t$), that material is removed after the laser irradiation. There is a radiant threshold that has to be met in order to ablate material, and that Beer-Lambert's law describes the spatial distribution of light. For laser pulses of $<10$~ns, these conditions are normally met. However for lasers with pulse length larger than this, these conditions are not usually met~\cite{vogel2003mechanisms,koren1984emission,andrew1983direct}. 
+The blow off model assumes that the there is thermal confinement (i.e no propagation of heat in time $t$), and that material is removed after the laser irradiation. There is a radiant threshold that has to be met to ablate material, and that Beer-Lambert's law describes the spatial distribution of light. For laser pulses of $<10$~ns, these conditions are normally met. However for lasers with pulse length larger than this, these conditions are not usually met~\cite{vogel2003mechanisms,koren1984emission,andrew1983direct}. 
 
 The steady state heuristic model, assumes that the pulse length is of the order of $ms$ or larger, that material starts to be removed shortly after laser irradiation begins, and that some radiant threshold exists in order for ablation to begin. The steady state model also assumes that a fixed energy is required to remove a unit of tissue~\cite{vogel2003mechanisms}. However this does not always hold, as there are many circumstances where there is no one fixed energy, but rather many energies (due to various phase changes) that must be met in order for ablation to occur. There are also many other sophisticated models, that try to describe what happens physically when ablation occurs~\cite{mckenzie1990physics,mckenzie1986three,majaron1999thermo}.
 
@@ -339,7 +339,7 @@ To model all these tissue damage processes the tissue damage model is split into
 
 \subsubsection*{Modelling coagulation damage}\label{sec:coagdamage}
 With the description of the various processes that tissue undergoes during ablation, a numerical model of these processes can be created.
-First, in order to model the full extent of the damage done under 100${^{\circ}}$C, i.e in the coagulation regime, the Arrhenius damage model is used. The Arrhenius damage model was originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage, and is the \textit{de facto} standard~\cite{hendriques1947studies,jiang2002effects}. These authors and various others, adapted this model by fitting~\cref{eqn:arrhenius} to experimental data for burn damage. The two parameters fitted are A, the frequency factor, and $\Delta E$, the activation energy.
+First to model the full extent of the damage done under 100${^{\circ}}$C, i.e in the coagulation regime, the Arrhenius damage model is used. The Arrhenius damage model was originally used as a kinetic model of reaction products in chemistry~\cite{pearce2009relationship}. It has since been adapted by various authors for modelling tissue damage, and is the \textit{de facto} standard~\cite{hendriques1947studies,jiang2002effects}. These authors and various others, adapted this model by fitting~\cref{eqn:arrhenius} to experimental data for burn damage. The two parameters fitted are A, the frequency factor, and $\Delta E$, the activation energy.
 
 \begin{equation}
 \Omega(t)=\int^{t_{f}}_{t_i} Ae^{(-\tfrac{\Delta E}{RT})}d\tau
@@ -496,7 +496,7 @@ A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-
 \subsubsection*{MCRT and heat transport validation}
 
 
-As a first test of the code, both \gls*{mcrt} and heat simulation, is compared to a simple analytical model of ablation. The simple model of ablation is as: the ablation energy ($E_a$), is defined as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in one dimension~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of intensity ($Wcm^{-2}$), P, this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged in order to give an ablation front velocity, \cref{eqn:ablationvelo}.
+As a first test of the code, both \gls*{mcrt} and heat simulation, is compared to a simple analytical model of ablation. The simple model of ablation is as: the ablation energy ($E_a$), is defined as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus in one dimension~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of intensity ($Wcm^{-2}$), P, this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged to give an ablation front velocity, \cref{eqn:ablationvelo}.
 
 
 \begin{align}
@@ -556,8 +556,8 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 \end{table}  
 
 \subsubsection*{Computational speed up:}
-As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, in order for the simulation to have good resolution of the ablation craters, this volume would require a large number of voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required in order to carry out the computation. Thus the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser (a volume of  0.06~$cm$ $\times$ 0.06~$cm$ $\times$ 0.18~$cm$) 
-As a check to ensure that no physical phenomena are omitted by focusing on just one ablation crater, an initial simulation that models the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives reassurance that the shrinking of the volume of interest is a valid approximation to make, as there is no overlap between the separate ablation crater.
+As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, for the simulation to have good resolution of the ablation craters this volume would require many voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required to carry out the computation. Thus, the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser (a volume of  0.06~$cm$ $\times$ 0.06~$cm$ $\times$ 0.18~$cm$) 
+As a check to ensure that no physical phenomena are omitted by focusing on just one ablation crater, an initial simulation that models the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives reassurance that the shrinking of the volume of interest is a valid approximation to make as there is no overlap between the separate ablation crater.
 
 \begin{figure}[!htbp]
 	\centering
@@ -569,11 +569,11 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 
 \subsubsection*{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range in order to establish the\gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that, a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
+Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the\gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that, a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
 
 Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
 
-Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to a number of reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grow, due to the availability of more tissue for the heat to diffuse into.
+Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to several reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grow, due to the availability of more tissue for the heat to diffuse into.
 
 
 \begin{figure}
@@ -704,7 +704,7 @@ The two different Gaussian pulses trialled are, a Gaussian profile with $\sigma$
 \end{figure}
 
 
-\subsubsection{Investigating initial temperature}
+\subsubsection{Investigating Initial Temperature}
 
 As the experiment was carried out on porcine tissue that was kept on ice before the experiment was conducted, we assumed that the initial temperature of the porcine tissue was around 5$~^{\circ}C$.
 This section investigates whether this is an accurate assumption.
@@ -738,7 +738,7 @@ However, there is a greater difference in the maximum extent of thermal damage t
 	\label{fig:horzdamagepig}
 \end{figure}
 
-\subsubsection{Investigating voxel temperature after ablation}
+\subsubsection{Investigating Voxel Temperature After Ablation}
 
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
 However this assumption may not be accurate.
@@ -756,7 +756,7 @@ Two different temperatures were tried: half the ablation temperature and room te
 Setting the voxel temperature to either half the ablation temperature or to room temperature has a large effect on the ablation depth, with a difference of $\approx 0.1~mm$.
 However there is a small difference between setting the voxel temperature to room temperature and to half of the ablation temperature though.
 
-\section{Application of model for spy disposal}
+\section{Application of Model for Spy Disposal}
 
 In the 1964 James Bond film, Goldfinger, James Bond is threatened with a laser by the titular antagonist.
 Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane\footnote{i.e could Goldfinger use a laser that would lessen Bond's suffering.} in his choice of laser for the task?
@@ -765,7 +765,7 @@ As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with t
 
 To assess whether Bond would die due to the laser we used the model outlined in this chapter with the following parameters.
 
-As Auric Goldfinger uses this laser to cut sheets of gold, we assumed the power of the laser was around $1 KW$, as industrial lasers used to cut metal, are high powered continuous operation lasers.
+As Auric Goldfinger uses this laser to cut sheets of gold, we assumed the power of the laser was around $1~kW$, as industrial lasers used to cut metal, are high powered continuous operation lasers.
 We assumed that the Bond is completely made of skin, with no organs or bones.
 We ran two simulations, one for the Ruby $694~nm$ and one for the $CO_2$ $10.6~\mu m$.
 For the $CO_2$ as before there is no scattering due to high absorption coefficient. The Ruby laser's wavelength is highly scattering, so we model both scattering and absorption.
@@ -784,7 +784,7 @@ Using \gls*{mcrt} and a finite difference method, a fully 3D model of photon and
 The model has been fully compared with both analytical solutions and experimental results. The model was found to match with experimental results that a tissue ablation temperature $T_a$ of around $500~^{\circ}C$ has to be adopted, towards the higher end of the range previously observed in the literature.
 
 The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form. The computational model could be used in future to help develop treatment regimes for both aesthetic and medical procedures. For example, currently there is considerable amount of ``down time'' after skin rejuvenation, in which the patient displays inflammation, erythema, edema, pain, and crusting~\cite{lapidoth2014fractional,trelles2011safe,kohl2015fractional}. Simulations of thermal damage due to fractional ablation could help design treatment regimes that minimise these effects, whilst still delivering skin rejuvenation.
-The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to ``drill'' holes into the skin in order to help topical medicines diffuse into the skin better, than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
+The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to ``drill'' holes into the skin to help topical medicines diffuse into the skin better, than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
 
 There are many avenues available with regards to future work on this model. The model presented here in this chapter was on a initially homogeneous skin model. In reality skin is compromised of several distinctive layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores. However as the laser used in these studies is an infra-red laser, water is the highest absorbing chromophore, meaning that a physically accurate model, with various chromophores is not need for this application.
 The current model is a voxel based model, where all the voxels are the same size. This allows the model presented in this chapter to be easily set-up, with regards to parallelisation, optical/thermal properties and ease of programming. However voxel models, where all the voxels are the same size, are not computationally efficient. Particularly in order to achieve good resolution, many voxels are needed, which requires large amounts of RAM, due to a $\sim n^3$ scaling of voxels to memory in 3D. A more efficient way, would be to allow different sizes of voxels, depending on parts of the model which need high resolution, and parts that do not need high resolution. Such a voxel model is called an \gls*{amr}. There are downsides to \gls*{amr}: complex implementation for parallelisation and set-up of optical/thermal properties, slower optical depth integration routines due to neighbour lookups.

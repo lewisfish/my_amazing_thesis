@@ -1,10 +1,10 @@
 \chapter{Introduction}
 
-\section{Thesis outline and objective}
+\section{Thesis Outline and Objective}
 
 This thesis concerns the development of advanced 3D light transport algorithm for various biophotonic and medical applications.
 The technique that is adopted to calculate the light transport for the majority of the thesis is the \gls*{mcrt} method.
-This method allows the tracking of photon packets through 3D simulated mediums, with the inclusion of multiple anisotropic scattering events along with the modelling of various other micro-physics that light may undergo. in a medium.
+This method allows the tracking of photon packets through 3D simulated mediums, with the inclusion of multiple anisotropic scattering events along with the modelling of various other micro-physics that light may undergo in a medium.
 
 
 This chapter details the background to the Monte Carlo method and its various application to a myriad of different fields.
@@ -74,17 +74,17 @@ Therefore sampling from $p(x)$, and if the sampled point lies under $f(x)$ it is
 \end{figure}
 
 
-The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy~\cite{robitaille2011hyperion,harries2014torus} and medicine~\cite{valentine2011monte,campbell2015monte}, in order to simulate the propagation of radiation through scattering (turbid) media. This technique, \gls*{mcrt}, is what makes up the bulk of this thesis and is described in depth in the following sections.
+The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy~\cite{robitaille2011hyperion,harries2014torus} and medicine~\cite{valentine2011monte,campbell2015monte}, to simulate the propagation of radiation through scattering (turbid) media. This technique, \gls*{mcrt}, is what makes up the bulk of this thesis and is described in depth in the following sections.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.75\textwidth]{ray-tracing.png}
-\caption{Computer generated imagery using ray tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera'', in order to generate CGI images~\cite{pharr2016physically}.}
+\caption{Computer generated imagery using ray tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera'', to generate CGI images~\cite{pharr2016physically}.}
 \label{fig:ray-trace}
 \end{figure}
 
 
-\section{Synopsis and thesis objectives}
+\section{Synopsis and Thesis Objectives}
 %sign post chapters
 
 Again repeat first para -> talk about dev of MCRT and why use it i.e non invasive digital twin thing ilas mentioned. mcrt is flexable etc
@@ -100,7 +100,7 @@ Chapter three demonstrates details the tissue ablation model.
 Discussion of the individual components of the model, alongside validation of the model against theoretical and experimental evidence is also presented.\\
 
 
-Chapter four presents an adaption to the regular Monte Carlo model so that it can model wave like properties of photons including diffraction and interference.
+Chapter four presents an adaptation to the regular Monte Carlo model so that it can model wave like properties of photons including diffraction and interference.
 The new algorithm is validated against several theoretical expressions and experimental data.
 Finally the algorithm is used to compare Bessel beams and Gaussian beam in highly turbid media, to determine which beam preforms better.\\
 

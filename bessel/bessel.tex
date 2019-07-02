@@ -7,15 +7,15 @@ From using Airy beams to move particles and cells~\cite{baumgartl2008optically},
 
 
 However simulation techniques for modelling complex shaped beams in biological tissue is lacking.
-Currently there are a number of techniques that can model these beams in biological tissue, however they all have downsides.
+Currently there are several techniques that can model these beams in biological tissue, however they all have downsides.
 These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpms}, and \gls*{mcrt}.
 
 As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has many issues when it comes to modelling light propagation in biological tissue.
-\gls*{fdtd} involves using a finite difference method in order to solve Maxwell's equations.
+\gls*{fdtd} involves using a finite difference method to solve Maxwell's equations.
 This is computationally intensive and requires a grid resolution of $\sim \lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 \gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
 \Gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
-However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be applied to.
+However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be applied.
 \Gls*{bpm} is also generally a uni-directional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issues in the model's accuracy~\cite{van1981beam,glaser2016fractal}.
 
 \medskip
@@ -77,7 +77,7 @@ Now we can calculate the complex phase of a packet at a position $P_o$, if we kn
 \end{figure}
 
 To model interference, we let the photon packets interfere with one another in a volume or area element. 
-We do not model the interference at a point in space where photon packets cross, due to the ballistic nature of the \gls*{mcrt} simulation this does not occur with enough frequency in order to give a good signal to noise ratio. 
+We do not model the interference at a point in space where photon packets cross, due to the ballistic nature of the \gls*{mcrt} simulation this does not occur with enough frequency to give a good signal to noise ratio. 
 Therefore, interference takes place in a volume, $dV$, or area element, $dA$, instead.
 To calculate the intensity from the complex phase, the absolute value of the phase is squared.
 Therefore to calculate the intensity for a given voxel or area, the phase is first summed in each voxel or area before the absolute value is squared.~\Cref{eqn:intense} shows the equation for intensity for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
@@ -171,7 +171,7 @@ These two concepts underpin the algorithm that allows various complex beams, and
 \subsubsection*{Double Slit Experiment}
 
 The first test of our quasi-wave/particle MCRT algorithm\footnote{Though this example is not strictly MCRT, but rather ray tracing, as it involves no scattering. The full MCRT method will be used in later sections.}, $\varphi MC$, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far-field (the so called Fraunhofer regime).
+The double slit experiment, is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field (the so called Fraunhofer regime).
 The intensity pattern on the detector screen is as in~\cref{eqn:doubleslit}:
 
 \begin{equation}
@@ -217,7 +217,7 @@ F = l\sqrt{\frac{2}{\lambda r_0}}
 \end{figure}
 
 To compare $\varphi MC$ to the theory, the theory must first be discussed.
-Consider the setup as shown in~\cref{fig:aperture}, in order to calculate the intensity at a point $P$, the contribution by an area element $dS$ at the point $a$, to the optical disturbance at a point \textit{P} is considered.
+Consider the setup as shown in~\cref{fig:aperture}, to calculate the intensity at a point $P$ the contribution by an area element $dS$ at the point $a$, to the optical disturbance at a point \textit{P} is considered.
 Accounting for the unobstructed optical disturbance from $S$ as well and using~\cref{eqn:kirchhoffeqn}, yields: 
 
 
@@ -302,7 +302,7 @@ Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves in~
 \medskip
 
 In $\varphi MC$, the above experiment is simulated. 
-A square slit is uniformly sampled in the $x$, and $z$ direction in order to get the packets initial position. 
+A square slit is uniformly sampled in the $x$, and $z$ direction to get the packets initial position. 
 A random direction is then sampled, by uniformly picking a point on the detector screen.
 This ensures the algorithm does not waste time by calculating packets trajectories that are not registered by the detector.
 We assume a plane wave is incident on the aperture and each photon is given the same initial complex electric field.
@@ -326,7 +326,7 @@ This is due to the diffraction pattern becoming ``noisy'' and thus needs a highe
 \newpage
 \section{Gaussian Beams}
 
-Now that the method of tracking the complex phase of packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light in order to either form or propagate.
+Now that the method of tracking the complex phase of packets and using the Huygens-Fresnel principle has been verified against theoretical results, we can now turn our attention to modelling the propagation of beams that require the wave behaviour of light to either form or propagate.
 The first beam type we will examine is the Gaussian beam.
 Gaussian beams are important as most laser beams have the profile of the fundamental (TEM$_{00}$) Gaussian mode.
 This section will show that $\varphi MC$ can accurately model all the physical phenomena of Gaussian beams, within the \gls*{mcrt} regime.

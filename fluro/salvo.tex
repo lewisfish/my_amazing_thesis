@@ -36,7 +36,7 @@ Autofluorescence can be linked to these diseases as the fluorophores responsible
 NADH has recently been the subject of interest in particular as a biomarker for \gls*{cvds}~\cite{akbar2014vivo,elahi2009oxidative,blacker2016investigating}.
 NADH is a intracellular co-enzyme that is a biomarker for metabolic activity and mitochondrial anomalies. 
 NADH is involved in mitochondrial function, energy metabolism, calcium homoeostasis, gene expression, oxidative stress, ageing, apoptosis and glycolysis (see~\cref{fig:nadhfadpath}).
-Therefore if there is dysfunction, then the autofluroecnet signal from NADH will be affected, thus it can be used as biomarker for disease.
+Therefore if there is dysfunction, then the autofluorescencent signal from NADH will be affected, thus it can be used as biomarker for disease.
 
 %explain how nadh for cvds and not anything else
 
@@ -228,6 +228,84 @@ The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcuta
 	\label{fig:absorcoeff}
 \end{figure}
 
+To create the five layer skin model we mix different amounts of the chromophores found in each layer, as described above.
+\Cref{eqn:stratabs,eqn:epiabs,eqn:dermisabs,eqn:hypoabs} show the respective equations for the total absorption coefficient for each layer.
+
+\begin{equation}
+\mu_{a,strat}= ((0.1 - 0.3\times10^{-4}\cdot\lambda) + (0.125(\lambda/10.))\times \mu_{a,b}(\lambda))\times(1. - W) + W\cdot\mu_{H_20}(\lambda)
+\label{eqn:stratabs}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\mu_{a,epi}= (\nu_m \cdot (\mu_{phomel}(\lambda) + \mu_{eumel}(\lambda)) + (\mu_{a,b}(\lambda) + \ln10 \cdot \mu_{a,\beta-caro}(\lambda) \cdot C_{caro}) \\ \times (1. - \nu_m)) \times(1. - W) + W \cdot \mu_{H_2O}(\lambda)
+\end{split}
+\label{eqn:epiabs}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\mu_{a,pap/ret}=((S \cdot \mu_{a,oxy}(\lambda) + (1. - S) \cdot \mu_{a,deoxy}(\lambda) + \ln10 \cdot \mu_{a,\beta-caro}(\lambda) \cdot C_{caro} + \\ \ln10 \cdot \mu_{a,bili}(\lambda)\cdot C_{bili})\cdot B +  (1. - B)\cdot \mu_{a,b}(\lambda)) \times (1. - W) + W \cdot \mu_{H_2O}(\lambda)
+\end{split}
+\label{eqn:dermisabs}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\mu_{a,hypo}=((S\cdot \mu_{a,oxy}(\lambda) + (1. - S) \cdot \mu_{a,deoxy}(\lambda)) \times B + \mu_{a,b}(\lambda) \cdot (1. - B))\\ \times (1. - W) + W \cdot \mu_{a,H_2O}(\lambda)
+\end{split}
+\label{eqn:hypoabs}
+\end{equation}
+
+\noindent Where:
+
+\indent $W$ is the volume fraction of water in a layer [-];
+
+\indent $\nu_m$ is the volume fraction of melanin in a layer [-];
+
+\indent $B$ is the volume fraction of blood in each layer [-];
+
+\indent and all the other symbols have the same meanings as described above.
+
+\medskip
+
+\Cref{tab:optpropsvals} shows the amount of each chromophore is included in each layer, and the size adopted for each layer as well as the refractive index for each individual layer.
+\Cref{fig:absoplayers} shows the total absorption coefficient as a function of wavelength for the five layers.
+
+
+\begin{table}[!tbhp] 
+    \begin{adjustwidth}{-.5in}{-.5in}  
+
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  Layer & Thickness/ & Refractive & Blood & Melanin & Bilirubin/ & $\beta$-Carotene/ & Water\\
+    &cm & index & volume/\% & volume/\% & $gL^{-1}$ & $gL^{-1}$ & volume/\%\\
+  \hline
+  Stratum Corenum  & 0.02 & 1.50  & 0.0 & 0.0 & 0.0  & 0.0 & 0.05\\
+  Epidermis        & 0.08 & 1.34  & 0.0 & 1.0 & 0.0  & 2.1e-4 & 20.0\\
+  Papillary Dermis & 0.18 & 1.40  & 6.0 & 0.0 & 0.05 & 7e-5 & 50.0\\
+  Reticular Dermis & 1.82 & 1.395 & 4.5 & 0.0 & 0.05 & 7e-5 & 70.0\\
+  Hypodermis       & 5.90 & 1.41  & 5.0 & 0.0 & 0.0  & 0.0 & 70.0\\
+
+  \hline
+  \end{tabular}
+    \caption{Table of values used for the various concentrations and volumes fraction of the chromophores in the five layer skin model. Values taken from~\cite{krishnaswamy2004biophysically,meglinski2002quantitative,campbell20153d,iglesias2015biophysically}.}
+  \label{tab:optpropsvals}
+  \end{center}
+      \end{adjustwidth}
+
+\end{table}
+
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{optical-props.pdf}
+  \caption{Absorption coefficients for the different layers in the skin.}
+  \label{fig:absoplayers}
+\end{figure}
+
+
 With the absorption properties of the various chromophores in the skin defined we can now discuss the scattering properties of the skin.
 As the scattering properties do not vary from layer to layer by too much we use the same equation to describe the scattering coefficient~\cite{jacques2013optical,iglesias2015biophysically,louisethesis}.
 
@@ -285,76 +363,11 @@ The first term represents the Rayleigh scattering terms, whilst the second repre
 	\label{fig:scatplot}
 \end{figure}
 
-
-
-\begin{equation}
-\mu_{a,strat}= ((0.1 - 0.3\times10^{-4}\cdot\lambda) + (0.125(\lambda/10.))\times \mu_{a,b}(\lambda))\times(1. - W) + W\cdot\mu_{H_20}(\lambda)
-\label{eqn:stratabs}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-\mu_{a,epi}= (\nu_m \cdot (\mu_{phomel}(\lambda) + \mu_{eumel}(\lambda)) + (\mu_{a,b}(\lambda) + \ln10 \cdot \mu_{a,\beta-caro}(\lambda) \cdot C_{caro}) \\ \times (1. - \nu_m)) \times(1. - W) + W \cdot \mu_{H_2O}(\lambda)
-\end{split}
-\label{eqn:epiabs}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-\mu_{a,pap}=((S \cdot \mu_{a,oxy}(\lambda) + (1. - S) \cdot \mu_{a,deoxy}(\lambda) + \ln10 \cdot \mu_{a,\beta-caro}(\lambda) \cdot C_{caro} + \\ \ln10 \cdot \mu_{a,bili}(\lambda)\cdot C_{bili})\cdot B + \mu_{a,b}(\lambda) \times (1. - B)) \times (1. - W) + W \cdot \mu_{H_2O}(\lambda)
-\end{split}
-\label{eqn:dermisabs}
-\end{equation}
-
-\begin{equation}
-\begin{split}
-\mu_{a,hypo}=((S\  \mu_{a,oxy}(\lambda) + (1. - S) \times \mu_{a,deoxy}(\lambda)) \times B + \mu_{a,b}(\lambda) \cdot (1. - B))\\ \times (1. - W) + W \cdot \mu_{a,H_2O}(\lambda)
-\end{split}
-\label{eqn:hypoabs}
-\end{equation}
-
-
-To create our five layer skin model, we mix different amounts of the above chromophores to match what appears in each layer.
-\Cref{tab:optpropsvals} shows the amount of each chromophore is included in each layer.
-
-
-\begin{table}[!tbhp] 
-    \begin{adjustwidth}{-.5in}{-.5in}  
-
-  \begin{center}
-  \begin{tabular}{|c|c|c|c|c|c|c|c|}
-  \hline
-  Layer & Thickness/ & Refractive & Blood & Melanin & Bilirubin/ & $\beta$-Carotene/ & Water\\
-    &cm & index & volume/\% & volume/\% & $gL^{-1}$ & $gL^{-1}$ & volume/\%\\
-  \hline
-  Stratum Corenum  & 0.02 & 1.50  & 0.0 & 0.0 & 0.0  & 0.0 & 0.05\\
-  Epidermis        & 0.08 & 1.34  & 0.0 & 1.0 & 0.0  & 2.1e-4 & 20.0\\
-  Papillary Dermis & 0.18 & 1.40  & 6.0 & 0.0 & 0.05 & 7e-5 & 50.0\\
-  Reticular Dermis & 1.82 & 1.395 & 4.5 & 0.0 & 0.05 & 7e-5 & 70.0\\
-  Hypodermis       & 5.90 & 1.41  & 5.0 & 0.0 & 0.0  & 0.0 & 70.0\\
-
-  \hline
-  \end{tabular}
-    \caption{Table of values used for the various concentrations and volumes fraction of the chromophores in the five layer skin model. Values taken from~\cite{krishnaswamy2004biophysically,meglinski2002quantitative,campbell20153d,iglesias2015biophysically}.}
-  \label{tab:optpropsvals}
-  \end{center}
-      \end{adjustwidth}
-
-\end{table}
-
-
-\begin{figure}[!htpb]
-  \centering
-  \includegraphics[width=0.75\textwidth]{optical-props.pdf}
-  \caption{Absorption coefficients for the different layers in the skin.}
-  \label{fig:absoplayers}
-\end{figure}
-
 \FloatBarrier
 
 Finally we discuss the anisotropy values and refractive indices of our model.
 
-First, the anisotropy g value is dependant on wavelength~\cite{louisethesis,van1989skin}.
+First, the anisotropy g value is dependent on wavelength~\cite{louisethesis,van1989skin}.
 
 \begin{equation}
 g(\lambda)=0.62+0.29\lambda\times10^{-3}
@@ -394,21 +407,22 @@ As information on wavelength dependant refractive indices is not readily availab
 
 \subsection*{Fluorophores in the Skin}
 
-There are various different molecules and compounds responsible for the autofluorescence response in tissue.
-As mentioned in the introduction to this chapter, these include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
-\Cref{fig:flurosshow} shows the emission and absorption spectrum for theses fluorophores.
+The final optical property that makes up the five layer model is fluorescence.
+As mentioned in the introduction there are various molecules and proteins responsible for the autofluorescencent repose of the skin.
+These include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
+\Cref{fig:flurosshow} shows the emission and absorption spectrum for these fluorophores.
 As NADH is found in cells, NADH is typically found in all layers of the skin.
-Elastin and collagen are only found in the dermis.
-Tyrosine is found in all layers of the skin bar the stratum corenum.
-Finally trytophan is generally found in all layers of the skin.
+Elastin and collagen are only found in the dermis~\cite{gillies2000fluorescence}.
+Tyrosine and tryptophan are found in all layers of the skin~\cite{gillies2000fluorescence}.
 
-***talk about where fluros are in skin + need sources for this, think I wrote them down somewhere***
-
-% stratum        nadh, fad, trytophan
+% stratum        nadh, fad, tyrosine, trytophan
 % epidermis    nadh, fad, tyrosine, trytophan
 % pap            nadh, elastin, collagen, tyrosine, trytophan
 % ret            nadh, elastin, collagen, tyrosine, trytophan
 % hypo           nadh, elastin, collagen, tyrosine, trytophan
+
+% NADH ->
+% FAD -> fad smae as NADH?
 
 \begin{figure}[!htbp]
   \centering
@@ -422,8 +436,10 @@ Finally trytophan is generally found in all layers of the skin.
 \section{Modelling Fluorescence}
 
 Fluorescence is the process in which light of a certain wavelength is incident on a molecule, the molecule absorbs the light and re-emits the light at a new longer wavelength.
-
-\Cref{fig:Jabo} shows an example of Jablonski diagram.
+This process can be illustrated by a Jablonski diagram.
+A Jablonski diagram shows the electronic stats of a molecule and the possible transitions between them.
+This allows the illustration of various radiative and nonradiative transitions that are possible for a give  molecule, including fluorescence and phosphorescence.
+\Cref{fig:Jabo} shows an example of Jablonski diagram for a molecule that absorbs light and re-emits it as fluorescence.
 
 \begin{figure}[!htpb]
 	\centering
@@ -543,6 +559,7 @@ Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, e
 The Nelder-Mead method is a gradient free method, meaning that it does not require derivatives to be calculated and that the search space does not need to be smooth.
 This makes it ideal for problems where derivates are not able to be computed easily, or the search space is not smooth.
 However, the NM method can also get stuck at local minima so care must be taken to avoid this.
+Genetic algorithms, which don't easily get stuck in local minima, were trialled but the computational cost of using them made it infeasible. 
 
 The NM algorithm works by removing the worst vertex of the simplex and replacing it with a ``better'' vertex calculated via a number of different operations.
 These operations can be seen in~\cref{fig:NM-operations}.\\
@@ -716,7 +733,7 @@ Here the fluorophores used were: NADH, FAD, and a fictitious fluorophore with th
 The fluorophores had concentrations of $1.05\mu M$ $525\mu M$, and $125\mu M$ respectively.
 The set-up is the same for the above $n=2$ case, with the same filter and computational speed ups used.
 \Cref{fig:3dtoymodel} shows various concentrations as calculated by the \gls*{nm} method compared to the original concentration.
-Again a line of best fit was fitted to the calculated points.
+Again a line of best fit was fitted to the calculated points~\footnote{The line of best fit was calculated using the single value decomposition (SVD) method of solving the least squares.}.
 
 \begin{figure}[!htpb]
   \centering

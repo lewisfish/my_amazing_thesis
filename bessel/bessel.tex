@@ -6,7 +6,7 @@ Complex shaped light beams have been used in a wide variety of applications in b
 From using Airy beams to move particles and cells~\cite{baumgartl2008optically}, Bessel beam ``tractor beams''~\cite{ruffner2012optical}, Airy and Bessel beams for better field of view in light-sheet microscopy~\cite{vettenburg2014light}, and utilising Laguerre-Gaussian beams to optical trap optically reflective particles~\cite{simpson1996optical}.
 
 
-However simulation techniques for modelling complex shaped beams in biological tissue is lacking.
+However, simulation techniques for modelling complex shaped beams in biological tissue is lacking.
 Currently there are several techniques that can model these beams in biological tissue, however they all have downsides.
 These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpms}, and \gls*{mcrt}.
 
@@ -26,7 +26,7 @@ For example, traditional \gls*{mcrt} methods cannot model Gaussian beams, as Gau
 
 Various authors have tried to model complex beams that require wavelike behaviours using~\gls*{mcrt}.
 Some of the techniques used by these authors include: artificial beam steering~\cite{hokr2015modeling}, generating skew rays~\cite{arnaud1985representation}, complex ray tracing~\cite{harvey2015modeling}, decomposition~\cite{worku2018decomposition}, electric field Monte Carlo~\cite{cai2014electric}, and wavefront tracing~\cite{volpe2017huygens}.
-However all these techniques either inaccurately model Gaussian beams, can model Gaussian beams but are complex to implement or computational intensive (more so than \gls*{mcrt} usually is).
+However, all these techniques either inaccurately model Gaussian beams, can model Gaussian beams but are complex to implement or computational intensive (more so than \gls*{mcrt} usually is).
 There have been some attempts at using the techniques presented in this chapter, to modify MCRT algorithms into algorithms that can model diffraction and interference~\cite{mignon2016fractional,peter2014combining,mahan2018monte,mout2016simulating,fischer2008monte}.
 These authors have good results, but either do not detail their methods, do not attempt to treat scattering or are in the x-ray regime.
 
@@ -124,7 +124,7 @@ Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-F
 The Huygens-Fresnel principle allows the modelling of diffraction in both the near and far field.
 As the principle states that every point on the wavefront is a source of secondary spherical waves, this implies that there are ``backward'' waves.
 These ``backward'' waves are un-physical, and there is no experimental evidence of their existence.
-Thus Fresnel introduced an inclination factor to eliminate these ``backward'' waves.
+Thus, Fresnel introduced an inclination factor to eliminate these ``backward'' waves.
 This inclination factor was later put on a rigorous mathematical standing by Kirchoff, as it naturally fell out of his theory~\cite{kirchhoff1883ann,born2000principles}.
 \Cref{eqn:kirchhoffeqn}, the Rayleigh-Sommerfeld diffraction integral of the first kind\footnote{If diffraction occurs in a plane, the Kirchoff diffraction integral can be modified to this}, shows the equation for the complex field at a point on a plane.
 
@@ -397,7 +397,7 @@ To model the lens in $\varphi MC$ the photons initial z position is set just in 
 The $x$ and $y$ are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
 This is because the electric field is $\propto \exp{\left(\tfrac{-r^2}{4\sigma'^2}\right)}$, and the intensity is $\propto \exp{\left(\tfrac{-r^2}{2\sigma^2}\right)}$.
-Thus for the input electric field waist to be equal to the intensity,  $\sigma'=\sqrt{2}\sigma$.
+Thus, for the input electric field waist to be equal to the intensity,  $\sigma'=\sqrt{2}\sigma$.
 The packet is given an electric field of the form~\cref{eqn:initefield}, with $P=1~mW$, and $A=\tfrac{1}{2}\pi w_0^2$.
 
 The packet is then propagated to the surface of the convex side of the lens.
@@ -451,7 +451,7 @@ Bessel beams have been the subject of intense research since their discovery in 
 Durnin noticed that the solution to the Helmholtz equation of the Bessel type were independent of the direction of propagation.
 This means that the central core of the beam is generally more diffraction resistant when compared to a Gaussian beam with a similar spot size.
 Bessel beams also have a property of ``self-healing'', this means if an obstruction is placed in the path of the central lobe of the Bessel beam, the Bessel beam can then ``heal'' and reform past the obstruction~\cite{mcgloin2005bessel}.
-However it is physically impossible to create a ``real'' Bessel beam, as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require infinite amount of power~\cite{durnin1987diffraction}.
+However, it is physically impossible to create a ``real'' Bessel beam, as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require infinite amount of power~\cite{durnin1987diffraction}.
 Therefore all Bessel beams that are created experimentally are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
 
 
@@ -526,7 +526,7 @@ All the simulations of Bessel beams in this thesis use the axicon method of gene
 \Cref{fig:besselgeo} shows the geometry of a Bessel beam formed by an axicon.
 Using simple geometry and Snell's law the following equations can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
 
-The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However in reality the Bessel beam will continue to propagate slightly passed this depth.
+The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However, in reality the Bessel beam will continue to propagate slightly passed this depth.
 ~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function ($cot x = \tfrac{1}{\tan x}$).
 \begin{equation}
 z_{max}=R\left(cot\left(\beta\right) - tan\left(\alpha\right)\right)
@@ -715,7 +715,7 @@ Originally the medium was modelled as in the experiment, a $2~mm^3$ volume.
 The image created was thus a $2001 \times 2001$ with a resolution of $1~\mu m$.
 To achieve a good signal to noise ratio for this set-up $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
 This was sufficient to get a good signal to noise ratios for all the simulations up to $6~\mu L$.
-However the number of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
+However, the number of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
 Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
 This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
 Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons hit the plane in comparison to the larger medium. 
@@ -921,7 +921,7 @@ The Bessel beam shows comparable intensity with the Gaussian beam in the first t
 It would appear that the Bessel beams self-healing property does not help a Bessel beam propagate through a highly scattering medium.
 \Cref{fig:bessel-scat-explain} shows how the Bessel beam may become degraded due to scattering.
 As photons propagate though the medium they interfere with one another constructively and destructively to form a Bessel beam.
-However if enough photons are scattered, then the Bessel beam becomes degraded and thus no longer is a Bessel beam, as these photons are no longer coherent with the rest of the beam, so they act as a negative factor in the beams formation.
+However, if enough photons are scattered, then the Bessel beam becomes degraded and thus no longer is a Bessel beam, as these photons are no longer coherent with the rest of the beam, so they act as a negative factor in the beams formation.
 Another reason that the ``self-healing'' property of the Bessel beam does not ``save'' the beam from scattering is that the ``self-healing'' is not self-healing.
 The self-healing in reality is just photons from further off the optical axis forming the Bessel beam further down the optical axis, e.g the photons that are impeded by the blockage are stopped, but the photons that are not impeded form a Bessel beam as expected.
 If you placed a blockage in front of the Bessel beam larger than the width of the input beam, then the Bessel beam would not form at all.

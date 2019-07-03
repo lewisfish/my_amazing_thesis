@@ -38,7 +38,7 @@ Irradiance is defined as the spectral irradiance over a small frequency range $[
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=1.]{diffelement.pdf}
-	\caption{Energy flow through area $dA$ within solid angle $d\Omega$ in a direction $\hat{s}$. Adapted from~\cite{wang2012biomedical,chandrasekhar2013radiative}}
+	\caption{Energy flow through area $dA$ within solid angle $d\Omega$ in a direction $\hat{s}$. Adapted from~\cite{wang2012biomedical,chandrasekhar2013radiative}.}
 	\label{fig:energydiag1}
 \end{figure}
 
@@ -193,7 +193,7 @@ Diffusion theory is computationally fast, and simple to implement. However, it i
 
 \subsubsection*{MCRT}
 The final method, \gls*{mcrt}, is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method, it can model arbitrary 3D geometries, various microphysics including fluorescence, and polarisation.
-\Gls*{mcrt} can also model various different light sources, from collimated laser beams to diffuse light sources. The only downside noted in the literature is that the \gls*{mcrt} can be expensive computationally. However with computational power growing faster with time, this is less of a problem going forward. 
+\Gls*{mcrt} can also model various different light sources, from collimated laser beams to diffuse light sources. The only downside noted in the literature is that the \gls*{mcrt} can be expensive computationally. However, with computational power growing faster with time, this is less of a problem going forward. 
 
 The next several sections give an in depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
 
@@ -228,7 +228,7 @@ Anisotropy is the degree of deviation that light undergoes at each scattering ev
 \end{equation}
 
 Where $\theta$, and $\phi$ are the usual polar and azimuthal spherical angles, and $d\Omega=\sin\theta d\theta d\phi$.
-Thus for Rayleigh and isotropic scattering, their phase function's are:
+Thus, for Rayleigh and isotropic scattering, their phase function's are:
 
 \begin{align}
 	\Phi_{isotropic}(\theta,\phi)&=\frac{1}{4\pi}\\
@@ -553,7 +553,7 @@ If there are no more photons the algorithm terminates and any results are writte
 As~\gls*{mcrt} is a computational method, a wealth of information is able to be recorded during the simulation.
 From the paths of individual photons, to average scattering angles and more.
 However, it is not practical to record all this information for every simulation, as this would lead to inefficient simulations, and expensive data storage solutions.
-Thus for a given problem only the pertinent information is stored.
+Thus, for a given problem only the pertinent information is stored.
 
 One important recorded variable is fluence.
 Fluence is the number of photons entering a sphere per unit cross section area~\cite{rogers1990monte}.
@@ -647,7 +647,7 @@ Finally dependency modules are the modules that have not been written by me, and
 
 As mentioned in the previous sections, \gls*{mcrt} can be computationally intensive, especially when dealing with highly scattering mediums. Fluorescence can also cause simulations times to drastically increase as photons are no longer ``killed'' off, but rather re-emitted at a new wavelength. Other optical processes such as Raman scattering are highly unlikely events, which again can lead to a dramatic increase in simulation times, as many photons are required to be simulated to get ``good'' statistics.
 
-Fortunately \gls*{mcrt} is classed as an ``embarrassingly parallel'' problem\footnote{However this is not true for all \gls*{mcrt} applications. For example, using the Bjorkman $\&$ Wood~\cite{bjorkman2001radiative} immediate temperature corrections method, turns \gls*{mcrt} into a different class of parallel problem~\cite{robitaille2011hyperion}.}.
+Fortunately \gls*{mcrt} is classed as an ``embarrassingly parallel'' problem\footnote{However, this is not true for all \gls*{mcrt} applications. For example, using the Bjorkman $\&$ Wood~\cite{bjorkman2001radiative} immediate temperature corrections method, turns \gls*{mcrt} into a different class of parallel problem~\cite{robitaille2011hyperion}.}.
 This means that it is trivial to parallelise in comparison to other algorithms. 
 The reason that \gls*{mcrt} is classed as ``embarrassingly parallel'', is that the algorithm can be split up onto separate processors, with little need for communication between them. 
 In reality this means that $n$ copies of the algorithm can run on $n$ cores in a processor, with communication taking place at the start and end of each simulation run. 
@@ -694,7 +694,7 @@ Or to put it another way:
 
 \medskip
 
-Thus the code has to be validated against various theoretical/experimental and other simulations, to determine whether the results are correct.
+Thus, the code has to be validated against various theoretical/experimental and other simulations, to determine whether the results are correct.
 
 The main benchmark of the~\gls*{mcrt} code is a comparison against an expression for fluence as a function of depth~\cite{gardner1993fluorescence}.
 This expression has also been fitted to by other~\gls*{mcrt} simulations~\cite{jacques1993photobleaching}.

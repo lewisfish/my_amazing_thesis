@@ -21,7 +21,7 @@ It is estimated that around 18 million people died in 2016 from \gls*{cvds}, acc
 Despite decreasing burden of \gls*{cvds} in the UK, it was still the number two cause of death in the UK in 2014~\cite{bhatnagar2016trends}.
 
 Currently risk factors are used to try to determine if a patient has \gls*{cvd}.
-However these risk factors are only a ``causal pathway leading to the disease''~\cite{vasan2006biomarkers}.
+However, these risk factors are only a ``causal pathway leading to the disease''~\cite{vasan2006biomarkers}.
 
 The risk factors such as high blood pressure, smoking, diabetes, physical inactivity, and dyslipidemia do not fully explain incidence of disease~\cite{olsen2010assessment,folsom2013classical}.
 Therefore research has moved to examining more novel biomarkers for detecting the disease.
@@ -58,7 +58,7 @@ Finally we introduce our ameboaMCRT algorithm, created to determine the relative
 \section{Skin Model}
 
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
-However this is not the case in reality.
+However, this is not the case in reality.
 Tissue is un-homogeneous, with nonuniform optical properties.
 However, to create a one to one model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent parts of the tissue down to the cell level.
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
@@ -542,7 +542,7 @@ A simplex is a structure in $n dimensional$ space, consisting of $n+1$ points th
 Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, etc. 
 The Nelder-Mead method is a gradient free method, meaning that it does not require derivatives to be calculated and that the search space does not need to be smooth.
 This makes it ideal for problems where derivates are not able to be computed easily, or the search space is not smooth.
-However the NM method can also get stuck at local minima so care must be taken to avoid this.
+However, the NM method can also get stuck at local minima so care must be taken to avoid this.
 
 The NM algorithm works by removing the worst vertex of the simplex and replacing it with a ``better'' vertex calculated via a number of different operations.
 These operations can be seen in~\cref{fig:NM-operations}.\\
@@ -565,11 +565,11 @@ The next step is to move the simplex via a reflection.
 To calculate the new vertex via reflection~\cref{eqn:reflect} is used, where $\alpha$ is the reflection factor.
 If this new point, $x_r$, is better\footnote{Here better means the point has a lower fitness score} than the current ``best'' point then we calculate a new point in the same direction but further using the expansion operation~\cref{eqn:expand}, where $\gamma$ is the expansion factor.
 If this new point, $x_e$, is better than the ``best'' point then we replace $x_w$ with $x_e$ and start the process again.
-However is $x_e$ is not better than the ``best'' point, then we discard it and replace the worst point with $x_r$ the reflected point.
+However, is $x_e$ is not better than the ``best'' point, then we discard it and replace the worst point with $x_r$ the reflected point.
 
 If when calculating $x_r$, we find that is worse than the ``best'' point, we then check if $x_r$ is better than the `lousy' point.
 If $x_r$ is better than $x_l$ then we replace the ``worst'' point and start the process again.
-However if the $x_r$ is worse than $x_l$, we then compare it to the ``worst'' point.
+However, if the $x_r$ is worse than $x_l$, we then compare it to the ``worst'' point.
 If $x_r$ is better than the ``worst'' point then we preform and inside contraction~\cref{eqn:insidecontract}, where $\beta$ is the contraction factor.
 If this new point, $x_{ic}$, is better than the ``worst'' point then we keep it, otherwise we preform the shrink operation, shrinking the whole simplex around the ``best'' point.
 
@@ -609,7 +609,7 @@ If the check fails then the algorithm is restarted with the current best point k
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.65\textwidth]{flowchart-nelder.pdf}
-    \caption{Nelder-Mead decision tree}
+    \caption{Nelder-Mead decision tree.}
     \label{fig:NM-algo}
 \end{figure}
 

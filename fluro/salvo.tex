@@ -734,7 +734,7 @@ The fluorophores had concentrations of $1.05\mu M$ $525\mu M$, and $125\mu M$ re
 The set-up is the same for the above $n=2$ case, with the same filter and computational speed ups used.
 \Cref{fig:3dtoymodel} shows various concentrations as calculated by the \gls*{nm} method compared to the original concentration.
 Again a line of best fit was fitted to the calculated points~\footnote{The line of best fit was calculated using the singular value decomposition (SVD) method of solving the least squares.}.
-The equation of a line in 3D can be represented by~\cref{eqn:3dlineeqn}:
+As there is no closed form solution for the equation of a line in $n>2$ dimensions, the equation of a line in 3D can be represented by~\cref{eqn:3dlineeqn}:
 
 \begin{equation}
 \overrightarrow{r}=\overrightarrow{r_0}+t\overrightarrow{v}
@@ -742,8 +742,9 @@ The equation of a line in 3D can be represented by~\cref{eqn:3dlineeqn}:
 \end{equation}
 
 Where $\overrightarrow{r}$ and $\overrightarrow{r_0}$ are position vectors for $P$ and $P_0$ respectively, $\overrightarrow{v}$ is a vector parallel to the line we are examining, and t is some real number.
+This equation also holds for an arbitrary number of dimensions.
 The line of best fit yielded $\overrightarrow{v} =\left[0.0013, 0.9858, 0.1682\right]$.
-Whereas the ``real'' $\overrightarrow{v}$ is equal to $\left[0.0019, 0.9728, 0.2316\right]$.
+Where as the ``real'' $\overrightarrow{v}$ is equal to $\left[0.0019, 0.9728, 0.2316\right]$.
 This again shows that the NM method can be used to find the relative concentrations of the fluorophores in the skin, even in dimensions higher than 2.
 
 \begin{figure}[!htpb]
@@ -767,12 +768,25 @@ This again shows that the NM method can be used to find the relative concentrati
 \FloatBarrier
 \section{Results}
 
-Before running the NM method on the experimental data, the fluence of the input and fluorescence light is analysed alongside the location as a function of depth of the fluorescent light.
+\subsection{Experimental Work}
 
-\Cref{fig:uvpen} show the fluence as a function of depth for the incident UV light.
+Experimental work discussed in this section was carried out by collaborators S. Smirni \textit{et al.} at the University of Dundee.
+
+Autofluorescence spectra were taken from volunteers volar forearms using the lasima laser thing majig.
+Spectra were taken berfore inflating a cuff, during inflation and after deflation. 
+This is knw as t PORH test
+
+optical fibre delviers  light and detects light blah blah
+
+
+Before running the \gls{nm} method on the experimental data, the fluence of the input and fluorescence light is analysed alongside the location as a function of depth of the fluorescent light.
+
+\Cref{fig:uvpen} shows the fluence as a function of depth for the incident UV light.
 The figure shows that most of the incident light is contained within the top three layers, with little getting to the Reticular dermis, with none reaching the Hypodermis.
+get measuerments of 50per and 10per as function of depth.
 
 \Cref{fig:fadnadhboth} shows the fluence of detected fluorescent light (see~\cref{app:lightdect} for discussion of how this is tracked.).
+The figure shows the fluence of light for each fluorophore, that is detected 
 The figure shows that the fluence is highest in the Papillary dermis this is due to a number of reasons.
 First the refractive indices of the layers are different, this can lead to light getting ``trapped'' in a layer as it maybe reflected of the layer boundary.
 Second, fluorescent light is emitted isotropically which means that fluorescent light emitted in the upper layers of the skin, may be emitted in the direction of the Papillary dermis.

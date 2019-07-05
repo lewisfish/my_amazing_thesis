@@ -1,2 +1,66 @@
 \chapter{Conclusion}
-\lipsum[1-4]
+
+\section{Summary}
+
+To summarise this thesis,~\gls*{mcrt} is a powerful technique that can be used to calculate the transport of light (as particles or quasi-wave/particles) through turbid media, whilst modelling multiple anisotropic scattering alongside a variety of microphysics.
+The only noted downsides to the~\gls*{mcrt} method noted in the literature (as well as discussed at length in this thesis) is the computational load required for some problems and the optical properties.
+With the growing computational power year on year, more and more the computational load of \gls*{mcrt} becomes less of a factor.
+Likewise the optical properties of various biological tissues, are increasing being measured with greater precision and accuracy.
+
+\medskip
+
+Chapter 1 introduced the concept at the heart of this thesis, the Monte Carlo method.
+The chapter gave examples of how the Monte Carlo method can be used to sample from spectra, and how it is used to model various physical events.
+Chapter 2 followed on from chapter 1 explanation of the Monte Carlo method, by introducing \gls*{mcrt} used in all subsequent chapters.
+Chapter 2 covered the theory behind the method and presented details of the implementation into code alongside various computational speedups.
+
+\medskip
+
+Chapter 3 described the application of the \gls*{mcrt} method to modelling tissue ablation.
+Details of how the \gls*{mcrt} was coupled up to a numerical model of heat diffusion and thermal damage model was presented.
+The chapter showed that we can successfully model experimental and theoretical data with our numerical model.
+The power the model has is that we can predict thermal damage, and ablation crater size for any laser, and configuration thereof, without the need to test on humans or animals.
+It also allows the testing of different lasers without the purchase of said laser, which could allow clinicians to ``try before they buy''.
+The chapter also presented (with tongue firmly in cheek) the application of this numerical model to humane spy disposal.
+
+\medskip
+
+Chapter 4 presented the modification of the \gls*{mcrt} method, such that it would allow the modelling of the photon packets as quasi-wave/particle packets, in place of the usual particle model \gls*{mcrt} models.
+This was achieved via a few small changes within the code, based upon well understood theoretical models, namely the Fresnel-Huygens principle.
+The method was throughly validated against several theoretical expressions.
+The method was the validated against experimental results from collaborators at the University of Dundee.
+The new method was then used to compare Bessel and Gaussian beams performance in highly turbid media.
+The method showed that blah
+
+\medskip
+
+Chapter 5 presented a model of skin autofluorescence using \gls*{mcrt}.
+The chapter detailed a five layer skin model created to accurately model the skin effect on light transport.
+
+\medskip
+
+Finally chapter 6 presented ...
+
+\section{Future Prospects}
+
+There are several avenues of promising work that can continue on from this thesis.
+
+One obvious avenue of future research would be to improve the five layer skin model presented as part of chapter 5 work.
+The skin model presented is planar, where as tissue is not planar in any sense.
+The first improvement on this could be to introduce a more complex geometrical structure into the voxel model.
+However, this method would quickly run into a computational wall.
+To represent the non planar reality if the tissue would require many voxels, such that the RAM required to run any simulation would be prohibitive to running the simulations.
+Therefore, a different geometrical model would need to be used.
+A solution to this was briefly investigated: use of a mesh to model the skin's structure.
+Triangular meshes can be used to model any arbitrary shape or volume [cite].
+The use of triangular meshes have been used to great effect by other authors in \gls*{mcrt} codes.
+Due to time constraints this was abandoned for this thesis before a fully working code could be developed.
+\Cref{fig:mesh} shows \gls*{mcrt} being preformed on a teapot, made from a triangular mesh.
+
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{}
+    \caption{Fluence of light in a teapot, calculated using MCRT.}
+    \label{fig:fmesh}
+\end{figure}
+

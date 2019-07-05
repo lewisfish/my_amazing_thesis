@@ -733,7 +733,18 @@ Here the fluorophores used were: NADH, FAD, and a fictitious fluorophore with th
 The fluorophores had concentrations of $1.05\mu M$ $525\mu M$, and $125\mu M$ respectively.
 The set-up is the same for the above $n=2$ case, with the same filter and computational speed ups used.
 \Cref{fig:3dtoymodel} shows various concentrations as calculated by the \gls*{nm} method compared to the original concentration.
-Again a line of best fit was fitted to the calculated points~\footnote{The line of best fit was calculated using the single value decomposition (SVD) method of solving the least squares.}.
+Again a line of best fit was fitted to the calculated points~\footnote{The line of best fit was calculated using the singular value decomposition (SVD) method of solving the least squares.}.
+The equation of a line in 3D can be represented by~\cref{eqn:3dlineeqn}:
+
+\begin{equation}
+\overrightarrow{r}=\overrightarrow{r_0}+t\overrightarrow{v}
+\label{eqn:3dlineeqn}
+\end{equation}
+
+Where $\overrightarrow{r}$ and $\overrightarrow{r_0}$ are position vectors for $P$ and $P_0$ respectively, $\overrightarrow{v}$ is a vector parallel to the line we are examining, and t is some real number.
+The line of best fit yielded $\overrightarrow{v} =\left[0.0013, 0.9858, 0.1682\right]$.
+Whereas the ``real'' $\overrightarrow{v}$ is equal to $\left[0.0019, 0.9728, 0.2316\right]$.
+This again shows that the NM method can be used to find the relative concentrations of the fluorophores in the skin, even in dimensions higher than 2.
 
 \begin{figure}[!htpb]
   \centering

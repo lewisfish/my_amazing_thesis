@@ -754,33 +754,26 @@ This again shows that the NM method can be used to find the relative concentrati
   \label{fig:3dtoymodel}
 \end{figure}
 
-
-\begin{figure}[!htpb]
-  \centering
-  \includegraphics[width=0.75\textwidth]{NM-update.pdf}
-  \caption{blah}
-  \label{fig:NMupdate}
-\end{figure}
-
-
-
-
 \FloatBarrier
 \section{Results}
 
 \subsection{Experimental Work}
 
-Experimental work discussed in this section was carried out by collaborators S. Smirni \textit{et al.} at the University of Dundee.
+Experimental work discussed in this section was carried out by my collaborators S. Smirni \textit{et al.} at the University of Dundee and Ninewells Hospital.
 
-Autofluorescence spectra were taken from volunteers volar forearms using the lasima laser thing majig.
+Autofluorescence spectra were taken from the volar forearms of volunteers using the lasima laser thing majig.
+
 Spectra were taken before inflating a cuff, during inflation and after deflation. 
 This is known as the PORH test
 
 optical fiber delivers light and detects light blah blah
 pic of geometry?
 
+\subsection{Effect of Tissue Optics on Fluorescent Signal}
 
-Before running the \gls{nm} method on the experimental data, the fluence of the input and fluorescence light is analysed alongside the location as a function of depth of the fluorescent light.
+As mentioned in the introduction to this chapter information about how tissue optics affects the fluorescent signal, which fluorophores contribute to the signal, the variability of the signal in different test sites, and location of the fluorescent signal are not well elucidated. 
+Therefore, before running the \gls{nm} method on the experimental data, the fluence of the input fluorescence light is analysed alongside the location as a function of depth of the fluorescent light.
+We also present results on how the excitation wavelength affects the signal.
 
 \Cref{fig:uvpen} shows the fluence as a function of depth for the incident UV light.
 The figure shows that most of the incident light is contained within the top three layers, with little getting to the Reticular dermis, with none reaching the Hypodermis.
@@ -824,8 +817,24 @@ This occurs as enough light gets to this layer, which allows more light to under
 \end{figure}
 
 Finally, we analyse the effect of excitation wavelength has on the detected signal of NADH and FAD.
-To achieve this we run several models in order to get an \gls*{eem}.
-Though this is not strictly a ``real'' \gls*{eem}, 
+To achieve this we run several models in order to create an \gls*{eem}.
+A \gls*{eem} is a way of investigating and displaying the effect of excitation wavelength has on the fluorescent output of a sample.
+Using the same setup as above, we vary the fluorophore concentration in each layer, such that only one layer at a time has any fluorophores in it.
+We then excite the model over a range of wavelengths.
+For NADH we use wavelength in the range of 250 to 40~0nm, and for FAD we use 250 to 500~nm.
+\Cref{fig:nadheem,fig:fadeem} show the \gls*{eem} for NADH and FAD.
+The \gls*{eem} for NADH shows that the strongest signal comes from the papillary dermis when compared to other layers.
+The \gls*{eem} also shows a maximum of emission for excitation wavelengths corresponding to around 260~nm and 320-380~nm.
+For FAD the layer that yields the most fluorescence is the reticular dermis.
+The \gls*{eem} shows that for excitation wavelengths of around the range 450-500~nm gives the most fluorescence.
+
+For the case of NADH the optimal excitation wavelengths coincide with maximums in the absorption spectrum of NADH (see~\cref{fig:epsfluro}).
+However, for FAD the maximum in fluorescence does not coincide with the largest maxima in its absorption spectrum (see~\cref{fig:epsfluro}), but rather it falls within a smaller maxima.
+This is due to the fact that light at the maximal absorption peak ($\sim$300~nm) is highly absorbed by tissue, especially in layers such as the epidermis.
+Therefore, light at a longer wavelength is more likely to escape the tissue due to the tissue optical properties.
+
+***do literature search to see where people measure these flurophores***
+
 
 \begin{figure}[!htpb]
     \centering
@@ -836,27 +845,30 @@ Though this is not strictly a ``real'' \gls*{eem},
 
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.75\textwidth]{FAD-eem.pdf}
-    \caption{eem-esque map of FAD fluro.}
-    \label{fig:fadeem}
+    \includegraphics[width=0.7\textwidth]{NADH-eem.pdf}
+    \caption{Excitation-emission matrix for NADH. Figure shows that the fluorescent signal from NADH is strongest in the papillary dermis.}
+    \label{fig:nadheem}
 \end{figure}
 
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.75\textwidth]{NADH-eem.pdf}
-    \caption{eem-esque map of NADH fluro.}
-    \label{fig:nadheem}
+    \includegraphics[width=0.7\textwidth]{FAD-eem.pdf}
+    \caption{Excitation-emission matrix for FAD. Figure shows that the fluorescent signal from FAD is strongest in the reticular dermis.}
+    \label{fig:fadeem}
 \end{figure}
 
+\subsection{Using the NM method}
 
-\section{Effect of Tissue Optics on Fluorescent Signal}
+As before the simulation was setup to match the above experimental procedure.
 
-One of the problems in using autofluroescence as a biomarker for various diseases is that information about which fluorophore you are measuring can be hard blah blah
+\Cref{fig:NMupdate} show the output of the \gls*{nm} method during a run.
 
-use eem
-
-fad from diff layers
-nadh from different layers
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.6\textwidth]{NM-update.pdf}
+  \caption{Figure shows the diagnostic information output by the \gls*{nm} method. Top left) shows the size of the simplex as it evolves. Top right) shows the best point in the simplex as it evolves. Bottom left) shows the average fitness of the simplex. Bottom right) shows the number of calls to the MCRT code per iteration of the simplex. The more call to the MCRT the simplex requires the higher the run time.}
+  \label{fig:NMupdate}
+\end{figure}
 
 \section{Discussion}
 

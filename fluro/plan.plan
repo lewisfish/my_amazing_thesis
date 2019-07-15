@@ -37,3 +37,62 @@ melanins effect
 blood effect both volume and 02 stat
 which layers does signal arise from
 which fluros dominate
+
+
+
+***********************************************************
+
+Mention decostas eem database -> proves that Lakk-m is wrong for flurophore wavelengths
+also that they state woth no source the peaks they find with the lakk-m
+talk to tom about lakk-m filter system -> dundee thesis?
+its a LED!!!
+
+1mm fibre distance
+100mum fibre width
+
+            lakkm   decosta + others
+collagen    420     395
+fad         550     525
+elastin     450     425
+nadh        490     465
+
+
+lakk-m srcs:
+
+Development of non-invasive techniques for bladder cancer diagnosis and therapy
+
+Changes in autofluorescence based organoid
+model of muscle invasive urinary bladder
+cancer
+
+Individual variability analysis of fluorescence parameters measured in
+skin with different levels of nutritive blood flow
+
+COLLAGEN AS IN VIVO QUANTITATIVE
+FLUORESCENT BIOMARKERS OF ABNORMAL
+TISSUE CHANGES
+
+
+discussion section
+
+mention other methods available i.e ga, simulated annealing etc
+discuss optical properties -> accuracy of fluorophores, quite consistent across multiple sources
+discuss lakk-m, collaborator not much faith, data wrong, wrong peaks
+
+
+conclusion
+
+In conclusion, this section has introduced a five layer skin model, that has the ability to vary the various constitute parts to tailor model for a generic or specific patient.
+We have also shown in this chapter a method of coupling an optimisation technique to mcrt.
+This was done in order to investigate the concentrations of naturally occurring fluorophores in the skin.
+Differing levels of the fluorophores can indicate various diseases such as diabetes and cvds.
+We validated this technique against a toy model in various dimension, with good agreement.
+We then used our numerical model on experimental data. We found good, but not excellent agreement withe data.
+There are a couple of reasons why this might have occurred including optical properties being inaccurate, defective/uncalibrated devices used in the experimental process.
+
+
+
+need to mention
+
+1. why cant just fit peaks to data -> i.e need mcrt to do tissue optics
+2. agggghhhhhh!

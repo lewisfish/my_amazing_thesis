@@ -784,18 +784,19 @@ How the micro-vascular system responds to this test can be indicative of various
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.5\textwidth]{porh-example.pdf}
-  \caption{Example of a PORH test whilst measuring autofluorescence and perfusion. The perfusion of blood in the skin decrease once the cuff is inflated, and then rapidly reaches a maximum once the cuff is removed. The inverse of this can be seen in the autofluroescent response of NADH in the tissue.}
+  \caption{Example of a PORH test whilst measuring autofluorescence and perfusion. The perfusion of blood in the skin decrease once the cuff is inflated, and then rapidly reaches a maximum once the cuff is removed. The inverse of this can be seen in the autofluorescent response of NADH in the tissue.}
   \label{fig:porh}
 \end{figure}
 
-S. Smirni collected around x spectra at the rate of 1 per minute over a period of blah minutes as the \gls*{porh} test was undertaken.
-5 for a baseline before inflation of the cuff, blah during inflation and blah after inflation.
-
+S. Smirni collected around 27 spectra at the rate of 1 per minute over a period of 27 minutes as the \gls*{porh} test was undertaken.
+11 for a baseline before inflation of the cuff, 5 during occlusion and 11 post occlusion.
+Spectra were taken at each of the possible wavelengths (635~nm, 532~nm, and 365~nm) that the LAKK-M provides, yielding a total of 81 autofluorescence spectra per volunteer.
+S. Smirni also collected laser Doppler flowmetry data during this period, however as this work only concerns the modelling of autofluorescence, we restrict the analysis to that of the UV (365~nm) autofluorescence spectra.
 
 \begin{figure}[!htpb]
   \centering
-  % \includegraphics[width=0.5\textwidth]{}
-  \caption{Figure shows an example of a raw spectrum taken by S. Smirni \textit{et al.}.}
+  \includegraphics[width=0.5\textwidth]{raw-spectra.pdf}
+  \caption{Figure shows an example of a raw spectrum taken by S. Smirni \textit{et al.}. Figure illustrates how the spectrum is red-shifted, along with some of the artifacts in the data.}
   \label{fig:slavodataexample}
 \end{figure}
 
@@ -817,7 +818,7 @@ The fluence drops to 50\% of its peak value 0.026~cm into the tissue which equat
 \end{figure}
 
 \Cref{fig:fadnadhboth} shows the fluence of detected fluorescent light (see~\cref{app:lightdect} for discussion of how this is tracked.).
-The figure shows the fluence of light for each fluorophore,***add in elastin*** that is detected.
+The figure shows the fluence of light for each fluorophore that is detected.
 The figure shows that the fluence is highest in the Papillary dermis and a number of peaks at the boundaries of the layers.
 First the refractive indices of the layers are different, this can lead to light getting ``trapped'' in a layer as it maybe reflected off the layer boundary, thus leading to increased fluence.
 Second, fluorescent light is emitted isotropically which means that fluorescent light emitted in the upper layers of the skin, may be emitted in the direction of the Papillary dermis, that and light emitted from below the papillary dermis has to travel though the papillary dermis in order to be detected.
@@ -829,7 +830,7 @@ The stratum corenum's and the epidermis's thickness is small in comparison to th
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.75\textwidth]{detect-flu-zoomin.pdf}
-    \caption{Detected fluence for FAD and NADH fluorescence. Inset show zoom in of top layers of the skin.}
+    \caption{Detected fluence for FAD, NADH, and elastin fluorescence. Inset show zoom in of top layers of the skin, note the inset is a linear scale.}
     \label{fig:fadnadhboth}
 \end{figure}
 
@@ -851,7 +852,7 @@ To achieve this we run several models in order to create an \gls*{eem}.
 A \gls*{eem} is a way of investigating and displaying the effect of excitation wavelength has on the fluorescent output of a sample.
 Using the same setup as above, we vary the fluorophore concentration in each layer, such that only one layer at a time has any fluorophores in it.
 We then excite the model over a range of wavelengths.
-For NADH we use wavelength in the range of 250 to 40~0nm, and for FAD we use 250 to 500~nm.
+For NADH we use wavelength in the range of 250 to 400~nm, and for FAD we use 250 to 500~nm.
 \Cref{fig:nadheem,fig:fadeem} show the \gls*{eem} for NADH and FAD.
 The \gls*{eem} for NADH shows that the strongest signal comes from the papillary dermis when compared to other layers.
 The \gls*{eem} also shows a maximum of emission for excitation wavelengths corresponding to around 260~nm and 320-380~nm.
@@ -863,7 +864,11 @@ However, for FAD the maximum in fluorescence does not coincide with the largest 
 This is due to the fact that light at the maximal absorption peak ($\sim$300~nm) is highly absorbed by tissue, especially in layers such as the epidermis.
 Therefore, light at a longer wavelength is more likely to escape the tissue due to the tissue optical properties.
 
-***do literature search to see where people measure these flurophores***
+~470 \cite{islam2013ph}
+
+460,470-480\cite{dacosta2003molecular,patterson2000separation}
+
+450-460\cite{pan2015detection}
 
 
 \begin{figure}[!htpb]

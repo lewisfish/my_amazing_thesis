@@ -44,9 +44,14 @@ data = signal.savgol_filter(data, 51, 3)
 b = ax2.plot(time, data, color=u"#ff7f0e", label="Fluorescence during PORH")
 ax2.set_ylabel("Fluorescence intensity/AU")
 
-ab = a + b
+c = ax1.axvline(.85, label="Cuff inflation", linestyle="--", color="black")
+d = ax1.axvline(3.8, label="Cuff deflation", linestyle="--", color="grey")
+
+
+ab = a + b + [c, d]
 labs = [l.get_label() for l in ab]
 ax1.legend(ab, labs, loc=0)
+
 
 fig.set_size_inches(width, height)
 fig.savefig('porh-example.pdf')

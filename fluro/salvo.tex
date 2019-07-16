@@ -34,13 +34,13 @@ Changes in the autofluorescent response of tissue has been linked to cancer, Alz
 Autofluorescence can be linked to these diseases as the fluorophores responsible for the autofluorescence either originate in the mitochondria, or are involved in important biochemical pathways that regulate apoptosis, free-radical generation, oxidative stress and biomolecular sensing of glucose, oxygen and nitric oxide.
 
 NADH has recently been the subject of interest in particular as a biomarker for \gls*{cvds}~\cite{akbar2014vivo,elahi2009oxidative,blacker2016investigating}.
-NADH is a intracellular co-enzyme that is a biomarker for metabolic activity and mitochondrial anomalies. 
-NADH is involved in mitochondrial function, energy metabolism, calcium homoeostasis, gene expression, oxidative stress, ageing, apoptosis and glycolysis (see~\cref{fig:nadhfadpath}).
+NADH is a intracellular co-enzyme that is a biomarker for metabolic activity, and mitochondrial anomalies. 
+It is involved in mitochondrial function, energy metabolism, calcium homoeostasis, gene expression, oxidative stress, ageing, apoptosis and glycolysis (see~\cref{fig:nadhfadpath}).
 Therefore if there is dysfunction, then the autofluorescent signal from NADH will be affected, thus it can be used as biomarker for disease.
 
-Despite their appeal using autofluorescence to diagnose and assess disease risk more research needs to be carried out on various unknowns: information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over different location on the body.
+Despite their appeal using autofluorescence to diagnose and assess disease risk more research needs to be carried out on various unknowns: information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal over different locations on the body.
 This chapter aims to determine how much the tissue optics affects the autofluorescent signal, which fluorophores contribute to the signal, and from which layer of the skin do they contribute from.
-Finally we introduce our ameboaMCRT algorithm, created to determine the relative concentrations of the intrinsic fluorophores in the skin, to assess clinical outcomes.
+Finally we introduce our ameboaMCRT algorithm, created to determine the relative concentrations of the intrinsic fluorophores in the skin to assess clinical outcomes.
 
 
 \begin{figure}[!htpb]
@@ -57,15 +57,15 @@ Finally we introduce our ameboaMCRT algorithm, created to determine the relative
 
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
 However, this is not the case in reality.
-Tissue is un-homogeneous, with non-uniform optical properties.
+Tissue is un-homogeneous with non-uniform optical properties.
 However, to create a one to one model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent parts of the tissue down to the cell level.
-Therefore we need to make a compromise between reality and what is possible to model efficiently.
+Therefore, we need to make a compromise between reality and what is possible to model efficiently.
 This section presents a five layer model of human skin. 
 
-Dermatologists split the skin into several layers based upon the morphology, function and contents of each layer~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
-The layers named from outer layer to inner most layer: stratum corenum, stratum lucidum, stratum granulosum, stratum spinosum, stratum basale, papillary dermis, reticular dermis, and hypodermis.
+Dermatologists split the skin into several layers based upon the morphology, function, and contents of each layer~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
+The layers are named from outer layer to inner most layer: stratum corenum, stratum lucidum, stratum granulosum, stratum spinosum, stratum basale, papillary dermis, reticular dermis, and hypodermis.
 As not all these layers are optically distinct, are too small to model or not present in a given location on the body.
-Therefore, we simplify the layers into just 5 layers: stratum corneum, epidermis, papillary dermis, reticular dermis, and hypodermis, with the epidermis compromising of stratum lucidum, stratum granulosum, stratum spinosum, stratum basale.~\Cref{fig:skinexample} shows the geometry of this model.
+Therefore, we simplify this into just 5 layers: stratum corneum, epidermis, papillary dermis, reticular dermis, and hypodermis, with the epidermis compromising of stratum lucidum, stratum granulosum, stratum spinosum, stratum basale.~\Cref{fig:skinexample} shows the geometry of this model.
 
 \begin{figure}[!htpb]
     \centering
@@ -82,7 +82,7 @@ To accurately model these various chromophores and scatterers, and therefore the
 
 The outer most layer of the skin is the stratum corenum.
 This layer mostly consists of dead skin cells (keratinocytes).
-Keratinocytes, which make up approximately 80 percent of the cells in the epidermis, are born in the stratum basale, and live for approximately 14 days.
+Keratinocytes, which make up approximately 80 percent of the cells in the epidermis, are born in the stratum basale and live for approximately 14 days.
 During this period they move upwards to the surface of the skin undergoing a series of complex morphological and metabolic events, which ends with the cells undergoing apoptosis by the time the reach the stratum corenum.
 The keratinocytes are flat in shape, cornified and stacked on top each other in this layer.
 The function of this layer is to be a protection barrier to prevent damage, infection and diffusion of unwanted chemicals further into the skin.
@@ -95,11 +95,11 @@ The stratum corenum also prevents water loss and provides some UV protection~\ci
 
 Below the Stratum corenum is the epidermis.
 The epidermis consist of several layers that are optically similar so we restrict our model to modelling this as one whole layer.
-The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and the stratum lucidum\footnote{The stratum lucidium only appears in areas of the body where skin is thick, e.g the palm or the sole of the foot.}.
+The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and stratum lucidum\footnote{The stratum lucidium only appears in areas of the body where skin is thick, e.g the palm or the sole of the foot.}.
 Each of these layers are distinct from one another, in the fact that the keratinocytes in each layer are different from one another.
 In the stratum lucidium the keratinocytes are dead, and fairly flat.
 The stratum granulosum the keratinocytes are grainy are becoming fairly flat in comparison to the layers below.
-Stratum spinosum, the keratinocytes appears spiny (hence the name of the layer), and are polyhedral in shape.
+In the Stratum spinosum the keratinocytes appears spiny (hence the name of the layer), and are polyhedral in shape.
 It is in the stratum spinosum that the cells begin to become keratinized and start the process of dying as they move upwards.
 Finally the last layer of the epidermis, the startum basale, is the layer where the keratinocytes are born.
 Here the keratinocytes are columnar or cuboid in shape.
@@ -111,20 +111,20 @@ Overall the epidermis provides protection from mechanical stress, flexibility to
 
 % subsubsection epidermis (end)
 
-\subsection*{Dermis} % (fold)
+\subsubsection*{Dermis} % (fold)
 \label{sub:dermis}
 The dermis is the layer of skin below the epidermis, and makes up the majority of the skin by size.
 The cellular makeup of the dermis is different from that of the epidermis, as the dermis is mostly made up of filamentous or fibrous proteins such as elastin or collagen.
 The dermis also contains various nerves and blood vessels.
-The dermis is split into three layers, the papillary dermis, the reticular dermis, and the hypodermis.
+The dermis is split into three layers; the papillary dermis, the reticular dermis, and the hypodermis.
 The boundary between the papillary and reticular layers is demarcated by the subpapilliary plexus, which is a horizontal plane of blood vessels.
 The boundary between the reticular and the hypodermis is marked by a abrupt change from fibrous to adipose tissue.
-The function of the dermis is to protect from mechanical injury, thermal regulation, contains receptors of sensory stimuli, gives the skin pliability, elasticity and tensile strength~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
+The function of the dermis is to protect from mechanical injury, thermal regulation, contains receptors of sensory stimuli, giving the skin pliability, elasticity and tensile strength~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
  
 
 % subsection dermis (end)
 
-\subsubsection*{Optical Properties} % (fold)
+\subsection*{Optical Properties} % (fold)
 \label{sub:optical_properties}
 
 
@@ -135,15 +135,15 @@ The function of the dermis is to protect from mechanical injury, thermal regulat
 % carotene  from krishnaswamy04 et al
 %water from mm02
 
-With a discussion of what makes up the skin, and what molecules contribute to the skins optical properties, this section gives an account of how our skin model models the optical properties of skin.
-First we will discuss the absorbers that are found in the skin, and what their absorption properties are as a function of wavelength.
+With a discussion of what makes up the skin and what molecules contribute to the skins optical properties, this section gives an account of how our skin model models the optical properties of skin.
+First we will discuss the absorbers that are found in the skin and what their absorption properties are as a function of wavelength.
 Scattering properties of the several layers of tissue will then be discussed followed by a quick discussion on refractive indices and anisotropy values.
 Finally a discussion on the fluorophores found in the skin will be presented.
 
 \medskip
 
 The first chromophore we will examine is blood.
-To model blood, we first split blood into its deoxygenated and oxygenated components.
+To model blood we first split blood into its deoxygenated and oxygenated components.
 This is done as the absorption coefficient differs between the two types of blood. We mix these two groups using the tissue oxygenation coefficient $S$. Blood absorption spectra are taken from S. Prahl~\cite{prahlblood}.
 \Cref{eqn:oxy,eqn:blood} give the absorption coefficients for oxygenated, deoxygenated, and whole blood.
 
@@ -160,13 +160,15 @@ This is done as the absorption coefficient differs between the two types of bloo
 
 \noindent Where:
 
-\indent $\epsilon$ is the excitation coefficient of hemoglobin [$cm^{-1}$];
+\indent $\epsilon$ is the extinction coefficient of hemoglobin [$cm^{-1}$];
 
 \indent $64458$ is the molecular weight of hemoglobin [$g\ mol^{-1}$];
 
 \indent $150$ is the normal concentration of hemoglobin in blood [$g\ L^{-1}$];
 
-\indent and $\mu_{a,Oxy}$, $\mu_{a,DeOxy}$, and $\mu_{a,blood}$ are the absorption coefficients for oxygenated, deoxygenated and blood respectively [$cm^{-1}$].
+\indent and $\mu_{a,Oxy}$, $\mu_{a,DeOxy}$, and $\mu_{a,blood}$ are the absorption coefficients for oxygenated, 
+
+\indent deoxygenated and blood respectively [$cm^{-1}$].
 
 \medskip
 
@@ -191,23 +193,23 @@ The spectra are taken from S. Prahl's compilation of PhotochemCAD data~\cite{pra
 
 \noindent Where:
 
-\indent $\epsilon_{bilirubin}$ and $\epsilon_{\beta-Caro}$ are the excitation coefficients for bilirubin and $\beta$-carotene 
+\indent $\epsilon_{bilirubin}$ and $\epsilon_{\beta-Caro}$ are the extinction coefficients for bilirubin and $\beta$-carotene 
 
 \indent respectively [$cm^{-1}$];
 
 \indent $585$, and $537$ are the molecular weights of bilirubin and $\beta$-carotene [$g$];
 
-\indent finally, $C_{bilirubin}$, and $C_{\beta-Caro}$ are the contaminations of bilirubin and $\beta$-carotene 
+\indent finally, $C_{bilirubin}$, and $C_{\beta-Caro}$ are the concentrations of bilirubin and $\beta$-carotene 
 
 \indent in the skin [$g\ L^{-1}$].
 
 \medskip
 
 Melanin is the next chromophore we model.
-To model melanin's absorption coefficient we use~\cref{eqn:melanin}, taken from~\cite{iglesias2015biophysically}.
+To model melanin's absorption coefficient we use~\cref{eqn:mel1,eqn:melanin}, taken from~\cite{iglesias2015biophysically}.
 
 \begin{align}
-\mu_{a,eumel}(\lambda)&=6.66\times10^{11} \times \lambda^{-3.33}\\
+\mu_{a,eumel}(\lambda)&=6.66\times10^{11} \times \lambda^{-3.33}\label{eqn:mel1}\\
 \mu_{a,phomel}(\lambda)&=2.9\times10^{15} \times \lambda^{-4.75}
 \label{eqn:melanin}
 \end{align}
@@ -232,6 +234,7 @@ The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcuta
 
 To create the five layer skin model we mix different amounts of the chromophores found in each layer, as described above.
 \Cref{eqn:stratabs,eqn:epiabs,eqn:dermisabs,eqn:hypoabs} show the respective equations for the total absorption coefficient for each layer.
+These equations were adapted from~\cite{meglinski2002quantitative,iglesias2015biophysically,jacques2013optical}.
 
 \begin{equation}
 \mu_{a,strat}= ((0.1 - 0.3\times10^{-4}\cdot\lambda) + (0.125(\lambda/10.))\times \mu_{a,b}(\lambda))\times(1. - W) + W\cdot\mu_{H_20}(\lambda)
@@ -330,7 +333,7 @@ As the scattering properties do not vary from layer to layer by too much we use 
 
 	$f_{ray}$ is the fraction of Raylieigh scattering [-];
 
-	$\lambda$ is the wavelength of light [$m$];
+	$\lambda$ is the wavelength of light [$nm$];
 
 	and $b_{\text{mie}}$ is the ``scattering power'' [-].
 
@@ -339,6 +342,7 @@ As the scattering properties do not vary from layer to layer by too much we use 
 This equation mixes both Mie and Rayleigh scattering into one equation.
 The first term represents the Rayleigh scattering terms, whilst the second represents the Mie scattering term.
 \Cref{fig:scatplot} shows the reduced scattering coefficients for the different layers of the skin.
+\Cref{tab:valscat} show the values used in the model for the scattering equation for the different layers.
 
 \begin{table}[!htpb]
   \centering
@@ -369,7 +373,7 @@ The first term represents the Rayleigh scattering terms, whilst the second repre
 
 Finally we discuss the anisotropy values and refractive indices of our model.
 
-First, the anisotropy g value is dependent on wavelength~\cite{louisethesis,van1989skin}.
+First, the anisotropy $g$ value is dependent on wavelength~\cite{louisethesis,van1989skin}.
 
 \begin{equation}
 g(\lambda)=0.62+0.29\lambda\times10^{-3}
@@ -390,8 +394,6 @@ The refractive indices of each layer is broadly the same and does not vary form 
   \centering
 
   \begin{tabular}{l|c}
-  \hline
-
   \hline
   Layer & Refractive index \\
   \hline
@@ -454,12 +456,12 @@ This allows the illustration of various radiative and nonradiative transitions t
 
 To model fluorescence from multiple fluorophores requires a change of the \gls*{mcrt} code presented thus far.
 This change is to the interaction portion of the algorithm, so that it will now include the option for a packet to undergo fluorescence.
-To calculate whether a packet absorbs, scatters or fluoresces, first the probability of each of these events must be calculated.
+To calculate whether a packet absorbs, scatters, or fluoresces, first the probability of each of these events must be calculated.
 Discussion of scattering and absorption (by the bulk medium) was described in~\cref{sec:opticalprops}.
-To calculate the probability of fluorescence, we first assume that the quantum yield of the molecule is unity.
-This is physically unrealistic, however it does not affect the simulations accuracy, as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ratio would be worse than if we assume a quantum yield of unity.
-Furthermore, information on the fluorophores used in this works quantum yield's is not readily available.
-To calculate the probability of fluorescence, the absorption coefficient of the florescent molecule must be calculated.
+To calculate the probability of fluorescence we first assume that the quantum yield of the molecule is unity.
+This is physically unrealistic however, it does not affect the simulations accuracy as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ratio would be worse than if we assume a quantum yield of unity.
+Furthermore, information on the fluorophores, used in this work, quantum yield's is not readily available.
+To calculate the probability of fluorescence the absorption coefficient of the florescent molecule must be calculated.
 This is shown in~\cref{eqn:flurodef}:
 
 \begin{equation}
@@ -517,18 +519,18 @@ Where $P_i$ is the probability of interacting with the $i^{th}$ species, the num
     Error, no interaction\;
   }
 \
-\caption{\textit{An algorithm to determine which species to interact with. $P_1$ is the probability of interacting with the bulk medium, $P_2$ to $P_n$ is the probability of interacting with a fluorescent species, $a_m$ is the albedo of the bulk medium, $\xi_i$ is a random number, and $\mu_{tot}$ is the total attenuation coefficient of all the species summed.}}
+\caption{\textit{An algorithm to determine which species to interact with. $P_1$ is the probability of interacting with the bulk medium, $P_2$ to $P_n$ is the probability of interacting with a fluorescent species, $a_m$ is the albedo of the bulk medium, $\xi_i$ is a random number, and $\mu_{tot}$ is the total attenuation coefficient of all the species summed. The error condition should never be met.}}
 \label{algo:speciespick}
 \end{algorithm}
 \end{center}
 
 This method allows an arbitrary number of fluorophores to be modelled.
-To ensure that this method works as intended, the method is compared to experimental data taken by Campbell \textit{et al.}~\cite{louisethesis}.
+To ensure that this method works as intended, the method is compared to experimental data taken by C.L. Campbell \textit{et al.}~\cite{louisethesis}.
 
-The cuvette was filled with Intrlipid $20\%$ diluted with water, and a fluorescent agent Coproporphyrin III\@.
+C.L Campbell \textit{et al.} filled a cuvette with Intrlipid $20\%$ diluted with water, and a fluorescent agent Coproporphyrin III\@.
 The total volume of this mixture was $6~ml$, consisting of $1~ml$ of Coproporphyrin III, $4.99~ml$ of water, and $0.0~1ml$ of Intrlipid $20\%$, of which $2~ml$ was pipetted into the cuvette.
 $405~nm$ light was shone on a cuvette of area $10~mm \times 10~mm$, and collected via the same fiber, of diameter $600~\mu m$, and NA of 0.22.
-The signal is the recorded by an \gls*{obs}.
+The signal was the recorded by an \gls*{obs}.
 The \gls*{obs} uses a 405~nm laser diode ($\sim1~mW$ output).
 The light was delivered by the aforementioned fiber, and fluorescent light was also collected by the same fiber.
 
@@ -544,9 +546,10 @@ The simulation is setup to mimic the experimental setup.
 A medium of $10~mm^3$ is used with 1 voxel to increase the speed of computation.
 As before Intralipid is assumed to be wholly scattering with no absorption, so an albedo of 1 is used.
 Conversely the Coproporphyrin III is wholly absorbing with no scattering.
-Coproporphyrin III absorption spectrum is as shown along side its emission spectrum in~\cref{fig:coporiii}.
+Coproporphyrin III absorption spectrum is as shown alongside its emission spectrum in~\cref{fig:coporiii}.
 If a photon packet leaves the top face of the simulated medium, within the radius of the fiber at an angle the fiber could accept, then the packet is recorded.
 The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
+The algorithm presented above gave a good fit to the experimental data.
 
 \begin{figure}[!htpb]
   \centering
@@ -559,9 +562,13 @@ The simulation is run with $10^7$ photons which yielded~\cref{fig:flurovalid}.
 
 \section{Nelder-Mead Method}
 
-The \gls*{nm} method is an algorithm for unconstrained optimisation. 
+To determine the contribution of individual fluorophores and their concentrations, emission profiles of these fluorophores cannot simply be fitted to autofluorescence signals.
+This is due to the non-linear effect that tissue optics have on the emission profiles.
+Therefore, \gls*{mcrt} can be used to compute this effect.
+This leaves the problem as an optimisation problem.
+The Nelder-Mead method is an algorithm for unconstrained optimisation. 
 The algorithm is based upon iteratively updating a simplex. 
-A simplex is a structure in $n-dimensional$ space, consisting of $n+1$ points that are not in the same plane. 
+A simplex is a structure in $n$-$dimensional$ space, consisting of $n+1$ points. 
 Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, etc. 
 The Nelder-Mead method is a gradient free method, meaning that it does not require derivatives to be calculated and that the search space does not need to be smooth.
 This makes it ideal for problems where derivatives are not able to be computed easily, or the search space is not smooth.
@@ -587,7 +594,7 @@ The centroid is the mean of all the vertices bar the ``worst'' point.
 
 The next step is to move the simplex via a reflection.
 To calculate the new vertex via reflection~\cref{eqn:reflect} is used, where $\alpha$ is the reflection factor.
-If this new point, $x_r$, is better\footnote{Here better means the point has a lower fitness score} than the current ``best'' point then we calculate a new point in the same direction but further using the expansion operation~\cref{eqn:expand}, where $\gamma$ is the expansion factor.
+If this new point, $x_r$, is better\footnote{Here better means the point has a lower fitness score.} than the current ``best'' point then we calculate a new point in the same direction but further using the expansion operation~\cref{eqn:expand}, where $\gamma$ is the expansion factor.
 If this new point, $x_e$, is better than the ``best'' point then we replace $x_w$ with $x_e$ and start the process again.
 However, is $x_e$ is not better than the ``best'' point, then we discard it and replace the worst point with $x_r$ the reflected point.
 
@@ -602,12 +609,6 @@ This computes a new point $x_{oc}$.
 If $x_{oc}$ is better than $x_w$, then we keep it, otherwise again we shrink around the ``best'' point.
 The process described above is summarised in~\cref{fig:NM-algo}.
 
-Standard values for the factors are: $\alpha=1$, $\beta=\frac{1}{2}$, and $\gamma=2$.
-Though in practice these values are adjusted for the problem at hand.
-For higher dimensions, i.e. where $n > 2$ F. Gao \textit{et al}. suggest that the parameters should be changed based upon how many dimensions are used for the simplex~\cite{gao2012implementing}.
-The values F. Gao \textit{et al} suggest are: $\alpha=1$, $\beta=1+\tfrac{2}{n}$, $\gamma=0.75-\tfrac{1}{2n}$, and $\delta=1-\tfrac{1}{n}$.
-Where $n$ is the order of dimensions.
-
 \begin{align}
 c &= \frac{1}{n}\sum \limits_{i=1,i\neq w}^{n+1} x_i \label{eqn:centroid}\\
 x_r &= c + \alpha(c - x_w)\label{eqn:reflect}\\
@@ -616,9 +617,15 @@ x_{oc} &= c + \beta(x_r - c)\label{eqn:outsidecontract}\\
 x_{ic} &= c + \beta(x_w - c)\label{eqn:insidecontract}
 \end{align}
 
+Standard values for the factors are: $\alpha=1$, $\beta=\frac{1}{2}$, and $\gamma=2$.
+Though in practice these values are adjusted for the problem at hand.
+For higher dimensions, i.e. where $n > 2$ F. Gao \textit{et al}. suggest that the parameters should be changed based upon how many dimensions are used for the simplex~\cite{gao2012implementing}.
+The values F. Gao \textit{et al} suggest are: $\alpha=1$, $\beta=1+\tfrac{2}{n}$, $\gamma=0.75-\tfrac{1}{2n}$, and $\delta=1-\tfrac{1}{n}$.
+Where $n$ is the order of dimensions.
+
 As the Nelder-Mead method has no inbuilt convergence criteria, this must be added.
 We use two different criteria based upon simplex size, and vertex fitness.
-The criteria for the simplex size is as; The size of the simplex is calculated using~\cref{eqn:sizeof}:
+The size of the simplex is calculated using~\cref{eqn:sizeof}:
 
 \begin{equation}
 size=\sum\limits_{i=1}^{n+1}|p_{i}-p_{i+1}|
@@ -632,7 +639,7 @@ If the check fails then the algorithm is restarted with the current best point k
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.65\textwidth]{flowchart-nelder.pdf}
+    \includegraphics[width=0.5\textwidth]{flowchart-nelder.pdf}
     \caption{Nelder-Mead decision tree.}
     \label{fig:NM-algo}
 \end{figure}
@@ -677,8 +684,8 @@ The results of this are shown in~\cref{fig:nmtest}.
 Some of these functions (Sphere, and Rosenbrock's) can also be extended to arbitrary dimensions. These functions were used to check that the NM method works as intended in these higher dimensions where the NM method will primarily be used in this thesis.
 
 To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autoflurophores, we test the method with a two different toy models.
-The first model is a 2D model,with two different fluorophores evenly distributed over all 5 layers of our skin model. 
-This two different fluorophores are NADH, and a fictitious fluorophore that has similar properties to FAD and tryptophan, such that the excitation spectrum is that of NADH and the emission spectrum is that of tryptophan.
+The first model is a 2D model, with two different fluorophores evenly distributed over all 5 layers of our skin model. 
+The two different fluorophores are NADH, and a fictitious fluorophore that has similar properties to FAD and tryptophan, such that the excitation spectrum is that of FAD and the emission spectrum is that of tryptophan.
 The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $1.0~\mu M$, and the fictitious fluorophore has a concentration of $2.5~\mu M$.
 To generate a spectrum to which the \gls*{nm} method can compare to, the \gls*{mcrt} code is run with the above configuration of fluorophores.
 This generated~\cref{fig:toymodelspectra}.
@@ -699,8 +706,8 @@ fitness = \sum\limits_{i=1}^{n}(x_i-m_i)^2
 
 Where $x_i$ is a data point at a wavelength $\lambda_i$ produced by the MCRT, and $m_i$ is a data point in the model at a wavelength $\lambda_i$.
 
-As the \gls*{nm} can get stuck in local minima, we run the method for several different initial simplices to ensure that the method does not get stuck in a local minima.
-As many calls to the \gls*{mcrt} code need to be done, and the fluorophore concentration is low this means that many packets need to be run to achieve a good single to noise ratio.
+As the \gls*{nm} can get stuck in local minima, we run the method for several different initial simplices to ensure that this does not occur.
+As the \gls*{mcrt} code is called multiple times per simplex iteration, and the fluorophore concentration is low meaning that many packets need to be run to achieve a good signal to noise ratio.
 These two conditions result in a computational load that is infeasible to run. 
 Therefore the~\gls*{mcrt} algorithm has to be computationally efficient in order to arrive at an answer within a reasonable time.
 To this end the 3D skin model is shrunk to a 1D model in the z direction so that the optical integration routine can efficiently move the packet through the simulated medium.
@@ -713,7 +720,7 @@ This filter fits multiple low-degree polynomials to subsets of the data, thus sm
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.75\textwidth]{sgfilter-prrof.pdf}
-  \caption{Illustration of how the Savitzky-Golay filter works on noisy data and recovers the roughly the same signal on the same dataset with less noise. Left image shows the raw signal for a simulation run with less photons and more photons. Right image shows the dataset after the Savitzky-Golay filter is applied.}
+  \caption{Illustration of how the Savitzky-Golay filter works on noisy data and recovers the roughly the same signal on the same dataset with less noise. Left image shows the raw signal for a simulation run with less photons and more photons. Right image shows the dataset after the Savitzky-Golay filter is applied. A window size of 101, and polynomial of order 2 were used as the filter settings.}
   \label{fig:sgfilter}
 \end{figure}
 
@@ -722,7 +729,7 @@ Using the above set-up with the Savitzky-Golay filter on the output spectrum, al
 However, as the detected fluorescence spectra are normalised to their peak values we cannot use this method to determine the original concentration, but rather the ratio between the two concentration.
 \Cref{fig:spaceplot2D} shows the search space and the spread of the concentration values calculated by the \gls*{nm} method compared to the original target concentration.
 The spread of the concentrations calculated by the \gls*{nm} method follow a linear relationship as would be expected.
-Therefore a line of best fit was fitted to the concentrations.
+Therefore, a line of best fit was fitted to the concentrations.
 This yielded a line ($y=m\ x$) with $m=2.49\pm0.05$.
 The expected relation between the concentration is where $m =2.5$ therefore, the \gls*{nm} method can be used to determine the relative difference in concentrations within one standard deviation.
 
@@ -764,14 +771,14 @@ This again shows that the NM method can be used to find the relative concentrati
 \FloatBarrier
 \section{Results}
 
-\subsection{Experimental Work}
+\subsection*{Experimental Work}
 
 Experimental work discussed in this section was carried out by my collaborators S. Smirni \textit{et al.} at the University of Dundee and Ninewells Hospital.
 
 S. Smirni \textit{et al.} took autofluorescence spectra from the volar forearms of volunteers using the LAKK-M multi-functional laser non-invasive diagnostic system (MLNDS).
 The LAKK-M system combines laser-Doppler flowmetry, tissue reflectance oximetry, pulse oximetry, and laser fluorescent diagnostics in one machine.
 The LAKK-M system delivers and collects light via the same optical fiber package.
-The fiber package has seven optical fibers, one for each laser wavelength (365~nm, 430~nm, 532~nm, 635~nm), two detectors, and a spectrometer.
+The fiber package has seven optical fibers, one for each probing wavelength (365~nm, 430~nm, 532~nm, 635~nm), two detectors, and a spectrometer.
 The fibers radii are 0.4~mm, and the separation between the fibers is around 1~mm.
 S. Smirni \textit{et al.} took autofluorescence spectra from volunteers as they underwent a \gls*{porh} test.
 A \gls*{porh} test is used to investigate and asses microvascular function.
@@ -792,15 +799,16 @@ S. Smirni collected around 27 spectra at the rate of 1 per minute over a period 
 11 for a baseline before inflation of the cuff, 5 during occlusion and 11 post occlusion.
 Spectra were taken at each of the possible wavelengths (635~nm, 532~nm, and 365~nm) that the LAKK-M provides, yielding a total of 81 autofluorescence spectra per volunteer.
 S. Smirni also collected laser Doppler flowmetry data during this period, however as this work only concerns the modelling of autofluorescence, we restrict the analysis to that of the UV (365~nm) autofluorescence spectra.
+\Cref{fig:slavodataexample} shows an example of a raw spectrum taken during the baseline portion of the experiment.
 
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.5\textwidth]{raw-spectra.pdf}
-  \caption{Figure shows an example of a raw spectrum taken by S. Smirni \textit{et al.}. Figure illustrates how the spectrum is red-shifted, along with some of the artifacts in the data.}
+  \caption{Figure shows an example of a raw spectrum taken by S. Smirni \textit{et al.}. Figure illustrates how the spectrum is red-shifted, along with some of the artifacts, backscatter, and autofluorescence peaks. There is also an third peak in the red end of the spectrum. The cause of this is unknown, but most likely due to an unidentified fluorophore.}
   \label{fig:slavodataexample}
 \end{figure}
 
-\subsection{Effect of Tissue Optics on Fluorescent Signal}
+\subsection*{Effect of Tissue Optics on Fluorescent Signal}
 
 As mentioned in the introduction to this chapter information about how tissue optics affects the fluorescent signal, which fluorophores contribute to the signal, the variability of the signal in different test sites, and location of the fluorescent signal are not well elucidated. 
 Therefore, before running the \gls*{nm} method on the experimental data, the fluence of the input fluorescence light is analysed alongside the location as a function of depth of the fluorescent light.
@@ -885,13 +893,13 @@ Therefore, light at a longer wavelength is more likely to escape the tissue due 
     \label{fig:fadeem}
 \end{figure}
 
-\subsection{Using the NM method}
+\subsection*{Using the NM method}
 
-We model the experimental setup as described in a previous section.
-The computational speed ups described in the previous sections are also used.
+We model the experimental setup by S. Smirni \textit{et al.} as described in a previous section.
+The computational speed ups described in the validation sections are also used.
 The 5 layers skin model is setup with NADH, FAD and collagen distributed in different layers.
-NADH and FAD is initially in all layers bar the hypodermis, and collagen is contained in just the papillary and reticular dermis\footnote{we omit any fluorophores form the hypodermis as they are not expected to contribute to the signal at all, or by very much. This also simplifies the problem}.
-Each layers has its own concentration of the fluorophores giving $n$ for the \gls*{nm} method of 10.
+NADH and FAD are initially in all layers bar the hypodermis, and collagen is contained in just the papillary and reticular dermis\footnote{We omit any fluorophores form the hypodermis as they are not expected to contribute to the signal at all, or by very much. This also simplifies the problem from n=13 to n=10.}.
+Each layer has its own concentration of the fluorophores giving $n$ for the \gls*{nm} method of 10.
 An initial guess of the concentration of the fluorophores is made, and the \gls*{nm} method is allowed to run until it stagnates.
 The target spectrum for the \gls*{nm} is taken from S. Smirni experimental data.
 Before the target spectrum could be used it was first ``cleaned up''.
@@ -903,8 +911,8 @@ Several of the autofluorescence spectra have artificial peaks caused by various 
 The final stage of the ``cleaning'' process, is to smooth the data out and remove the backscatter peak. 
 Now the spectra can be used as a target spectrum for the \gls*{nm} method.
 
-\Cref{fig:NMupdate} show the output of the \gls*{nm} method during a run with the above parameters.
-The figure shows that as the the simplex iterates, the average fitness improves, the average number of call to the \gls*{mcrt} algorithm tends to $\sim 1.4$.
+\Cref{fig:NMupdate} shows the output of the \gls*{nm} method during a run with the above parameters.
+The figure shows that as the the simplex iterates, the average fitness improves, the average number of calls to the \gls*{mcrt} algorithm tends to $\sim 1.4$.
 This suggests that the \gls*{nm} keeps the reflected point more often than not.
 The size of the simplex fluctuates as the simplex tries to find the global minima.
 This happens as the simplex moves over the search space it sometimes needs to grow in size, then when it finds a minima it shrinks around it.
@@ -921,10 +929,10 @@ The size of the simplex will then grow when the algorithm is restarted.
 The ``best'' fitness achieved by the algorithm was $\sim3$, which is a fairly poor fit when compared to the validation examples above.
 The figure also shows the contribution of the individual fluorophores to the overall autofluorescence signal.
 As expected the main contribution is from NADH, with a little contribution by FAD.
-However, collagen contributes to the main peak and is multi peaks, with peaks at $\sim$380~nm and $\sim$ 465~nm.
+However, collagen contributes to the main peak and is multi-peaked, with peaks at $\sim$380~nm and $\sim$ 465~nm.
 This is unusual as the peak of emission for collagen used in this work is around 395~nm, therefore it was not expected to contribute to the signal around the NADH peak.
-The reason that the collagen signal it multi-peaked is due to the tissue optics.
-There is a large peak at around 400-410~nm in the absorption spectra in the dermis layers.
+The reason that the collagen signal is multi-peaked is due to the tissue optics.
+There is a large peak at around 400-410~nm in the absorption spectra in the dermal layers.
 This causes a dip in the emission of collagen, giving it the multi-peaked profile.
 
 \begin{figure}[!htpb]
@@ -939,16 +947,18 @@ This causes a dip in the emission of collagen, giving it the multi-peaked profil
 There are several probable reasons why the spectrum generated by the \gls*{mcrt} and \gls*{nm} does not match the experimental data exactly.
 A first possible reason for the mismatch, is that the optical properties of the fluorophores are not 100\% correct.
 Optical properties of the fluorophores used in the work are not readily available.
-There are various source that have measured them, but they are usually confined to several wavelengths of the authors interest and not a full spectrum.
+There are various sources that have measured them, but they are usually confined to several wavelengths of the authors interest and not a full spectrum.
 The extinction coefficients for the fluorophores are measured in various buffer solutions, and not taken from \textit{in-vivo} tissue.
 This could give rise to a discrepancy between the computed results and the experimental results.
 Also the emission spectra for the fluorophores could also be incorrect.
 These are also measured in various buffer solutions, which again may be different from what they are \textit{in-vivo}.
 Finally the emission spectra are measured for a single excitation wavelength.
-As the spectra were not readily available for the excitation wavelength used in this work, the emission spectra were taken from the nearest possible excitation wavelength found in the literature. This again may introduce a difference from the experimental work. 
+As the spectra were not readily available for the excitation wavelength used in this work, the emission spectra were taken from the nearest possible excitation wavelength found in the literature. This again may introduce a difference from the experimental work.
+However, what optical properties that have been published are pretty consistent from author to author therefore, this is an unlikely problem.
 
 The mismatch in the target spectrum and the calculated spectrum could be due to missing fluorophores. 
 The model presented here only included NADH, FAD, and collagen which are thought to be the three main contributers to the autofluorescence signal.
+However, the inclusion of riboflavin (peak at 529~nm), $\beta$-carotene (395~nm), elastin(425~nm), and different types of collagen (420, 370, 395~nm) may be able to correct this.
 
 A final possible reason for the mismatch is that the LAKK-M device creators seem to have mis-calibrated their machines for finding the peaks of various fluorophores.
 \Cref{tab:flurocompvalues} shows a comparison between the literature and the values used by the LAKK-M team.
@@ -975,9 +985,9 @@ A final possible reason for the mismatch is that the LAKK-M device creators seem
 \end{table}
 
 For whatever reason, they seem to be consistently off by around 25 to 30~nm.
-From this chapters work on see how tissue optics affects the fluorescent signal, it cannot account for the discrepancy.
+From this chapters work on how tissue optics affects the fluorescent signal, tissue optics cannot account for the discrepancy.
 One possible cause for this is that the UV light they use to probe autofluorescence is an LED.
-LED light sources are not monochromatic, but rather have a range of wavelength they emit, on the order of 25~nm FWHM.
+LED light sources are not monochromatic, but rather have a range of wavelengths they emit, on the order of 25~nm FWHM.
 There they could be exciting with a different range of wavelengths, which could possibly contribute towards the difference in what they measure and the literature values.
 
 \section{Conclusion}

@@ -947,6 +947,9 @@ These are also measured in various buffer solutions, which again may be differen
 Finally the emission spectra are measured for a single excitation wavelength.
 As the spectra were not readily available for the excitation wavelength used in this work, the emission spectra were taken from the nearest possible excitation wavelength found in the literature. This again may introduce a difference from the experimental work. 
 
+The mismatch in the target spectrum and the calculated spectrum could be due to missing fluorophores. 
+The model presented here only included NADH, FAD, and collagen which are thought to be the three main contributers to the autofluorescence signal.
+
 A final possible reason for the mismatch is that the LAKK-M device creators seem to have mis-calibrated their machines for finding the peaks of various fluorophores.
 \Cref{tab:flurocompvalues} shows a comparison between the literature and the values used by the LAKK-M team.
 
@@ -971,12 +974,24 @@ A final possible reason for the mismatch is that the LAKK-M device creators seem
 
 \end{table}
 
+For whatever reason, they seem to be consistently off by around 25 to 30~nm.
+From this chapters work on see how tissue optics affects the fluorescent signal, it cannot account for the discrepancy.
+One possible cause for this is that the UV light they use to probe autofluorescence is an LED.
+LED light sources are not monochromatic, but rather have a range of wavelength they emit, on the order of 25~nm FWHM.
+There they could be exciting with a different range of wavelengths, which could possibly contribute towards the difference in what they measure and the literature values.
 
 \section{Conclusion}
 
-We have presented out code, AmoebaMCRT, which combines the Nelder-Mead method and MCRT in order to determine the concentrations of naturally occurring fluorophores in human skin.
+In conclusion, this section has introduced a five layer skin model, that has the ability to vary the various constitute parts to tailor model for a generic or specific patient.
+We have also shown in this chapter a method of coupling an optimisation technique to \gls*{mcrt}.
+This was done in order to investigate the concentrations of naturally occurring fluorophores in the skin.
+Differing levels of the fluorophores can indicate various diseases such as diabetes and \gls*{cvds}.
+We validated this technique against a toy model in various dimensions, with good agreement.
+Before experimental data was anyalsed, the effect of tissue optics on the autofluorescent signal was tested.
+We then used our numerical model on experimental data. We found good, but not excellent agreement with the data.
+A discussion of why our model does not fit the experimental data, with several possible reasons presented.
+Future work would involve taking known ``good'' data that would be worthwhile to validate against.
+Finally, if the model can be validated against this data the model could be used in future to explore the relationship between various diseases and autofluorescence.
 
-
-%AF Code works, tested against toy model, may need further validation. 
 
 %No paper or aim for project. Need contact with Dundee/Ninewells to proceed.

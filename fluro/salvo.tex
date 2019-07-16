@@ -57,7 +57,7 @@ Finally we introduce our ameboaMCRT algorithm, created to determine the relative
 
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
 However, this is not the case in reality.
-Tissue is un-homogeneous, with nonuniform optical properties.
+Tissue is un-homogeneous, with non-uniform optical properties.
 However, to create a one to one model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent parts of the tissue down to the cell level.
 Therefore we need to make a compromise between reality and what is possible to model efficiently.
 This section presents a five layer model of human skin. 
@@ -896,8 +896,8 @@ Therefore, light at a longer wavelength is more likely to escape the tissue due 
 
 We model the experimental setup as described in a previous section.
 The computational speed ups described in the previous sections are also used.
-The 5 layers skin model is setup with NADH, FAD and elastin distributed in different layers.
-NADH and FAD is initially in all layers bar the hypodermis, and elastin is contained in just the papillary and reticular dermis.
+The 5 layers skin model is setup with NADH, FAD and collagen distributed in different layers.
+NADH and FAD is initially in all layers bar the hypodermis, and collagen is contained in just the papillary and reticular dermis\footnote{we omit any fluorophores form the hypodermis as they are not expected to contibute to the signal at all, or by very much. This also simplifies the problem}.
 Each layers has its own concentration of the fluorophores giving $n$ for the \gls*{nm} method of 10.
 An initial guess of the concentration of the fluorophores is made, and the \gls*{nm} method is allowed to run until it stagnates.
 The target spectrum for the \gls*{nm} is taken from S. Smirni experimental data.
@@ -912,6 +912,7 @@ Now the spectra can be used as a target spectrum for the \gls*{nm} method.
 
 \Cref{fig:NMupdate} show the output of the \gls*{nm} method during a run with the above parameters.
 The figure shows that as the the simplex iterates, the average fitness improves, the average number of call to the \gls*{mcrt} algorithm tends to $\sim 1.4$.
+This suggests that the \gls*{nm} keeps the reflected point more often than not.
 The size of the simplex fluctuates as the simplex tries to find the global minima.
 This happens as the simplex moves over the search space it sometimes needs to grow in size, then when it finds a minima it shrinks around it.
 The size of the simplex will then grow when the algorithm is restarted.
@@ -923,11 +924,17 @@ The size of the simplex will then grow when the algorithm is restarted.
   \label{fig:NMupdate}
 \end{figure}
 
+\Cref{fig:bestNMresult} shows the output of the \gls*{nm}.
+The ``best'' fitness achieved by the algorithm was $\sim3$, which is a fairly poor fit when compared to the validation examples above.
+The figure also shows the contribution of the individual fluorophores to the overall autofluorescence signal.
+As expected the main contribution is from NADH, with a little contribution by FAD.
+However, collagen contributes to the main peak and is multi peaks, with peaks at $\sim$380~nm and $\sim$ 465~nm.
+
 
 \begin{figure}[!htpb]
   \centering
-  % \includegraphics[width=0.75\textwidth]{}
-  \caption{Figure shows the best result from the \gls*{nm} operating on the experimental data from s. Salvo \textit{et al.}. The spectrum has a fitness of $\sim 3$.}
+  \includegraphics[width=0.75\textwidth]{nm-bestfit.pdf}
+  \caption{Figure shows the best result from the \gls*{nm} operating on the experimental data from S. Smirni \textit{et al.}. The spectrum has a fitness of $\sim 3$. The figure also shows the makeup of the final spectrum by the individual fluorophores.}
   \label{fig:bestNMresult}
 \end{figure}
 

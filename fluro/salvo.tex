@@ -897,7 +897,7 @@ Therefore, light at a longer wavelength is more likely to escape the tissue due 
 We model the experimental setup as described in a previous section.
 The computational speed ups described in the previous sections are also used.
 The 5 layers skin model is setup with NADH, FAD and collagen distributed in different layers.
-NADH and FAD is initially in all layers bar the hypodermis, and collagen is contained in just the papillary and reticular dermis\footnote{we omit any fluorophores form the hypodermis as they are not expected to contibute to the signal at all, or by very much. This also simplifies the problem}.
+NADH and FAD is initially in all layers bar the hypodermis, and collagen is contained in just the papillary and reticular dermis\footnote{we omit any fluorophores form the hypodermis as they are not expected to contribute to the signal at all, or by very much. This also simplifies the problem}.
 Each layers has its own concentration of the fluorophores giving $n$ for the \gls*{nm} method of 10.
 An initial guess of the concentration of the fluorophores is made, and the \gls*{nm} method is allowed to run until it stagnates.
 The target spectrum for the \gls*{nm} is taken from S. Smirni experimental data.
@@ -929,6 +929,7 @@ The ``best'' fitness achieved by the algorithm was $\sim3$, which is a fairly po
 The figure also shows the contribution of the individual fluorophores to the overall autofluorescence signal.
 As expected the main contribution is from NADH, with a little contribution by FAD.
 However, collagen contributes to the main peak and is multi peaks, with peaks at $\sim$380~nm and $\sim$ 465~nm.
+This is unusual as the peak of emission for collagen used in this work is around 395~nm.
 
 
 \begin{figure}[!htpb]

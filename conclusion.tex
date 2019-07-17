@@ -27,7 +27,7 @@ The chapter also presented (with tongue firmly in cheek) the application of this
 
 Chapter 4 presented the modification of the \gls*{mcrt} method, such that it would allow the modelling of the photon packets as quasi-wave/particle packets, in place of the usual particle model \gls*{mcrt} models.
 This was achieved via a few small changes within the code, based upon well understood theoretical models, namely the Fresnel-Huygens principle.
-The method was throughly validated against several theoretical expressions.
+The method was thoroughly validated against several theoretical expressions.
 The method was the validated against experimental results from collaborators at the University of Dundee.
 The new method was then used to compare Bessel and Gaussian beams performance in highly turbid media.
 The method showed that blah
@@ -36,6 +36,14 @@ The method showed that blah
 
 Chapter 5 presented a model of skin autofluorescence using \gls*{mcrt}.
 The chapter detailed a five layer skin model created to accurately model the skin effect on light transport.
+The five layer model included the various chromophores found in the skin such as blood, water, and melanin.
+The model also includes various naturally occurring fluorophores.
+Changes in the autofluorescent response of tissue has been shown to be indicative of various diseases.
+Therefore the \gls*{mcrt} algorithm was coupled to an optimisation technique to determine relative concentrations of the fluorophores in the skin.
+The technique chose was the Nelder-Mead method.
+The \gls*{nm} method uses simplices in order to move around the search space and find global minima.
+The method was coupled to the the MCRT algorithm and thoroughly validated against toy models.
+Finally details of how autofluorescent data from collaborators was fitted using these techniques.
 
 \medskip
 
@@ -55,18 +63,18 @@ A solution to this was briefly investigated: use of a mesh to model the skin's s
 Triangular meshes can be used to model any arbitrary shape or volume [cite].
 The use of triangular meshes have been used to great effect by other authors in \gls*{mcrt} codes.
 Due to time constraints this was abandoned for this thesis before a fully working code could be developed.
-\Cref{fig:mesh} shows \gls*{mcrt} being preformed on a teapot, made from a triangular mesh.
+\Cref{fig:mesh} shows \gls*{mcrt} being preformed on a gourd, made from a triangular mesh.
 
 \begin{figure}[!htpb]
     \centering
-    % \includegraphics[width=0.75\textwidth]{}
-    \caption{Fluence of light in a teapot, calculated using MCRT. Red indicates fluence within the teapot, green is the fluence out with the teapot. The optical properties of the teapot are similar to that of skin. The optical properties of the medium around the teapot are that of air.}
-    \label{fig:fmesh}
+    \includegraphics[width=0.5\textwidth]{gourd-fluence.png}
+    \caption{Image on the left shows the fluence of light in a gourd, calculated using \gls*{mcrt}. The optical properties of the gourd in this simulations are similar to that of skin. The optical properties of the medium around the gourd are that of air. Image on the right shows a rendering of the same mesh in blender.}
+    \label{fig:mesh}
 \end{figure}
 
 The code developed as part of the tissue ablation chapter, could easily be adapted for use in modelling photothermal therapy.
-Photothermal therapy is the use of light to selectively heat up nanoscale material that have been inserted into tumors (which preferentially accumulate in the tumors).
-The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually infrared) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells.
+Photothermal therapy is the use of light to selectively heat up nanoscale material that have been inserted into tumours (which preferentially accumulate in the tumors).
+The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells.
 This could be easily modelled within the code developed as art of chapter 3.
 The code could be used to help optimise treatment modalities and predict treatment outcomes. ***sources***
 
@@ -76,5 +84,5 @@ This would allow the simulation of how topical drug diffusion into the skin can 
 chapter 4 work could be extended to model speckle imaging + wavefront shaping?
 
 
-chapter 5 could use other optimisation technqiues GA simulated annelaing
+chapter 5 could use other optimisation techniques GA simulated annealing
 

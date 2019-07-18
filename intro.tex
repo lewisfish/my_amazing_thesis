@@ -95,7 +95,20 @@ Therefore sampling from $p(x)$, and if the sampled point lies under $f(x)$ it is
 
 
 One common use of the Monte Carlo method, is to randomly sample from a spectrum.
+To generate a random sample from a spectrum, first the \gls*{cdf} of the spectrum must be calculated.
+This is done by first normalising the \gls*{pdf}, where the pdf in this case is the spectrum it self.
+It is normalised such that the sum of the \gls*{pdf} is unity.
+The \gls*{cdf} is then just the cumulative sum of the \gls*{pdf}.
+Then using the above method as described above, a random number is drawn, $\xi$, and the bracketing values in the \gls*{cdf} are found.
+We then interpolate to get the x and y values corresponding to $\xi$.
+\Cref{fig:solar}
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{solar-sample.pdf}
+    \caption{Example of randomly sampling from a spectrum. Figure shows 100 random samples drawn to recreate a solar spectrum.}
+    \label{fig:solar}
+\end{figure}
 
 The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy~\cite{robitaille2011hyperion,harries2014torus} and medicine~\cite{valentine2011monte,campbell2015monte}, to simulate the propagation of radiation through scattering (turbid) media. This technique, \gls*{mcrt}, is what makes up the bulk of this thesis and is described in depth in the following sections.
 

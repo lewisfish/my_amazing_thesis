@@ -90,7 +90,7 @@ Which can be simplified into the homogeneous medium heat equation with the follo
 \frac{\partial T}{\partial t} = \alpha \nabla^2 T
 \end{equation}
 
-
+%**************************************************************************************
 \crefalias{chapter}{appsec}
 \chapter{Fresnel Reflections}
 \label{app:fresnelappend}
@@ -135,6 +135,59 @@ R_{eff}&=\tfrac{1}{2}\left(R_s+R_p\right)\label{eqn:frestot}
 
 To calculate the angles of reflection and refraction, a vector form of Snell's law is used.
 \Cref{eqn:refl,eqn:refract} give the direction vectors for reflection and refraction respectively.
+
+
+\begin{align}
+I &= A+B\\
+R &= A-B
+\end{align}
+
+\begin{equation}
+B=\cos(\theta)\cdot N
+\end{equation}
+
+\begin{align}
+I&=A+\cos\left(\theta\right)\cdot N\\
+R&=A-\cos\left(\theta\right)\cdot N
+\end{align}
+\begin{equation}
+\therefore R=I-2(N\cdot I) N
+\end{equation}
+
+
+\begin{align}
+T&=A+B\\
+A&=\sin\left(\theta_2\right) M\\
+B&=\cos\left(\theta_2\right)(-N)\\
+C&=\cos\left(\theta_1\right)N\\
+M&=\frac{I+C}{\sin\left(\theta_1\right)}
+\end{align}
+
+\begin{align}
+T&=A+B\\
+&=M\sin\theta_2-N\cos\theta_2\\
+&=\frac{I+C}{\sin\theta_1}\sin\theta_2-N\cos\theta_2\\
+&=\frac{(I+\cos\theta_1 N)\sin\theta_2}{\sin\theta_1}-N\cos\theta_2
+\end{align}
+
+\begin{equation}
+\frac{\sin\theta_1}{\sin\theta_2}=\frac{\eta_1}{\eta_2}
+\end{equation}
+
+\begin{align}
+\therefore T&=\frac{\eta_1}{\eta_2}\left(I+\cos\theta_1 N\right)-N\cos\theta_2\\
+T&=\eta+\left(\eta c_1-c_2\right)N
+\end{align}
+
+Where
+
+\begin{align}
+c_1 &= N \cdot I\label{eqn:c1}\\
+c_2 &= \sqrt{1. - \eta^2 (1. - c_1^2)}\label{eqn:c2}\\
+\eta&=\frac{\eta_1}{\eta_2}
+\end{align}
+
+
 
 
 \begin{align}

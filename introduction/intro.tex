@@ -21,10 +21,13 @@
 % ***
 The advent of the computer in the last 80 years has been a boon for society.
 Increasing computing power is easily available, allowing higher quality research, and research into topics once thought beyond human computation.
+One topic where computers have revolutionised is medicine.
+Computers have enabled advances in many areas including drug discovery~\cite{aaqvist1994new,lill2011computer}, patient diagnoses~\cite{liu2014early,sun2016computer}, and better imaging modalities~\cite{brooks1976principles,al2012digital}.
+One particular area of focus where computers are or will be heavily used is personalised medicine.
 
-The future of medicine undoubtedly lies in personalised medicine.
-Personalised medicine is medicine where instead of a patient being treated with what works on an ``average'' patient, the treatment is tailored specifically for the patient.
-One particular area of research is into so called ``digital twin''.
+Personalised medicine is where instead of a patient being treated with what works on an ``average'' patient, the treatment is tailored specifically for the patient.
+This entails having fine grained knowledge of the patient down to the genome, to understand how various drug or treatments will affect the patient.
+One particular area of research  in personalised medicine is into the so called ``digital twin''.
 A digital twin as defined by A. El Saddik~\cite{el2018digital}:
 
 \medskip
@@ -32,14 +35,23 @@ A digital twin as defined by A. El Saddik~\cite{el2018digital}:
 \medskip
 
 Digital twins are currently heavily used in engineering to predict when various machinery will need to undergo maintenance.
-The way the digital twin is used is that the machine has various sensors that will feed a digital model of the machine, allowing predictions of how the machine will operate in its current condition.
-Companies like Phillips use this in their MRI machines to help schedule downtime, which needs to be minimised in order to not effect patient waiting times.
+The way the digital twin is used is that the machine has various sensors that feed data into a digital model of the machine, allowing predictions of how the machine will operate in its current condition.
+Companies like Phillips use this in their MRI machines to help schedule downtime, and predict which parts the engineer will need on site, both of which minimises the downtime of the machine which is import for the hospital/clinic~\cite{henkvanhouten2018}.
 At the heart of the digital twin method, is the ability to accurately model the object or living thing being studied.
 This can be fairly straight forward when the twin in question is a machine, as sensors can usually be attached to the various components to get feed back on the machines operation.
-However, this is not as straight forward when dealing with living creatures.
-To get accurate information on what is happening inside a patient, either ionizing radiation needs to be used, or cameras inserted into the patient.
+Machines also have the bonus of (normally) be completely understood so that modelling them is usually straight forward.
+However, this is not as straight forward when dealing with biology.
+First of all, we still do not have a complete understanding of the biology within humans.
+Therefore, modelling a human accurately is not possible as various assumptions and approximations have to be made.
+Secondly, to get accurate information on what is happening inside a patient, either ionizing radiation needs to be used, or cameras inserted into the patient.
 Both of these cannot be done for indefinite periods without causing harm or discomfort to the patient.
-However, there are various things we can measure from patient without the need of invasive procedures: heart rate, blood pressure, blood oxygenation levels, 
+Therefore, continuous information on the inner functions of the body is not possible.
+One area where information is more readily available is the skin.
+Information on the skin function or dysfunction is normally diagnosed with light.
+Light is also used in various treatments such as photodynamic therapy and tissue ablation, over various internal and external sites on the body.
+Lights interaction over the whole spectrum, from the UV to the infrared, is readily modelled with techniques such as \gls*{mcrt}.
+\Gls*{mcrt} allows a digital twin model of individual patient skin to be simulated.
+This can then be used to tailor treatment regimes for the individual patient, or to predict treatment outcomes for specific patients.
 
 
 % allow tests on digital couterpart, no need for invasive, painful or tests that may have adverse affects.

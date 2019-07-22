@@ -24,7 +24,7 @@ To replicate the experimental work \textit{in silico}, the numerical model has t
 
 \gls*{mcrt} is used here to calculate the energy deposited by the laser. This is then passed to the heat transport simulation, which calculates the heat diffusion in the medium. The algorithm for the three coupled simulations is presented in~\cref{fig:algoablation}.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.7]{flowchart.pdf}
 \caption{Flowchart of the tissue ablation algorithm.}
@@ -56,7 +56,7 @@ E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
 	
 	\medskip
 	
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.25]{jmea-explain.png}
 \caption{Red lines are packet paths within a voxel. Black lines packet paths out with the voxel. Red packet paths, weighted by $\mu_a$, are summed up to calculate the absorbed energy within each voxel.}
@@ -251,13 +251,11 @@ As the time step is small, and the grid resolution large, the resultant simulati
 Parallelisation of the heat simulation is more involved than the ``embarrassingly parallel'' class of problems where \gls*{mcrt} belongs. This is due to the heat simulation being dependent on neighbouring nodes to update the temperature at the current node. Thus, if the medium were to be split up on to separate cores, there would have to be communication between the cores, in order for the simulation to be completed successfully. Therefore it is not possible to take the ``easy'' route of running the simulation concurrently $N$ times and collating the result at the end of all the simulations.
 
 
-\begin{figure}
-\vspace{-45pt}
+\begin{figure}[!htbp]
 \centering
-\includegraphics[scale=.35]{grid-decomp.pdf}
+\includegraphics[scale=.3]{grid-decomp.pdf}
 \caption{Computational domain decomposition. Total computational domain (red outline) is evenly divided between cores in the CPU. This is done via layers of the domain in the z direction. Information is passed to/from cores via the ``halo swap'' process (see~\cref{fig:haloswap}).}
 \label{fig:griddecomp}
-\vspace{-10pt}
 \end{figure}
 
 The heat simulation is parallelised using a technique called ``halo swapping''. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The ``halo swapping'' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
@@ -269,7 +267,7 @@ The heat simulation is parallelised using a technique called ``halo swapping''. 
 
 \begin{figure}
 \centering
-\def\svgwidth{350pt}
+\def\svgwidth{300pt}
 \input{./ablation/images/halo.pdf_tex}
 \caption{Halo swapping. Process A updates the area in red and blue on the left. It updates the blue area which is sent to process B as B's ``halo''. Process B cannot update its own halo, but rather updates the halo for process A.}
 \label{fig:haloswap}
@@ -580,27 +578,40 @@ Over the full range of \gls*{ta}, as the energy per pixel beam increases, there 
 
 \begin{figure}
 	\centering
-    \includegraphics[width=.95\textwidth]{70w-circular.pdf}
+    \includegraphics[width=.85\textwidth]{70w-circular.pdf}
     \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a circular beam profile. Crater depths as a function of pixel beam energy for various \gls*{ta}'s.}
     \label{fig:tacirc}
 \end{figure}
  
  \begin{figure}
 	\centering
-    \includegraphics[width=.95\textwidth]{70w-gaussian.pdf}
+    \includegraphics[width=.85\textwidth]{70w-gaussian.pdf}
     \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a Gaussian beam profile. Crater depths as a function of pixel beam energy for various \gls*{ta}'s.}
     \label{fig:tagauss}
 \end{figure}
 
 \subsubsection*{Temperature during ablation}
 
+\Cref{fig:temp-500profile} shows slices of temperature as a function of time during a simulation for $T_a=500~^{\circ}C$.
+This means that every column of pixels shows a bore hole through the medium (along the z axis) for a given time.
+\Cref{fig:temp-500profile} also shows the laser pulse profile as a function of time as a reference so that knowledge of when the laser is on or off is easily elucidated.
+The figure shows that the temperature reaches a maximum temperature which is equal to $T_a$, regardless of ablation progress.
+This maximum temperature is researched roughly 0.25~s into the simulation, and lasts until $\sim$0.75~s.
+The maximum temperature
+The ablation crater depth can be seen by the evidence of the ``dark valley'' before the jump in temperature.
+The border of the crater region is slightly cooler, with a maximum slightly deeper into the tissue.
+This temperature maximum extends for a small distance into the tissue, before diffusion spreads it out.
+
+
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.95\textwidth]{temp-profile-middle.pdf}
+	\includegraphics[width=0.85\textwidth]{temp-profile-middle.pdf}
 	\caption{Temperature bore hole though centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$.}
 	\label{fig:temp-500profile}
 \end{figure}
 
+
+Once the laser reaches maximum power
 
 \subsubsection*{Investigating thermal damage} 
 
@@ -636,7 +647,7 @@ As stated in~\cref{sec:coagdamage}, the Arrhenius damage integral is used to est
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=.95\textwidth]{damage-slice.pdf}
+	\includegraphics[width=.85\textwidth]{damage-slice.pdf}
 	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
 	\label{fig:damfig}
 \end{figure}
@@ -645,7 +656,7 @@ As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small dista
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.75 ]{horz-damage.pdf}
+	\includegraphics[scale=0.7]{horz-damage.pdf}
 	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam, for different $T_a$'s.}
 	\label{fig:horz-70}
 \end{figure}
@@ -659,14 +670,14 @@ The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{r
 	
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=0.75]{70w-400.pdf}
+	\includegraphics[scale=0.7]{70w-400.pdf}
 	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 400~mJ.}
 	\label{fig:time-thres1}
 \end{figure}	
 	
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=0.75]{70w-50.pdf}
+	\includegraphics[scale=0.7]{70w-50.pdf}
 	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 50~mJ.}
 	\label{fig:time-thres2}
 \end{figure}	
@@ -684,7 +695,7 @@ The pulse profiles are usually modelled as triangular, tophat, or Gaussian.
 However, the pulse profiles in reality are normally less well defined, and rather the pulse profile is something in between these perfect models.
 
 The laser used in the above experiments, the Pixel CO$_2$, uses a triangular pulse profile for the laser pulses.
-Thus, in the section the effect of the laser pulse profile has n ablation and surrounding thermal injury is investigated.
+Thus, in this section the effect of the laser pulse profile has on ablation and the surrounding thermal injury is investigated.
 
 Four different laser pulses profiles are investigated: tophat, triangular and two different Gaussian profiles.
 The two different Gaussian pulses trialled are, a Gaussian profile with $\sigma$ equal to the pulselength, and a pulse profile where the same energy is expended.
@@ -760,14 +771,14 @@ However, there is a small difference between setting the voxel temperature to ro
 
 \section{Application of Model for Spy Disposal}
 
-In the 1964 James Bond film, Goldfinger, James Bond is threatened with a laser by the titular antagonist.
+In the 1964 James Bond film, Goldfinger, James Bond is threatened with a laser by the titular antagonist ()\cref{fig:goldfinger}.
 Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane\footnote{i.e could Goldfinger use a laser that would lessen Bond's suffering.} in his choice of laser for the task?
 
 As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the ``laser''\footnote{A laser was not used on set, but rather was added in post-production.} shown on screen being red, the likely laser portrayed is a ruby laser.
 
 To assess whether Bond would die due to the laser we used the model outlined in this chapter with the following parameters.
 
-As Auric Goldfinger uses this laser to cut sheets of gold, we assumed the power of the laser was around $1~kW$, as industrial lasers used to cut metal, are high powered continuous operation lasers.
+As Auric Goldfinger uses this laser to cut sheets of gold, we assumed the power of the laser was around $1$~kW, as industrial lasers used to cut metal, are high powered continuous operation lasers.
 We assumed that the Bond is completely made of skin, with no organs or bones.
 We ran two simulations, one for the Ruby $694~nm$ and one for the $CO_2$ $10.6~\mu m$.
 For the $CO_2$ as before there is no scattering due to high absorption coefficient. The Ruby laser's wavelength is highly scattering, so we model both scattering and absorption.
@@ -778,6 +789,13 @@ From timing the movie, the laser moves at a round $1~cms^{-1}$.
 Therefore the Ruby laser used by Goldfinger would only give Bond some serious burns, but would leave him in one piece.
 If Goldfinger used a $CO_2$ laser then Bond would have been cleanly cut in two.
 
+
+\begin{figure}[!htpb]
+	\centering
+	\includegraphics[width=0.5\textwidth]{goldfinger-laser.jpg}
+	\caption{Still image of the iconic laser scene in the film Goldfinger. Copyrights Eon Productions.}
+	\label{fig:goldfinger}
+\end{figure}
 
 \section{Conclusion}
 

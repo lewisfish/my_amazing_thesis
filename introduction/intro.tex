@@ -34,7 +34,7 @@ A digital twin as defined by A. El Saddik~\cite{el2018digital}:
 ``A digital twin is a digital replica of a living or non-living physical entity.''
 \medskip
 
-Digital twins are currently heavily used in engineering to predict when various machinery will need to undergo maintenance.
+\noindent Digital twins are currently heavily used in engineering to predict when various machinery will need to undergo maintenance.
 The way the digital twin is used is that the machine has various sensors that feed data into a digital model of the machine, allowing predictions of how the machine will operate in its current condition.
 Companies like Phillips use this in their MRI machines to help schedule downtime, and predict which parts the engineer will need on site, both of which minimises the downtime of the machine which is import for the hospital/clinic~\cite{henkvanhouten2018}.
 At the heart of the digital twin method, is the ability to accurately model the object or living thing being studied.
@@ -52,7 +52,10 @@ Light is also used in various treatments such as photodynamic therapy and tissue
 Lights interaction over the whole spectrum, from the UV to the infrared, is readily modelled with techniques such as \gls*{mcrt}.
 \Gls*{mcrt} allows a digital twin model of individual patient skin to be simulated.
 This can then be used to tailor treatment regimes for the individual patient, or to predict treatment outcomes for specific patients.
+The use of simulations techniques like \gls*{mcrt} allow testing \textit{in-silico}, which can negate the need to test on humans and/or animals.
 
+\medskip
+This thesis concerns the development of various \gls*{mcrt} models to help diagnose, optimise treatments and help predict which imaging modalities may be better.
 
 % allow tests on digital couterpart, no need for invasive, painful or tests that may have adverse affects.
 % Saves from animal testing too.
@@ -62,10 +65,6 @@ This can then be used to tailor treatment regimes for the individual patient, or
 % personalised medicine 
 % speak about mcrt a wee bit
 % then link onto next paragraph
-
-
-% srcs:
-% https://www.philips.com/a-w/about/news/archive/blogs/innovation-matters/20180830-the-rise-of-the-digital-twin-how-healthcare-can-benefit.html
 
 \section{Monte Carlo Method}\label{sec:mcmethod}
 The Monte Carlo method is a numerical analysis technique based upon random numbers, which are used to calculate unknown variables in problems~\cite{cashwell1959practical,rogers1990monte}. 
@@ -134,12 +133,12 @@ Therefore sampling from $p(x)$, and if the sampled point lies under $f(x)$ it is
 
 One common use of the Monte Carlo method, is to randomly sample from a spectrum.
 To generate a random sample from a spectrum, first the \gls*{cdf} of the spectrum must be calculated.
-This is done by first normalising the \gls*{pdf}, where the pdf in this case is the spectrum it self.
+This is done by first normalising the \gls*{pdf}, where the \gls*{pdf} in this case is the spectrum it self.
 It is normalised such that the sum of the \gls*{pdf} is unity.
 The \gls*{cdf} is then just the cumulative sum of the \gls*{pdf}.
 Then using the above method as described above, a random number is drawn, $\xi$, and the bracketing values in the \gls*{cdf} are found.
 We then interpolate to get the x and y values corresponding to $\xi$.
-\Cref{fig:solar}
+\Cref{fig:solar} shows the result of this process for 100 random samples.
 
 \begin{figure}[!htbp]
     \centering
@@ -158,21 +157,8 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 \end{figure}
 
 
-\section{Thesis Outline and Objective}
-
-This thesis concerns the development of advanced 3D light transport algorithm for various biophotonic and medical applications.
-The technique that is adopted to calculate the light transport for the majority of the thesis is the \gls*{mcrt} method.
-This method allows the tracking of photon packets through simulated 3D mediums, with the inclusion of multiple anisotropic scattering events along with the modelling of various other micro-physics that light may undergo in a medium.
-
-
-This chapter details the background to the Monte Carlo method and its various application to a myriad of different fields.
-
-
 \section{Synopsis and Thesis Objectives}
 %sign post chapters
-
-Again repeat first para -> talk about dev of MCRT and why use it i.e non invasive digital twin thing ilas mentioned. mcrt is flexable etc
-
 
 Chapter two details the Monte Carlo radiation transport method that is used for the bulk of this thesis.
 Presented in this chapter are details of the algorithm and various code details that underpin the whole thesis.
@@ -180,8 +166,8 @@ Details of speed up techniques such as parallelisation are also presented.
 Finally the code is validated against other results.\\
 
 
-Chapter three demonstrates details the tissue ablation model.
-Discussion of the individual components of the model, alongside validation of the model against theoretical and experimental evidence is also presented.\\
+Chapter three details the tissue ablation model.
+Discussion of the individual components of the model, alongside validation of the model against theoretical and experimental evidence is presented.\\
 
 
 Chapter four presents an adaptation to the regular Monte Carlo model so that it can model wave like properties of photons including diffraction and interference.
@@ -190,8 +176,10 @@ Finally the algorithm is used to compare Bessel beams and Gaussian beam in highl
 
 
 Chapter five details the modelling of a novel biomarker for cardiovascular disease, autofluorescence.
-The theoretical groundwork for the biomaker is outlay-ed, along with discussion of how Monte Carlo radiation transport can model fluorescence.
+The theoretical groundwork for the biomaker is outlaid, along with discussion of how Monte Carlo radiation transport can model fluorescence.
 Presented alongside this is ameombaMCRT, a Monte Carlo radiation transfer simplex algorithm used to determine concentrations of fluorophores in different layers of tissue for a given spectrum.\\
+
+
 Chapter six details ....\\
 
 

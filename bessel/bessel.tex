@@ -69,7 +69,7 @@ The phase is then tracked as the packet moves through the medium, over a distanc
 Where $\varphi$ is the complex phase of a photon packet, $l\ [m]$ is the distance the packet has travelled, $\lambda~[m]$ is the wavelength of the packet.
 Now we can calculate the complex phase of a packet at a position $P_o$, if we know the distance it has travelled, and its original phase, see~\cref{fig:phase-diag}.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{phase-diag.pdf}
     \caption{Example of phase calculation when a photon has travelled a distance l. The figure also shows an example of interference between two photons via addition of the complex amplitudes at the point $P_0$.}
@@ -159,7 +159,7 @@ Our algorithm uses the Huygens-Fresnel principle and the tracking of complex pha
 The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point, essentially numerically simulating~\cref{eqn:kirchhoffeqn}.
 These two concepts underpin the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for propagation of various complex beams.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{huygens.pdf}
     \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle. Dashed lines illustrate the wavefront position at the previous time step, and is the source of the Huygens-Fresnel wavelets.}
@@ -189,7 +189,7 @@ A random direction is then chosen to ensure that the packets will hit the detect
 The simulation was run with $10^9$ packets, which took $\approx10~mins$ to run on an 8 core Intel Xeon machine.
 This gave an accurate match to the theoretical expression, as seen in~\cref{fig:doubleslitcomp}.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{doubleslit.pdf}
     \caption{Comparison of theory and simulation for the double slit experiment. Top image shows a slice through the computed image and the expected profile from theory. For clarity only every $5^{th}$ MCRT data point is plotted. Bottom image shows the computed image.}
@@ -209,7 +209,7 @@ F = l\sqrt{\frac{2}{\lambda r_0}}
 \Cref{eqn:fnumber} is the Fresnel number, where \textit{l} is the slit width, $\lambda$ is the wavelength of the incident radiation, and $r_0$ is the distance from the aperture to the detector screen, as shown in~\cref{fig:aperture}. 
 
 \medskip
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{aperture.pdf}
     \caption{Geometry of the square aperture used in the validation.}
@@ -315,7 +315,7 @@ The number of bins, and photons packets simulated had to be increased for the ca
 This is due to the diffraction pattern becoming ``noisy'' and thus needs a higher resolution to accurately simulate.
 \cref{fig:frescompare} shows the comparison between the theory and the $\varphi MC$ simulations.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{Fresnel-compare.pdf}
     \caption{Comparison of theory and simulation for diffraction through a square aperture in the Fresnel and Fraunhofer regimes.}
@@ -373,7 +373,7 @@ The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, whe
     w_0 &= \frac{2\lambda f}{\pi D}\label{eqn:beamwaist}\\
 \end{align}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{gaussian-radius-curve.pdf}
     \caption{Illustration of a Gaussian beam focusing to its waist then diverging away. Image shows the various defined properties of a Gaussian beam along side the radius of curvature changing direction at the waist.}
@@ -386,7 +386,7 @@ The simulated lens used is a convex-plano lens, with radius of curvature, $4.6~m
 A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $0.5~mm$, is incident on the lens.
 Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.1\mu m$.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{gaussiansetup.pdf}
     \caption{Simulation setup of focusing a Gaussian beam through a lens. Lens is convex-plano and is modelled on ThorLabs LA4249 UV fused silica lens~\cite{thorlens}.  $L_t$ is the lens thickness, D is the $\tfrac{1}{e^2}$ input beam diameter, $W_d$ is the working distance or back focal length, $2 \cdot z_{max}$ is the depth of the medium, and $w_0$ is the beam waist.}
@@ -556,6 +556,12 @@ Finally, the spacing between Bessel beam rings is:
 \subsection{Validation}
 
 To ensure that the method described in~\cref{sec:bestheory} works as intended for Bessel beams several tests are compared to theoretical expressions and experimental data.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{bessel.pdf}
+    \caption{Geometry of a Bessel beam, generated by an axicon lens. $\beta$ is the angle with the optical axis, and the angle of the conical waves. $\alpha$ is the axicon angle.}
+    \label{fig:besselgeo}
+\end{figure}
 
 \subsubsection*{Comparison to a theoretical Bessel beam}
 
@@ -569,7 +575,6 @@ For the second test the Bessel beam is propagated past the ``Bessel region'' int
 The detector screen has a size of $40~\mu m$ $\times$ $40~\mu m$ with a bin resolution of $1~\mu m$.
 $8\times 10^{10}$ photon packets were simulated taking $\sim$ 1 hour on an 8 core Intel Xeon 3.5Ghz machine.
 
-\medskip
 
 ~\Cref{eqn:besselInt} gives the profile of a theoretical Bessel beam at a depth $z_{max}$, this is plotted against the simulation setting the various constants to (see~\cref{eqn:normalise}), with the simulation similarly normalised to the maximum intensity of the image generated. ~\Cref{fig:besselCompare} shows this comparison.
 
@@ -582,36 +587,22 @@ $8\times 10^{10}$ photon packets were simulated taking $\sim$ 1 hour on an 8 cor
 \Cref{fig:farfield} shows the profile of the Bessel beam in the far field, where the theory predicts it becomes a ring.
 $\varphi$MC can also model the self-healing property of Bessel beams, this is shown in~\cref{fig:selfheal}.
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.6\textwidth]{bessel.pdf}
-    \caption{Geometry of a Bessel beam, generated by an axicon lens. $\beta$ is the angle with the optical axis, and the angle of the conical waves. $\alpha$ is the axicon angle.}
-    \label{fig:besselgeo}
-\end{figure}
 
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.75\textwidth]{compare-theory.pdf}
+    \includegraphics[width=0.65\textwidth]{compare-theory.pdf}
     \caption{Comparison of theoretical and MCRT simulation of a Bessel beams, with intensity normalised. The results from $\varphi MC$ show good agreement with the theory.}
     \label{fig:besselCompare}
 \end{figure}
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{farfield.pdf}
+\includegraphics[width=0.5\textwidth]{farfield.pdf}
 \caption{Bessel beam in the far field. Bessel beams in the far field become ring beams. Image shows a slice of intensity through the medium.}
 \label{fig:farfield}
 \end{figure}
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{selfheal.pdf}
-\caption{Illustration of the Bessel beams self-healing property. Highly absorbing cube placed near the top of the medium. Figure shows that the Bessel beam forms further down the optical axis. a) shows side on view with the obstacle at $0.02~mm$, b) shows top down view at surface of the simulated b=medium before the obstacle, c) shows top down view in the middle of the obstacle, and  d) shows the top down view after the Bessel beam has ``healed''.}
-\label{fig:selfheal}
-\end{figure}
-
-\FloatBarrier
 
 \subsubsection*{Comparison to experimental data}
 
@@ -620,8 +611,19 @@ These experiments allow us to test our algorithms ability to simulate scattering
 S. Reidt \textit{et al.} carried out an experiment where a Bessel beam was propagated through a medium of varying turbidity.
 A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens, with angle $5^{\circ}$.
 The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$. 
+
+
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
+\FloatBarrier
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{selfheal.pdf}
+\caption{Illustration of the Bessel beams self-healing property. Highly absorbing cube placed near the top of the medium. Figure shows that the Bessel beam forms further down the optical axis. a) shows side on view with the obstacle at $0.02~mm$, b) shows top down view at surface of the simulated b=medium before the obstacle, c) shows top down view in the middle of the obstacle, and  d) shows the top down view after the Bessel beam has ``healed''.}
+\label{fig:selfheal}
+\end{figure}
+
 The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is diluted as shown in~\cref{tab:intra}.
 ~\Cref{fig:ilscatprop} shows the optical properties of Intralipid $20~\%$.
 Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime\footnote{The independent scattering regime is where $g$ is dependent on the size, shape and material properties of the scattering particle, and the material properties of the bulk material, but not the number of scattering particles~\cite{aernouts2013supercontinuum,mishchenko2018independent}.}.
@@ -630,7 +632,7 @@ Images of the Bessel beam as it emerges from the cuvette are taken for compariso
 ~\Cref{fig:expsetup} shows the experimental set-up.
 
 
-\begin{figure}[ht!]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{bessel-exp-setup.pdf}
     \caption{Experimental set-up for propagating a Bessel beam through a cuvette filled with varying concentrations of Intralipid 20\%. Bessel beam is imaged by an $20\times$ objective lens and a Grasshopper 3 camera.}
@@ -655,9 +657,9 @@ Images of the Bessel beam as it emerges from the cuvette are taken for compariso
     \label{tab:intra}
 \end{table}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{scat-prop-il.pdf}
+    \includegraphics[width=0.5\textwidth]{scat-prop-il.pdf}
     \caption{Scattering properties of 20\% Intralipid~\cite{michels2008optical}.}
     \label{fig:ilscatprop}
     \vspace{-10pt}
@@ -675,7 +677,7 @@ Once all the packets have been run, the phase is converted into intensity, as in
 
 \Cref{fig:compareexpbessel,fig:compareexpbesselLine} show the results from the experiment and simulation. The simulation shows good agreement with experimental data within experimental and simulation uncertainty.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{compare-exp.pdf}
 \caption{Comparison of experimental and simulation data for propagation of a Bessel beam produced by an axicon, through mediums of various turbidity. Images a) to g) is the data from $\varphi MC$, and h) to n) are the experimental data. Volumes along the top are the volume of Intralipid in each solution as in~\cref{tab:intra}. All images are cropped so they are the same size and normalised to the maximum value in each image.}
@@ -734,7 +736,7 @@ The larger and smaller medium yield the same results (within Monte Carlo noise) 
 At $8~\mu L$ the smaller medium has a Bessel beams central core, whilst the larger medium is noisy, and forms no Bessel beam.
 This test has shown that shrinking the medium allows accurate modelling of the propagation of a Bessel beam through a turbid medium while using less computational resources.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{compare-med-size.pdf}
     \caption{Comparison of a larger medium, $2~mm^3$ versus that of a smaller medium, $0.5~mm \times 0.5~mm \times 2.00~mm$. The figure shows that the smaller medium gives a better signal to noise ratio, whilst still accurately modelling the experiment.}
@@ -790,7 +792,13 @@ h_3&=h_1+h_2 \label{eqn:helicon}\\
 Where $\phi$ is the azimuthal angle, $r$ is the radial position, $l$ is an integer that describes the order of the Bessel beam, and $\alpha$ is the axicon angle.
 
 The path length in the above equations can be converted into a phase delay by considering the transmission functions of the individual elements~\cite{khonina1992trochoson,kotlyar2006diffraction,topuzoski2009conversion,qiong2012generalization}:
-
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{helicon-2.pdf}
+    \caption{Helical delay element attached to an axicon. The Axicon introduces a radial delay in addition to that of the helical element. If the input beam is a Gaussian, the output beam is a higher order Bessel beam, $l>0$.}
+    \label{fig:helix-2}
+    \vspace{-10pt}
+\end{figure}
 
 \begin{align}
 T_1(\varphi)&=e^{-ik(n-1)h_1}=e^{-il\phi}\\
@@ -812,15 +820,9 @@ This method is similar to using a spatial light modulator in an experiment to im
 
 \Cref{fig:highordershow} shows the comparison between theoretical higher order Bessel beam and the higher order beam simulated by $\varphi MC$.
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.4\textwidth]{helicon-2.pdf}
-    \caption{Helical delay element attached to an axicon. The Axicon introduces a radial delay in addition to that of the helical element. If the input beam is a Gaussian, the output beam is a higher order Bessel beam, $l>0$.}
-    \label{fig:helix-2}
-    \vspace{-10pt}
-\end{figure}
 
-\begin{figure}[!ht]
+
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{higher-order-bessel.pdf}
     \caption{\Gls*{hobb}. a) to d) show the phase shift due to the helical element. e) to h) show line plots of the simulation data compared to the theory. i) to l) and m) to p) show the higher order Bessel beam images for theory and simulation data respectively.}
@@ -952,7 +954,7 @@ However, $\varphi$MC is not a silver bullet for modelling these complex beams in
 Depending on the problem at hand, the computational load can be excessive.
 For example, if you want to know the intensity of the beam at all locations though a large ($> 1mm^3$) scattering medium with a complex 3D structure, then the time taken to get a good signal to noise ration may be computationally prohibitive.
 Though it is expected that in most cases the intensity is not needed at all locations in a medium, and an image is all that is need to be calculated, then even in a complex 3D structure $\varphi$MC should perform better than the methods listed at the start of this chapter\footnote{Though to achieve better performance with the current code, adaptive mesh grids would have to be implemented.}.
-Were $\varphi$MC excels is that it can accurately model scattering effects on the propagation of complex beams through scattering media.
+Where $\varphi$MC excels is that it can accurately model scattering effects on the propagation of complex beams through scattering media.
 
 %sources
 %cizmar thesis

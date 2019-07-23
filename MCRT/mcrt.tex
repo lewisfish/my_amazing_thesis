@@ -35,7 +35,7 @@ Irradiance is defined as the spectral irradiance over a small frequency range $[
 
 \medskip
 
-\begin{figure}[!htb]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[scale=1.]{diffelement.pdf}
 	\caption{Energy flow through area $dA$ within solid angle $d\Omega$ in a direction $\hat{s}$. Adapted from~\cite{wang2012biomedical,chandrasekhar2013radiative}.}
@@ -116,7 +116,7 @@ The first loss term, $dP_{div}$, is the energy loss due to divergence of the rad
 
 $dP_{ext}$ is the second loss term, and accounts for energy loss due to scattering and absorption in the volume element within the solid angle $d\Omega$. This is modelled as:
 
-\begin{figure}[!htb]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[scale=0.5]{cylinderelement.pdf}
 	\caption{Cylindrical volume element, $ds\ dA$, with solid angle $d\Omega$ in direction $\hat{s}$ and solid angle $d\Omega'$ in direction $\hat{s}'$. Energy flowing through this element is used to derive the radiation transfer equation. Adapted from~\cite{wang2012biomedical,chandrasekhar2013radiative}.}
@@ -242,7 +242,12 @@ For simplicity, the phase function is usually cast as the anisotropy value g, wh
 \end{equation}
 The anisotropy factor, g, can take on any value from $-1$ to $1$. Where a value of $-1$ is totally back scattering, $0$ is isotopic scattering, and $1$ is totally forward scattering (see~\cref{fig:henyey}).
 
-
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=.75\textwidth]{polar.pdf}
+	\caption{Figure shows the g factor for the Henyey-Greenstein phase function, for various configurations of back, forward or isotropic scattering. Arrow indicates the photons initial direction before scattering.}
+	\label{fig:henyey}
+\end{figure}
 There are many phase functions that can be used to model the anisotropy factor in a medium. The standard phase function in biological tissue is the Henyey-Greenstein phase function. The Henyey-Greenstein phase function, was originally created to model scattering of diffuse radiation in the galaxy~\cite{lister2012optical,henyey1941diffuse}. It has since become the \textit{de-facto} phase function for biological tissue. This is due to the phase functions relative simplicity and due to it being regarded as a ``good'' phase function for approximating scattering in biological tissue~\cite{jacques1987angular}.
 The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 
@@ -251,12 +256,7 @@ The Henyey-Greenstein phase function is shown in~\cref{eqn:henyey}:
 	\label{eqn:henyey}
 \end{equation}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{polar.pdf}
-	\caption{Figure shows the g factor for the Henyey-Greenstein phase function, for various configurations of back, forward or isotropic scattering. Arrow indicates the photons initial direction before scattering.}
-	\label{fig:henyey}
-\end{figure}
+
 
 \subsubsection*{Absorption}\label{sec:absor}
 
@@ -270,7 +270,7 @@ This, again like the scattering coefficient, gives inverse distance for the unit
 There are various sources of absorbers in tissue including blood, water, fat, melanin, $\beta$-carotene, and bilirubin. These chromophores can all contribute, depending on the wavelength, with some more absorbing than others, as shown in~\cref{fig:absorb}.
 The absorbed photons can then be remitted as fluorescence or absorbed as heat. 
 
-\begin{figure}
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=.95\textwidth]{absorbers.pdf}
 	\caption{Examples of wavelength dependent absorption coefficients for some common tissue chromophores~\cite{dixon2005photochemcad,photoprahl2017,segelstein1981complex,pope1997absorption,jacques2013optical,van2004determination,saidi1992transcutaneous,iglesias2015biophysically,bashkatov2011optical,sarna2006physical}.}
@@ -392,7 +392,7 @@ For this example the photons are released from the origin of the sphere.
 Using this position the voxel the packet is in is calculated.
 \FloatBarrier
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{voxel-model-render.png}
 \caption{Example of a possible voxel model, with three different layers, various holes due to ablative pixel beam lasers (~see~\cref{chap:ablation}). Each voxel can represent a different optical/thermal property of the tissue medium.}
@@ -478,7 +478,7 @@ The distance to the interaction event is calculated and the photon moved to this
 
 \Cref{fig:voxelpropexplain} illustrates this whole process for a 2D example.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{grid_explain.eps}
 	\caption{Illustration of photon propagation through a 2D grid. $d_{x1}$, and $d_{y1}$ are the distances to the voxel walls in the x and y directions in the $\mu_1$ voxel. In this case $S_1=d_{x1}$ as $d_{x1}$ is smaller than $d_{y1}$, thus the photon hits the voxel wall in the $x$ direction. For the $\mu_5$ voxel, $d_y$ is smaller, thus the photon hits the voxel wall in the $y^{th}$ direction.}
@@ -533,7 +533,7 @@ cos\theta_s = \frac{1+g^2-\left(\frac{1-g^2}{(1-g+2g\xi)^{3/2}}\right)^2}{2g}
 \end{equation}
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{frame-rot.pdf}
 	\caption{Illustration of rotating the centre of mass frame to the lab frame. $\mathbf{n}$ is the direction vector of the photon before scattering, and $\mathbf{n_s}$ is the scattered direction vector. $\theta$ and $\varphi$ are the scattering angles. $z_s$ is in the same direction as $\mathbf{n}$.}
@@ -634,7 +634,7 @@ Finally dependency modules are the modules that have not been written by me, and
 \noindent Finally, {\color{red} \textit{opt_prop}} contains the data about the current optical properties such as the albedo and absorption coefficient.
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.95\textwidth]{graph-code.pdf}
 	\caption{Source code hierarchy, showing the relationship between different modules. Green is the entry point for the simulation. Red are the data modules, light blue are the routine modules, and grey are the external dependencies.}
@@ -675,7 +675,7 @@ This test consisted of running the same number of photons, in a highly scatterin
 This yielded a $P$ of $0.999010 \pm 0.000045$ and a maximum speedup of 1010.1.
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{profile-mcrt.pdf}
 	\caption{Performance of the parallelisation of the MCRT code using MPI.}
@@ -737,9 +737,9 @@ The above optical properties and medium dimensions\footnote{The infinitely wide 
 8 million photons were run for the simulation.
 This yielded the result as in~\cref{fig:matchjacq}.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.95\textwidth]{validation-jacques.pdf}
+	\includegraphics[width=0.75\textwidth]{validation-jacques.pdf}
 	\caption{Figure shows the fluence as a function of depth. Figure also shows comparison to the Jacques MCRT simulation and the MCRT as described in this chapter.}
 	\label{fig:matchjacq}
 \end{figure}

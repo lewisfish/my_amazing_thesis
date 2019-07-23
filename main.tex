@@ -50,6 +50,8 @@
 \usepackage{lipsum}%used to fill space for now
 \crefname{appsec}{Appendix}{Appendices}%create name for appendix reference
 
+\newcommand{\squeezeup}{\vspace{-2.5mm}}
+
 
 %create title page
 \geometry{margin=2cm}%centre
@@ -141,8 +143,8 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 \include{bessel/bessel}
 \include{fluro/salvo}
 % \include{madrid/fluro}
-\include{conclusion}
-\include{appendix/append}
+% \include{conclusion}
+% \include{appendix/append}
 
 \bibliography{./introduction/intro,./ablation/ablation,./MCRT/mcrt,./bessel/bessel,./fluro/salvo}
 \bibliographystyle{unsrt}

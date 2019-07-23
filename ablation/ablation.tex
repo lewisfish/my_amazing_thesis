@@ -253,7 +253,7 @@ Parallelisation of the heat simulation is more involved than the ``embarrassingl
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=.3]{grid-decomp.pdf}
+\includegraphics[width=0.5\textwidth]{grid-decomp.pdf}
 \caption{Computational domain decomposition. Total computational domain (red outline) is evenly divided between cores in the CPU. This is done via layers of the domain in the z direction. Information is passed to/from cores via the ``halo swap'' process (see~\cref{fig:haloswap}).}
 \label{fig:griddecomp}
 \end{figure}
@@ -265,23 +265,24 @@ The heat simulation is parallelised using a technique called ``halo swapping''. 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
 
-\begin{figure}
+\begin{figure}[!t]
 \centering
-\def\svgwidth{300pt}
+\def\svgwidth{250pt}
 \input{./ablation/images/halo.pdf_tex}
 \caption{Halo swapping. Process A updates the area in red and blue on the left. It updates the blue area which is sent to process B as B's ``halo''. Process B cannot update its own halo, but rather updates the halo for process A.}
 \label{fig:haloswap}
+\vspace{-12pt}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
-\includegraphics[scale=.75]{profile.pdf}
+\includegraphics[scale=.6]{profile.pdf}
 \caption{Figure shows the speed up gained by parallelisation of the heat simulation using the ``halo swapping'' technique, for various sizes of computational domain (voxels). Data taken from a Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.}
 \label{fig:parallel}
 \end{figure}
+
 After one time step of the heat simulation has been completed, the temperature grid is passed to the tissue damage portion of the simulation to calculate the tissue damage that may have accrued during the heat simulation time step.
 \FloatBarrier
-\newpage
 
 \subsection{Tissue Damage}
 \label{sec:tissuedamage}
@@ -483,13 +484,11 @@ T(x,y,z,t)=\sum^\infty_{n=1,3,..}\sum^\infty_{m=1,3,..}\sum^\infty_{p=1,3,..}\fr
 	
 A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-heat}, which shows that the numerical method matches the analytical solution closely.
 
-\begin{figure}	
-\vspace{-10pt}
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=.95\textwidth]{validation.pdf}
+	\includegraphics[width=.7\textwidth]{validation.pdf}
 	\caption{Temperature of the cube for various times, comparing between analytical solution and numerical method.}
 	\label{fig:validation-heat}
-	\vspace{-10pt}
 \end{figure}	
 
 \subsubsection*{MCRT and heat transport validation}
@@ -557,13 +556,13 @@ Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\
 \subsubsection*{Computational speed up:}
 As discussed in the~\cref{sec:intro}, the volume of interest is the area around the ablation craters. The volume is 1.1~$cm$ $\times$ 1.1~$cm$ $\times$ 0.5~$cm$. However, for the simulation to have good resolution of the ablation craters this volume would require many voxels for the tissue model. This is unfeasible due to: the memory required to store the various counters, grids, and variables, and the time that would be required to carry out the computation. Thus, the volume of interest is reduced to focus on just one of the ablation craters that is created by the laser (a volume of  0.06~$cm$ $\times$ 0.06~$cm$ $\times$ 0.18~$cm$) 
 As a check to ensure that no physical phenomena are omitted by focusing on just one ablation crater, an initial simulation that models the full volume of interest was carried out to investigate the possibility of overlapping craters or other related phenomena. The simulation, as shown in~\cref{fig:sizecheck}, gives reassurance that the shrinking of the volume of interest is a valid approximation to make as there is no overlap between the separate ablation crater.
-
 \begin{figure}[!htbp]
 	\centering
-    \includegraphics[width=.95\textwidth]{slice.pdf}
+    \includegraphics[width=.5\textwidth]{slice-poster.pdf}
     \caption{Simulation of 81 pixel beams. Figure a) shows a a slice through the optical properties at the end of the simulation in the z-y plane. Figure b) shows the optical properties in the x-y plane at the top surface. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}
     \label{fig:sizecheck}
 \end{figure}
+
 
 \subsection{Results}
 
@@ -576,16 +575,22 @@ Increasing the ablation temperature has the obvious effect of requiring more ene
 Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to several reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grow, due to the availability of more tissue for the heat to diffuse into.
 
 
-\begin{figure}
+\begin{figure}[!htbp]
 	\centering
-    \includegraphics[width=.85\textwidth]{70w-circular.pdf}
+    \includegraphics[width=.7\textwidth]{70w-circular.pdf}
     \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a circular beam profile. Crater depths as a function of pixel beam energy for various \gls*{ta}'s.}
     \label{fig:tacirc}
 \end{figure}
  
- \begin{figure}
+
+
+\subsubsection*{Investigating beam type}
+
+As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
+
+ \begin{figure}[!htbp]
 	\centering
-    \includegraphics[width=.85\textwidth]{70w-gaussian.pdf}
+    \includegraphics[width=.7\textwidth]{70w-gaussian.pdf}
     \caption{Simulation of 70~$W$ CO$_2$ ablative laser, with a Gaussian beam profile. Crater depths as a function of pixel beam energy for various \gls*{ta}'s.}
     \label{fig:tagauss}
 \end{figure}
@@ -603,9 +608,9 @@ The border of the crater region is slightly cooler, with a maximum slightly deep
 This temperature maximum extends for a small distance into the tissue, before diffusion spreads it out.
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.85\textwidth]{temp-profile-middle.pdf}
+	\includegraphics[width=0.7\textwidth]{temp-profile-middle.pdf}
 	\caption{Temperature bore hole though centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$.}
 	\label{fig:temp-500profile}
 \end{figure}
@@ -647,47 +652,46 @@ As stated in~\cref{sec:coagdamage}, the Arrhenius damage integral is used to est
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=.85\textwidth]{damage-slice.pdf}
-	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
-	\label{fig:damfig}
+	\includegraphics[width=0.7\textwidth]{horz-damage.pdf}
+	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam, for different $T_a$'s.}
+	\label{fig:horz-70}
 \end{figure}
 	
 As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, it appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely because for lower values of $T_a$, there is a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage. Overall there is little difference in the maximum horizontal extent of thermal injury, when using different energies (of the order of $\sim$ 0.01~mm).
 
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.7]{horz-damage.pdf}
-	\caption{Figure shows the maximum horizontal extent of thermal damage as a function of energy per pixel beam, for different $T_a$'s.}
-	\label{fig:horz-70}
-\end{figure}
 
-\medskip
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=.7\textwidth]{damage-slice.pdf}
+	\caption{Tissue thermal damage around the ablation crater (white). Thermal tissue damage values of 3 refer to $3^{rd}$ degree burns, 2 to $2^{nd}$, and 1 to $1^{st}$ degree burns respectively. P is the power in Watts, $T_a$ is the ablation temperature in Kelvin, and $E_p$ is the energy per pixel beam in $mJ$.}
+	\label{fig:damfig}
+\end{figure}
 
 Investigations for the time it takes for different areas of the tissue to become thermally damaged, were also carried out. This can be easily achieved by saving the time each voxel passes one of the damage boundaries in~\cref{eqn:thermalbound}.~\Cref{fig:time-thres1,fig:time-thres2} show the minimum time taken for $1^{st}$, $2^{nd}$, and $3^{rd}$ degree burns to occur as a function of depth. \Cref{fig:time-thres1} shows that there is little to no time (upon the order of $0.5$~$ms$) between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns.
 \Cref{fig:time-thres2} shows there is a slightly greater time difference between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns, however this is almost as negligible as the 400~mJ case.
 
 The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns, is most likely because there is little time for heat to diffuse, whilst the laser is still illuminating the medium. The laser pulses are on the order of seconds, and tissue is not thermally conductive. This leads to the results presented here.
-	
-\begin{figure}[!htb]
+
+\begin{figure}[!htbp]
+	\squeezeup
 	\centering
-	\includegraphics[scale=0.7]{70w-400.pdf}
+	\includegraphics[width=0.7\textwidth]{70w-400.pdf}
 	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 400~mJ.}
 	\label{fig:time-thres1}
+	\squeezeup
 \end{figure}	
-	
-\begin{figure}[!htb]
+	\FloatBarrier
+
+\begin{figure}[!htbp]
+	\squeezeup
+
 	\centering
-	\includegraphics[scale=0.7]{70w-50.pdf}
+	\includegraphics[width=0.7\textwidth]{70w-50.pdf}
 	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 50~mJ.}
 	\label{fig:time-thres2}
+	\squeezeup
 \end{figure}	
-\FloatBarrier
-
-
-\subsubsection*{Investigating beam type}
-
-As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
-
 \subsubsection*{Investigating laser pulse profile}
 
 Pulsed lasers have a variety of pulse profiles.
@@ -702,22 +706,26 @@ The two different Gaussian pulses trialled are, a Gaussian profile with $\sigma$
 
 \Cref{fig:pulseprofiles} show the pulse profiles for a pulselength of $0.2~s$.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
+	\squeezeup
 	\centering
-	\includegraphics[width=0.75\textwidth]{profilespulse.pdf}
+	\includegraphics[width=0.7\textwidth]{profilespulse.pdf}
 	\caption{Comparison of the different pulse profiles trialled for a pulselength of $0.2~s$.}
 	\label{fig:pulseprofiles}
+		\squeezeup
 \end{figure}
-
-\begin{figure}[!ht]
+\FloatBarrier
+\begin{figure}[!htbp]
+	\squeezeup
 	\centering
-	\includegraphics[width=0.75\textwidth]{pulsetypes-comp.pdf}
+	\includegraphics[width=0.7\textwidth]{pulsetypes-comp.pdf}
 	\caption{Comparison of various pulse shapes for the pixel beams.}
 	\label{fig:comparepulsetypes}
+		\squeezeup
 \end{figure}
 
 
-\subsubsection{Investigating Initial Temperature}
+\subsubsection*{Investigating Initial Temperature}
 
 As the experiment was carried out on porcine tissue that was kept on ice before the experiment was conducted, we assumed that the initial temperature of the porcine tissue was around 5$~^{\circ}C$.
 This section investigates whether this is an accurate assumption.
@@ -727,9 +735,9 @@ These temperature correspond to room temperature, the temperature of ice and the
 ~\Cref{fig:pigtempcomp} shows the results of this \textit{in-silco} investigation.
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.75\textwidth]{pigtemps.pdf}
+	\includegraphics[width=0.7\textwidth]{pigtemps.pdf}
 	\caption{Comparison of ablation depths for different initial temperatures in the porcine skin.}
 	\label{fig:pigtempcomp}
 \end{figure}
@@ -744,14 +752,14 @@ However, there is a greater difference in the maximum extent of thermal damage t
 ~\Cref{fig:horzdamagepig} shows this difference.
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.75\textwidth]{Horz-damage-pigtemp.pdf}
+	\includegraphics[width=0.7\textwidth]{Horz-damage-pigtemp.pdf}
 	\caption{Comparison of maximum horizontal damage distance for different initial porcine skin temperatures.}
 	\label{fig:horzdamagepig}
 \end{figure}
 
-\subsubsection{Investigating Voxel Temperature After Ablation}
+\subsubsection*{Investigating Voxel Temperature After Ablation}
 
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
 However, this assumption may not be accurate.
@@ -759,9 +767,9 @@ To test if the temperature of the voxel after ablation effects the depth of abla
 Two different temperatures were tried: half the ablation temperature and room temperature($\approx 25~^{\circ}C$).
 \Cref{fig:comparevoxtemp} shows the effect of the voxel temperature after ablation has on the ablation depth.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.75\textwidth]{compare-airtemp.pdf}
+	\includegraphics[width=0.7\textwidth]{compare-airtemp.pdf}
 	\caption{Comparison of different voxel temperatures after ablation. Half refers to setting the temperature of a voxel to half that of the ablation temperature. Room refers to room temperature, and ablation leaves the temperature at the ablation temperature.}
 	\label{fig:comparevoxtemp}
 \end{figure}

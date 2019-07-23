@@ -110,7 +110,7 @@ R_{eff}&=\tfrac{1}{2}\left(R_s+R_p\right)\label{eqn:frestot}
 
 \indent $\theta_i$ and $\theta_t$ are the angle of incidence and angle of transmission respectively,
 
-\indent see~\cref{eqn:sincos1,eqn:sincos2} and~\cref{fig:fresnelfig};
+\indent see~\cref{eqn:sincos1,eqn:sincos2} and~\cref{fig:reflcfig,fig:transfig};
 
 \indent $n_1$ and $n_2$ are the refractive indices of the current medium and the transmission medium [-];
 
@@ -125,43 +125,61 @@ R_{eff}&=\tfrac{1}{2}\left(R_s+R_p\right)\label{eqn:frestot}
 \cos\theta_t&=\sqrt{1. - {\sin\theta_t}^2}\label{eqn:sincos2}
 \end{align}
 
+$R_{eff}$ gives a probability of reflection or refraction for a ray of light with an angle of incidence $\theta_i$.
 
-\begin{figure}[!htpb]
-    \centering
-    \includegraphics[width=0.35\textwidth]{fresnel.pdf}
-    \caption{Geometry of light refraction and reflections.}
-    \label{fig:fresnelfig}
-\end{figure}
 
 To calculate the angles of reflection and refraction, a vector form of Snell's law is used.
-\Cref{eqn:refl,eqn:refract} give the direction vectors for reflection and refraction respectively.
-
+Using the geometry illustrated in~\cref{fig:reflcfig} one can see that:
 
 \begin{align}
-I &= A+B\\
-R &= A-B
+I &= A+B\label{eqn:Ione}\\
+R &= A-B\label{eqn:Rone}
 \end{align}
 
 \begin{equation}
 B=\cos(\theta)\cdot N
+\label{eqn:breflc}
 \end{equation}
+
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.35\textwidth]{reflc.pdf}
+    \caption{Geometry for reflection of light at a refractive change boundary. I is incident light, R is the reflected light, and N is a normal to the surface. Here, $\theta$ is the angle of incidence which is equal to the angle of reflection.}
+    \label{fig:reflcfig}
+\end{figure}
+
+Therefore, substituting~\cref{eqn:breflc} into~\cref{eqn:Ione,eqn:Rone} and rearranging yields:
 
 \begin{align}
 I&=A+\cos\left(\theta\right)\cdot N\\
 R&=A-\cos\left(\theta\right)\cdot N
 \end{align}
 \begin{equation}
-\therefore R=I-2(N\cdot I) N
+\therefore R=I-2(N\cdot I) N\label{eqn:reflcfin}
 \end{equation}
 
+Where $R$ gives the vector for a ray of light that has undergone reflection.
+Next we treat the transmission case.
+\Cref{fig:transfig} gives the geometry for the situation, where the circle is a unit circle.
+
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.35\textwidth]{trans.pdf}
+    \caption{Geometry of light refraction and reflections.}
+    \label{fig:transfig}
+\end{figure}
+
+Again, one can deduce the following using trigonometry and~\cref{fig:transfig}:
 
 \begin{align}
-T&=A+B\\
-A&=\sin\left(\theta_2\right) M\\
-B&=\cos\left(\theta_2\right)(-N)\\
-C&=\cos\left(\theta_1\right)N\\
-M&=\frac{I+C}{\sin\left(\theta_1\right)}
+T&=A+B\label{eqn:Tone}\\
+A&=\sin\left(\theta_2\right) M\label{eqn:Aone}\\
+B&=\cos\left(\theta_2\right)(-N)\label{eqn:Btwo}\\
+C&=\cos\left(\theta_1\right)N\label{eqn:Cone}\\
+M&=\frac{I+C}{\sin\left(\theta_1\right)}\label{eqn:Mone}
 \end{align}
+
+Substituting~\cref{eqn:Aone,eqn:Btwo,eqn:Cone,eqn:Mone} into~\cref{eqn:Tone} and rearranging yields:
 
 \begin{align}
 T&=A+B\\
@@ -175,11 +193,11 @@ T&=A+B\\
 \end{equation}
 
 \begin{align}
-\therefore T&=\frac{\eta_1}{\eta_2}\left(I+\cos\theta_1 N\right)-N\cos\theta_2\\
-T&=\eta+\left(\eta c_1-c_2\right)N
+\therefore T&=\frac{\eta_1}{\eta_2}\left(I+\cos\theta_1 N\right)-N\cos\theta_2\label{eqn:Tpenult}\\
+T&=\eta+\left(\eta c_1-c_2\right)N\label{eqn:transfin}
 \end{align}
 
-Where
+Where~\cref{eqn:Tpenult} can be simplified by defining the following expressions:
 
 \begin{align}
 c_1 &= N \cdot I\label{eqn:c1}\\
@@ -188,34 +206,13 @@ c_2 &= \sqrt{1. - \eta^2 (1. - c_1^2)}\label{eqn:c2}\\
 \end{align}
 
 
-
-
-\begin{align}
-R&= I - 2(N \cdot I)N\label{eqn:refl}\\
-%refract
-c_1 &= N \cdot I\label{eqn:c1}\\
-c_2 &= \sqrt{1. - \eta^2 (1. - c_1^2)}\label{eqn:c2}\\
-T &= \eta  I + (\eta c_1-c_2)  N\label{eqn:refract}
-\end{align}
-
-
-\noindent Where:
-
-\indent $N$ is the normal direction vector for the surface the light hits [-];
-
-\indent $I$ is the direction vector of the light [-];
-
-\indent $c_1$ and $c_2$ are coefficients as defined in~\cref{eqn:c1,eqn:c2}[-];
-
-\indent $\eta$ is $\tfrac{n_1}{n_2}$ [-].
-
-\medskip
-
-To apply these equations to our voxel model, the algorithm checks if there is a change in refractive index whenever a photon packet moves into a new voxel.
+To apply~\cref{eqn:reflcfin,eqn:transfin} to our voxel model, the algorithm checks if there is a change in refractive index whenever a photon packet moves into a new voxel.
 If there is a change of refractive index the packet is placed on the surface of the voxel, and the algorithm calculates the surface normal of the voxel the light has hit and uses the above equations to calculate $R_{eff}$.
 With $R_{eff}$ calculated a random number, $\xi$, is drawn.
 If $\xi$ is less than $R_{eff}$ then the photon packet is reflected, else then the packet is refracted into the new voxel.
+The new direction vectors are set according to~\cref{eqn:transfin,eqn:reflcfin} and the packet is propagated as normal.
 
+%**************************************************************************************************************************************************************************************************************
 \crefalias{chapter}{appsec}
 \chapter{Detected Light Fluence Tracking Method}
 \label{app:lightdect}

@@ -149,7 +149,7 @@ u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0
 
 The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
 In practise this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
-The packets are then given a random direction, sampled towards the detector thus avoiding the non-existent ``backward'' waves.
+The packets are then given a random direction, sampled toward the detector thus avoiding the non-existent ``backward'' waves.
 For the case of modelling propagation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
 When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
 
@@ -728,7 +728,7 @@ The input beams width was kept constant between the shrinking of the volumes siz
 However, shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
 Therefore, the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
 The second issue with shrinking the medium is that some packets may be lost.
-This means that in the larger medium a packet may scatter towards an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
+This means that in the larger medium a packet may scatter toward an \textit{x} or \textit{y} medium wall and then scatter back into the centre of the medium and then is recorded.
 However, this same packet in the smaller medium would be lost as the packet would exit the medium and cease to be tracked.
 It is not expected that this will cause much of an issue as any scattering event already degraded the quality of the beam, as that packet is no longer coherent with the rest of the packets, thus it will not contribute positively to the Bessel beam.
 To ensure this is not an issue, results from a larger medium are compared to that of the smaller medium in~\cref{fig:compareBigSmall}.
@@ -819,8 +819,6 @@ An actual helix element is not modelled explicitly in the code, but rather just 
 This method is similar to using a spatial light modulator in an experiment to impart a phase delay on a beam.
 
 \Cref{fig:highordershow} shows the comparison between theoretical higher order Bessel beam and the higher order beam simulated by $\varphi MC$.
-
-
 
 \begin{figure}[!htbp]
     \centering

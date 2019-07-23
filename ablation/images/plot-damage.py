@@ -10,13 +10,13 @@ height = width / 1.618
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=8)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
+plt.rc('axes', labelsize=20)
 
 fig, ax = plt.subplots()
 # stylize_axes(ax)
-fig.subplots_adjust(left=.10, bottom=.10, right=.90, top=.90)
+fig.subplots_adjust(left=.10, bottom=.15, right=.99, top=.97)
 
 voxels = 80
 shape = (voxels, voxels, voxels)
@@ -29,31 +29,31 @@ file = "damage.dat"
 f = open(file, "rb")
 data = np.fromfile(file=f, dtype=np.float64, sep="")
 f.close()
-data = data.reshape(shape, order='F')
-slic = data[42, :, 35:79]
-
+data = data.reshape(shape)
+slic = data[::-1, :, :]
+slic = slic[1:44, 42, :]
 levels = np.arange(0, 10, 1)
 
 masked = np.ma.masked_where(slic == -1, slic, copy=True)
 
-im = ax.imshow(masked, aspect="auto")
+im = ax.imshow(masked, aspect="auto", extent=[(-xmax2 / 2.) * 1000, (xmax2 / 2.) * 1000, zmax2 * 1000, 0.])
 
 cbar = fig.colorbar(im)
-cbar.set_label(r"Thermal tissue damage")
+cbar.set_label(r"Degree of burn")
 
-ax.set_xlabel("Vertical distance/cm")
-ax.set_ylabel("Horizontal distance/cm")
+ax.set_ylabel("Vertical distance/mm")
+ax.set_xlabel("Horizontal distance/mm")
 
-hres = 44. * 2. * zmax2
-vres = voxels * 2. * xmax2
-plt.gca().invert_yaxis()
+hres = xmax2
+vres = zmax2
+# plt.gca().invert_yaxis()
 
-ticks = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x * hres))
-ax.xaxis.set_major_formatter(ticks)
-ticks = ticker.FuncFormatter(lambda y, pos: '{0:g}'.format(y * vres))
-ax.yaxis.set_major_formatter(ticks)
+# ticks = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x * hres))
+# ax.xaxis.set_major_formatter(ticks)
+# ticks = ticker.FuncFormatter(lambda y, pos: '{0:g}'.format(y * vres))
+# ax.yaxis.set_major_formatter(ticks)
 
 
 fig.set_size_inches(width, height)
-fig.savefig("slice.pdf")
+fig.savefig("poster-tissue.pdf")
 plt.show()

@@ -124,7 +124,11 @@ As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries w
 The numerical method employed is a \gls*{fdm}, derived from the Taylor series, see~\cref{eqn:taylor}. 
 
 
-A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.~\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the ``forward'' direction. The ``backward'' and central difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}. The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backwards differences. Expressions can also be given for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
+A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.
+\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the ``forward'' direction.
+The ``backward'' and central difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}.
+The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backward differences.
+Expressions can also be given for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
 
 \begin{equation}
 f(x_0+\Delta x)=f(x_0) + \frac{f'(x_0)}{1!}\Delta x + \frac{f''(x_0)}{2!}\Delta x^2+...+ \frac{f^{(n)}(x_0)}{n!}\Delta x^n+R_n(x)
@@ -809,7 +813,8 @@ If Goldfinger used a $CO_2$ laser then Bond would have been cleanly cut in two.
 
 Using \gls*{mcrt} and a finite difference method, a fully 3D model of photon and heat transport within tissue has been created. This model can be used to simulate the heat deposited by laser, the ablation craters formed via high powered lasers and the resultant thermal damage surrounding the ablation crater.
 
-The model has been fully compared with both analytical solutions and experimental results. The model was found to match with experimental results that a tissue ablation temperature $T_a$ of around $500~^{\circ}C$ has to be adopted, towards the higher end of the range previously observed in the literature.
+The model has been fully compared with both analytical solutions and experimental results. 
+The model was found to match with experimental results that a tissue ablation temperature $T_a$ of around $500~^{\circ}C$ has to be adopted, toward the higher end of the range previously observed in the literature.
 
 The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form. The computational model could be used in future to help develop treatment regimes for both aesthetic and medical procedures. For example, currently there is considerable amount of ``down time'' after skin rejuvenation, in which the patient displays inflammation, erythema, edema, pain, and crusting~\cite{lapidoth2014fractional,trelles2011safe,kohl2015fractional}. Simulations of thermal damage due to fractional ablation could help design treatment regimes that minimise these effects, whilst still delivering skin rejuvenation.
 The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to ``drill'' holes into the skin to help topical medicines diffuse into the skin better, than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.

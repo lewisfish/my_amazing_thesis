@@ -95,19 +95,19 @@ def hypo(waves, water, Caro, Bili, DeoxyHb, OxyHb):
 
 plt.rc('font', family='serif')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=12)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
+plt.rc('axes', labelsize=16)
 
 fig, ax = plt.subplots()
 
 xs = np.linspace(200, 700, 500)
 
-water = readFile("res/water absor.dat")
-OxyHb = readFile("res/Oxy-Hb.dat")
-DeoxyHb = readFile("res/Deoxy-Hb.dat")
-Caro = readFile("res/B-carotene.dat")
-Bili = readFile("res/bilirubin.dat")
+water = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/water absor.dat")
+OxyHb = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/Oxy-Hb.dat")
+DeoxyHb = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/Deoxy-Hb.dat")
+Caro = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/B-carotene.dat")
+Bili = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/bilirubin.dat")
 
 stratum(xs, base, water)
 epidermis(xs, water, Caro)
@@ -129,7 +129,7 @@ width = 6.510  # inches
 height = width / 1.618
 
 
-fig.subplots_adjust(left=.098, bottom=.11, right=.98, top=.995)
+fig.subplots_adjust(left=.098, bottom=.13, right=.995, top=.995)
 
 ax.legend()
 

@@ -9,17 +9,18 @@ def redscat(wave, a, b, f):
     return a * (f * (wave / 500)**(-4) + (1. - f) * (wave / 500.)**(-b))
 
 
-fig, ax = plt.subplots()
 
 width = 6.510  # inches
 height = width / 1.618
 
 plt.rc('font', family='serif')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=12)
-fig.subplots_adjust(left=.1, bottom=.1, right=.98, top=.99)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
+plt.rc('axes', labelsize=13)
+fig, ax = plt.subplots()
+
+fig.subplots_adjust(left=.1, bottom=.125, right=.995, top=.99)
 
 ws = np.linspace(200, 1000, 1000)
 ax.plot(ws, redscat(ws, 66.70, .69, 0.29), label="Epidermis")

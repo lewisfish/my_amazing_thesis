@@ -404,9 +404,8 @@ The packet is then propagated to the surface of the convex side of the lens.
 This is achieved by finding the intersection of a sphere, which represents the convex side of the lens, and the packets path.
 With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
 If the packet is reflected the packet is killed and the process starts again.
-%***need exlanation of refraction here***
 If the packet is refracted, and moved in the new direction to the planar surface of the lens.
-The new direction vector is calculated using a vector version of Snell's law.
+The new direction vector is calculated using a vector version of Snell's law (see~\cref{app:fresnelappend} for discussion of this).
 The packets are then uniformly sampled onto the surface of the voxel medium and the usual~\gls*{mcrt} method is used to propagate the packet whilst tracking the phase.
 
 \begin{figure}[!htpb]

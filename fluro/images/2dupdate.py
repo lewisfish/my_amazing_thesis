@@ -1,5 +1,5 @@
-# import matplotlib as mpl
-# mpl.use('pdf')
+import matplotlib as mpl
+mpl.use('pdf')
 import matplotlib.pylab as plt
 import numpy as np
 import matplotlib.animation as animation
@@ -8,15 +8,15 @@ from scipy.optimize import rosen
 width = 6.510  # inches
 height = width / 1.618
 
-# plt.rc('font', family='serif', serif='Times')
-# plt.rc('text', usetex=True)
-# plt.rc('xtick', labelsize=8)
-# plt.rc('ytick', labelsize=8)
-# plt.rc('axes', labelsize=8)
+plt.rc('font', family='serif', serif='Times')
+plt.rc('text', usetex=True)
+plt.rc('xtick', labelsize=8)
+plt.rc('ytick', labelsize=8)
+plt.rc('axes', labelsize=8)
 
 
 fig, axs = plt.subplots(2, 2)
-fig.subplots_adjust(left=.05, bottom=.05, right=.98, top=.99, wspace=0, hspace=0)
+fig.subplots_adjust(left=.001, bottom=.001, right=.999, top=.999, wspace=0, hspace=0)
 
 
 def himmelblau(x, y):
@@ -57,8 +57,8 @@ x.shape = (npts, npts)
 y.shape = (npts, npts)
 z.shape = (npts, npts)
 levels = np.logspace(0.35, 3.2, 30)
-axs[0, 0].contour(x, y, z, levels, colors="k")
-axs[0, 0].scatter(0., 0., marker="o", s=50, color="black", zorder=10)
+axs[0, 0].contour(x, y, z, levels, colors="silver")
+axs[0, 0].scatter(0., 0., marker="o", s=25, color="black", zorder=10)
 
 
 animate(0, axs[1, 1], "bannana-thesis.dat")
@@ -70,10 +70,10 @@ x.shape = (npts, npts)
 y.shape = (npts, npts)
 z.shape = (npts, npts)
 levels = np.logspace(0.0, 5.2, 10)
-axs[1, 1].contour(x, y, z, levels, colors="k")
+axs[1, 1].contour(x, y, z, levels, colors="silver")
 axs[1, 1].set_xlim(-2, 2)
 axs[1, 1].set_ylim(-.5, 3)
-axs[1, 1].scatter(1., 1., marker="o", s=50, color="black", zorder=10)
+axs[1, 1].scatter(1., 1., marker="o", s=25, color="black", zorder=10)
 
 
 animate(0, axs[1, 0], "himmelblau-thesis.dat")
@@ -85,13 +85,13 @@ x.shape = (npts, npts)
 y.shape = (npts, npts)
 z.shape = (npts, npts)
 levels = np.logspace(0.0, 5.2, 15)
-axs[1, 0].contour(x, y, z, levels, colors="k")
-axs[1, 0].scatter(3., 2., marker="o", s=50, color="black", zorder=10)
-axs[1, 0].scatter(-2.805118, 3.113186, marker="o", s=50, color="black", zorder=10)
-axs[1, 0].scatter(-3.779310, -3.283186, marker="o", s=50, color="black", zorder=10)
-axs[1, 0].scatter(3.584458, -1.848126, marker="o", s=50, color="black", zorder=10)
+axs[1, 0].contour(x, y, z, levels, colors="silver")
+axs[1, 0].scatter(3., 2., marker="o", s=25, color="black", zorder=10)
+axs[1, 0].scatter(-2.805118, 3.113186, marker="o", s=25, color="black", zorder=10)
+axs[1, 0].scatter(-3.779310, -3.283186, marker="o", s=25, color="black", zorder=10)
+axs[1, 0].scatter(3.584458, -1.848126, marker="o", s=25, color="black", zorder=10)
 
-animate(0, axs[0, 1], "himmelblau-thesis.dat")
+animate(0, axs[0, 1], "ackley-thesis.dat")
 x, y = np.mgrid[-5:5:npts * 1j, -5:5:npts * 1j]
 x.shape = (npts**2)
 y.shape = (npts**2)
@@ -100,8 +100,8 @@ x.shape = (npts, npts)
 y.shape = (npts, npts)
 z.shape = (npts, npts)
 levels = np.logspace(0.0, 5.2, 15)
-axs[0, 1].contour(x, y, z, levels, colors="k")
-axs[0, 1].scatter(0., 0., marker="o", s=50, color="black", zorder=10)
+axs[0, 1].contour(x, y, z, levels, colors="silver")
+axs[0, 1].scatter(0., 0., marker="o", s=25, color="black", zorder=10)
 
 axs[0, 0].axes.get_xaxis().set_visible(False)
 axs[0, 0].axes.get_yaxis().set_visible(False)
@@ -117,6 +117,6 @@ axs[1, 0].axes.get_xaxis().set_visible(False)
 axs[1, 0].axes.get_yaxis().set_visible(False)
 
 
-# fig.set_size_inches(width, height)
-# fig.savefig('ackley.pdf')
+fig.set_size_inches(width, height)
+fig.savefig('all-nm-tests-1.pdf')
 plt.show()

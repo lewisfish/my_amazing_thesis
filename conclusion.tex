@@ -45,23 +45,34 @@ The \gls*{nm} method uses simplices in order to move around the search space and
 The method was coupled to the the MCRT algorithm and thoroughly validated against toy models.
 Finally details of how autofluorescent data from collaborators was fitted using these techniques.
 
-\medskip
-
-Finally chapter 6 presented ...
-
 \section{Future Prospects}
 
 There are several avenues of promising work that can continue on from this thesis.
 
 The code developed as part of the tissue ablation chapter, could easily be adapted for use in modelling photothermal therapy.
-Photothermal therapy is the use of light to selectively heat up nanoscale material that have been inserted into tumours (which preferentially accumulate in the tumors).
+Photothermal therapy is the use of light to selectively heat up nanoscale materials that have been inserted into tumours (this material preferentially accumulates in the tumors).
 The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells.
 This could be easily modelled within the code developed as art of chapter 3.
 The code could be used to help optimise treatment modalities and predict treatment outcomes. ***sources***
-mention better heat code, 1:optimised -> implcit method 2: finite element method?
+There is also scope to improve the heat transfer model.
+As mentioned in the chapter, a simple explict model was used as it creatively easy to setup and solve a given problem using this scheme.
+However, this leads to constraint of the timestep.
+This could be avoided by using an implicit scheme which is unconditionally stable for any timestep.
+Another way the heat transfer model could be improved is thought the use of the finite element method.
+The finite element method allows PDEs to be solved on arbitrary grids, which would reduce the high memory requirement our model needs to achieve good resolution.
 
+Finally, the work of chapter 3 could also be extended to include a drug diffusion model.
+This would allow the simulation of how topical drug diffusion into the skin can be assisted by using laser beams to optically drill channels into the skin to promote drug diffusion.
+Simple drug diffusion models that use the diffusion equation could readily be connected to our model to assess how the ablation craters can help drug diffusion.
 
-One obvious avenue of future research would be to improve the five layer skin model presented as part of chapter 5 work.
+\medskip
+
+Chapter 4's work could be extended to model speckle imaging + wavefront shaping?
+airy beams and other beams in the menagerie
+
+\medskip
+
+One obvious avenue of future research would be to improve the five layer skin model presented as part of chapter 5's work.
 The skin model presented is planar, where as tissue is not planar in any sense.
 The first improvement on this could be to introduce a more complex geometrical structure into the voxel model.
 However, this method would quickly run into a computational wall.
@@ -81,14 +92,6 @@ Due to time constraints this was abandoned for this thesis before a fully workin
 \end{figure}
 
 A meshed skin model would allow objects like hairs, blood vessels, sweat glands, and the uneven boundaries greatly increasing the accuracy of the simulations.
-
-
-The work of chapter 3 could also be extended to include a drug diffusion model.
-This would allow the simulation of how topical drug diffusion into the skin can be assisted by using laser beams to optically drill channels into the skin to promote drug diffusion.
-
-chapter 4 work could be extended to model speckle imaging + wavefront shaping?
-airy beams and other beams in the menagerie
-
 
 chapter 5 could use other optimisation techniques GA simulated annealing
 better skin model as well though would be slower

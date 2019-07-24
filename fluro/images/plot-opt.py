@@ -95,19 +95,19 @@ def hypo(waves, water, Caro, Bili, DeoxyHb, OxyHb):
 
 plt.rc('font', family='serif')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=12)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
+plt.rc('axes', labelsize=16)
 
 fig, ax = plt.subplots()
 
 xs = np.linspace(200, 700, 500)
 
-water = readFile("/home/lewis/phdshizz/amoebaMCRT/res/water absor.dat")
-OxyHb = readFile("/home/lewis/phdshizz/amoebaMCRT/res/Oxy-Hb.dat")
-DeoxyHb = readFile("/home/lewis/phdshizz/amoebaMCRT/res/Deoxy-Hb.dat")
-Caro = readFile("/home/lewis/phdshizz/amoebaMCRT/res/B-carotene.dat")
-Bili = readFile("/home/lewis/phdshizz/amoebaMCRT/res/bilirubin.dat")
+water = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/water absor.dat")
+OxyHb = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/Oxy-Hb.dat")
+DeoxyHb = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/Deoxy-Hb.dat")
+Caro = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/B-carotene.dat")
+Bili = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/bilirubin.dat")
 
 
 plt.plot(xs, base(xs), label="Baseline")

@@ -44,9 +44,9 @@
      showgrid="false"
      showguides="false"
      inkscape:guide-bbox="true"
-     inkscape:zoom="0.62631431"
-     inkscape:cx="646.11696"
-     inkscape:cy="520.04783"
+     inkscape:zoom="0.55475301"
+     inkscape:cx="-161.25477"
+     inkscape:cy="407.90203"
      inkscape:window-x="1280"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -220,7 +220,7 @@
            y="12"
            font-size="12px"
            id="text18"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Start</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Start</text>
       </switch>
     </g>
     <path
@@ -267,7 +267,7 @@
            y="12"
            font-size="12px"
            id="text30"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Reflect</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Reflect</text>
       </switch>
     </g>
     <path
@@ -327,7 +327,7 @@
            y="12"
            font-size="12px"
            id="text52"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
       </switch>
     </g>
     <path
@@ -374,7 +374,7 @@
            y="12"
            font-size="12px"
            id="text64"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Expand</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Expand</text>
       </switch>
     </g>
     <path
@@ -426,28 +426,19 @@
     <g
        transform="translate(64.995599,454.29395)"
        id="g84">
-      <switch
-         id="switch86">
-        <foreignObject
-           style="overflow:visible;"
-           pointer-events="all"
-           width="71"
-           height="12"
-           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-          <xhtml:div
-             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 71px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
-            <xhtml:div
-               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep expand</xhtml:div>
-          </xhtml:div>
-        </foreignObject>
-        <text
-           x="36"
-           y="12"
-           font-size="12px"
-           id="text88"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep expand</text>
-      </switch>
-    </g>
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot3511"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="translate(-39.046953,-634.45855)"><flowRegion
+           id="flowRegion3513"><rect
+             id="rect3515"
+             width="93.048248"
+             height="166.02101"
+             x="35.371078"
+             y="606.83429" /></flowRegion><flowPara
+           id="flowPara3517"
+           style="font-size:25px">Keep expand</flowPara></flowRoot>    </g>
     <ellipse
        cx="299.22198"
        cy="461"
@@ -456,31 +447,6 @@
        pointer-events="none"
        id="ellipse90"
        style="fill:#f8cecc;stroke:#b85450" />
-    <g
-       transform="translate(265.72198,454.5)"
-       id="g92">
-      <switch
-         id="switch94">
-        <foreignObject
-           style="overflow:visible;"
-           pointer-events="all"
-           width="65"
-           height="12"
-           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-          <xhtml:div
-             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 65px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
-            <xhtml:div
-               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep reflect</xhtml:div>
-          </xhtml:div>
-        </foreignObject>
-        <text
-           x="33"
-           y="12"
-           font-size="12px"
-           id="text96"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep reflect</text>
-      </switch>
-    </g>
     <path
        d="m 641.41,270.29 0,11.77 58.06128,0 0.0598,22.36059"
        stroke-miterlimit="10"
@@ -512,31 +478,6 @@
        pointer-events="none"
        id="ellipse114"
        style="fill:#f8cecc;stroke:#b85450" />
-    <g
-       transform="translate(467.59632,341.11728)"
-       id="g116">
-      <switch
-         id="switch118">
-        <foreignObject
-           style="overflow:visible;"
-           pointer-events="all"
-           width="65"
-           height="12"
-           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-          <xhtml:div
-             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 65px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
-            <xhtml:div
-               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Keep reflect</xhtml:div>
-          </xhtml:div>
-        </foreignObject>
-        <text
-           x="33"
-           y="12"
-           font-size="12px"
-           id="text120"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep reflect</text>
-      </switch>
-    </g>
     <path
        d="m 674.71033,371.45691 0,34.19388 -115.20941,0 -9.8e-4,10.79988"
        stroke-miterlimit="10"
@@ -576,7 +517,7 @@
        id="rect130"
        style="fill:#dae8fc;stroke:#6c8ebf" />
     <g
-       transform="translate(516.14541,269.23773)"
+       transform="translate(508.48434,267.88578)"
        id="g138">
       <switch
          id="switch140">
@@ -597,7 +538,7 @@
            y="12"
            font-size="12px"
            id="text142"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000">Yes</text>
       </switch>
     </g>
     <g
@@ -622,7 +563,7 @@
            y="12"
            font-size="12px"
            id="text148"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
       </switch>
     </g>
     <ellipse
@@ -633,31 +574,6 @@
        pointer-events="none"
        id="ellipse154"
        style="fill:#fff2cc;stroke:#d6b656" />
-    <g
-       transform="translate(520.06675,455.44013)"
-       id="g156">
-      <switch
-         id="switch158">
-        <foreignObject
-           style="overflow:visible;"
-           pointer-events="all"
-           width="79"
-           height="12"
-           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-          <xhtml:div
-             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 79px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
-            <xhtml:div
-               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Inside contract</xhtml:div>
-          </xhtml:div>
-        </foreignObject>
-        <text
-           x="40"
-           y="12"
-           font-size="12px"
-           id="text160"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Inside contract</text>
-      </switch>
-    </g>
     <ellipse
        cx="725.50177"
        cy="460.93195"
@@ -666,31 +582,6 @@
        pointer-events="none"
        id="ellipse166"
        style="fill:#fff2cc;stroke:#d6b656" />
-    <g
-       transform="translate(681.00186,454.432)"
-       id="g168">
-      <switch
-         id="switch170">
-        <foreignObject
-           style="overflow:visible;"
-           pointer-events="all"
-           width="87"
-           height="12"
-           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-          <xhtml:div
-             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 89px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
-            <xhtml:div
-               style="display:inline-block;text-align:inherit;text-decoration:inherit;">Outside contract</xhtml:div>
-          </xhtml:div>
-        </foreignObject>
-        <text
-           x="44"
-           y="12"
-           font-size="12px"
-           id="text172"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Outside contract</text>
-      </switch>
-    </g>
     <path
        d="m 534.59363,596.44322 -0.0442,16.47 -245.49149,0 -0.0252,56.76352"
        stroke-miterlimit="10"
@@ -797,7 +688,7 @@
            y="12"
            font-size="12px"
            id="text212"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Shrink</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Shrink</text>
       </switch>
     </g>
     <ellipse
@@ -830,7 +721,7 @@
            y="12"
            font-size="12px"
            id="text220"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep OC</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep OC</text>
       </switch>
     </g>
     <ellipse
@@ -863,7 +754,7 @@
            y="12"
            font-size="12px"
            id="text228"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep IC</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Keep IC</text>
       </switch>
     </g>
     <ellipse
@@ -896,7 +787,7 @@
            y="12"
            font-size="12px"
            id="text236"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Shrink</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Shrink</text>
       </switch>
     </g>
     <g
@@ -921,7 +812,7 @@
            y="12"
            font-size="12px"
            id="text242"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
       </switch>
     </g>
     <g
@@ -946,7 +837,7 @@
            y="12"
            font-size="12px"
            id="text248"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
       </switch>
     </g>
     <g
@@ -971,11 +862,11 @@
            y="12"
            font-size="12px"
            id="text254"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
       </switch>
     </g>
     <g
-       transform="translate(673.5,263.5)"
+       transform="translate(679.80911,265.75326)"
        id="g256">
       <switch
          id="switch258">
@@ -996,11 +887,11 @@
            y="12"
            font-size="12px"
            id="text260"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000">No</text>
       </switch>
     </g>
     <g
-       transform="translate(728.08279,389.42654)"
+       transform="translate(734.84256,390.32784)"
        id="g262">
       <switch
          id="switch264">
@@ -1021,11 +912,11 @@
            y="12"
            font-size="12px"
            id="text266"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000">No</text>
       </switch>
     </g>
     <g
-       transform="translate(743.61483,626.92053)"
+       transform="translate(749.02264,625.11793)"
        id="g268">
       <switch
          id="switch270">
@@ -1046,11 +937,11 @@
            y="12"
            font-size="12px"
            id="text272"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000">No</text>
       </switch>
     </g>
     <g
-       transform="translate(495.20924,631.20555)"
+       transform="translate(497.01184,638.86662)"
        id="g274">
       <switch
          id="switch276">
@@ -1071,12 +962,12 @@
            y="12"
            font-size="12px"
            id="text278"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">No</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000">No</text>
       </switch>
     </g>
     <flowRoot
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000"
        id="flowRoot4510"><flowRegion
          id="flowRegion4512"><use
            x="0"
@@ -1085,9 +976,9 @@
            id="use4514"
            width="100%"
            height="100%" /></flowRegion><flowPara
-         id="flowPara4516">Is reflected point better then best  point?</flowPara></flowRoot>    <flowRoot
+         id="flowPara4516">Reflected &gt; best</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000"
        id="flowRoot4521"><flowRegion
          id="flowRegion4523"><use
            x="0"
@@ -1096,9 +987,9 @@
            id="use4525"
            width="100%"
            height="100%" /></flowRegion><flowPara
-         id="flowPara4527">Is reflected point better than lousy point?</flowPara></flowRoot>    <flowRoot
+         id="flowPara4527">Reflected &gt; lousy</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000"
        id="flowRoot4543"
        transform="translate(0.6765434,0)"><flowRegion
          id="flowRegion4545"><use
@@ -1109,9 +1000,9 @@
            width="100%"
            height="100%"
            transform="translate(-0.6765434,0)" /></flowRegion><flowPara
-         id="flowPara4549">Is reflected point worse than worst point?</flowPara></flowRoot>    <flowRoot
+         id="flowPara4549">Reflected &lt; worst</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000"
        id="flowRoot4585"><flowRegion
          id="flowRegion4587"><use
            x="0"
@@ -1120,7 +1011,7 @@
            id="use4589"
            width="100%"
            height="100%" /></flowRegion><flowPara
-         id="flowPara4591">Is expanded point better than best  point?</flowPara></flowRoot>    <path
+         id="flowPara4591">Expanded  &gt; best</flowPara></flowRoot>    <path
        d="m 557.64043,270.42801 0,11.77 -58.06128,0 -0.0598,22.36059"
        stroke-miterlimit="10"
        pointer-events="none"
@@ -1187,11 +1078,11 @@
            y="12"
            font-size="12px"
            id="text52-3"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
       </switch>
     </g>
     <g
-       transform="translate(641.64297,619.61)"
+       transform="translate(641.64297,622.31391)"
        id="g48-6">
       <switch
          id="switch50-1">
@@ -1212,26 +1103,100 @@
            y="12"
            font-size="12px"
            id="text52-8"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;">Yes</text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000">Yes</text>
       </switch>
     </g>
     <flowRoot
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
-       id="flowRoot3505"><flowRegion
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000"
+       id="flowRoot3505"
+       transform="translate(-0.90130198,-2.703906)"><flowRegion
          id="flowRegion3507"><use
            x="0"
            y="0"
            xlink:href="#rect182"
-           id="use3509" /></flowRegion><flowPara
-         id="flowPara3511">Is new point better than worst point?</flowPara></flowRoot>    <flowRoot
+           id="use3509"
+           width="100%"
+           height="100%" /></flowRegion><flowPara
+         id="flowPara3511">New point &gt; worst point?</flowPara></flowRoot>    <g
+       transform="translate(269.69702,451.78244)"
+       id="g84-3">
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot3511-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="translate(-39.046953,-634.45855)"><flowRegion
+           id="flowRegion3513-7"><rect
+             id="rect3515-5"
+             width="93.048248"
+             height="166.02101"
+             x="35.371078"
+             y="606.83429" /></flowRegion><flowPara
+           id="flowPara3517-3"
+           style="font-size:25px">Keep reflect</flowPara></flowRoot>    </g>
+    <g
+       transform="translate(468.66853,343.05048)"
+       id="g84-3-5">
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot3511-6-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="translate(-39.046953,-634.45855)"><flowRegion
+           id="flowRegion3513-7-2"><rect
+             id="rect3515-5-9"
+             width="93.048248"
+             height="166.02101"
+             x="35.371078"
+             y="606.83429" /></flowRegion><flowPara
+           id="flowPara3517-3-1"
+           style="font-size:25px">Keep reflect</flowPara></flowRoot>    </g>
+    <flowRoot
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000;"
-       id="flowRoot3513"><flowRegion
-         id="flowRegion3515"><use
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-anchor:middle;fill:#000000"
+       id="flowRoot3505-2"
+       transform="translate(163.72052,-2.792461)"><flowRegion
+         id="flowRegion3507-7"><use
            x="0"
            y="0"
-           xlink:href="#rect198"
-           id="use3517" /></flowRegion><flowPara
-         id="flowPara3519">Is new point better than worst point?</flowPara></flowRoot>  </g>
+           xlink:href="#rect182"
+           id="use3509-0"
+           width="100%"
+           height="100%" /></flowRegion><flowPara
+         id="flowPara3511-9">New point &gt; worst point?</flowPara></flowRoot>    <g
+       transform="translate(522.74665,455.71323)"
+       id="g84-3-3">
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot3511-6-60"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="translate(-39.046953,-634.45855)"><flowRegion
+           id="flowRegion3513-7-6"><rect
+             id="rect3515-5-2"
+             width="93.048248"
+             height="166.02101"
+             x="35.371078"
+             y="606.83429" /></flowRegion><flowPara
+           id="flowPara3517-3-6"
+           style="font-size:25px">Inside</flowPara><flowPara
+           style="font-size:25px"
+           id="flowPara3624">contract</flowPara></flowRoot>    </g>
+    <g
+       transform="translate(686.45595,453.88497)"
+       id="g84-3-3-1">
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot3511-6-60-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="translate(-39.046953,-634.45855)"><flowRegion
+           id="flowRegion3513-7-6-7"><rect
+             id="rect3515-5-2-9"
+             width="93.048248"
+             height="166.02101"
+             x="35.371078"
+             y="606.83429" /></flowRegion><flowPara
+           id="flowPara3517-3-6-2"
+           style="font-size:25px">Outside</flowPara><flowPara
+           style="font-size:25px"
+           id="flowPara3624-0">contract</flowPara></flowRoot>    </g>
+  </g>
 </svg>

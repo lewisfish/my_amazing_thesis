@@ -9,12 +9,12 @@ height = width / 1.618
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=15)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
+plt.rc('axes', labelsize=16)
 
 fig, ax1 = plt.subplots()
-fig.subplots_adjust(left=.05, bottom=.1, right=.94, top=.99)
+fig.subplots_adjust(left=.08, bottom=.13, right=.931, top=.99)
 
 
 data = np.random.normal(scale=0.1, size=1000)

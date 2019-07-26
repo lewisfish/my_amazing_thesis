@@ -51,32 +51,26 @@ There are several avenues of promising work that can continue on from this thesi
 
 The code developed as part of the tissue ablation chapter, could easily be adapted for use in modelling photothermal therapy.
 Photothermal therapy is the use of light to selectively heat up nanoscale materials that have been inserted into tumours.
-The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually near infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells~\cite{singh2016application,gallina2016aptamer}.
-This could be easily modelled within the code developed as part of chapter 3, with little to no major changes.
-The code could be used to help optimise photothermal treatment modalities and predict treatment outcomes.
+The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually near infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells.
+%nano material are bound with specfic antibodies such that they bind with the tumor cells selectivly
 
+This could be easily modelled within the code developed as part of chapter 3, with little to no major changes.
+The code could be used to help optimise treatment modalities and predict treatment outcomes. ***sources***
 There is also scope to improve the heat transfer model.
-As mentioned in the chapter, a simple explict model was used as it relatively easy to setup and solve a given problem using this scheme.
-However, this scheme leads to constraint on the timestep.
+As mentioned in the chapter, a simple explict model was used as it creatively easy to setup and solve a given problem using this scheme.
+However, this leads to constraint of the timestep.
 This could be avoided by using an implicit scheme which is unconditionally stable for any timestep.
 Another way the heat transfer model could be improved is thought the use of the finite element method.
 The finite element method allows PDEs to be solved on arbitrary grids, which would reduce the high memory requirement our model needs to achieve good resolution.
-The finite element method would also allow a more accurate skin model to be included within the simulation, making the simulation more accurate.
 
 Finally, the work of chapter 3 could also be extended to include a drug diffusion model.
-One use of tissue ablation is a an optical drill to create micro holes in the skin. 
-These holes in the skin then allow better penetration of topical drugs.
-Modelling both the laser tissue ablation process and drug diffusion process in one simulation would allow \textit{in-silico} testing of treatment parameters which could easily be optimised by the model.
+This would allow the simulation of how topical drug diffusion into the skin can be assisted by using laser beams to optically drill channels into the skin to promote drug diffusion.
+Simple drug diffusion models that use the diffusion equation could readily be connected to our model to assess how the ablation craters can help drug diffusion.
 
 \medskip
 
-The algorithm developed as part of chapter 4's work, $\varphi$MC, also has several avenues of future research.
-It should be fairly easy to extend the algorithm to model other beams, such as an Airy beam.
-It should also be fairly trivial to implement a spatial light modulator (SLM).
-An SLM is a device that can modulate light that is incident on it including imparting phase to different parts of the incident beam.
-This allows arbitrary complex beams to be created.
-The ability to model an SLM would open up the ability to model complex experiments in such things as wavefront shaping.
-Other types of experiments the algorithm could be used for include: laser speckle imaging, focusing light though turbid media, and complex micromanipulation~\cite{vellekoop2007focusing,horstmeyer2015guidestar,vcivzmar2010situ}.
+Chapter 4's work could be extended to model speckle imaging + wavefront shaping?
+airy beams and other beams in the menagerie
 
 \medskip
 
@@ -102,5 +96,8 @@ Due to time constraints this was abandoned for this thesis before a fully workin
 A meshed skin model would allow objects like hairs, blood vessels, sweat glands, and the uneven boundaries greatly increasing the accuracy of the simulations.
 
 chapter 5 could use other optimisation techniques GA simulated annealing
+better skin model as well though would be slower
 more good quality data so can use algorithm
 machine learning as it is in vougue and has good results -> wouldn't need mcrt maybe?
+
+task based parallelism?

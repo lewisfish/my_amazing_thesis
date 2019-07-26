@@ -102,7 +102,28 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 % Explain MCRT 1 para
 % dev of various mcrt codes overview
 % then chap by chapter
-\lipsum[1-2]
+
+The Monte Carlo radiation transfer (MCRT) method is a that allows the simulation of light transport through turbid media.
+MCRT allows the simulation of multiple anisotropic scattering events, as well as a range of microphysics such as polarisation, and fluorescence.
+This thesis concerns the development of MCRT algorithms to solve various biophotonic and medical problems.
+
+
+Chapter 2 introduces the MCRT method and gives an in depth description of the theory and how it is implemented in code.
+Details of code parallelisation is also presented.
+
+Chapter 3 introduces a numerical model of tissue ablation.
+This models uses MCRT to calculate the energy deposited by a laser, a numerical heat simulation to diffuse the heat deposited by the laser, and finally a numerical tissue damage model to calculate the damage to the tissue due to the laser.
+Laser tissue ablation is used for a variety of medical and cosmetic treatments.
+It can be used to help topical drug diffusion, treat acne and rhinophyma, and can make the skin look younger.
+This model was created to predict ablation crater depth, and to help and optimise ablation treatments which can lead to improved patient outcomes.
+
+The work in chapter 4 pertains to the modification of the ``traditional'' ballistic light MCRT algorithm, such that it can now model wave like behaviour of light.
+This work was undertaken so that a comparison of Bessel beams and Gaussian beams propagation in turbid media can be carried out.
+
+Finally, the work contained in chapter 5 focuses on the modelling of the autofluorescence response of human skin.
+The autofluorescent response of tissue has been noted as a biomarker for various disease, including cardiovascular disease.
+This chapter presents a discussion on the effect of tissue optics on the natural fluorescence of cells, including how Fitzpatrick skin type, area of the body, and blood volume effect the response of the various fluorophores responsible for the autofluorescent response.
+
 
 \chapter{Acknowledgements}
 % \lipsum[1-2]
@@ -134,14 +155,7 @@ Kathleen smells
 
 \newpage
 
-\clearpage
-\begin{center}
-    % \thispagestyle{empty}
-    \vspace*{\fill}
-    For Lil and Marion.
-    \vspace*{\fill}
-\end{center}
-\clearpage
+
 
 \tableofcontents
 \printnoidxglossaries
@@ -167,3 +181,12 @@ Kathleen smells
 \bibliography{./introduction/intro,./ablation/ablation,./MCRT/mcrt,./bessel/bessel,./fluro/salvo,./conc/conclusion}
 \bibliographystyle{unsrt}
 \end{document}
+
+% \clearpage
+% \begin{center}
+%     % \thispagestyle{empty}
+%     \vspace*{\fill}
+%     For Lil and Marion.
+%     \vspace*{\fill}
+% \end{center}
+% \clearpage

@@ -59,9 +59,9 @@ There is also scope to improve the heat transfer model.
 As mentioned in the chapter, a simple explict model was used as it relatively easy to setup and solve a given problem using this scheme.
 However, this scheme leads to constraint on the timestep.
 This could be avoided by using an implicit scheme which is unconditionally stable for any timestep.
-Another way the heat transfer model could be improved is thought the use of the finite element method.
-The finite element method allows PDEs to be solved on arbitrary grids, which would reduce the high memory requirement our model needs to achieve good resolution.
-The finite element method would also allow a more accurate skin model to be included within the simulation, making the simulation more accurate.
+Another way the heat transfer model could be improved is thought the use of the \gls*{fem}.
+The \gls*{fem} allows PDEs to be solved on arbitrary grids, which would reduce the high memory requirement our model needs to achieve good resolution.
+The \gls*{fem} would also allow a more accurate skin model to be included within the simulation, making the simulation more accurate.
 
 Finally, the work of chapter 3 could also be extended to include a drug diffusion model.
 One use of tissue ablation is a an optical drill to create micro holes in the skin. 
@@ -101,6 +101,8 @@ Due to time constraints this was abandoned for this thesis before a fully workin
 
 A meshed skin model would allow objects like hairs, blood vessels, sweat glands, and the uneven boundaries greatly increasing the accuracy of the simulations.
 
-chapter 5 could use other optimisation techniques GA simulated annealing
-more good quality data so can use algorithm
-machine learning as it is in vougue and has good results -> wouldn't need mcrt maybe?
+As the data from our collaborators machine was not of a quality such that it could be reproduced using amoebaMCRT, this data could be taken again with a better machine, or other authors could be found that have the requisite data. 
+amoebaMCRT would then be run on this data to determine the amount of that each fluorophore contributes to the signal.
+Other optimisation techniques other than the \gls*{nm} method could be explored.
+Techniques such as simulated annealing, genetic algorithms\footnote{The use of genetic algorithms was explored, however the computational cost of using them was deemed too high.} or machine learning could be used.
+It could also be possible for our \gls*{mcrt} code to be used to create a ``bank'' of spectra that could then be used to train a machine learning algorithm to label peaks, and contributions to those peaks by fluorophores.

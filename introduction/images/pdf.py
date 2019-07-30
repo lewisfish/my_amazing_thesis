@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib as mpl
 mpl.use('pdf')
 import matplotlib.pyplot as plt
+from scipy import interpolate
 
 
 def kennymethod(arr, arr2):
@@ -46,26 +47,29 @@ plt.rc('axes', labelsize=8)
 
 
 fig, ax = plt.subplots()
-fig.subplots_adjust(left=.15, bottom=.16, right=.99, top=.97)
+fig.subplots_adjust(left=.08, bottom=.1, right=.93, top=.98)
 
 
 spectrum = "solar.dat"
 x, y = np.loadtxt(spectrum, unpack=True, delimiter=",")
+f = interpolate.interp1d(x, y)
+xnew = np.linspace(301, 689, 1000)
+ynew = f(xnew)
 
 cdfK = kennymethod(y, x)
 
-tmp = y
-tmp /= np.sum(y)
+tmp = ynew
+tmp /= np.sum(ynew)
 cdf = np.cumsum(tmp)
 waves = []
 fluxs = []
-for i in range(1, 100):
+for i in range(1, 5000000):
     xi = np.random.rand(1)
-    loc = int(np.searchsorted(cdf, xi) - 1)
-    wave = interp(x, cdf, xi, loc)
-    flux = interp(y, x, wave, loc)
+    loc = int(np.searchsorted(cdf, xi)) - 1
+    wave = interp(xnew, cdf, xi, loc)
+    # flux = interp(y, x, wave, loc)
     waves.append(wave)
-    fluxs.append(flux)
+    # fluxs.append(flux)
     # plt.scatter(wave, flux, color="orange", marker="x")
 
     # loc = int(np.searchsorted(cdfK, xi) - 1)
@@ -73,12 +77,19 @@ for i in range(1, 100):
     # flux = interp(y, x, wave, loc)
     # plt.scatter(wave, flux + .001, color="blue")
 
+hist, bins = np.histogram(waves, bins="auto")
+ax.hist(waves, bins="auto", label="MC sampled spectrum")
+ax1 = ax.twinx()  # instantiate a second axes that shares the same x-axis
+lines, labels = ax.get_legend_handles_labels()
+lns2 = ax1.plot(xnew, ynew * 1000, label="Original spectrum", color="orange")
+lines2, labels2 = ax1.get_legend_handles_labels()
 
-ax.plot(x, y, label="Original")
-ax.scatter(waves, fluxs, label="Randomly sampled", color="orange", marker="x")
-ax.set_ylabel("Flux/AU")
+
+# plt.plot(np.linspace(300, 690, len(hist)), hist / np.amax(hist))
+ax.set_ylabel(r"Sample counts/\#")
+ax1.set_ylabel("Flux/AU")
 ax.set_xlabel("Wavelength/nm")
-ax.legend()
+ax1.legend(lines + lines2, labels + labels2, loc=0)
 fig.set_size_inches(width, height)
 fig.savefig('solar-sample.pdf')
 plt.show()

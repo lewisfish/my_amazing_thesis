@@ -606,21 +606,20 @@ This means that every column of pixels shows a bore hole through the medium (alo
 \Cref{fig:temp-500profile} also shows the laser pulse profile as a function of time as a reference so that knowledge of when the laser is on or off is easily elucidated.
 The figure shows that the temperature reaches a maximum temperature which is equal to $T_a$, regardless of ablation progress.
 This maximum temperature is researched roughly 0.25~s into the simulation, and lasts until $\sim$0.75~s.
-The maximum temperature
-The ablation crater depth can be seen by the evidence of the ``dark valley'' before the jump in temperature.
-The border of the crater region is slightly cooler, with a maximum slightly deeper into the tissue.
-This temperature maximum extends for a small distance into the tissue, before diffusion spreads it out.
-
-
+The maximum temperature reaches a depth of around 0.04~cm into the tissue.
+The region where water is boiling can be seen by the evidence of the ``dark valley'' before the abrupt jump in temperature to the maximum temperature.
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{temp-profile-middle.pdf}
-	\caption{Temperature bore hole though centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$.}
+	\caption{Temperature bore hole though centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$. Laser power is also plotted for comparison.}
 	\label{fig:temp-500profile}
 \end{figure}
 
-
-Once the laser reaches maximum power
+The cause of this dark valley is due to the water in the tissue acting as a heat sink.
+The water needs a large amount of energy to boil off, thus it stops the temperature from increasing until it boils off, giving rise to the this dark valley.
+This temperature maximum extends for a small distance into the tissue, before diffusion spreads it out.
+Once the tissue ablates the ablated volume cools over the period of around 0.5~s.
+Ablation continues until around 0.6~s, where the laser power has past its maximum value and no more ablation occurs.
 
 \subsubsection*{Investigating thermal damage} 
 
@@ -702,13 +701,14 @@ Pulsed lasers have a variety of pulse profiles.
 The pulse profiles are usually modelled as triangular, tophat, or Gaussian.
 However, the pulse profiles in reality are normally less well defined, and rather the pulse profile is something in between these perfect models.
 
-The laser used in the above experiments, the Pixel CO$_2$, uses a triangular pulse profile for the laser pulses.
+The laser used in the above experiments, the Pixel CO$_2$, states that is has a triangular pulse profile for the laser pulses.
 Thus, in this section the effect of the laser pulse profile has on ablation and the surrounding thermal injury is investigated.
 
 Four different laser pulses profiles are investigated: tophat, triangular and two different Gaussian profiles.
 The two different Gaussian pulses trialled are, a Gaussian profile with $\sigma$ equal to the pulselength, and a pulse profile where the same energy is expended.
 
 \Cref{fig:pulseprofiles} show the pulse profiles for a pulselength of $0.2~s$.
+From \cref{fig:comparepulsetypes} the tophat pulse profile causes the most ablation, where as the triangular pulse causes the least.
 
 \begin{figure}[!htbp]
 	\squeezeup

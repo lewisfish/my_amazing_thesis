@@ -20,18 +20,18 @@
 
 % ***
 The advent of the computer in the last 80 years has been a boon for society.
-Increasing computing power is easily available, allowing higher-quality research, and research into topics once thought beyond human computation.
-One topic where computers have revolutionised is medicine.
+Increasing computing power is easily available, enabling high-quality investigations, and research into topics once thought beyond human computation.
+One topic that high power computing has revolutionised is medicine.
 Computers have enabled advances in many areas including drug discovery~\cite{aaqvist1994new,lill2011computer}, patient diagnoses~\cite{liu2014early,sun2016computer}, and better imaging modalities~\cite{brooks1976principles,al2012digital}.
 One particular area of focus where computers are or will be heavily used is personalised medicine.
 
 Personalised medicine is where instead of a patient being treated with what works on an ``average'' patient, the treatment is tailored specifically for the patient.
-This entails having fine grained knowledge of the patient down to the genome level, to understand how various drugs or treatments will affect the patient.
+This can entail having fine grained knowledge of the patient down to the genome level, to understand how various drugs or treatments will affect the patient.
 One particular area of research in personalised medicine is into the so called ``digital twin''.
-A digital twin as defined by A. El Saddik~\cite{el2018digital}:
+A digital twin as defined by A. El Saddik as~\cite{el2018digital}:
 
 \medskip
-``A digital twin is a digital replica of a living or non-living physical entity.''
+``... is a digital replica of a living or non-living physical entity.''
 \medskip
 
 \noindent Digital twins are currently heavily used in engineering to predict when various machinery will need to undergo maintenance.
@@ -41,12 +41,12 @@ Companies like Phillips use this in their MRI machines to help schedule downtime
 
 At the heart of the digital twin method, is the ability to accurately model the object or living thing being studied.
 This can be straightforward when the twin in question is a machine, as sensors can usually be attached to the various components to get feed back on the machine's operation.
-Machines also have the bonus of (normally) being completely understood so that modelling them is usually easy.
-However, this is not as straightforward when dealing with biology.
+Machines also have the bonus of (normally) being well understood so that modelling them is usually relatively straightforward.
+However, this is not as easy when dealing with living systems.
 First, we still do not have a complete understanding of the biology within humans.
 Therefore, modelling a human accurately is not possible as various assumptions and approximations have to be made.
 Second, to get accurate information on what is happening inside a patient, generally either ionising radiation needs to be used, or cameras inserted into the patient.
-Both of these cannot be done for indefinite periods without causing harm or discomfort to the patient.
+Both of these cannot be done for indefinite periods without causing harm or discomfort.
 Therefore, continuous information on the inner functions of the body is not possible.
 One area where information is more readily available is the skin.
 Information on the skin function or dysfunction is normally diagnosed with light.
@@ -94,11 +94,12 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}\ dx\ d\theta
 \Cref{eqn:buffon} can be used to carry out a Monte Carlo estimation of $\pi$. A simple rearrangement yields: $\pi = \tfrac{2l}{sP}$ where P is the ratio of needles crossing the line to the total number dropped. Laplace was the first to suggest that Buffon's needle experiment could be used to estimate $\pi$~\cite{beckmann2015history}. 
 \Cref{fig:buffon-needle} shows an example of a simulation of Buffon's needle experiment.
 
-\begin{figure}[!htb]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=.6\textwidth]{buffon.pdf}
 \caption{Sample Buffon needle experiment. 100 needles are dropped on a 10 $\times$ 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is red. This simulation gave a value of $\pi$ $\approx$ 3.10.}
 \label{fig:buffon-needle}
+\vspace{-20pt}
 \end{figure}
 
 There are various different approaches to using the Monte Carlo method to obtain randomly sampled variables.
@@ -125,7 +126,7 @@ For example, if a function, $f(x)$ that does not have an analytical PDF, we can 
 Therefore sampling from $p(x)$, and if the sampled point lies under $f(x)$ it is accepted, else it is rejected.
 ~\Cref{fig:picircle} shows an example of this process.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.35\textwidth]{picirc.pdf}
     \caption{Illustration of the rejection method for determining $\pi$ from the area of a circle inscribed within a square. The ratio of the area of the circle to the square is $\tfrac{\pi}{4}$. Thus the ratio of darts landing in the circle to those that land outside the circle is $\pi \approx \tfrac{4N_{inner}}{N_{total}}$, where $N_{total}$ is the total number of darts, and $N_{inner}$ is the total number of darts that land in the circle. Using 200 darts gave a value of $\pi \approx 3.12$}
@@ -151,7 +152,7 @@ We then interpolate to get the x value corresponding to $\xi$.
 
 The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy~\cite{robitaille2011hyperion,harries2014torus} and medicine~\cite{valentine2011monte,campbell2015monte}, to simulate the propagation of radiation through scattering (turbid) media. This technique, Monte Carlo radiation transfer (MCRT), is what makes up the bulk of this thesis and is described in depth in the following sections.
 
-\begin{figure}[!htb]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=.75\textwidth]{ray-tracing.png}
 \caption{Computer generated imagery using ray tracing. The Monte Carlo method is used to ``compute radiance along ray paths between lights and the camera'', to generate CGI images~\cite{pharr2016physically}.}
@@ -163,23 +164,29 @@ The Monte Carlo method is used in various different disciplines. Ranging from us
 %sign post chapters
 
 Chapter 2 details the \gls*{mcrt} method that is used for the bulk of this thesis.
-Presented in this chapter are details of the algorithm and various code details that underpin the whole thesis.
+Presented in this chapter are details of the algorithm and various code implementation details that underpin the whole thesis.
 Details of speed up techniques such as parallelisation are also presented.
 Finally the code is validated against other results.\\
 
 
 Chapter 3 details the tissue ablation model.
-Discussion of the individual components of the model, alongside validation of the model against theoretical and experimental evidence is presented.\\
+A tissue ablation model was created to predict the depth of ablation craters in tissue.
+The model could also be used to help optimise treatment regimes in cosmetic and medical procedures.
+The numerical tissue ablation model consists of 3 numerical methods: MCRT to model the light transport in the tissue, numerical heat model to model the heat diffusion within the tissue, and a numerical tissue damage model to assess the damage to the tissue due to the laser.
+Discussion the model, alongside validation of the model against theoretical and experimental evidence is presented.\\
 
 
 Chapter 4 presents an adaptation to the regular Monte Carlo model so that it can model wave like properties of photons including diffraction and interference.
-The new algorithm is validated against several theoretical expressions and experimental data.
+The new algorithm is validated against several common experiments that exhibit the wave like behaviour of light, including: diffraction by slits and apertures.
+The algorithm is also validated against real experimental data, taken by collaborators at the University of Dundee.
 Finally the algorithm is used to compare Bessel beams and Gaussian beam in highly turbid media, to determine which beam can image deepest.\\
 
 
 Chapter 5 details the modelling of a novel biomarker for cardiovascular disease, autofluorescence.
 The theoretical groundwork for the biomarker is presented, along with discussion of how \gls*{mcrt} can model fluorescence.
 Presented alongside this is ameombaMCRT, a Monte Carlo radiation transfer simplex algorithm used to determine concentrations of fluorophores in different layers of tissue for a given spectrum.\\
+Finally, a study of how tissue optics affect the autofluorescent signal is presented.
+This includes the effect of blood, melanin, and the skin thickness at different sites  on the body can affect the signal.\\
 
 
 Finally, chapter 6 concludes this thesis and presents possible future avenues of research that could be undertaken.

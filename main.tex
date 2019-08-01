@@ -34,6 +34,7 @@
 \usepackage{pdfpages}
 \usepackage[strings]{underscore}
 \usepackage{wrapfig}
+\usepackage{subfig}%figs side by side
 
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}%gives clickable links
 \usepackage[capitalize]{cleveref}%needs to be after hyperref
@@ -102,14 +103,28 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 % Explain MCRT 1 para
 % dev of various mcrt codes overview
 % then chap by chapter
-\lipsum[1-2]
-% The Monte Carlo radiation transfer (MCRT) method is a that allows the simulation of light transport through turbid media.
-% MCRT allows the simulation of multiple anisotropic scattering events, as well as a range of microphysics such as polarisation, and fluorescence.
-% This thesis concerns the development of MCRT algorithms to solve various biophotonic and medical problems.
+% \lipsum[1-2]
+The Monte Carlo radiation transfer (MCRT) method can simulate the transport of light through turbid media.
+MCRT allows the simulation of multiple anisotropic scattering events, as well as a range of microphysics such as polarisation, and fluorescence.
+This thesis concerns the development of several MCRT algorithms to solve various biophotonic and medical problems.
+Modelling of tissue ablation, autofluorescent signals, and a theoretical quasi-wave/particle MCRT model were developed as part of this thesis.
 
+Tissue ablation can be used to treat acne scarring and Rhinophyma, it can also be used to help enhance topical drug delivery.
+Currently depth of ablation is not easily elucidated from a given laser or laser power setting.
+Therefore, a numerical tissue ablation model is developed using MCRT, a heat diffusion model, and a numerical tissue damage model to assess ablation crater depth and thermal damage to the surrounding tissue.
 
-% Chapter 2 introduces the MCRT method and gives an in depth description of the theory and how it is implemented in code.
-% Details of code parallelisation is also presented.
+Autofluorescence is the natural fluorescence of biological structures in tissue.
+Autofluorescence can be used as a biomarker from several diseases including: cardiovascular diseases, Alzheimers and diabetes.
+However, the origin of the signal is not completely clear.
+The effect of tissue optics on the signal, which fluorophores contribute to the signal and by how much, and how different locations on the body can effect the signal are all not well understood.
+This thesis presents a study on the effect of tissue optics on the autofluorescent signal.
+As part of this study AmoebaMCRT was created to determine the relative concentrations of fluorophores for a given autofluorescent signal.
+
+Finally, we have developed an extension to the MCRT that allows the simulation of quasi-wave/particles.
+This method relies on the Huygens-Fresnel principle and the tracking of the phase of each individual photon packet.
+The extension, $\varphi$MC, allows the modelling of complex beams that require the wave properties of light such as Bessel, and Gaussian beams.
+We then use $\varphi$MC to predict which beam, Bessel or Gaussian, preforms ``better'' in a highly turbid medium.
+
 
 % Chapter 3 introduces a numerical model of tissue ablation.
 % This models uses MCRT to calculate the energy deposited by a laser, a numerical heat simulation to diffuse the heat deposited by the laser, and finally a numerical tissue damage model to calculate the damage to the tissue due to the laser.
@@ -170,13 +185,13 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 %arabic numbers
 \mainmatter
 
-\include{introduction/intro}
+% \include{introduction/intro}
 % \include{MCRT/mcrt}
 % \include{ablation/ablation}
 % \include{bessel/bessel}
 % \include{fluro/salvo}
-% \include{conclusion}
-\include{appendix/append}
+\include{conclusion}
+% \include{appendix/append}
 
 \bibliography{./introduction/intro,./ablation/ablation,./MCRT/mcrt,./bessel/bessel,./fluro/salvo,./conc/conclusion}
 \bibliographystyle{unsrt}

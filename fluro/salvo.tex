@@ -871,7 +871,7 @@ A \gls*{eem} is a way of investigating and displaying the effect excitation wave
 Using the same setup as above, we vary the fluorophore concentration in each layer, such that only one layer at a time has any fluorophores in it.
 We then excite the model over a range of wavelengths.
 For NADH we use wavelengths in the range of 250 to 400~nm, and for FAD we use 250 to 500~nm.
-\Cref{fig:nadheem,fig:fadeem} show the \gls*{eem} for NADH and FAD\@.
+\Cref{fig:nadheem} show the \gls*{eem} for NADH and FAD\@.
 The \gls*{eem} for NADH shows that the strongest signal comes from the papillary dermis when compared to other layers.
 The \gls*{eem} also shows a maximum of emission for excitation wavelengths corresponding to around 260~nm and 320--380~nm.
 For FAD the layer that yields the most fluorescence is the reticular dermis.
@@ -889,33 +889,62 @@ Therefore, light at a longer wavelength is more likely to escape the tissue due 
     \label{fig:epsfluro}
 \end{figure}
 
-\begin{figure}[!htpb]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{NADH-eem.pdf}
-    \caption{Excitation-emission matrix for NADH. Figure shows that the fluorescent signal from NADH is strongest in the papillary dermis.}
-    \label{fig:nadheem}
+    \subfloat{{\includegraphics[width=.46\textwidth]{NADH-eem.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{FAD-eem.pdf}}}%
+    \caption{Left) Excitation-emission matrix for NADH. Figure shows that the fluorescent signal from NADH is strongest in the papillary dermis.
+    Right) Excitation-emission matrix for FAD. Figure shows that the fluorescent signal from FAD is strongest in the reticular dermis.}%
+    \label{fig:nadheem}%
 \end{figure}
 
-\begin{figure}[!htpb]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{FAD-eem.pdf}
-    \caption{Excitation-emission matrix for FAD. Figure shows that the fluorescent signal from FAD is strongest in the reticular dermis.}
-    \label{fig:fadeem}
+    \subfloat{{\includegraphics[width=.46\textwidth]{elastin-eem.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{collagen-eem.pdf}}}%
+    \caption{Left) Excitation-emission matrix for Elastin. Figure shows that the fluorescent signal from Elastin is strongest in the papillary dermis.
+    Right) Excitation-emission matrix for collagen. Figure shows that the fluorescent signal from collagen is strongest in the papillary dermis.}%
+    \label{fig:elastineem}%
 \end{figure}
 
-\begin{figure}[!htpb]
+
+\FloatBarrier
+\subsubsection*{Effect of Chromophores and Skin Thickness on Autofluorescent Signal}
+1
+\paragraph*{Blood}\hspace{0pt}\\
+The first property we investigate is the effect of blood volume on the autofluorescent signal.
+We vary the blood volume from ``normal'' levels as used in our previous models, by factors of $0.0\times$, $0.5\times$, $1.0\times$, and $2.0\times$.
+
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{elastin-eem.pdf}
-    \caption{Excitation-emission matrix for Elastin. Figure shows that the fluorescent signal from Elastin is strongest in the papillary dermis.}
-    \label{fig:elastineem}
+    \subfloat{{\includegraphics[width=.46\textwidth]{nadh-blood.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{fad-blood.pdf}}}%
+    \caption{Effect of blood volume on NADH and FAD autofluorescence.}%
+    \label{fig:nadhfad-blood}%
 \end{figure}
 
-\begin{figure}[!htpb]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{collagen-eem.pdf}
-    \caption{Excitation-emission matrix for collagen. Figure shows that the fluorescent signal from collagen is strongest in the papillary dermis.}
-    \label{fig:collageneem}
+    \subfloat{{\includegraphics[width=.46\textwidth]{elastin-blood.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{collagen-blood.pdf}}}%
+    \caption{Effect of blood volume on elastin and collagen autofluorescence.}%
+    \label{fig:elscol-blood}%
 \end{figure}
+
+
+\paragraph*{Melanin}\hspace{0pt}\\
+The next property we investigate is the effect of melanin on the autofluorescent signal.
+We use the following melanin volume fractions 1, 3, 5, 10, 20, and $30\%$ which correspond to Fitzpatrick skin types I, II, III, IV, V, and VI respectively~\cite{iglesias2015biophysically,fitzpatrick1988validity}.
+This equates
+
+\paragraph*{Skin Thickness}\hspace{0pt}\\
+The final property we investigate is skin thickness.
+The thickness of skin varies over different locations on the body.
+It also varies with age, ethnicity and sex~\cite{lee2002skin,oltulu2018measurement,southwood1955thickness}.
+Therefore, to get an idea of how the skins thickness effects the autofluorescent signal we trial three different thickness.
+For thin skin we use measurements taken from the eyelid of people of Korean ethnicity~\cite{lee2002skin}.
+For thick skin we use measurements taken from the back of people of Anatolian ethnicity~\cite{oltulu2018measurement}.
+Finally, the skin thickness we have used in all previous models is approximately that of the back skin of people of Korean ethnicity~\cite{lee2002skin}.
 
 \subsection{Using the NM Method}
 

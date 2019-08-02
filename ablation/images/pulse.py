@@ -19,17 +19,18 @@ def triangular(x, a, plength):
 def tophat(x, a, plength):
     return np.where(x < plength, a, 0.)
 
+plt.rc('font', family='serif', serif='Times')
+plt.rc('text', usetex=True)
+plt.rc('xtick', labelsize=8)
+plt.rc('ytick', labelsize=8)
+plt.rc('axes', labelsize=12)
+
 fig, ax = plt.subplots()
 plt.subplots_adjust(right=.99, left=.08, top=.99, bottom=.1)
 
 width = 6.510  # inches
 height = width / 1.618
 
-plt.rc('font', family='serif', serif='Times')
-plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=12)
 
 pwr = 70
 pulsel = 0.2
@@ -39,7 +40,7 @@ fact = np.sqrt(2. * np.log(2))
 sig = (pulsel) / fact
 mean = (pulsel) * 2.8 * fact
 
-ax.plot(t, gauss(t, pwr, mean, sig), label="Gaussian, same pulselength")
+# ax.plot(t, gauss(t, pwr, mean, sig), label="Gaussian, same pulselength")
 
 sig = (.471 * pulsel) / fact
 mean = (.471 * pulsel) * 2.8 * fact
@@ -50,8 +51,9 @@ ap1 = np.cumsum(triangular(t, pwr, pulsel))
 ap2 = np.cumsum(tophat(t, pwr, pulsel))
 ap3 = np.cumsum(gauss(t, pwr, mean, sig))
 print(ap1[-2:-1], ap2[-2:-1], ap3[-2:-1])
-ax.set_xlabel("time/s")
+ax.set_xlabel("Time/s")
 ax.set_ylabel("Power/W")
+ax.set_xlim(0, 0.7)
 
 plt.legend(fontsize="12")
 

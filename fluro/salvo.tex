@@ -910,10 +910,24 @@ Therefore, light at a longer wavelength is more likely to escape the tissue due 
 
 \FloatBarrier
 \subsubsection*{Effect of Chromophores and Skin Thickness on Autofluorescent Signal}
-1
+
+This section shows the effects of several variables of the skin on the autofluorescent signal of NADH, FAD, collagen, and elastin.
+The skin variables chose are the blood volume of the skin, the melanin content of the epidermis, and the thickness of skin.
+The effect of these variables were studied at several wavelengths, chosen as they were either the wavelength used in the experimental work (365~nm) or are peaks in the flurophores spectrum as shown in~\cref{fig:nadheem,fig:elastineem}. 
+The wavelengths for each of the flurophores are:\\
+
+\noindent FAD: 310, 365, 450, 480~nm\\
+NADH: 260, 320, 365, 380~nm\\
+Collagen/Elastin: 260, 320, 365, 480~nm\\
+
+Each of the flurophores are uniformly distributed in the 5 layer skin model in accordance with where they are naturally occurring with a concentration of $1\mu M$.
+The collection geometry is the same as the experimental setup.
+Each spectrum calculated is then analysed to compare signal strength and signal peak as functions of the skin variables.
+
 \paragraph*{Blood}\hspace{0pt}\\
 The first property we investigate is the effect of blood volume on the autofluorescent signal.
 We vary the blood volume from ``normal'' levels as used in our previous models, by factors of $0.0\times$, $0.5\times$, $1.0\times$, and $2.0\times$.
+\Cref{fig:nadhfad-blood,fig:elscol-blood} show the results from these models.
 
 \begin{figure}[!htbp]
     \centering
@@ -935,7 +949,22 @@ We vary the blood volume from ``normal'' levels as used in our previous models, 
 \paragraph*{Melanin}\hspace{0pt}\\
 The next property we investigate is the effect of melanin on the autofluorescent signal.
 We use the following melanin volume fractions 1, 3, 5, 10, 20, and $30\%$ which correspond to Fitzpatrick skin types I, II, III, IV, V, and VI respectively~\cite{iglesias2015biophysically,fitzpatrick1988validity}.
-This equates
+
+\begin{figure}[!htbp]
+    \centering
+    \subfloat{{\includegraphics[width=.46\textwidth]{nadh-melanin.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{fad-melanin.pdf}}}%
+    \caption{Effect of melanin percentage volume on NADH and FAD autofluorescence.}%
+    \label{fig:nadhfad-mel}%
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \subfloat{{\includegraphics[width=.46\textwidth]{elastin-melanin.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{collagen-melanin.pdf}}}%
+    \caption{Effect of melanin percentage volume on elastin and collagen autofluorescence.}%
+    \label{fig:elscol-mel}%
+\end{figure}
 
 \paragraph*{Skin Thickness}\hspace{0pt}\\
 The final property we investigate is skin thickness.
@@ -946,6 +975,29 @@ For thin skin we use measurements taken from the eyelid of people of Korean ethn
 For thick skin we use measurements taken from the back of people of Anatolian ethnicity~\cite{oltulu2018measurement}.
 Finally, the skin thickness we have used in all previous models is approximately that of the back skin of people of Korean ethnicity~\cite{lee2002skin}.
 
+\begin{figure}[!htbp]
+    \centering
+    \subfloat{{\includegraphics[width=.46\textwidth]{nadh-thickness.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{fad-thickness.pdf}}}%
+    \caption{Effect of thickness on NADH (left) and FAD (right) autofluorescence. Top left of each image shows the effect of skin thickness on signal strength. Top right of each image shows the effect of skin thickness on location of the flurophores peak. Bottom of each image shows the raw spectra for 365~nm.}%
+    \label{fig:nadhfad-thick}%
+\end{figure}
+
+\Cref{fig:nadhfad-thick,fig:elscol-thick} show some of the results of the effect of skin thickness on the autofluorescent signal from several flurophores used in this study.
+NADH and FAD peaks are not effected by differing thickness of skin (NADH peak is shifted overall $\sim20~nm$), with the variation between thick and thin skin only being around 3~nm.
+As may be expected the main difference between thick and thin skin is the strength of the signal.
+Thinner skin gives rise to a stronger autofluorescent signal, whereas thicker skin gives a weaker signal as would be expected.
+
+\begin{figure}[!htbp]
+    \centering
+    \subfloat{{\includegraphics[width=.46\textwidth]{collagen-thickness.pdf}}}%
+    \subfloat{{\includegraphics[width=.46\textwidth]{elastin-thickness.pdf}}}%
+    \caption{Effect of thickness on elastin (left) and collagen (right) autofluorescence. Top left of each image shows the effect of skin thickness on signal strength. Top right of each image shows the effect of skin thickness on location of the flurophores peak. Bottom of each image shows the raw spectra for 365~nm.}%
+    \label{fig:elscol-thick}%
+\end{figure}
+
+
+\FloatBarrier
 \subsection{Using the NM Method}
 
 We model the experimental setup by S. Smirni \textit{et al.} as described in a previous section.

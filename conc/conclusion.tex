@@ -3,9 +3,9 @@
 \section{Summary}
 
 To summarise this thesis, the \gls*{mcrt} method is a powerful technique that can be used to calculate the transport of light (as particles or quasi-wave/particles) through turbid media, whilst modelling multiple anisotropic scattering alongside a variety of microphysics.
-The only noted downsides to the \gls*{mcrt} method noted in the literature (as well as discussed at length in this thesis) is the computational load required for some problems, and the selection of optical properties.
+The only downsides to the \gls*{mcrt} method noted in the literature (as well as discussed at length in this thesis) is the computational load required for some problems, and the selection of optical properties.
 With the growing power of computational devices, the computational load of \gls*{mcrt} becomes less of a factor.
-Likewise the optical properties of various biological tissues, are increasing being measured with greater precision and accuracy.
+Likewise the optical properties of various biological tissues, are now increasingly being measured with greater precision and accuracy.
 
 \medskip
 
@@ -17,7 +17,7 @@ Chapter 2 also covered the theory behind the method and presented details of the
 \medskip
 
 Chapter 3 described the application of the \gls*{mcrt} method to modelling tissue ablation.
-Details of how the \gls*{mcrt} was coupled up to a numerical model of heat diffusion and thermal damage model was presented.
+Details of how the \gls*{mcrt} was coupled to a numerical model of heat diffusion and thermal damage model was presented.
 The chapter showed that we can successfully model experimental and theoretical data with our numerical model.
 The power the model has is that we can predict thermal damage, and ablation crater size for any laser, and configuration thereof, without the need to test on humans or animals.
 It also allows the testing of different lasers without the purchase of said laser, which could allow clinicians to ``try before they buy''.
@@ -43,7 +43,7 @@ The \gls*{mcrt} algorithm was also coupled to an optimisation technique to deter
 The technique chosen was the Nelder-Mead method.
 The \gls*{nm} method uses simplices in order to move around the search space and find global minima.
 The method was coupled to the MCRT algorithm and validated against toy models.
-Finally details of how autofluorescent data from collaborators was fitted to using these techniques was presented.
+Finally details of how autofluorescent data from collaborators was analysed using these techniques was presented.
 
 \section{Future Prospects}
 
@@ -56,15 +56,15 @@ This could be easily modelled within the code developed as part of chapter 3, wi
 The code could be used to help optimise photothermal treatment modalities and predict treatment outcomes.
 
 There is also scope to improve the heat transfer model.
-As mentioned in the chapter, a simple explict model was used as it relatively easy to setup and solve a given problem using this scheme.
-However, this scheme leads to constraint on the timestep.
+As mentioned in the chapter, a simple explicit model was used as it is relatively easy to setup and solve a given problem using this scheme.
+However, this scheme leads to constraints on the timestep.
 This could be avoided by using an implicit scheme which is unconditionally stable for any timestep.
-Another way the heat transfer model could be improved is thought the use of the \gls*{fem}.
+Another way the heat transfer model could be improved is through the use of the \gls*{fem}.
 The \gls*{fem} allows PDEs to be solved on arbitrary grids, which would reduce the high memory requirement our model needs to achieve good resolution.
 The \gls*{fem} would also allow a more accurate skin model to be included within the simulation, making the simulation more realistic.
 
 Finally, the work of chapter 3 could also be extended to include a drug diffusion model.
-One use of tissue ablation is a an optical drill to create micro holes in the skin. 
+One use of tissue ablation is as an optical drill to create micro holes in the skin. 
 These holes in the skin then allow better penetration of topical drugs.
 Modelling both the laser tissue ablation process and drug diffusion process in one simulation would allow \textit{in-silico} testing of treatment parameters which could easily be optimised by the model.
 
@@ -101,8 +101,8 @@ Due to time constraints this was abandoned for this thesis before a fully workin
 
 A meshed skin model would allow objects like hairs, blood vessels, sweat glands, and the uneven boundaries between skin layers greatly increasing the accuracy of the simulations.
 
-Finally as the data from our collaborators equipment was not of a quality such that it could be reproduced using amoebaMCRT, this data could be taken again with a better equipment, or other authors could be found that have the requisite data. 
-AmoebaMCRT would then be run on this data to determine the amount of that each fluorophore contributes to the signal.
+Finally as the data from our collaborators equipment was not of a quality such that it could be reproduced using amoebaMCRT, this data could be taken again with better equipment, or other authors could be found that have the requisite data. 
+AmoebaMCRT would then be run on this data to determine the amount that each fluorophore contributes to the signal.
 Other optimisation techniques other than the \gls*{nm} method could also be explored.
 Techniques such as simulated annealing, genetic algorithms\footnote{The use of genetic algorithms was explored, however the computational cost of using them was deemed too high.} or machine learning could be used.
 It could also be possible for our \gls*{mcrt} code to be used to create a ``bank'' of spectra that could then be used to train a machine learning algorithm to label peaks, and contributions to those peaks by fluorophores.

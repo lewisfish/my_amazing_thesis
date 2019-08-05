@@ -51,7 +51,7 @@
 \usepackage{lipsum}%used to fill space for now
 \crefname{appsec}{Appendix}{Appendices}%create name for appendix reference
 
-\newcommand{\squeezeup}{\vspace{-2.5mm}}
+\newcommand{\squeezeup}[1]{\vspace{- #1 mm}}
 \interfootnotelinepenalty=10000%stop footnotes breaking over to next page
 
 %create title page
@@ -73,7 +73,7 @@ University of St Andrews}
 \loadgeometry{origin}%restore margins to original
 
 \chapter{Declaration}
-I, Lewis McMillan, hereby certify that this thesis, which is approximately 32000 words in length,
+I, Lewis McMillan, hereby certify that this thesis, which is approximately 34067 words in length,
 has been written by me, that it is the record of work carried out by me, or principally by myself in collaboration with others as acknowledged, and that it has not been submitted in any
 previous application for a higher degree.
 \medskip
@@ -141,7 +141,7 @@ We then use $\varphi$MC to predict which beam, Bessel or Gaussian, preforms ``be
 
 
 \chapter{Acknowledgements}
-\lipsum[1-2]
+% \lipsum[1-2]
 % First of all, thank you to Tom, and Kenny for first allowing me the opportunity to undertake this PhD and for all their support and encouragement over the course of my thesis.
 % If it weren't for you both keeping me on the straight and narrow I'm sure I would still be coding instead of writing.
 % I also swear my code is now bug free...
@@ -170,8 +170,6 @@ We then use $\varphi$MC to predict which beam, Bessel or Gaussian, preforms ``be
 
 \newpage
 
-
-
 \tableofcontents
 \printnoidxglossaries
 \newpage
@@ -185,12 +183,12 @@ We then use $\varphi$MC to predict which beam, Bessel or Gaussian, preforms ``be
 %arabic numbers
 \mainmatter
 
-\include{introduction/intro}
+% \include{introduction/intro}
 % \include{MCRT/mcrt}
 % \include{ablation/ablation}
 % \include{bessel/bessel}
-% \include{fluro/salvo}
-% \include{conc/conclusion}
+\include{fluro/salvo}
+\include{conc/conclusion}
 % \include{appendix/append}
 
 \bibliography{./introduction/intro,./ablation/ablation,./MCRT/mcrt,./bessel/bessel,./fluro/salvo,./conc/conclusion}

@@ -110,23 +110,23 @@ Caro = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/B-carotene.dat")
 Bili = readFile("/home/lewis/phdshizz/Ga-salvo-2018/res/bilirubin.dat")
 
 
-plt.plot(xs, base(xs), label="Baseline")
-plt.plot(xs, eumel(xs), label="Melanin")
-plt.plot(xs, Oxy_Hb(xs, OxyHb), label="Oxygenated blood")
-plt.plot(xs, DeOxy_Hb(xs, DeoxyHb), label="Deoxygenated blood")
-plt.plot(xs, Water(xs, water), label="Water")
-plt.semilogy(xs[:320], Bilirubin(xs[:320], Bili), label="Bilirubin")
-plt.plot(xs[:320], Bcarotene(xs[:320], Caro), label=r"$\beta$-Carotene")
+# plt.plot(xs, base(xs), label="Baseline")
+# plt.plot(xs, eumel(xs), label="Melanin")
+# plt.plot(xs, Oxy_Hb(xs, OxyHb), label="Oxygenated blood")
+# plt.plot(xs, DeOxy_Hb(xs, DeoxyHb), label="Deoxygenated blood")
+# plt.plot(xs, Water(xs, water), label="Water")
+# plt.semilogy(xs[:320], Bilirubin(xs[:320], Bili), label="Bilirubin")
+# plt.plot(xs[:320], Bcarotene(xs[:320], Caro), label=r"$\beta$-Carotene")
 
-#stratum(xs, base, water)
-#epidermis(xs, water, Caro)
-#pap(xs, water, Caro, Bili, DeoxyHb, OxyHb)
-#ret(xs, water, Caro, Bili, DeoxyHb, OxyHb)
-#hypo(xs, water, Caro, Bili, DeoxyHb, OxyHb)
+stratum(xs, base, water)
+epidermis(xs, water, Caro)
+pap(xs, water, Caro, Bili, DeoxyHb, OxyHb)
+ret(xs, water, Caro, Bili, DeoxyHb, OxyHb)
+hypo(xs, water, Caro, Bili, DeoxyHb, OxyHb)
 
 
-ax.set_xlabel(r"Absorption coefficient/$cm^{-1}$")
-ax.set_ylabel(r"Wavelength/nm")
+ax.set_ylabel(r"Absorption coefficient/$cm^{-1}$")
+ax.set_xlabel(r"Wavelength/nm")
 
 # files = ["bin/hypo.dat", "bin/stratum.dat", "bin/epi.dat", "bin/pap.dat", "bin/ret.dat"]
 # for file in files:
@@ -138,9 +138,9 @@ width = 6.510  # inches
 height = width / 1.618
 
 
-fig.subplots_adjust(left=.098, bottom=.11, right=.98, top=.98)
+fig.subplots_adjust(left=.1, bottom=.13, right=.99, top=.99)
 ax.legend()
 
 fig.set_size_inches(width, height)
-fig.savefig('absorbs.pdf')
+fig.savefig('absorbs-1.pdf')
 plt.show()

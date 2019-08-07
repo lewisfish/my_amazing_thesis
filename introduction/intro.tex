@@ -80,11 +80,12 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}\ dx\ d\theta
 \Cref{fig:buffon-needle} shows an example of a simulation of Buffon's needle experiment.
 
 \begin{figure}[!htbp]
-\centering
-\includegraphics[width=.6\textwidth]{buffon.pdf}
-\caption{Sample Buffon needle experiment. 100 needles are dropped on a 10 $\times$ 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is red. This simulation gave a value of $\pi$ $\approx$ 3.10.}
-\label{fig:buffon-needle}
-\vspace{-20pt}
+    \squeezeup{10.5}
+    \centering
+    \includegraphics[width=.55\textwidth]{buffon.pdf}
+    \caption{Sample Buffon needle experiment. 100 needles are dropped on a 10 $\times$ 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, else it is red. This simulation gave a value of $\pi$ $\approx$ 3.10.}
+    \label{fig:buffon-needle}
+    \squeezeup{6.5}
 \end{figure}
 
 There are various different approaches to using the Monte Carlo method to obtain randomly sampled variables.
@@ -112,10 +113,12 @@ Therefore sampling from $p(x)$, and if the sampled point lies under $f(x)$ it is
 ~\Cref{fig:picircle} shows an example of this process.
 
 \begin{figure}[!htbp]
+    \squeezeup{4}
     \centering
     \includegraphics[width=0.35\textwidth]{picirc.pdf}
     \caption{Illustration of the rejection method for determining $\pi$ from the area of a circle inscribed within a square. The ratio of the area of the circle to the square is $\tfrac{\pi}{4}$. Thus the ratio of darts landing in the circle to those that land outside the circle is $\pi \approx \tfrac{4N_{inner}}{N_{total}}$, where $N_{total}$ is the total number of darts, and $N_{inner}$ is the total number of darts that land in the circle. Using 200 darts gave a value of $\pi \approx 3.12$}
     \label{fig:picircle}
+    \squeezeup{7.5}
 \end{figure}
 
 
@@ -129,10 +132,12 @@ We then interpolate to get the x value corresponding to $\xi$.
 \Cref{fig:solar} shows the result of this process for $5\times10^6$ random samples.
 
 \begin{figure}[!htbp]
+    \squeezeup{3}
     \centering
     \includegraphics[width=0.75\textwidth]{solar-sample.pdf}
     \caption{Example of randomly sampling from a spectrum. Figure shows 100 random samples drawn to recreate a solar spectrum.}
     \label{fig:solar}
+    \squeezeup{3.5}
 \end{figure}
 
 The Monte Carlo method is used in various different disciplines. Ranging from use in the financial sector to analyse investments and stocks by simulating the sources of uncertainty which affect their values~\cite{jackel2002monte,finaceprrof}, use in statistical analysis~\cite{wall2012practical}, and in modern computer generated images (see \cref{fig:ray-trace})~\cite{Kajiyarendering,Cookraytracing}. It is also widely used in astronomy~\cite{robitaille2011hyperion,harries2014torus} and medicine~\cite{valentine2011monte,campbell2015monte}, to simulate the propagation of radiation through scattering (turbid) media. This technique, Monte Carlo radiation transfer (MCRT), is what makes up the bulk of this thesis and is described in depth in the following sections.

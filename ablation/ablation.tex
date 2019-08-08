@@ -3,7 +3,7 @@
 \section{Introduction and Background}
 \label{sec:intro}
 
-This chapter uses \gls*{mcrt} techniques coupled to a heat transfer simulation, to study the thermal damage to tissue due to a laser, with its power spread over many beams to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. This class of laser is called a fractionated ablative laser. This chapter presents experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells Hospital, along side my computational model of tissue ablation.
+This chapter uses \gls*{mcrt} techniques coupled to a heat transfer simulation, to study the thermal damage to tissue due to a laser, with its power spread over many beams to leave viable tissue around zones of damaged/necrotic tissue~\cite{manstein2004fractional}. This class of laser is called a fractionated ablative laser. This chapter presents experimental work carried out on porcine tissue by our collaborators at the University of Dundee and the photobiology department at Ninewells Hospital, alongside my computational model of tissue ablation.
 
 \medskip
 
@@ -13,7 +13,6 @@ One class of laser used in these procedures are ablative lasers. Ablative lasers
 One downside to using lasers to remove tissue, is that unlike a scalpel where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can cause thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
 Currently, the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. In this work an \gls*{oct} system is used to measure the ablative crater non-invasively \textit{in-vivo}. The \gls*{oct} measurements are then compared to a computational model developed as part of this project. It is hoped this computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
-
 
 
 \section{Methods}
@@ -182,7 +181,7 @@ Where $\alpha=\tfrac{\kappa}{\rho c}$.
 
 \medskip
 
-For the more complicated nonlinear heat equation there is a possibility that the medium is not continuously smooth between nodes, in terms of optical and thermal properties. The two easiest methods~\cite{ozisik1994finite} of achieving this are: (1), lag the value behind by one step, i.e $c_{p}^{n+1}=c_{p}^{n}$. (2), average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme where the thermal property used in the calculation is the thermal property half way between two nodes, i.e the average of the two nodes:
+For the more complicated nonlinear heat equation there is a possibility that the medium is not continuously smooth between nodes, in terms of optical and thermal properties. The two easiest methods~\cite{ozisik1994finite} of achieving this are: (1), lag the value behind by one step, i.e $c_{p}^{n+1}=c_{p}^{n}$. (2), average $\kappa,\ \rho,\ \text{and}\ c_p$ using a half difference scheme where the thermal property used in the calculation is the thermal property halfway between two nodes, i.e the average of the two nodes:
 
 \begin{align}
 \kappa^{\pm}&=\frac{\kappa_i+\kappa_{i\pm 1}}{2}\\
@@ -264,7 +263,7 @@ Parallelisation of the heat simulation is more involved than the ``embarrassingl
 
 The heat simulation is parallelised using a technique called ``halo swapping''. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The ``halo swapping'' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However, if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus, to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for certain number of cores. This is not unfeasible, due to several reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However, if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus, to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for a certain number of cores. This is not unfeasible, due to several reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -322,19 +321,19 @@ Thermal ablation is where tissue is heated sufficiently so that tissue vaporisat
 Finally, explosive ablation is an extreme version of thermal ablation. Explosive ablation occurs when large amounts of energy is deposited in a small time scale, so that none of the energy can thermally diffuse away, resulting in explosive ablation.
 Photochemical ablation, is usually applied to UV laser ablation, whereas thermal and explosive ablation regimes are the more likely candidates for IR ablation which is considered here.
 
-The theoretical models behind explosive and thermal ablation models are also not well understood, with many models proposed to try to and explain experimental results. These models range from heuristic models to sophisticated models that relate the underlying physical mechanisms to ablation damage. 
+The theoretical models behind explosive and thermal ablation models are also not well understood, with many models proposed to try and explain experimental results. These models range from heuristic models to sophisticated models that relate the underlying physical mechanisms to ablation damage. 
 The two main heuristic models are: the blow off model, and the steady state model. 
-The blow off model assumes that the there is thermal confinement (i.e no propagation of heat in time $t$), and that material is removed after the laser irradiation. There is a radiant threshold that has to be met to ablate material, and that Beer-Lambert's law describes the spatial distribution of light. For laser pulses of $<10$~ns, these conditions are normally met. However, for lasers with pulse length larger than this, these conditions are not usually met~\cite{vogel2003mechanisms,koren1984emission,andrew1983direct}. 
+The blow off model assumes that there is thermal confinement (i.e no propagation of heat in time $t$), and that material is removed after the laser irradiation. There is a radiant threshold that has to be met to ablate material, and that Beer-Lambert's law describes the spatial distribution of light. For laser pulses of $<10$~ns, these conditions are normally met. However, for lasers with pulse length larger than this, these conditions are not usually met~\cite{vogel2003mechanisms,koren1984emission,andrew1983direct}. 
 
-The steady state heuristic model, assumes that the pulse length is of the order of $ms$ or larger, that material starts to be removed shortly after laser irradiation begins, and that some radiant threshold exists in order for ablation to begin. The steady state model also assumes that a fixed energy is required to remove a unit of tissue~\cite{vogel2003mechanisms}. However, this does not always hold, as there are many circumstances where there is no one fixed energy, but rather many energies (due to various phase changes) that must be met in order for ablation to occur. There are also many other sophisticated models, that try to describe what happens physically when ablation occurs~\cite{mckenzie1990physics,mckenzie1986three,majaron1999thermo}.
+The steady state heuristic model, assumes that the pulse length is of the order of $ms$ or larger, that material starts to be removed shortly after laser irradiation begins, and that some radiant threshold exists in order for ablation to begin. The steady state model also assumes that a fixed energy is required to remove a unit of tissue~\cite{vogel2003mechanisms}. However, this does not always hold, as there are many circumstances where there is no one fixed energy, but rather many energies (due to various phase changes) that must be met in order for ablation to occur. There are also many other sophisticated models that try to describe what happens physically when ablation occurs~\cite{mckenzie1990physics,mckenzie1986three,majaron1999thermo}.
 
-Due to the above mentioned reasons, there is no defined ablation temperature. The literature however, does suggest that it takes place when the tissue temperature is between 177~${^{\circ}}$C and 500~${^{\circ}}$C~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. 
+Due to the above mentioned reasons, there is no defined ablation temperature. The literature, however, does suggest that it takes place when the tissue temperature is between 177~${^{\circ}}$C and 500~${^{\circ}}$C~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. 
 
 \begin{figure}	
 \vspace{-10pt}
 	\centering
 	\includegraphics[width=.5\textwidth]{steam_vacoule.png}
-	\caption{Ablation of a dog aorta, as viewed under a microscope. Steam vacuoles are clearly visible either side of the ablation area. Carbonisation is also evident at the edges of the ablation fronts. Adapted from~\cite{welch2011optical}.}
+	\caption{Ablation of a dog aorta, as viewed under a microscope. Steam vacuoles are clearly visible on either side of the ablation area. Carbonisation is also evident at the edges of the ablation fronts. Adapted from~\cite{welch2011optical}.}
 	\label{fig:histology}
 	\vspace{-10pt}
 \end{figure}
@@ -528,7 +527,7 @@ Results from these \textit{in silico} experiments are presented in this section 
 \label{sec:opticalprops}
 The thermal and optical properties of porcine tissue are not known exactly for any given tissue sample. As such the thermal and optical properties used in this section are taken from various literature sources.
 
-The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \mu m$. This means that the optical properties of the tissue are dominated by water absorption. The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption of coefficient in water of $\sim 850~cm^{-1}$. As the absorption coefficient is large, it is assumed that scattering is negligible at these wavelengths.
+The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \mu m$. This means that the optical properties of the tissue are dominated by water absorption. The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption coefficient in water of $\sim 850~cm^{-1}$. As the absorption coefficient is large, it is assumed that scattering is negligible at these wavelengths.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
 
 % \begin{figure}	
@@ -563,7 +562,7 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 \begin{figure}[!htbp]
 	\centering
     \includegraphics[width=.5\textwidth]{slice-poster.pdf}
-    \caption{Simulation of 81 pixel beams. Figure a) shows a a slice through the optical properties at the end of the simulation in the z-y plane. Figure b) shows the optical properties in the x-y plane at the top surface. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}
+    \caption{Simulation of 81 pixel beams. Figure a) shows a slice through the optical properties at the end of the simulation in the z-y plane. Figure b) shows the optical properties in the x-y plane at the top surface. Yellow is unchanged tissue, and purple is completely ablated tissue. Figure shows that the ablation craters do not overlap one another.}
     \label{fig:sizecheck}
 \end{figure}
 
@@ -574,9 +573,9 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 
 Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the\gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that, a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
 
-Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse affect, and allows the ablation crater to become deeper.
+Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse effect, and allows the ablation crater to become deeper.
 
-Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to several reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grow, due to the availability of more tissue for the heat to diffuse into.
+Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to several reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
 
 
 \begin{figure}[!htbp]
@@ -611,12 +610,12 @@ The region where water is boiling can be seen by the evidence of the ``dark vall
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{temp-profile-middle.pdf}
-	\caption{Temperature bore hole though centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$. Laser power is also plotted for comparison.}
+	\caption{Temperature bore hole through centre of medium as a function of time, for~\gls*{ta}=500$~^{\circ}C$. Laser power is also plotted for comparison.}
 	\label{fig:temp-500profile}
 \end{figure}
 
 The cause of this dark valley is due to the water in the tissue acting as a heat sink.
-The water needs a large amount of energy to boil off, thus it stops the temperature from increasing until it boils off, giving rise to the this dark valley.
+The water needs a large amount of energy to boil off, thus it stops the temperature from increasing until it boils off, giving rise to this dark valley.
 This temperature maximum extends for a small distance into the tissue, before diffusion spreads it out.
 Once the tissue ablates the ablated volume cools over the period of around 0.5~s.
 Ablation continues until around 0.6~s, where the laser power has past its maximum value and no more ablation occurs.
@@ -709,7 +708,7 @@ The Gaussian profile used has approximately the same area as the two other pulse
 
 \Cref{fig:pulseprofiles} show the pulse profiles for a pulselength of $0.2~s$.
 From \cref{fig:comparepulsetypes} the tophat pulse profile causes the most ablation, where as the Gaussian pulse causes the least.
-This can be explained by the fact that the Gaussian pulse delivers the energy over a longer time span, thus letting heat diffuse away before it can ``build'' up and cause damage, and thus ablation.
+This can be explained by the fact that the Gaussian pulse delivers energy over a longer time span, thus letting heat diffuse away before it can ``build'' up and cause damage, and thus ablation.
 
 \begin{figure}[!htbp]
 	\squeezeup{2.5}
@@ -736,24 +735,24 @@ As the experiment was carried out on porcine tissue that was kept on ice before 
 This section investigates whether this is an accurate assumption.
 
 To investigate this, three different temperatures were trialled: 0$~^{\circ}C$, 5$~^{\circ}C$, and 25$~^{\circ}C$.
-These temperature correspond to room temperature, the temperature of ice and the original temperature we assumed.
+These temperatures correspond to room temperature, the temperature of ice and the original temperature we assumed.
 ~\Cref{fig:pigtempcomp} shows the results of this \textit{in-silco} investigation.
 
 
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{pigtemps.pdf}
-	\caption{Comparison of ablation depths for different initial temperatures in the porcine skin.}
+	\caption{Comparison of ablation depths for different initial temperatures in porcine skin.}
 	\label{fig:pigtempcomp}
 \end{figure}
 
-As expected the hotter the porcine skin is initially the larger the ablation depth.
+As expected, the hotter the porcine skin is initially the larger the ablation depth.
 This occurs as less energy is required to bring the porcine skin to its ablation temperature.
 In the previous subsections it was assumed that the temperature of the porcine skin was around $5~^{\circ}C$.
 This assumption was based upon the fact that the porcine skin was kept on ice before the experiment, thus the temperature of the skin must be between 0 and room temperature.
 This investigation shows that over small variations of temperature ($\lessapprox 5~^{\circ}C$), the ablation depth does not vary too much (on the order of $\approx 0.01~mm$).
 
-However, there is a greater difference in the maximum extent of thermal damage to the skin for different initial temperatures in the porcine skin.
+However, there is a greater difference in the maximum extent of thermal damage to the skin for different initial temperatures in porcine skin.
 ~\Cref{fig:horzdamagepig} shows this difference.
 
 
@@ -768,7 +767,7 @@ However, there is a greater difference in the maximum extent of thermal damage t
 
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
 However, this assumption may not be accurate.
-To test if the temperature of the voxel after ablation effects the depth of ablation or the thermal injury to the surrounding tissue various voxel temperature were tried.
+To test if the temperature of the voxel after ablation affects the depth of ablation or thermal injury to the surrounding tissue various voxel temperature were tried.
 Two different temperatures were tried: half the ablation temperature and room temperature($\approx 25~^{\circ}C$).
 \Cref{fig:comparevoxtemp} shows the effect of the voxel temperature after ablation has on the ablation depth.
 
@@ -784,7 +783,7 @@ However, there is a small difference between setting the voxel temperature to ro
 
 \section{Application of Model for Spy Disposal}
 
-In the 1964 James Bond film, Goldfinger, James Bond is threatened with a laser by the titular antagonist ()\cref{fig:goldfinger}.
+In the 1964 James Bond film Goldfinger, James Bond is threatened with a laser by the titular antagonist ()\cref{fig:goldfinger}.
 Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane\footnote{i.e could Goldfinger use a laser that would lessen Bond's suffering.} in his choice of laser for the task?
 
 As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the ``laser''\footnote{A laser was not used on set, but rather was added in post-production.} shown on screen being red, the likely laser portrayed is a ruby laser.
@@ -818,9 +817,9 @@ The model has been fully compared with both analytical solutions and experimenta
 The model was found to match with experimental results that a tissue ablation temperature $T_a$ of around $500~^{\circ}C$ has to be adopted, toward the higher end of the range previously observed in the literature.
 
 The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form. The computational model could be used in future to help develop treatment regimes for both aesthetic and medical procedures. For example, currently there is considerable amount of ``down time'' after skin rejuvenation, in which the patient displays inflammation, erythema, edema, pain, and crusting~\cite{lapidoth2014fractional,trelles2011safe,kohl2015fractional}. Simulations of thermal damage due to fractional ablation could help design treatment regimes that minimise these effects, whilst still delivering skin rejuvenation.
-The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to ``drill'' holes into the skin to help topical medicines diffuse into the skin better, than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
+The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to ``drill'' holes into the skin to help topical medicines diffuse into the skin better than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
 
-There are many avenues available with regards to future work on this model. The model presented here in this chapter was on a initially homogeneous skin model. In reality skin is compromised of several distinctive layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores. However, as the laser used in these studies is an infra-red laser, water is the highest absorbing chromophore, meaning that a physically accurate model, with various chromophores is not need for this application.
+There are many avenues available with regards to future work on this model. The model presented here in this chapter was on an initially homogeneous skin model. In reality skin is composed of several distinct layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores. However, as the laser used in these studies is an infra-red laser, water is the highest absorbing chromophore, meaning that a physically accurate model, with various chromophores is not need for this application.
 The current model is a voxel based model, where all the voxels are the same size. This allows the model presented in this chapter to be easily set-up, with regards to parallelisation, optical/thermal properties and ease of programming. However, voxel models, where all the voxels are the same size, are not computationally efficient. Particularly in order to achieve good resolution, many voxels are needed, which requires large amounts of RAM, due to a $\sim n^3$ scaling of voxels to memory in 3D. A more efficient way, would be to allow different sizes of voxels, depending on parts of the model which need high resolution, and parts that do not need high resolution. Such a voxel model is called an \gls*{amr}. There are downsides to \gls*{amr}: complex implementation for parallelisation and set-up of optical/thermal properties, slower optical depth integration routines due to neighbour lookups.
 
 

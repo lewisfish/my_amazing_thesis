@@ -10,13 +10,13 @@ However, simulation techniques for modelling complex shaped beams in biological 
 Currently there are several techniques that can model these beams in biological tissue, however they all have downsides.
 These methods include diffusion approximation to the~\gls*{rte}, \gls*{fdtd}, \gls*{pstd}, \gls*{bpms}, and \gls*{mcrt}.
 
-As discussed in~\nameref{sec:diffusionapprox}, the diffusion approximation has many issues when it comes to modelling light propagation in biological tissue.
+As discussed in~\nameref{sec:diffusionapprox} section, the diffusion approximation has many issues when it comes to modelling light propagation in biological tissue.
 \gls*{fdtd} involves using a finite difference method to solve Maxwell's equations.
 This is computationally intensive and requires a grid resolution of $\sim \lambda/20$ and thus most models are restricted to 2D~\cite{glaser2016fractal,elmaklizi2015penetration}. 
 \gls*{pstd} like the \gls*{fdtd} is also computationally intensive, though to a lesser extent~\cite{glaser2016fractal}.
 \Gls*{bpm} is a fairly computational efficient method of propagating light beams, compared to~\gls*{fdtd} or~\gls*{pstd}.
 However, the~\gls*{bpm} uses the slowly varying envelope approximation, which limits some of the problems it can be applied.
-\Gls*{bpm} is also generally a uni-directional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issues in the model's accuracy~\cite{van1981beam,glaser2016fractal}.
+\Gls*{bpm} is also generally a unidirectional propagation method, though it can be adapted to model bidirectional propagation, this can lead to issues in the model's accuracy~\cite{van1981beam,glaser2016fractal}.
 
 \medskip
 
@@ -80,7 +80,7 @@ To model interference, we let the photon packets interfere with one another in a
 We do not model the interference at a point in space where photon packets cross, due to the ballistic nature of the \gls*{mcrt} simulation this does not occur with enough frequency to give a good signal to noise ratio. 
 Therefore, interference takes place in a volume, $dV$, or area element, $dA$, instead.
 To calculate the intensity from the complex phase, the absolute value of the phase is squared.
-Therefore to calculate the intensity for a given voxel or area, the phase is first summed in each voxel or area before the absolute value is squared.~\Cref{eqn:intense} shows the equation for intensity for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
+Therefore, to calculate the intensity for a given voxel or area, the phase is first summed in each voxel or area before the absolute value is squared.~\Cref{eqn:intense} shows the equation for intensity for a volume element $dV$. A similar relation for calculating the interference on an area element $dA$ also exists.
 
 \begin{equation}
 I(\zeta)= \left| \sum\limits_{\zeta}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) + i \sum\limits_{\zeta}E_0\ sin\left(\frac{2\pi l}{\lambda}\right)\right|^2,\ \ \ \zeta=(x,y,z)
@@ -97,7 +97,7 @@ I(\zeta)= \left| \sum\limits_{\zeta}E_0\ cos\left(\frac{2\pi l}{\lambda}\right) 
 
 \indent $E_0$ is the initial electric field of the packets as in~\cref{eqn:initefield} [$Vm^{-1}$]
 
-\indent and $\zeta$ is the $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
+\indent and $\zeta$ is $x^{th}$, $y^{th}$, $z^{th}$ cell, volume $dV$.
 
 \medskip
 
@@ -120,6 +120,13 @@ This led to Augustin-Jean Fresnel in 1818, combining the Huygens principle with 
 This Huygens-Fresnel principle, gave an accurate description of the propagation of light and diffraction effects.
 This was achieved by allowing the secondary wavelets to self interfere, giving rise to an accurate description of the physical phenomena.
 Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory~\cite{kirchhoff1883ann,born2000principles}. 
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{huygens.pdf}
+    \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle. Dashed lines illustrate the wavefront position at the previous time step, and is the source of the Huygens-Fresnel wavelets.}
+    \label{fig:huygensillis}
+\end{figure}
 
 The Huygens-Fresnel principle allows the modelling of diffraction in both the near and far field.
 As the principle states that every point on the wavefront is a source of secondary spherical waves, this implies that there are ``backward'' waves.
@@ -159,12 +166,6 @@ Our algorithm uses the Huygens-Fresnel principle and the tracking of complex pha
 The principle allows the algorithm to calculate the complex amplitude at a point, and thus the intensity at that point, essentially numerically simulating~\cref{eqn:kirchhoffeqn}.
 These two concepts underpin the algorithm that allows various complex beams, and wave phenomena to be simulated within a ballistic method. The following sections validate the method against the theory and experimental data for propagation of various complex beams.
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{huygens.pdf}
-    \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle. Dashed lines illustrate the wavefront position at the previous time step, and is the source of the Huygens-Fresnel wavelets.}
-    \label{fig:huygensillis}
-\end{figure}
 
 \subsection{Validation of Phase Tracking Algorithm}
 
@@ -295,7 +296,7 @@ I_p = \frac{I_u}{4} \{[C(u_2) - C(u1)]^2 + [S(u_2) - S(u_1)]^2\} \times \{[C(v_2
 As the mathematics of calculating the optical disturbances at all points on a plane at point $P$ is difficult, instead the aperture is moved by small displacements, with $\overrightarrow{SOP}$ fixed.
 This effectively achieves the translation of the origin, $O$, with respect to the fixed aperture. 
 Thus, for each displacement new aperture coordinates $y_1$, $y_2$, $z_1$, and $z_2$ are generated and therefore new $u_1$, $u_2$, $v_1$, and $v_2$.
-Therefore the intensity at a point $P +\delta d$, where $\delta d$ is the displacement, can be calculated.
+Therefore, the intensity at a point $P +\delta d$, where $\delta d$ is the displacement, can be calculated.
 This approximation holds for displacements that are small compared to the $\rho_0$~\cite{born2000principles,hecht2017optics,goodman2017introduction}.
 Using this method and~\cref{eqn:fresIntensityp} gives the theoretical curves in~\cref{fig:frescompare}.
 
@@ -343,26 +344,26 @@ E(r,z)=E_0\frac{w_0}{w(z)}e^{\frac{-r^2}{w(z)^2}}e^{-i(kz+k\frac{r^2}{2R(z)}-\va
 
     \indent $r$ is the radial distance from the optical axis [$m$];
 
-    \indent $z$ is the axial distance from  the beams waist [$m$];
+    \indent $z$ is the axial distance from  the beam waist [$m$];
 
-    \indent $k$ is the wavenumber, $k=\frac{2\pi}{\lambda}$ [$m^{-1}$];
+    \indent $k$ is the wavenumber $k=\frac{2\pi}{\lambda}$ [$m^{-1}$];
 
     \indent $E_0$ is the electric field amplitude at the origin [$Vm^{-1}$];
 
-    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance z along 
+    \indent $w(z)$ is the radius of the beam at which the amplitude has fallen to $\frac{1}{e}$, at the distance $z$ along 
 
     \indent the beam,~\cref{eqn:gwaist} [$m$];
 
     \indent $w_0$ is the waist radius [$m$];
 
-    \indent $R(z)$ is the radius of curvature of the beams wavefronts at z,~\cref{eqn:radiuscurve} [$m$];
+    \indent $R(z)$ is the radius of curvature of the beam's wavefronts at $z$,~\cref{eqn:radiuscurve} [$m$];
 
-    \indent and finally, $\varphi(z)$ is the Gouy phase at z,~\cref{eqn:gouyphase} [-].
+    \indent and finally, $\varphi(z)$ is the Gouy phase at $z$,~\cref{eqn:gouyphase} [-].
 
 \medskip
 
 ~\Cref{eqn:gwaist,eqn:gouyphase,eqn:rayleighrange,eqn:beamwaist,eqn:radiuscurve} give the definitions of key physical properties as outlined above or as shown in~\cref{fig:gbeamills}. 
-$z_r$ is the Rayleigh range,~\cref{eqn:rayleighrange}, and defines the point at which the beams waist grows to $\sqrt{2}$ times the size of the beam at its waist.
+$z_r$ is the Rayleigh range,~\cref{eqn:rayleighrange}, and defines the point at which the beam's waist grows to $\sqrt{2}$ times the size of the beam at its waist.
 The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, where $f$ is the focal length and $D$ is the $\tfrac{1}{e^2}$ diameter of the beam at the lens.
 
 \begin{align}
@@ -382,9 +383,9 @@ The waist of the beam at the focal point is defined as~\cref{eqn:beamwaist}, whe
 
 With the physical properties of the Gaussian beam outlined, a Gaussian beam can now be modelled using our algorithm.
 To simulate a Gaussian beam, we set up the simulation as shown in~\cref{fig:gausssetup}.
-The simulated lens used is a convex-plano lens, with radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
+The simulated lens used is a convex-plano lens, with a radius of curvature, $4.6~mm$, thickness, $L_t$, of $2.2~mm$, and working distance, $W_d$, 8.5~$mm$.
 A Gaussian beam wavelength $488~nm$ and $\tfrac{1}{e^2}$ waist diameter $0.5~mm$, is incident on the lens.
-Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.1\mu m$.
+Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.1~\mu m$.
 
 \begin{figure}[!htbp]
     \centering
@@ -404,14 +405,14 @@ The packet is then propagated to the surface of the convex side of the lens.
 This is achieved by finding the intersection of a sphere, which represents the convex side of the lens, and the packets path.
 With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
 If the packet is reflected the packet is killed and the process starts again.
-If the packet is refracted, and moved in the new direction to the planar surface of the lens.
-The new direction vector is calculated using a vector version of Snell's law (see~\cref{app:fresnelappend} for discussion of this).
+If the packet is refracted, and moved into a new direction to the planar surface of the lens.
+The new direction vector is calculated using a vector version of Snell's law (see~\cref{app:fresnelappend} for a discussion of this).
 The packets are then uniformly sampled onto the surface of the voxel medium and the usual~\gls*{mcrt} method is used to propagate the packet whilst tracking the phase.
 
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.75\textwidth]{gaussian.pdf}
-    \caption{Results of \textit{in-silico} experiment of focusing a Gaussian beam though a convex-plano lens.}
+    \caption{Results of \textit{in-silico} experiment of focusing a Gaussian beam through a convex-plano lens.}
     \label{fig:simgaussexp}
 \end{figure}
 
@@ -430,12 +431,12 @@ This can be seen in~\cref{fig:proofchgrz}, where the beam (direction of propagat
 \end{figure}
 
 $\varphi MC$ can also model spherical aberrations caused by lenses.
-\Cref{fig:spheraberr} shows aberrations caused by a plano-convex lens along side an illustration of the paths that light take through the imperfect lens, causing spherical aberrations.
+\Cref{fig:spheraberr} shows aberrations caused by a plano-convex lens alongside an illustration of the paths that light take through the imperfect lens, causing spherical aberrations.
 
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=0.65\textwidth]{spher-aber.pdf}
-    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top image generated using same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Image shows the elongated focus and characteristic interference pattern behind the focus. Bottom image shows illustration of rays traced through a lens which suffers from spherical aberration.}
+    \caption{Illustration of $\varphi MC$'s ability to model spherical aberrations. Top image generated using the same setup as in~\cref{fig:gausssetup}, but with $D=1.5~mm$ within $\varphi$MC. Image shows the elongated focus and characteristic interference pattern behind the focus. Bottom image shows an illustration of rays traced through a lens which suffers from spherical aberration.}
     \label{fig:spheraberr}
 \end{figure}
 
@@ -450,8 +451,8 @@ Bessel beams have been the subject of intense research since their discovery in 
 Durnin noticed that the solution to the Helmholtz equation of the Bessel type were independent of the direction of propagation.
 This means that the central core of the beam is generally more diffraction resistant when compared to a Gaussian beam with a similar spot size.
 Bessel beams also have a property of ``self-healing'', this means if an obstruction is placed in the path of the central lobe of the Bessel beam, the Bessel beam can then ``heal'' and reform past the obstruction~\cite{mcgloin2005bessel}.
-However, it is physically impossible to create a ``real'' Bessel beam, as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require infinite amount of power~\cite{durnin1987diffraction}.
-Therefore all Bessel beams that are created experimentally are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
+However, it is physically impossible to create a ``real'' Bessel beam as the Bessel beam can have infinite rings, which each carry the same amount of power, thus would require an infinite amount of power~\cite{durnin1987diffraction}.
+Therefore, all Bessel beams that are created experimentally are quasi-Bessel beams which are similar to their theoretical counterpart over a finite distance~\cite{durnin1987diffraction}.
 
 
 These two properties make Bessel beams an attractive avenue of research, as novel solutions to imaging problems.
@@ -526,7 +527,7 @@ All the simulations of Bessel beams in this thesis use the axicon method of gene
 Using simple geometry and Snell's law the following equations can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
 
 The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However, in reality the Bessel beam will continue to propagate slightly passed this depth.
-~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function ($cot x = \tfrac{1}{\tan x}$).
+~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function ($\cot x = \tfrac{1}{\tan x}$).
 \begin{equation}
 z_{max}=R\left(cot\left(\beta\right) - tan\left(\alpha\right)\right)
 \label{eqn:besselzmax}
@@ -598,7 +599,7 @@ $\varphi$MC can also model the self-healing property of Bessel beams, this is sh
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{farfield.pdf}
-\caption{Bessel beam in the far field. Bessel beams in the far field become ring beams. Image shows a slice of intensity through the medium.}
+\caption{Bessel beam in the far field. Bessel beams in the far field becomes a ring beam. Image shows a slice of intensity through the medium.}
 \label{fig:farfield}
 \end{figure}
 
@@ -607,13 +608,14 @@ $\varphi$MC can also model the self-healing property of Bessel beams, this is sh
 
 To ensure our algorithm works in turbid media, experiments were carried out by our collaborators, S. Reidt \textit{et al.}, at the University of Dundee.
 These experiments allow us to test our algorithms ability to simulate scattering of Bessel beams in turbid media.
-S. Reidt \textit{et al.} carried out an experiment where a Bessel beam was propagated through a medium of varying turbidity.
+S. Reidt \textit{et al.} carried out an experiment where a Bessel beam was propagated through a medium of varying turbidities.
 A laser, wavelength $488~nm$, with a Gaussian profile is shone on an axicon lens, with angle $5^{\circ}$.
 The laser beam had a $\tfrac{1}{e^2}$ diameter of $2~mm$. 
 
 
 The Bessel beam was allowed to propagate through the air for $10~cm$ before entering a cuvette of side $2~mm$.
 The cuvette was filled with $500~\mu L$ of water, and various volumes of a scattering agent added.
+\Cref{fig:expsetup} shows the experimental set-up.
 \FloatBarrier
 
 \begin{figure}[!htbp]
@@ -628,7 +630,6 @@ The scattering agent used is intralipid $20~\%$ (Sigma-Aldrich), which is dilute
 Dilutions of Intralipid are kept below 2\% scattering particle concentration, so that the scattering exhibited by the intralipid is in the independent scattering regime\footnote{The independent scattering regime is where $g$ is dependent on the size, shape and material properties of the scattering particle, and the material properties of the bulk material, but not the number of scattering particles~\cite{aernouts2013supercontinuum,mishchenko2018independent}.}.
 This allows the linear scaling of the optical properties by concentrations~\cite{aernouts2013supercontinuum,vardaki2015studying,di2011effect}.
 Images of the Bessel beam as it emerges from the cuvette are taken for comparison with our algorithm.
-~\Cref{fig:expsetup} shows the experimental set-up.
 
 
 \begin{figure}[!htbp]
@@ -693,7 +694,7 @@ Once all the packets have been run, the phase is converted into intensity, as in
 \subsubsection*{Discussion}
 
 As mentioned in previous sections, the power of the \gls*{mcrt} method is that we can track virtually any quantity in the simulation.
-Alongside generating intensity images, we can also track the average number of scattering per packet, a quantity that is hard to measure experimentally.
+Alongside generating intensity images, we can also track the average number of scatterings per packet, a quantity that is hard to measure experimentally.
 \Cref{tab:numscatt} shows the average number of scattering per packet alongside the optical depth of the medium from the source to the image plane.
 The simulations show that above $\approx$ 2 scatterings of a packet the Bessel beam is ``destroyed'' and the generated image becomes washed out with noise.
 
@@ -717,12 +718,12 @@ The image created was thus a $2001 \times 2001$ with a resolution of $1~\mu m$.
 To achieve a good signal to noise ratio for this set-up $6.4\times10^{12}$ packets needed to be run, taking $\sim$ 70 hours on a computer cluster using 64 cores.
 This was sufficient to get a good signal to noise ratios for all the simulations up to $6~\mu L$.
 However, the number of packets needed to get a good signal to noise ratio for $8~\mu L$ and above was prohibitively computationally costly.
-Therefore the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
+Therefore, the modelled medium was shrunk in the \textit{x} and \textit{y} directions giving: $0.5~mm \times 0.5~mm \times 2.0~mm$.
 This allowed a smaller image (501 $\times$ 501), whilst keeping the same resolution.
 Shrinking the medium also has the benefit that the photons are confined closer to the image plane, thus ensuring more photons hit the plane in comparison to the larger medium. 
 
 Shrinking the mediums size does have some drawbacks.
-First the Bessel beams propagation depth rely on the input beams width (see~\cref{eqn:besselzmax}).
+First, the Bessel beams propagation depth rely on the input beams width (see~\cref{eqn:besselzmax}).
 The input beams width was kept constant between the shrinking of the volumes size.
 However, shrinking the mediums size in the \textit{x} and \textit{y} directions gives the same effect as using a smaller input beam.
 Therefore, the \textit{x} and \textit{y} dimension were carefully chosen such that the Bessel beam would still form a Bessel beam at the image plane.
@@ -747,7 +748,7 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 \section{Higher Order Bessel Beams}
 
 Higher order Bessel beams (HOBBs), are Bessel beams where the electric field has an extra term of $e^{-il\varphi}$, as shown in~\cref{eqn:hobb}, and $l \neq 0$.
-\Gls*{hobb} have found use for optical trapping targets that are reflective/low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}.
+\Gls*{hobb} have found a use for optical trapping targets that are reflective/low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}.
 Our technique outlined in the preceding sections, can also be applied to arbitrary higher order Bessel beams. 
 
 As before, the electric field of a $l^{th}$ order Bessel beam is:
@@ -777,7 +778,7 @@ A helicon (shown in~\cref{fig:helix-2}) is an axicon attached to a helix phase d
 The helical element imparts a helical phase delay to photon packets as they pass through the element.
 
 
-The distance travelled though the helicon is shown in~\cref{eqn:helix,eqn:axicon,eqn:heightdiff}~\cite{wei2015generation}.
+The distance travelled through the helicon is shown in~\cref{eqn:helix,eqn:axicon,eqn:heightdiff}~\cite{wei2015generation}.
 $h_1$ is the path length travelled by a photon through the helical element.
 $h_2$ is the path through an axicon, and $\Delta h$ is the height of the helical discontinuity.
 
@@ -802,7 +803,7 @@ The path length in the above equations can be converted into a phase delay by co
 \begin{align}
 T_1(\varphi)&=e^{-ik(n-1)h_1}=e^{-il\phi}\\
 T_2(r)&=e^{-ik(n-1)h_2}=e^{-ik_rr}\\
-T_3(r,\varphi)&=T_1*T_2=e^{-ik_rr-il\phi}\\
+T_3(r,\varphi)&=T_1*T_2=e^{-ik_rr-il\phi}
 \end{align}
 
 Where $T_1$ is the transmission function for the helical element, $T_2$ is the transmission function for the axicon, and $T_3$ is the total transmission function.
@@ -812,7 +813,7 @@ Using the small angle approximation  for $\beta$ and~\cref{eqn:betaangle}, and k
 \varphi(\phi,r)=k(n-1)r\alpha+l\phi
 \end{equation}
 
-To implement a helicon in the $\varphi MC$ algorithm, an additional helical phase delay is added.
+To implement a helicon in the $\varphi MC$ algorithm, a helical phase delay is added.
 The additional delay is implemented by adding $l\phi$ where $0<\phi<\tfrac{2\pi}{l}$.
 An actual helix element is not modelled explicitly in the code, but rather just the phase delay.
 This method is similar to using a spatial light modulator in an experiment to impart a phase delay on a beam.
@@ -833,7 +834,7 @@ As Bessel and Gaussian beams are radically different from one another it is hard
 Gaussian beams carry all their power in the ``central core'' of the beam, whereas in a Bessel beam, it carries the same amount of power in each ring.
 Bessel beams also have a much larger depth of focus than Gaussian beams.
 This section attempts to compare the two beams, to predict which beam performs better in a heavily scattering medium using $\varphi$MC\@.
-Bessel beams are expected to perform better than Gaussian beams, due to their self-healing properties and non-diffractive core, this section aims to quantify how this property may or may not help penetration though a highly scattering medium. 
+Bessel beams are expected to perform better than Gaussian beams, due to their self-healing properties and non-diffractive core, this section aims to quantify how this property may or may not help penetration through a highly scattering medium. 
 
 
 As mentioned, Bessel beams and Gaussian beams are not alike, so to ensure a fair comparison the Bessel beams central core width is set to that of the Gaussian beam's waist.
@@ -871,7 +872,7 @@ The results of this are shown in~\cref{fig:1stcomp,fig:1stcomp-1}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{Compare-BvdG-xyplane-1mW-equal-focus.pdf}
-    \caption{First comparison of Bessel and Gaussian beams with equal power used to generate both beams. Plots taken at the Gaussian beams focus. The maxima at the sides of the Gaussian beam in the $0.0\mu L$plot are due to simulation effects, mainly the small size of the medium not allowing photons from further off the optical axis to interfere destructively.}
+    \caption{First comparison of Bessel and Gaussian beams with equal power used to generate both beams. Plots taken at the Gaussian beams focus. The maxima at the sides of the Gaussian beam in the $0.0\mu L$ plot are due to simulation effects, mainly the small size of the medium not allowing photons from further off the optical axis to interfere destructively.}
     \label{fig:1stcomp}
 \end{figure}
 
@@ -884,7 +885,7 @@ The results of this are shown in~\cref{fig:1stcomp,fig:1stcomp-1}
 
 The results show that for the same power, Gaussian beams propagate deeper into the medium compared to Bessel beams.
 This is to be expected as in a Gaussian beam all the power is in its ``central core'', whilst the power is evenly distributed between all the Bessel beam's rings.
-Therefore, for a second comparison the power given to the Bessel beam is such that the central core maximum matches that of the Gaussian beam's at its focus for the case where there is no scattering.
+Therefore, for a second comparison the power given to the Bessel beam is such that the central core maximum matches that of the Gaussian beam at its focus for the case where there is no scattering.
 To achieve this the Bessel beam was given $\sim 15\times$ the power given to the Gaussian beam.
 The results of this comparison are illustrated in~\cref{fig:2ndcomp}.
 
@@ -913,19 +914,19 @@ For equal power beams in the previous section, Gaussian beams perform ``better''
 Though this is expected due to the Bessel beams property that the power in the beam is spread evenly over its rings.
 Thus, the power in the central lobe is much less than that of the Gaussian beam.
 
-To give a slightly more fair comparison of intensity in the central lobes of the beams, the Bessel beam was given $15\times$ more power than the Gaussian beam. T
-his allows a better comparison between the Gaussian beams' core and the Bessel beam's core and gives a more comparable intensity between the beams at the location of the Gaussian beams focus.
+To give a slightly more fair comparison of intensity in the central lobes of the beams, the Bessel beam was given $15\times$ more power than the Gaussian beam. 
+This allows a better comparison between the Gaussian beams' core and the Bessel beam's core and gives a more comparable intensity between the beams at the location of the Gaussian beams focus.
 In this case, the Bessel beam appears to perform better in a highly scattering medium, as shown in~\cref{fig:2ncompbottom}.
 The Bessel beam shows comparable intensity with the Gaussian beam in the first three mediums, though the Gaussian beam out performs the Bessel beam in the higher scattering media.
 It would appear that the Bessel beams self-healing property does not help a Bessel beam propagate through a highly scattering medium.
 \Cref{fig:bessel-scat-explain} shows how the Bessel beam may become degraded due to scattering.
-As photons propagate though the medium they interfere with one another constructively and destructively to form a Bessel beam.
+As photons propagate through the medium they interfere with one another constructively and destructively to form a Bessel beam.
 However, if enough photons are scattered, then the Bessel beam becomes degraded and thus no longer is a Bessel beam, as these photons are no longer coherent with the rest of the beam, so they act as a negative factor in the beams formation.
 Another reason that the ``self-healing'' property of the Bessel beam does not ``save'' the beam from scattering is that the ``self-healing'' is not self-healing.
 The self-healing in reality is just photons from further off the optical axis forming the Bessel beam further down the optical axis, e.g the photons that are impeded by the blockage are stopped, but the photons that are not impeded form a Bessel beam as expected.
 If you placed a blockage in front of the Bessel beam larger than the width of the input beam, then the Bessel beam would not form at all.
 
-Bessel beams do have their positives, their self-healing property does help ``reform'' the beam past small blockages, and their depth of field is superior to an equivalent Gaussian beam, as their central cores is ``non-diffractive''.
+Bessel beams do have their positives, their self-healing property does help ``reform'' the beam past small blockages, and their depth of field is superior to an equivalent Gaussian beam, as their central core is ``non-diffractive''.
 
 
 \begin{figure}[!htbp]
@@ -949,8 +950,8 @@ Both beam types have been validated against both theoretical and experimental re
 Finally, Gaussian beams and Bessel beams were compared with one another in a highly scattering medium, where Bessel beams appear to give better performance.
 However, $\varphi$MC is not a silver bullet for modelling these complex beams in a scattering medium.
 Depending on the problem at hand, the computational load can be excessive.
-For example, if you want to know the intensity of the beam at all locations though a large ($> 1mm^3$) scattering medium with a complex 3D structure, then the time taken to get a good signal to noise ration may be computationally prohibitive.
-Though it is expected that in most cases the intensity is not needed at all locations in a medium, and an image is all that is need to be calculated, then even in a complex 3D structure $\varphi$MC should perform better than the methods listed at the start of this chapter\footnote{Though to achieve better performance with the current code, adaptive mesh grids would have to be implemented.}.
+For example, if you want to know the intensity of the beam at all locations through a large ($> 1mm^3$) scattering medium with a complex 3D structure, then the time taken to get a good signal to noise ratio may be computationally prohibitive.
+Though it is expected that in most cases the intensity is not needed at all locations in a medium, and an image is all that is needed to be calculated, then even in a complex 3D structure $\varphi$MC should perform better than the methods listed at the start of this chapter\footnote{Though to achieve better performance with the current code, adaptive mesh grids would have to be implemented.}.
 Where $\varphi$MC excels is that it can accurately model scattering effects on the propagation of complex beams through scattering media.
 
 %sources

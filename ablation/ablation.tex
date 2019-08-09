@@ -18,6 +18,7 @@ Currently, the standard method to measure the depth of the ablative holes is via
 \section{Methods}
 
 To replicate the experimental work \textit{in silico}, the numerical model has three main portions. The first is the \gls*{mcrt} code that models light transport through tissue so that we can calculate the laser energy deposited as a function of time and space. The second, a \gls*{fdm} which is used to calculate the heat diffusion within the tissue due to the absorbed laser energy. Finally, a tissue damage model to track the tissue damage caused by the laser. All these individual functions are connected together to create a full numerical model.
+The full code from this chapter can be found at \url{https://github.com/lewisfish/Tissue-Ablation-MC}
 
 \subsection{Monte Carlo radiation transport (MCRT)}
 
@@ -122,7 +123,7 @@ As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries w
 The numerical method employed is a finite difference method (FDM), derived from the Taylor series, see~\cref{eqn:taylor}. 
 
 
-A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.
+The \gls*{fdm} works by discretising a function, $f(x)$, onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.
 \Cref{eqn:fdmfirst} is the so called ``forward'' difference, due to it using a point in the ``forward'' direction.
 The ``backward'' and ``central'' difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}.
 The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backward differences.

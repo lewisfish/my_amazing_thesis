@@ -12,7 +12,7 @@ One class of laser used in these procedures are ablative lasers. Ablative lasers
 
 One downside to using lasers to remove tissue, is that unlike a scalpel where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can cause thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
-Currently, the only reliable method to measure the depth of the ablative holes, is via a biopsy, which is an invasive procedure. In this work an \gls*{oct} system is used to measure the ablative crater non-invasively \textit{in-vivo}. The \gls*{oct} measurements are then compared to a computational model developed as part of this project. It is hoped this computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
+Currently, the standard method to measure the depth of the ablative holes is via a biopsy which is an invasive procedure. In this work an \gls*{oct} system is used to measure the ablative crater non-invasively \textit{in-vivo}. The \gls*{oct} measurements are then compared to a computational model developed as part of this project. It is hoped this computational model could be used to predict the depth of the ablative crater when using a certain laser power for various different applications such as: laser assisted drug delivery, and various cosmetic applications.
 
 
 \section{Methods}
@@ -43,9 +43,9 @@ E_{i}^{abs} = \frac{P}{N V_i}\sum\mu_{a,i} s
 
 	\indent $E_i^{abs}$ is the energy absorbed in the $i^{th}$ voxel [$Js^{-1}m^{-3}$];
 	
-	\indent P is power [$W$];
+	\indent $P$ is power [$W$];
 	
-	\indent N is the number of packets, representing a power, P;
+	\indent $N$ is the number of packets, representing a power, $P_i$;
 	
 	\indent $V_i$ is the volume of the $i^{th}$ voxel [$m^{-3}$];
 	
@@ -70,8 +70,7 @@ Finally, to match the experiment undertaken the medium and laser for the \textit
 
 \subsection{Heat Transport}
 
-The diffusion of heat can be modelled using the heat equation~(\cref{eqn:heat}), which is derived from Fourier's law and the principle of conservation of energy~\cite{widder1976heat}.%~(see~\cref{app:heatderive}). 
-The standard heat equation is a partial differential equation of the parabolic form. Solutions and analytical methods are readily available for lower dimensions (i.e. 1D heat diffusion), but for higher dimensions, numerical models must be used for all except the simplest problems. The simplest form of the heat equation is shown below:
+The diffusion of heat can be modelled using the heat equation~(\cref{eqn:heat}), which is derived from Fourier's law and the principle of conservation of energy~\cite{widder1976heat}.  The standard heat equation is a partial differential equation of the parabolic form. Solutions and analytical methods are readily available for lower dimensions (i.e. 1D heat diffusion), but for higher dimensions, numerical models must be used for all except the simplest problems. The simplest form of the heat equation is shown below:
 
 \begin{equation}
 \rho c_p \frac{\partial T}{\partial t}= \nabla \cdot (\kappa \nabla T) + \dot{q}
@@ -84,7 +83,7 @@ The standard heat equation is a partial differential equation of the parabolic f
 	
 	\indent $\kappa$ is the thermal conductivity [$W m^{-1} K^{-1}$];
 	
-	\indent $\rho$ is the density [$Kg  m^{-3}$];
+	\indent $\rho$ is the density [$kg  m^{-3}$];
 	
 	\indent $c_p$ the specific heat capacity [$J K^{-1}$];
 	
@@ -109,23 +108,23 @@ The medium is considered to be at a constant temperature of 5$^{\circ}$C, as the
 % \label{eqn:bceqns}
 % \end{equation}
 
-\noindent Where:
+% \noindent Where:
 
-	\indent \textit{h} is the heat transfer coefficient [$W m^{-2} K$];
+% 	\indent \textit{h} is the heat transfer coefficient [$W m^{-2} K$];
 	
-	\indent \textit{A} is the area of the grid element, that is radiating/convicting heat away [$m^{-2}$];
+% 	\indent \textit{A} is the area of the grid element, that is radiating/convicting heat away [$m^{-2}$];
 	
-	\indent and $T$, and $T_\infty$ are the temperature in a voxel and the surrounding medium temperature respectively~[$K$].
+% 	\indent and $T$, and $T_\infty$ are the temperature in a voxel and the surrounding medium temperature respectively~[$K$].
 	
-	\medskip
+% 	\medskip
 
 As \cref{eqn:nonlinearheat} is generally hard to solve in arbitrary geometries with complex boundary conditions, a numerical method is employed to solve it.
-The numerical method employed is a \gls*{fdm}, derived from the Taylor series, see~\cref{eqn:taylor}. 
+The numerical method employed is a finite difference method (FDM), derived from the Taylor series, see~\cref{eqn:taylor}. 
 
 
 A function $f(x)$ is discretised onto a grid with \textit{N} nodes a distance $\Delta x$ apart. ~\Cref{eqn:taylor} is then truncated and rearranged and it is assumed that the remainder term $R_1$ is sufficiently small enough, to yield an approximation for the first derivative of a function $f(x)$ at a point $x_0+\Delta x$, see~\cref{eqn:fdmfirst}.
-\Cref{eqn:fdmfirst} is the so called forward difference, due to it using a point in the ``forward'' direction.
-The ``backward'' and central difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}.
+\Cref{eqn:fdmfirst} is the so called ``forward'' difference, due to it using a point in the ``forward'' direction.
+The ``backward'' and ``central'' difference terms can be calculated by using a node at $x_0-\Delta x$ for the backward difference~\cref{eqn:fdmbck}.
 The central difference (~\cref{eqn:fdmcent}) is an average of the forward and backward differences.
 Expressions can also be given for the $2^{nd}$ derivatives for backward, forward and central (forward and backward $2^{nd}$ order equations omitted for brevity)~\cref{eqn:fdmcent2}.
 
@@ -177,7 +176,7 @@ Where $\alpha=\tfrac{\kappa}{\rho c}$.
   \label{fig:fdmstencil}
 \end{figure}
 
-\Cref{eqn:simplefdm} is called the ``simple explicit form of finite-difference approximation''\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the ``stencil'' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. There are various other schemes that can be used to calculate the temperature at the next time step. However, a simple explicit scheme is used here, due to its ease of implementation despite there being a constraint on the stability in comparison to an implicit method. This method is also easily scaled up to 3D with little difficulty.
+\Cref{eqn:simplefdm} is called the ``simple explicit form of finite-difference approximation''\cite{ozisik1994finite}. \Cref{fig:fdmstencil} shows the ``stencil'' of this scheme, where there are three known points at time \textit{N}, and just one unknown at time \textit{N+1}. There are various other schemes that can be used to calculate the temperature at the next time step. However, the simple explicit scheme is used here due to its ease of implementation despite there being a constraint on the time step used in comparison to an implicit method where there is none. This method is also easily scaled up to 3D with little difficulty.
 
 \medskip
 
@@ -247,7 +246,7 @@ In the instance where there is a train of laser pulses, the laser is turned on a
 
 Due to a simple explicit \gls*{fdm} being used, the time step is constrained to make the solution stable. For a cubic 3D \gls*{fdm} without prescribed flux boundary conditions, this yields the constraint: $\Delta t \leq \tfrac{1}{\delta \alpha}$ where $\delta=\tfrac{1}{\Delta x^2}+\tfrac{1}{\Delta y^2}+\tfrac{1}{\Delta z^2}$. Along with this time constraint, the pulse length of the laser also has to be considered. If the time step of the heat simulation is too large it will not account for the heat deposited by the laser. Thus, the timestep has to be at least an order of magnitude smaller than the shortest laser pulse.
 
-As the time step is small, and the grid resolution large, the resultant simulation is slow. Thus, the code has been fully parallelised to improve performance. Both the \gls*{mcrt} and heat simulation are independently parallelised. 
+As the time step is small, and the grid resolution large the resultant simulation is slow. Thus, the code has been fully parallelised to improve performance. Both the \gls*{mcrt} and heat simulation are independently parallelised. 
 
 \medskip
 
@@ -255,10 +254,12 @@ Parallelisation of the heat simulation is more involved than the ``embarrassingl
 
 
 \begin{figure}[!htbp]
+\squeezeup{5.5}
 \centering
-\includegraphics[width=0.5\textwidth]{grid-decomp.pdf}
+\includegraphics[width=0.75\textwidth]{grid-decomp.pdf}
 \caption{Computational domain decomposition. Total computational domain (red outline) is evenly divided between cores in the CPU. This is done via layers of the domain in the z direction. Information is passed to/from cores via the ``halo swap'' process (see~\cref{fig:haloswap}).}
 \label{fig:griddecomp}
+\squeezeup{5.5}
 \end{figure}
 
 The heat simulation is parallelised using a technique called ``halo swapping''. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The ``halo swapping'' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
@@ -268,18 +269,19 @@ The heat simulation is parallelised using a technique called ``halo swapping''. 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
 
-\begin{figure}[!t]
+\begin{figure}[!htbp]
+\squeezeup{3.5}
 \centering
 \def\svgwidth{250pt}
 \input{./ablation/images/halo.pdf_tex}
 \caption{Halo swapping. Process A updates the area in red and blue on the left. It updates the blue area which is sent to process B as B's ``halo''. Process B cannot update its own halo, but rather updates the halo for process A.}
 \label{fig:haloswap}
-\vspace{-12pt}
+\squeezeup{4.5}
 \end{figure}
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=.6]{profile.pdf}
+\includegraphics[scale=.55]{profile.pdf}
 \caption{Figure shows the speed up gained by parallelisation of the heat simulation using the ``halo swapping'' technique, for various sizes of computational domain (voxels). Data taken from a Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.}
 \label{fig:parallel}
 \end{figure}
@@ -291,9 +293,9 @@ After one time step of the heat simulation has been completed, the temperature g
 \label{sec:tissuedamage}
 
 \subsubsection*{Introduction}
-The final portion of the simulation is the tissue damage model. To be able to model damage to the tissue, the process tissue undergoes upon heating due to the laser needs to be able to be described.
-
-When the laser is turned on, the temperature starts to rise within the tissue due to the absorption of photons by the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}C$~\cite{welch2011optical}.%*p539*
+The final portion of the simulation is the tissue damage model.
+To be able to model the tissue damage process, the physical reality of this process must be understood.
+When the laser is turned on, the temperature starts to rise within the tissue due to the absorption of photons by the tissue. The temperature rise causes damage to the tissue when above a threshold temperature, $T_d$, approximately 43$^{\circ}C$~\cite{welch2011optical}.
 From the temperature, $T_d$, four main areas of tissue damage are defined:
 
 
@@ -378,7 +380,9 @@ Q_{vapor}=\underbrace{laserOn(t)\cdot\dot{q}\cdot \Delta t\cdot V_{i,j,k}}_\text
 
 \noindent Where:
 
-	\indent $Q_{vapor}$ is the current energy in Joules that has been used to boil off the water in the voxel [$J$];
+	\indent $Q_{vapor}$ is the current energy in Joules that has been used to boil off
+
+	\indent the water in the voxel [$J$];
 	
 	\indent $laserOn$ is a boolean variable that determine if the laser is on or off [$-$];
 	
@@ -412,7 +416,9 @@ c_p &= 4.2\cdot 10^{3}\cdot W + 1.09\cdot 10^{3}\cdot P \\
 
 \indent $W_{init}$ is the initial water content;
 
-\indent $Q_{current}$ is the total energy absorbed by the $i^{th}$ voxel since the temperature reached 100$^{\circ}$C [$J$];
+\indent $Q_{current}$ is the total energy absorbed by the $i^{th}$ voxel since the temperature 
+
+\indent reached 100$^{\circ}$C [$J$];
 
 \indent $P$ is the protein content (i.e P = 1.0 - W);
 
@@ -420,7 +426,9 @@ c_p &= 4.2\cdot 10^{3}\cdot W + 1.09\cdot 10^{3}\cdot P \\
 
 \indent $c_p$ is the heat capacity [$J kg^{-1} K^{-1}$];
 
-\indent and $\mu_a$ is the total absorption coefficient, and $\mu_{water}\ \text{and}\ \mu_{protein}$ are the absorption coefficients of water and protein respectively.
+\indent and $\mu_a$ is the total absorption coefficient, and $\mu_{water}\ \text{and}\ \mu_{protein}$ are the
+
+\indent absorption coefficients of water and protein respectively.
 
 \medskip
 
@@ -490,7 +498,7 @@ A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=.7\textwidth]{validation.pdf}
-	\caption{Temperature of the cube for various times, comparing between analytical solution and numerical method.}
+	\caption{Temperature profiles of the cube for various times, comparing between analytical solution and numerical method.}
 	\label{fig:validation-heat}
 \end{figure}	
 
@@ -571,7 +579,7 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 
 \subsubsection*{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the\gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that, a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
+Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the \gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
 
 Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse effect, and allows the ablation crater to become deeper.
 
@@ -768,7 +776,7 @@ However, there is a greater difference in the maximum extent of thermal damage t
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
 However, this assumption may not be accurate.
 To test if the temperature of the voxel after ablation affects the depth of ablation or thermal injury to the surrounding tissue various voxel temperature were tried.
-Two different temperatures were tried: half the ablation temperature and room temperature($\approx 25~^{\circ}C$).
+Two different temperatures were tried: half the ablation temperature and room temperature ($\approx 25~^{\circ}C$).
 \Cref{fig:comparevoxtemp} shows the effect of the voxel temperature after ablation has on the ablation depth.
 
 \begin{figure}[!htbp]
@@ -783,7 +791,7 @@ However, there is a small difference between setting the voxel temperature to ro
 
 \section{Application of Model for Spy Disposal}
 
-In the 1964 James Bond film Goldfinger, James Bond is threatened with a laser by the titular antagonist ()\cref{fig:goldfinger}.
+In the 1964 James Bond film Goldfinger, James Bond is threatened with a laser by the titular antagonist (see~\cref{fig:goldfinger}).
 Would this laser actually cut Bond in half as the film implies, and could Goldfinger be more humane\footnote{i.e could Goldfinger use a laser that would lessen Bond's suffering.} in his choice of laser for the task?
 
 As the first laser was demonstrated in 1960 was a ruby laser of $694~nm$, with the film being released in 1964 and the ``laser''\footnote{A laser was not used on set, but rather was added in post-production.} shown on screen being red, the likely laser portrayed is a ruby laser.
@@ -817,7 +825,9 @@ The model has been fully compared with both analytical solutions and experimenta
 The model was found to match with experimental results that a tissue ablation temperature $T_a$ of around $500~^{\circ}C$ has to be adopted, toward the higher end of the range previously observed in the literature.
 
 The simulations allow us to predict for a given laser power and pulse length, how much thermal damage is caused in the tissue, and how deep an ablation crater that will form. The computational model could be used in future to help develop treatment regimes for both aesthetic and medical procedures. For example, currently there is considerable amount of ``down time'' after skin rejuvenation, in which the patient displays inflammation, erythema, edema, pain, and crusting~\cite{lapidoth2014fractional,trelles2011safe,kohl2015fractional}. Simulations of thermal damage due to fractional ablation could help design treatment regimes that minimise these effects, whilst still delivering skin rejuvenation.
-The model can also be applied to help optimise laser assisted drug delivery. Laser assisted drug delivery consists of using a laser to ``drill'' holes into the skin to help topical medicines diffuse into the skin better than just applying the medicines to skin with no holes. Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
+The model can also be applied to help optimise laser assisted drug delivery. 
+Laser assisted drug delivery uses lasers to drill holes into the skin to help promote topical drug diffusion into the skin.
+Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
 
 There are many avenues available with regards to future work on this model. The model presented here in this chapter was on an initially homogeneous skin model. In reality skin is composed of several distinct layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores. However, as the laser used in these studies is an infra-red laser, water is the highest absorbing chromophore, meaning that a physically accurate model, with various chromophores is not need for this application.
 The current model is a voxel based model, where all the voxels are the same size. This allows the model presented in this chapter to be easily set-up, with regards to parallelisation, optical/thermal properties and ease of programming. However, voxel models, where all the voxels are the same size, are not computationally efficient. Particularly in order to achieve good resolution, many voxels are needed, which requires large amounts of RAM, due to a $\sim n^3$ scaling of voxels to memory in 3D. A more efficient way, would be to allow different sizes of voxels, depending on parts of the model which need high resolution, and parts that do not need high resolution. Such a voxel model is called an \gls*{amr}. There are downsides to \gls*{amr}: complex implementation for parallelisation and set-up of optical/thermal properties, slower optical depth integration routines due to neighbour lookups.

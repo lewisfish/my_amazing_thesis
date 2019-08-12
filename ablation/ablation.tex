@@ -265,7 +265,7 @@ Parallelisation of the heat simulation is more involved than the ``embarrassingl
 
 The heat simulation is parallelised using a technique called ``halo swapping''. This involves splitting up the computational domain (see \cref{fig:griddecomp}), in this case the tissue medium, and doing the calculations on each domain on a separate core. The ``halo swapping'' comes in when cores need to communicate with each other about updating their boundary temperature nodes (see \cref{fig:haloswap}).
 
-\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However, if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus, to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for a certain number of cores. This is not unfeasible, due to several reasons, in particular the underlying computer architecture~\cite{ristov2016superlinear}.
+\Cref{fig:parallel} shows the speed up gained from using the technique. The ``halo swapping'' technique is efficient for situations where the computational domain can be split up with large ``chunks'' being calculated on each core. However, if the computational domain is small, and the number of cores large then bottlenecks occur due to too much communication between cores taking place. Thus, to efficiently use ``halo swapping'' careful thought has to be given to the size of the computational domain, and the number of cores running the simulation. Evidence of this bottlenecking can be seen in~\cref{fig:parallel} for problems where the size of the grid, in voxels, is $40^3$ and $24^3$. These problems also show superlinear speed up, for a certain number of cores. This is not unfeasible, due to several reasons, including the start up time of MPI or the underlying computer architecture~\cite{ristov2016superlinear}.
 
 %Use more on amadahls law
 %led to a speed up of $\sim$6, over the serial simulation. Using Amdahl's law\cite{amdahl1967validity}, the serial portion of the simulation is $\sim$ 5\%, giving a theoretical speed up $\sim$ 20 times the serial simulation.
@@ -582,7 +582,7 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 
 Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the \gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
 
-Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage done to the surrounding tissue. Decreasing the ablation temperature has the converse effect, and allows the ablation crater to become deeper.
+Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage to the surrounding tissue. Decreasing the ablation temperature has the converse effect, and allows the ablation crater to become deeper.
 
 Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to several reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
 
@@ -668,7 +668,7 @@ As stated in~\cref{sec:coagdamage}, the Arrhenius damage integral is used to est
 	\label{fig:horz-70}
 \end{figure}
 	
-As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, it appears that the maximum horizontal extent of the thermal damage tapers off. This is most likely because for lower values of $T_a$, there is a larger ablation crater, meaning that the energy form the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage. Overall there is little difference in the maximum horizontal extent of thermal injury, when using different energies (of the order of $\sim$ 0.01~mm).
+As shown in~\cref{fig:damfig}, the thermal damage zone extends for a small distance around the ablation crater, due to the diffusion of heat into these areas. \Cref{fig:horz-70} shows the maximum horizontal thermal damage distance as a function of $T_a$, and pixel beam energy. For values of $T_a$ less than $\sim 425~^{\circ}C$, it appears that the maximum horizontal extent of the thermal damage begins to taper off. This is most likely because for lower values of $T_a$, there is a larger ablation crater, meaning that the energy from the laser is deposited deeper in the tissue in comparison to higher values of $T_a$. The higher values of $T_a$ allow greater diffusion of the heat, thus yielding larger zones of damage. Overall there is little difference in the maximum horizontal extent of thermal injury, when using different energies (of the order of $\sim$ 0.01~mm).
 
 
 
@@ -684,11 +684,12 @@ Investigations for the time it takes for different areas of the tissue to become
 
 The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{rd}$ degree burns, is most likely because there is little time for heat to diffuse, whilst the laser is still illuminating the medium. The laser pulses are on the order of seconds, and tissue is not thermally conductive. This leads to the results presented here.
 
+
 \begin{figure}[!htbp]
 	\squeezeup{2.5}
 	\centering
 	\includegraphics[width=0.7\textwidth]{70w-400.pdf}
-	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 400~mJ.}
+	\caption{Figure shows the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 400~mJ.}
 	\label{fig:time-thres1}
 	\squeezeup{2.5}
 \end{figure}	
@@ -699,7 +700,7 @@ The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{r
 
 	\centering
 	\includegraphics[width=0.7\textwidth]{70w-50.pdf}
-	\caption{Figure show the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 50~mJ.}
+	\caption{Figure shows the time taken for $1^{st},\ 2^{nd}$,and $3^{rd}$ to occur as a function of depth, for a range of $T_a$'s at 50~mJ.}
 	\label{fig:time-thres2}
 	\squeezeup{2.5}
 \end{figure}	
@@ -727,7 +728,7 @@ This can be explained by the fact that the Gaussian pulse delivers energy over a
 	\label{fig:pulseprofiles}
 		\squeezeup{2.5}
 \end{figure}
-\FloatBarrier
+
 \begin{figure}[!htbp]
 	\squeezeup{2.5}
 	\centering
@@ -737,7 +738,24 @@ This can be explained by the fact that the Gaussian pulse delivers energy over a
 		\squeezeup{2.5}
 \end{figure}
 
+\Cref{fig:pulsetypeburn} shows the difference between the pulse types with respect to the time it takes to reach a type of burn.
+There is a large difference in profiles for each of the pulse types.
+The Gaussian pulse type takes approximately 0.7~s to inflict a burn of any type.
+Whereas the top hat pulse almost immediately inflict tissue damage, with the triangular pulse type takes approximately 0.05~s.
+The profiles of the lines in~\cref{fig:pulsetypeburn} are also different when compared.
+Both the Gaussian and triangular pulses have broadly the same shape, whereas the top hat beam has a gradual increasing curve.
+This is due to the shape of the beams and their energy delivers per second.
+The tophat beam delivers constant energy at $70~W$, where the other two beams peak output is $70~W$
 
+\begin{figure}[!htbp]
+	\squeezeup{2.5}
+	\centering
+	\includegraphics[width=0.6\textwidth]{time-burn-300-400.pdf}
+	\caption{Figure shows a comparison of the time it takes to inflict a burn on tissue for laser with different pulse profiles.}
+	\label{fig:pulsetypeburn}
+	\squeezeup{2.5}
+\end{figure}
+\FloatBarrier
 \subsubsection*{Investigating Initial Temperature}
 
 As the experiment was carried out on porcine tissue that was kept on ice before the experiment was conducted, we assumed that the initial temperature of the porcine tissue was around 5$~^{\circ}C$.
@@ -775,8 +793,8 @@ However, there is a greater difference in the maximum extent of thermal damage t
 \subsubsection*{Investigating Voxel Temperature After Ablation}
 
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
-However, this assumption may not be accurate.
-To test if the temperature of the voxel after ablation affects the depth of ablation or thermal injury to the surrounding tissue various voxel temperature were tried.
+However, this assumption may not be accurate as there should be some energy expended in the ablation process which would affect the temperature of the system.
+To test to see how much this could affect the simulation, the temperature of the voxel after ablation was varied.
 Two different temperatures were tried: half the ablation temperature and room temperature ($\approx 25~^{\circ}C$).
 \Cref{fig:comparevoxtemp} shows the effect of the voxel temperature after ablation has on the ablation depth.
 

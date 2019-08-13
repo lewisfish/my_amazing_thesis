@@ -3,7 +3,7 @@ mpl.use('pdf')
 import matplotlib.pyplot as plt
 import numpy as np
 
-files = ["cop-iii-absorb.dat", "cop-iii-fluro.dat"]
+files = ["/home/lewis/phdshizz/Ga-salvo-2018/res/Coproporphyrin.dat", "/home/lewis/phdshizz/Ga-salvo-2018/res/Coproporphyrin_fluro.dat"]
 
 width = 6.510  # inches
 height = width / 1.618
@@ -15,7 +15,7 @@ plt.rc('ytick', labelsize=8)
 plt.rc('axes', labelsize=12)
 fig, axs = plt.subplots(1, 2)
 
-fig.subplots_adjust(left=.1, bottom=.15, right=.98, top=.99, wspace=.3)
+fig.subplots_adjust(left=.1, bottom=.12, right=.98, top=.99, wspace=.3)
 
 
 for i, file in enumerate(files):
@@ -27,6 +27,8 @@ for i, file in enumerate(files):
     else:
         axs[i].set_ylabel(r"Absorption coefficient/$cm^{-1}$")
 
+axs[0].text(350, .35, "a)", fontsize="14", fontweight='bold')
+axs[1].text(550, .98, "b)", fontsize="14", fontweight='bold')
 fig.set_size_inches(width, height)
-fig.savefig('cop-optprop.pdf')
+fig.savefig('cop-optprop-1.pdf')
 plt.show()

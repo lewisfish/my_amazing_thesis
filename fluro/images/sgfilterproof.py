@@ -40,7 +40,10 @@ axs[1].set_xlabel("Wavelength/nm")
 axs[1].set_yticks([])
 
 axs[1].legend()
+axs[0].text(320, .94, "a)", fontweight="bold", fontsize="15")
+axs[1].text(320, .94, "b)", fontweight="bold", fontsize="15")
+
 fig.set_size_inches(width, height)
-fig.savefig('sgfilter-prrof.pdf')
+fig.savefig('sgfilter-prrof-1.pdf')
 
 plt.show()

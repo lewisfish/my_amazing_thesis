@@ -14,17 +14,16 @@
 % future work
 
 \section{Introduction}
-
+\label{sec:salvointro}
 
 \Gls*{cvds} are the leading cause of death in the world~\cite{whodeath}.
 It is estimated that around 18 million people died in 2016 from \gls*{cvds}, accounting for 31\% of global deaths~\cite{whodeath}.
 Despite the decreasing burden of \gls*{cvds} in the UK, it was still the number two cause of death in the UK in 2014~\cite{bhatnagar2016trends}.
-
 Currently risk factors are used to try to determine if a patient has \gls*{cvd}.
 However, these risk factors are only a ``causal pathway leading to the disease''~\cite{vasan2006biomarkers}.
 
 The risk factors such as high blood pressure, smoking, diabetes, physical inactivity, and dyslipidemia do not fully explain incidence of disease~\cite{olsen2010assessment,folsom2013classical}.
-Therefore research has moved to examining more novel biomarkers for detecting the disease.
+Therefore research has moved to examining more novel biomarkers for detecting the disease~\cite{melander2009novel,gerszten2008search,wang2017novel}.
 Among these novel biomarkers, the autofluorescence response of tissue is of much interest.
 
 Autofluorescence is the natural fluorescence released by biological structures upon excitation by light.
@@ -57,7 +56,7 @@ The code behind this chapters work can be found at:\url{https://github.com/lewis
 \section{Skin Model}
 
 So far in this thesis all tissue models have been simplified, by assuming that tissue is a homogeneous structure with uniform optical properties.
-However, this is not the case in reality.
+This assumption was good enough for the previous problems, however a better approach needs to be undertaken for this work.
 Tissue is inhomogeneous with nonuniform optical properties.
 However, to create a one to one model of tissue in a simulation is impractical due to the resolution required to resolve all the constituent parts of the tissue down to the cell level.
 Therefore, we need to make a compromise between reality and what is possible to model efficiently.
@@ -66,12 +65,12 @@ This section presents a five layer model of human skin.
 Dermatologists categorise the skin into several layers based upon the morphology, function, and contents of each layer~\cite{freedberg1999fitzpatrick,zaidi2010dermatology}.
 The layers are named from outer layer to innermost layer: stratum corneum, stratum lucidum, stratum granulosum, stratum spinosum, stratum basale, papillary dermis, reticular dermis, and hypodermis.
 Not all these layers are optically distinct, are too small to model or not present in a given location on the body.
-Therefore, we simplify this into just 5 layers: stratum corneum, epidermis, papillary dermis, reticular dermis, and hypodermis, with the epidermis compromising of stratum lucidum, stratum granulosum, stratum spinosum, stratum basale.~\Cref{fig:skinexample} shows the geometry of this model.
+Therefore, we simplify this into just five layers: stratum corneum, epidermis, papillary dermis, reticular dermis, and hypodermis, with the epidermis compromising of stratum lucidum, stratum granulosum, stratum spinosum, stratum basale.~\Cref{fig:skinexample} shows the geometry of this model.
 
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.7\textwidth]{Skin_layers.pdf}
-    \caption{Illustration of our five layer skin model. Image not to scale.}
+    \caption{Illustration of our five layer skin model. Image not to scale. Typical measurements for Caucasian back skin: Stratum corneum $13~\mu m$, epidermis $53~\mu m$, papillary dermis $162~\mu m$, and dermis $1640~\mu m$~\cite{southwood1955thickness}.}
     \label{fig:skinexample}
 \end{figure}
 
@@ -96,14 +95,6 @@ The stratum corneum also prevents water loss and provides some UV protection~\ci
 
 Below the Stratum corneum is the epidermis.
 The epidermis consists of several layers that are optically similar so we restrict our model to modelling this as one whole layer.
-The layers that make up the epidermis are the stratum basale, stratum spinosum, stratum granulosum, and stratum lucidum\footnote{The stratum lucidium only appears in areas of the body where skin is thick, e.g the palm or the sole of the foot.}.
-Each of these layers are distinct from one another, in the fact that the keratinocytes in each layer are different from one another.
-In the stratum lucidium the keratinocytes are dead, and fairly flat.
-In the stratum granulosum the keratinocytes are grainy are becoming fairly flat in comparison to the layers below.
-In the Stratum spinosum the keratinocytes appears spiny (hence the name of the layer), and are polyhedral in shape.
-It is in the stratum spinosum that the cells begin to become keratinized and start the process of dying as they move upwards.
-Finally, the last layer of the epidermis, the stratum basale, is the layer where the keratinocytes are born.
-Here the keratinocytes are columnar or cuboid in shape.
 
 The purpose of the epidermis is as before to provide a protective barrier to the underlying layers. 
 In the stratum basale there are also melanocytes which produce the pigment melanin which is responsible for the color of the skin, and providing some protection from harmful UV light. 
@@ -114,7 +105,7 @@ Overall the epidermis provides protection from mechanical stress, flexibility to
 
 \subsubsection*{Dermis} % (fold)
 \label{sub:dermis}
-The dermis is the layer of skin below the epidermis, and makes up the majority of the skin by size.
+The dermis is the layer of skin below the epidermis, and makes up the majority of the skin by volume.
 The cellular makeup of the dermis is different from that of the epidermis, the dermis is mostly made up of filamentous or fibrous proteins such as elastin or collagen.
 The dermis also contains various nerves and blood vessels.
 The dermis is split into three layers; the papillary dermis, the reticular dermis, and the hypodermis.
@@ -138,7 +129,7 @@ The function of the dermis is to protect from mechanical injury, thermal regulat
 
 With a discussion of what makes up the skin and what molecules contribute to the skin's optical properties, this section gives an account of how our model incorporates the optical properties of skin.
 First we will discuss the absorbers that are found in the skin and what their absorption properties as a function of wavelength.
-Scattering properties of the several layers of tissue will then be discussed followed by a quick discussion on refractive indices and anisotropy values.
+Scattering properties of the several layers of tissue will then be discussed followed by a brief discussion on refractive indices and anisotropy values.
 Finally a discussion of the fluorophores found in the skin will be presented.
 
 \medskip
@@ -224,12 +215,12 @@ The equation for modelling this was taken from I. Sahdi~\cite{saidi1992transcuta
 \end{equation}
 
 
-\Cref{fig:absorcoeff} shows the absorption spectra for the above chromophores as a function of wavelength.
+\Cref{fig:absorcoeff} shows the calculated absorption spectra for the above chromophores as a function of wavelength.
 
 \begin{figure}[!htpb]
 	\centering
 	\includegraphics[width=0.75\textwidth]{absorbs.pdf}
-	\caption{Absorption coefficients for the various chromophores found in our skin model.}
+	\caption{Absorption coefficients for the various chromophores used in our skin model.}
 	\label{fig:absorcoeff}
 \end{figure}
 
@@ -388,7 +379,6 @@ g(\lambda)=0.62+0.29\lambda\times10^{-3}
 
 \medskip
 
-The refractive indices of each layer is broadly the same and does not vary form layer to layer by a large amount.
 \Cref{tab:refindex} shows the refractive indices adopted for our skin model.
 
 \begin{table}[!htpb]
@@ -414,7 +404,7 @@ As information on wavelength dependent refractive indices is not readily availab
 
 \subsection{Fluorophores in the Skin}
 
-As mentioned in the introduction there are various molecules and proteins responsible for the autofluorescent response of the skin.
+As discussed in~\cref{sec:salvointro} above, there are various molecules and proteins responsible for the autofluorescent response of the skin.
 These include NADH (nicotinamide adenine dinucleotide), structural proteins like collagen and elastin, aromatic amino acids (tyrosine and tryptophan), porphyrins, and FAD (flavin adenine nucleotide).
 \Cref{fig:flurosshow} shows the emission and absorption spectra for these fluorophores.
 As NADH and FAD are found in cells, both are typically found in all layers of the skin.
@@ -433,7 +423,7 @@ Tyrosine and tryptophan are found in all layers of the skin~\cite{gillies2000flu
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=.75\textwidth]{fluros.pdf}
-  \caption{Top) Shows the fluorescent emission for the various different fluorophores. Bottom) Extinction coefficients for a selection of fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence,dacosta2003molecular}.}
+  \caption{a) Shows the normalised fluorescent emission for the various different fluorophores. b) Extinction coefficients for a selection of fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence,dacosta2003molecular}.}
   \label{fig:flurosshow}
 \end{figure}
 % subsubsection optical_properties (end)
@@ -460,8 +450,8 @@ To calculate whether a packet absorbs, scatters, or fluoresces, first the probab
 Discussion of scattering and absorption (by the bulk medium) was described in~\cref{sec:opticalprops}.
 To calculate the probability of fluorescence we first assume that the quantum yield of the molecule is unity.
 The quantum yield of a fluorescent molecule is the ratio of photons emitted to photons absorbed.
-This is physically unrealistic however, it does not affect the simulations accuracy as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ratio would be worse than if we assume a quantum yield of unity.
-Furthermore, information on the fluorophores used in this work, quantum yield is not readily available.
+This is physically unrealistic however it does not affect the simulation's accuracy as modelling a realistic quantum yield would mean that more packets would be discarded, and thus the signal to noise ratio would be worse than if we assume a quantum yield of unity.
+Furthermore, information on the quantum yields of the fluorophores used in this work is not readily available.
 To calculate the probability of fluorescence the absorption coefficient of the fluorescent molecule must be calculated.
 This is shown in~\cref{eqn:flurodef}:
 
@@ -539,7 +529,7 @@ The light was delivered by the aforementioned fiber, and fluorescent light was a
 \begin{figure}[!htpb]
 	\centering
 	\includegraphics[width=0.75\textwidth]{cop-optprop.pdf}
-	\caption{Optical properties of Coproporphyrin III. The figure on the left shows the absorption coefficient as a function of wavelength. The figure on the right shows the emission spectrum as a function of wavelength.}
+	\caption{Optical properties of Coproporphyrin III. a) shows the absorption coefficient as a function of wavelength. b) shows the emission spectrum as a function of wavelength.}
 	\label{fig:coporiii}
 \end{figure}
 
@@ -568,7 +558,7 @@ To determine the contribution of individual fluorophores and their concentration
 This is due to the nonlinear effect that tissue optics have on the emission profiles.
 Therefore, \gls*{mcrt} can be used to compute this effect.
 This leaves the problem as an optimisation problem.
-The Nelder-Mead method is an algorithm for unconstrained optimisation. 
+The Nelder-Mead method is an algorithm for unconstrained optimisation~\cite{nelder1965simplex}. 
 The algorithm is based upon iteratively updating a simplex. 
 A simplex is a structure in $n$-$dimensional$ space, consisting of $n+1$ points. 
 Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, etc. 
@@ -689,6 +679,8 @@ Some of these functions (Sphere, and Rosenbrock's) can also be extended to arbit
 To ensure that the~\gls*{nm} method can be used to find the unknown concentrations of the autofluorophores, we test the method with two different toy models.
 The first model is a ``2D'' model, with two different fluorophores evenly distributed over all 5 layers of our skin model, i.e $n=2$. 
 The two different fluorophores are NADH, and a fictitious fluorophore that has similar properties to FAD and tryptophan, such that the excitation spectrum is that of FAD and the emission spectrum is that of tryptophan.
+This was chosen so that the output spectrum would be multi-modal.
+However, as FAD and NADH emission peaks overlap and tryptophan's is not excited by light of wavelength $356~nm$, this fictitious fluorophore was created.
 The concentration in these layers is such that the bulk optical properties are not affected: NADH has a concentration of $1.0~\mu M$, and the fictitious fluorophore has a concentration of $2.5~\mu M$.
 To generate a spectrum to which the \gls*{nm} method can compare to, the \gls*{mcrt} code is run with the above configuration of fluorophores.
 This generated~\cref{fig:toymodelspectra}.
@@ -790,7 +782,7 @@ This again shows that the NM method can be used to find the relative concentrati
 
 \subsection{Experimental Work}
 
-Experimental work discussed in this section was carried out by my collaborators S. Smirni \textit{et al.} at the University of Dundee and Ninewells Hospital.
+Experimental work discussed in this section was carried out by my collaborators S. Smirni \textit{et al.} at the University of Dundee and Ninewells Hospital\footnote{All of the tested subjects signed an informed consent form before performing the experiment. These experiments are part of a research project approved by the University of Dundee Research Ethics Committee (UREC, Study 15064) according to the guidelines of the Declaration of Helsinki}.
 
 S. Smirni \textit{et al.} took autofluorescence spectra from the volar forearms of volunteers using the LAKK-M multi-functional laser non-invasive diagnostic system (MLNDS)\@.
 The LAKK-M system combines laser-Doppler flowmetry, tissue reflectance oximetry, pulse oximetry, and laser fluorescent diagnostics in one machine.
@@ -952,7 +944,7 @@ We vary the blood volume from ``normal'' levels as used in our previous models, 
     \centering
     \subfloat{{\includegraphics[width=.46\textwidth]{nadh-blood.pdf}}}%
     \subfloat{{\includegraphics[width=.46\textwidth]{fad-blood.pdf}}}%
-    \caption{Effect of blood content on NADH (left) and FAD (right) autofluorescence. Top left of each image shows the effect of blood on signal strength. Top right of each image shows the effect of blood on location of the fluorophores peak. Bottom of each image shows the raw spectra for an excitation wavelength of $365~nm$.}%
+    \caption{Effect of blood content on NADH (left) and FAD (right) autofluorescence. a) and d) shows the effect of blood on signal strength. b) and e) shows the effect of blood on location of the fluorophores peak. c) and f) shows the raw spectra for an excitation wavelength of $365~nm$.}%
     \label{fig:nadhfad-blood}%
     \squeezeup{3.5}
 \end{figure}
@@ -972,7 +964,7 @@ There is also a minimum in the blood absorption spectrum at $600$--$700~nm$, whi
     \centering
     \subfloat{{\includegraphics[width=.46\textwidth]{elastin-blood.pdf}}}%
     \subfloat{{\includegraphics[width=.46\textwidth]{collagen-blood.pdf}}}%
-    \caption{Effect of blood content on elastin (left) and collagen (right) autofluorescence. Top left of each image shows the effect of blood on signal strength. Top right of each image shows the effect of blood on location of the fluorophores peak. Bottom of each image shows the raw spectra for an excitation wavelength of $365~nm$.}%
+    \caption{Effect of blood content on elastin (left) and collagen (right) autofluorescence. a) and d) shows the effect of blood on signal strength. b) and e) shows the effect of blood on location of the fluorophores peak. c) and f) shows the raw spectra for an excitation wavelength of $365~nm$.}%
     \label{fig:elscol-blood}%
     \squeezeup{4.}
 \end{figure}
@@ -997,7 +989,7 @@ We use the following melanin volume fractions 1, 3, 5, 10, 20, and $30\%$ which 
     \centering
     \subfloat{{\includegraphics[width=.46\textwidth]{nadh-melanin.pdf}}}%
     \subfloat{{\includegraphics[width=.46\textwidth]{fad-melanin.pdf}}}%
-    \caption{Effect of melanin content on NADH (left) and FAD (right) autofluorescence. Top left of each image shows the effect of melanin on signal strength. Top right of each image shows the effect of melanin on location of the fluorophores peak. Bottom of each image shows the raw spectra for an excitation wavelength of $365~nm$.}%
+    \caption{Effect of melanin content on NADH (left) and FAD (right) autofluorescence. a) and d) shows the effect of melanin on signal strength. b) and e) shows the effect of melanin on location of the fluorophores peak. c) and f) shows the raw spectra for an excitation wavelength of $365~nm$.}%
     \label{fig:nadhfad-mel}%
     \squeezeup{4}
 \end{figure}
@@ -1016,7 +1008,7 @@ Thus, the fluorescent signals are moved towards the red end of the spectrum wher
     \centering
     \subfloat{{\includegraphics[width=.46\textwidth]{elastin-melanin.pdf}}}%
     \subfloat{{\includegraphics[width=.46\textwidth]{collagen-melanin.pdf}}}%
-    \caption{Effect of melanin content on elastin (left) and collagen (right) autofluorescence. Top left of each image shows the effect of melanin on signal strength. Top right of each image shows the effect of melanin on location of the fluorophores peak. Bottom of each image shows the raw spectra for an excitation wavelength of $365~nm$.}%
+    \caption{Effect of melanin content on elastin (left) and collagen (right) autofluorescence. a) and d) image shows the effect of melanin on signal strength. b) and e) image shows the effect of melanin on location of the fluorophores peak. c) and f) shows the raw spectra for an excitation wavelength of $365~nm$.}%
     \label{fig:elscol-mel}%
     \squeezeup{3.5}
 \end{figure}
@@ -1033,7 +1025,7 @@ Therefore, the peaks position is either near the original fluorescent peak or mo
 FAD's spectrum has two or three peaks depending on the melanin content.
 For the case where there is less melanin, i.e Fitzpatrick skin type I or II, there are three well defined peaks.
 Whereas for skin types V and VI, there are two less well defined peaks.
-This is due less photon packets detected, giving rise to a flatter profile for the signal at higher amounts of melanin.
+This is due to fewer photon packets detected, giving rise to a flatter profile for the signal at higher amounts of melanin.
 As mentioned above, the dip at $410~nm$ is due to the absorption peak in blood. 
 The main peak in the FAD signal is at around $460~nm$, which coincides with a minimum in the absorption spectrum of blood.
 Finally the peak at around $580~nm$ is again due to a minimum in the blood absorption spectrum.
@@ -1054,7 +1046,7 @@ Finally, the skin thickness we have used in all previous models is approximately
     \centering
     \subfloat{{\includegraphics[width=.46\textwidth]{nadh-thickness.pdf}}}%
     \subfloat{{\includegraphics[width=.46\textwidth]{fad-thickness.pdf}}}%
-    \caption{Effect of thickness on NADH (left) and FAD (right) autofluorescence. Top left of each image shows the effect of skin thickness on signal strength. Top right of each image shows the effect of skin thickness on location of the fluorophores peak. Bottom of each image shows the raw spectra for an excitation wavelength of $365~nm$.}%
+    \caption{Effect of thickness on NADH (left) and FAD (right) autofluorescence. a) and d) image shows the effect of skin thickness on signal strength. b) and e) image shows the effect of skin thickness on location of the fluorophores peak. c) and f) shows the raw spectra for an excitation wavelength of $365~nm$.}%
     \label{fig:nadhfad-thick}%
     \squeezeup{3.5}    
 \end{figure}
@@ -1069,7 +1061,7 @@ Thinner skin gives rise to a stronger autofluorescent signal, whereas thicker sk
     \centering
     \subfloat{{\includegraphics[width=.46\textwidth]{collagen-thickness.pdf}}}%
     \subfloat{{\includegraphics[width=.46\textwidth]{elastin-thickness.pdf}}}%
-    \caption{Effect of thickness on elastin (left) and collagen (right) autofluorescence. Top left of each image shows the effect of skin thickness on signal strength. Top right of each image shows the effect of skin thickness on location of the fluorophores peak. Bottom of each image shows the raw spectra for an excitation wavelength of $365~nm$.}%
+    \caption{Effect of thickness on elastin (left) and collagen (right) autofluorescence. a) and d) shows the effect of skin thickness on signal strength. b) and e) shows the effect of skin thickness on location of the fluorophores peak. c) and f) shows the raw spectra for an excitation wavelength of $365~nm$.}%
     \label{fig:elscol-thick}%
     \squeezeup{3.5}    
 \end{figure}
@@ -1086,7 +1078,7 @@ Each layer has its own concentration of the fluorophores giving $n$ for the \gls
 An initial guess of the concentration of the fluorophores is made, and the \gls*{nm} method is allowed to run until it stagnates.
 The target spectrum for the \gls*{nm} is taken from S. Smirni experimental data.
 Before the target spectrum could be used it was first ``cleaned up''.
-This ``cleaning'' process was required as the spectrum was shifted by $20~nm$ into larger wavelengths.
+This ``cleaning'' process was required as the spectrum was shifted by $20~nm$ into longer wavelengths.
 The cause of this systematic shift is unknown.
 As a backscatter peak is included within the spectrum, the spectrum can be moved to its correct position.
 The next step in the ``cleaning'' process is to filter out spectra that are ``defective''.

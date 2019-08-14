@@ -41,7 +41,7 @@ Therefore if there is dysfunction, then the autofluorescent signal from NADH wil
 Despite the appeal of using autofluorescence to diagnose and assess disease risk more research needs to be carried out on various unknowns: information on the location of fluorescence, which fluorophores contribute to the signal and how much, how much the optics of tissue affect the signal, and the variability of the signal from different locations on the body.
 This chapter aims to determine how much tissue optics affects the autofluorescent signal, which fluorophores contribute to the signal, and from which layer of the skin do they contribute from.
 Finally we introduce our ameboaMCRT algorithm, created to determine the relative concentrations of the intrinsic fluorophores in the skin to assess clinical outcomes.
-The code behind this chapters work can be found at:\url{https://github.com/lewisfish/amoebaMCRT}
+The code behind this chapters work can be found at: \url{https://github.com/lewisfish/amoebaMCRT}
 
 \begin{figure}[!htpb]
   \centering
@@ -70,7 +70,7 @@ Therefore, we simplify this into just five layers: stratum corneum, epidermis, p
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.7\textwidth]{Skin_layers.pdf}
-    \caption{Illustration of our five layer skin model. Image not to scale. Typical measurements for Caucasian back skin: Stratum corneum $13~\mu m$, epidermis $53~\mu m$, papillary dermis $162~\mu m$, and dermis $1640~\mu m$~\cite{southwood1955thickness}.}
+    \caption{Illustration of our five layer skin model. Image not to scale. Typical measurements for Caucasian back skin: stratum corneum $13~\mu m$, epidermis $53~\mu m$, papillary dermis $162~\mu m$, and dermis $1640~\mu m$~\cite{southwood1955thickness}.}
     \label{fig:skinexample}
 \end{figure}
 
@@ -141,7 +141,7 @@ This is done as the absorption coefficient differs between the two types of bloo
 
 
 \begin{equation}
-\mu_{a,Oxy/DeOxy}=150\ \ln10\ \frac{\epsilon_{Oxy/DeOxy}}{64458}
+\mu_{a,Oxy/DeOxy}=150\ \ln10\ \frac{\varepsilon_{Oxy/DeOxy}}{64458}
 \label{eqn:oxy}
 \end{equation}
 
@@ -152,7 +152,7 @@ This is done as the absorption coefficient differs between the two types of bloo
 
 \noindent Where:
 
-\indent $\epsilon_{Oxy/DeOxy}$ is the extinction coefficient of hemoglobin [$cm^{-1}$];
+\indent $\varepsilon_{Oxy/DeOxy}$ is the extinction coefficient of hemoglobin [$cm^{-1}$];
 
 \indent $64458$ is the molecular weight of hemoglobin [$g\ mol^{-1}$];
 
@@ -165,7 +165,7 @@ This is done as the absorption coefficient differs between the two types of bloo
 \medskip
 
 We also include water in our skin model.
-Water's absorption spectrum is taken from the work of Wieliczka \textit{et al} and Segelstein~\cite{wieliczka1989wedge,segelstein1981complex}.
+Water's absorption spectrum is taken from the work of Wieliczka \textit{et al.} and Segelstein~\cite{wieliczka1989wedge,segelstein1981complex}.
 
 The next chromophores are bilirubin and $\beta$-carotene.
 These chromophores are yellow/orange pigments. 
@@ -174,18 +174,18 @@ The spectra are taken from S. Prahl's compilation of PhotochemCAD data~\cite{pra
 \Cref{eqn:bili,eqn:caro} give the absorption coefficients of bilirubin and $\beta$-carotene:
 
 \begin{equation}
-\mu_{a,Bilirubin}(\lambda)=\frac{\epsilon_{bilirubin}}{585}\ ln10\ C_{bilirubin}
+\mu_{a,Bilirubin}(\lambda)=\frac{\varepsilon_{bilirubin}}{585}\ ln10\ C_{bilirubin}
 \label{eqn:bili}
 \end{equation}
 
 \begin{equation}
-\mu_{a,\beta-Caro}(\lambda)=\frac{\epsilon_{\beta-Caro}}{537}\ ln10\ C_{\beta-Caro}
+\mu_{a,\beta-Caro}(\lambda)=\frac{\varepsilon_{\beta-Caro}}{537}\ ln10\ C_{\beta-Caro}
 \label{eqn:caro}
 \end{equation}
 
 \noindent Where:
 
-\indent $\epsilon_{bilirubin}$ and $\epsilon_{\beta-Caro}$ are the extinction coefficients for bilirubin and $\beta$-carotene 
+\indent $\varepsilon_{bilirubin}$ and $\varepsilon_{\beta-Caro}$ are the extinction coefficients for bilirubin and $\beta$-carotene 
 
 \indent respectively [$cm^{-1}$];
 
@@ -423,7 +423,7 @@ Tyrosine and tryptophan are found in all layers of the skin~\cite{gillies2000flu
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=.75\textwidth]{fluros.pdf}
-  \caption{a) Shows the normalised fluorescent emission for the various different fluorophores. b) Extinction coefficients for a selection of fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence,dacosta2003molecular}.}
+  \caption{a) Shows the normalised fluorescent emission for the various different fluorophores. b) Shows the extinction coefficients for a selection of fluorophores found in the skin~\cite{prahltyro,prahltryto,soltani2019deep,sun2012biomarkers,islam2013ph,evans2013magnetic,von2012fluorescence,dacosta2003molecular}.}
   \label{fig:flurosshow}
 \end{figure}
 % subsubsection optical_properties (end)
@@ -434,13 +434,13 @@ Tyrosine and tryptophan are found in all layers of the skin~\cite{gillies2000flu
 Fluorescence is the process in which light of a certain wavelength is incident on a molecule, the molecule absorbs the light and re-emits the light at a longer wavelength.
 This process can be illustrated by a Jablonski diagram.
 A Jablonski diagram shows the electronic states of a molecule and the possible transitions between them.
-This allows the illustration of various radiative and nonradiative transitions that are possible for a give  molecule, including fluorescence and phosphorescence.
+This allows the illustration of various radiative and nonradiative transitions that are possible for a given molecule, including fluorescence and phosphorescence.
 \Cref{fig:Jabo} shows an example of Jablonski diagram for a molecule that absorbs light and re-emits it as fluorescence.
 
 \begin{figure}[!htpb]
 	\centering
 	\includegraphics[width=0.45\textwidth]{jabo-diag.pdf}
-	\caption{Jablonski diagram for PPIX. Bold lines indicate the lowest vibrational state of the electronic state, and thinner lines indicate higher vibrational modes of the electronic states. a) shows excitation of the ground singlet state via absorption of a photon to the second singlet state, b) non-radiative transition, and c) fluorescence.}
+	\caption{Jablonski diagram for a fluorophore. Bold lines indicate the lowest vibrational state of the electronic state, and thinner lines indicate higher vibrational modes of the electronic states. a) shows excitation of the ground singlet state via absorption of a photon to the second singlet state, b) non-radiative transition, and c) fluorescence.}
 	\label{fig:Jabo}
 \end{figure}
 
@@ -580,7 +580,7 @@ The centroid is the mean of all the vertices except the ``worst'' point.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{simplex-operations.pdf}
-    \caption{Operations that can be performed on a simplex for $n=2$.}
+    \caption{Operations that can be performed on a simplex for $n=2$. In the initial simplex $x_b$ is the best point, $x_w$ is the worst point, and $x_l$ is the lousy point.}
     \label{fig:NM-operations}
 \end{figure}
 
@@ -611,7 +611,7 @@ x_{ic} &= c + \beta(x_w - c)\label{eqn:insidecontract}
 
 Standard values for the factors are: $\alpha=1$, $\beta=\frac{1}{2}$, $\gamma=2$, and $\delta=0.5$.
 Though in practice these values are adjusted for the problem at hand.
-For higher dimensions, i.e. where $n > 2$ F. Gao \textit{et al.} suggest that the parameters should be changed based upon how many dimensions are used for the simplex~\cite{gao2012implementing}.
+For higher dimensions, i.e. where $n > 2$, F. Gao \textit{et al.} suggest that the parameters should be changed based upon how many dimensions are used for the simplex~\cite{gao2012implementing}.
 The values F. Gao \textit{et al.} suggest are: $\alpha=1$, $\beta=1+\tfrac{2}{n}$, $\gamma=0.75-\tfrac{1}{2n}$, and $\delta=1-\tfrac{1}{n}$.
 Where $n$ is the order of dimensions.
 Therefore, we adopt F. Gao \textit{et al.} values for $n>2$ and the ``standard'' values for n less than equal to 2.
@@ -782,7 +782,7 @@ This again shows that the NM method can be used to find the relative concentrati
 
 \subsection{Experimental Work}
 
-Experimental work discussed in this section was carried out by my collaborators S. Smirni \textit{et al.} at the University of Dundee and Ninewells Hospital\footnote{All of the tested subjects signed an informed consent form before performing the experiment. These experiments are part of a research project approved by the University of Dundee Research Ethics Committee (UREC, Study 15064) according to the guidelines of the Declaration of Helsinki}.
+Experimental work discussed in this section was carried out by my collaborators S. Smirni \textit{et al.} at the University of Dundee and Ninewells Hospital\footnote{All of the tested subjects signed an informed consent form before performing the experiment. These experiments are part of a research project approved by the University of Dundee Research Ethics Committee (UREC, Study 15064) according to the guidelines of the Declaration of Helsinki.}.
 
 S. Smirni \textit{et al.} took autofluorescence spectra from the volar forearms of volunteers using the LAKK-M multi-functional laser non-invasive diagnostic system (MLNDS)\@.
 The LAKK-M system combines laser-Doppler flowmetry, tissue reflectance oximetry, pulse oximetry, and laser fluorescent diagnostics in one machine.
@@ -823,7 +823,7 @@ Therefore, before running the \gls*{nm} method on the experimental data, we anal
 We also present results on how the excitation wavelength affects the signal.
 
 \Cref{fig:uvpen} shows the fluence as a function of depth for the incident UV light.
-The figure shows that most of the incident light is contained within the top three layers, with little getting to the Reticular dermis, with none reaching the Hypodermis.
+The figure shows that most of the incident light is contained within the top three layers, with little getting to the reticular dermis, with none reaching the hypodermis.
 The fluence drops to 50\% of its peak value 0.026~cm into the tissue which equates to inside epidermis, and 10\% of its peak value by 0.058~cm into the tissue which again is in the epidermis.
 
 \begin{figure}[!htpb]
@@ -837,9 +837,9 @@ The fluence drops to 50\% of its peak value 0.026~cm into the tissue which equat
 
 \Cref{fig:fadnadhboth} shows the fluence\footnote{Though this is not real fluence, as all photons would contribute to the overall fluence. An accurate name for this quantity would be the contribution to the fluence by the detected fluorescence of a fluorophore.} of detected fluorescent light (see~\cref{app:lightdect} for discussion of how this is tracked).
 The figure shows the fluence of light for each fluorophore that is detected.
-The figure shows that the fluence is highest in the Papillary dermis and a number of peaks at the boundaries of the layers.
+The figure shows that the fluence is highest in the papillary dermis and a number of peaks at the boundaries of the layers.
 First the refractive indices of the layers are different, this can lead to light getting ``trapped'' in a layer as it can be internally reflected off the layer boundary, thus leading to increased fluence.
-Second, fluorescent light is emitted isotropically which means that fluorescent light emitted in the upper layers of the skin, may be emitted in the direction of the Papillary dermis, and light emitted from below the papillary dermis has to travel though the papillary dermis in order to be detected.
+Second, fluorescent light is emitted isotropically which means that fluorescent light emitted in the upper layers of the skin, may be emitted in the direction of the papillary dermis, and light emitted from below the papillary dermis has to travel though the papillary dermis in order to be detected.
 Finally the optical properties also have an effect on the detected light fluence.
 The dermal layers have a minimum in their absorption spectra at the range of wavelengths that NADH and FAD emit at, thus light is more likely to ``survive'' through the dermal layers than the other layers such as the epidermis.
 Finally the geometry of the layers most likely has an effect as well.
@@ -1040,6 +1040,8 @@ Therefore, to get an idea of how the skins thickness effects the autofluorescent
 For thin skin we use measurements taken from the eyelid's of people of Korean ethnicity~\cite{lee2002skin}.
 For thick skin we use measurements taken from the back's of people of Anatolian ethnicity~\cite{oltulu2018measurement}.
 Finally, the skin thickness we have used in all previous models is approximately that of the back skin of people of Korean ethnicity~\cite{lee2002skin}.
+For thin skin the total thickness is $521.2~\mu m$, for thick skin the total thickness is $5834~\mu m$.
+These measurements do not include the thickness of the hypodermis.
 
 \begin{figure}[!htbp]
     \squeezeup{3.5}
@@ -1072,7 +1074,7 @@ Thinner skin gives rise to a stronger autofluorescent signal, whereas thicker sk
 
 We model the experimental setup by S. Smirni \textit{et al.} as described in a previous section.
 The computational speed ups described in the validation sections are also used.
-The 5 layers skin model is setup with NADH, FAD and collagen distributed in different layers.
+The five layer skin model is setup with NADH, FAD and collagen distributed in different layers.
 NADH and FAD are initially in all layers except the hypodermis, and collagen is contained in just the papillary and reticular dermis\footnote{We omit any fluorophores form the hypodermis as they are not expected to contribute to the signal at all, or by much. This also simplifies the problem from n=13 to n=10.}.
 Each layer has its own concentration of the fluorophores giving $n$ for the \gls*{nm} method of 10.
 An initial guess of the concentration of the fluorophores is made, and the \gls*{nm} method is allowed to run until it stagnates.
@@ -1107,7 +1109,7 @@ As expected the main contribution is from NADH, with a little contribution by FA
 However, collagen contributes to the main peak and is multi-peaked, with peaks at $\sim380~nm$ and $\sim 465~nm$.
 This is unusual as the peak of emission for collagen used in this work is around 395~nm, therefore it was not expected to contribute to the signal around the NADH peak.
 The reason that the collagen signal is multi-peaked is due to the tissue optics.
-There is a large peak at around$ 400$--$410~nm$ in the absorption spectra in the dermal layers.
+There is a large peak at around $400$--$410~nm$ in the absorption spectra in the dermal layers.
 This causes a dip in the emission of collagen, giving it the multi-peaked profile.
 
 \begin{figure}[!htpb]
@@ -1129,7 +1131,7 @@ The emission spectra for the fluorophores could also be incorrect.
 Emission spectra used in this work are also measured in various buffer solutions, which again may be different from what they are \textit{in-vivo}.
 Finally the emission spectra are measured for a single excitation wavelength.
 As the spectra were not readily available for the excitation wavelength used in this work, the emission spectra were taken from the nearest possible excitation wavelength found in the literature. This again may introduce a difference from the experimental work.
-However, what optical properties that have been published are pretty consistent from author to author therefore, this is an unlikely problem.
+However, what optical properties that have been published are pretty consistent from author to author therefore, this is unlikely the problem.
 
 The mismatch in the target spectrum and the calculated spectrum could be due to missing fluorophores. 
 The model presented here only included NADH, FAD, and collagen which are thought to be the three main contributors to the autofluorescence signal.
@@ -1154,7 +1156,7 @@ A final possible reason for the mismatch is that the LAKK-M device creators seem
   \hline
 
   \end{tabular}
-  \caption{Comparison of LAKK-M emission peaks and that found in the literature. AS there are different types of collagen multiple types were included in the literature comparison. LAKK-M data from~\cite{palmer2016changes,dunaev2015individual,smirnova2012collagen,palmer2016development}. Literature values taken from~\cite{dacosta2003molecular,pan2015detection,islam2013ph,patterson2000separation}.}
+  \caption{Comparison of LAKK-M emission peaks and that found in the literature. As there are different types of collagen multiple types were included in the literature comparison. LAKK-M data from~\cite{palmer2016changes,dunaev2015individual,smirnova2012collagen,palmer2016development}. Literature values taken from~\cite{dacosta2003molecular,pan2015detection,islam2013ph,patterson2000separation}.}
   \label{tab:flurocompvalues}
 
 \end{table}

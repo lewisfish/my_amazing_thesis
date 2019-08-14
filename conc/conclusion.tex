@@ -17,7 +17,7 @@ Chapter 2 also covered the theory behind the method and presented details of the
 \medskip
 
 Chapter 3 described the application of the \gls*{mcrt} method to modelling tissue ablation.
-Details of how the \gls*{mcrt} was coupled to a numerical model of heat diffusion and thermal damage model was presented.
+Details of how \gls*{mcrt} was coupled to a numerical model of heat diffusion and thermal damage model was presented.
 The chapter showed that we can successfully model experimental and theoretical data with our numerical model.
 The power the model has is that we can predict thermal damage, and ablation crater size for any laser, and configuration thereof, without the need to test on humans or animals.
 It also allows the testing of different lasers without the purchase of said laser, which could allow clinicians to ``try before they buy''.
@@ -105,6 +105,17 @@ Other optimisation techniques other than the \gls*{nm} method could also be expl
 Techniques such as simulated annealing, genetic algorithms\footnote{The use of genetic algorithms was explored, however the computational cost of using them was deemed too high.} or machine learning could be used.
 It could also be possible for our \gls*{mcrt} code to be used to create a ``bank'' of spectra that could then be used to train a machine learning algorithm to label peaks, and contributions to those peaks by fluorophores.
 
+\section*{Conclusion}
+
+This thesis has explored how MCRT can be used in a myriad of different applications. 
+The power that MCRT has in modelling the transport of light though media, is that the media can be tailored to each individual problem.
+This can allow ``digital twins'' of patients to be created which can then be experimented on with no little to no ethical dilemmas.
+We used this in the work we presented on the our numerical model of tissue ablation.
+We showed that various laser and environmental variables can be modelled to predict outcomes.
+We also presented a five layer skin model that can also be tailored to individual patients.
+This model was used to attempt to quantify the concentration of flurophores in the skin form an autofluorescent signal.
+This model was also used to probe the effect various different skin parameters has on the autofluorescent signal.
+Finally, we showed that the MCRT method can be adapted to model quasi-wave/particle, and thus model various wave like phenonma like interferacne and diffraction.
 
 %to finish
 %shit pun, why is world different now cause of this work

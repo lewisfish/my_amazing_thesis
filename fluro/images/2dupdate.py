@@ -91,7 +91,7 @@ axs[1, 0].scatter(-2.805118, 3.113186, marker="o", s=25, color="black", zorder=1
 axs[1, 0].scatter(-3.779310, -3.283186, marker="o", s=25, color="black", zorder=10)
 axs[1, 0].scatter(3.584458, -1.848126, marker="o", s=25, color="black", zorder=10)
 
-animate(0, axs[0, 1], "ackley-thesis.dat")
+animate(0, axs[0, 1], "sphere-thesis.dat")
 x, y = np.mgrid[-5:5:npts * 1j, -5:5:npts * 1j]
 x.shape = (npts**2)
 y.shape = (npts**2)
@@ -118,5 +118,5 @@ axs[1, 0].axes.get_yaxis().set_visible(False)
 
 
 fig.set_size_inches(width, height)
-fig.savefig('all-nm-tests-1.pdf')
+fig.savefig('all-nm-tests-2.pdf')
 plt.show()

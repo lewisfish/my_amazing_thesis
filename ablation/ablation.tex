@@ -598,7 +598,7 @@ Over the full range of \gls*{ta}, as the energy per pixel beam increases, there 
 
 \subsubsection*{Investigating beam type}
 
-As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are tried: Gaussian and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
+As the manufacturer does not provide information on the beam profile of the pixel beams and the lack of equipment available to measure the beam profile, the shape of the beam profile has to be assumed. Two different beam types are trialled: Gaussian and circular (top-hat). \Cref{fig:tagauss,fig:tacirc} show the result of these \textit{in-silico} experiments. The Gaussian beam ablates deeper holes than the circular beam type, which is to be expected due to the distribution of power in the Gaussian beam. The beam that best fits the data is the circular beam. For the Gaussian beam to fit the data ablation would have to take place at temperatures above $500~^{\circ}C$ which does not fit with the literature. Without knowing the exact profile of the beam, it is assumed for the rest of the \textit{in-silico} experiments that the beam profile is circular.
 
  \begin{figure}[!htbp]
 	\centering
@@ -795,7 +795,7 @@ However, there is a greater difference in the maximum extent of thermal damage t
 In the previous section it is assumed that the temperature of a voxel remains unchanged after the tissue is removed from that voxel via ablation.
 However, this assumption may not be accurate as there should be some energy expended in the ablation process which would affect the temperature of the system.
 To test to see how much this could affect the simulation, the temperature of the voxel after ablation was varied.
-Two different temperatures were tried: half the ablation temperature and room temperature ($\approx 25~^{\circ}C$).
+Two different temperatures were trialled: half the ablation temperature and room temperature ($\approx 25~^{\circ}C$).
 \Cref{fig:comparevoxtemp} shows the effect of the voxel temperature after ablation has on the ablation depth.
 
 \begin{figure}[!htbp]
@@ -807,6 +807,7 @@ Two different temperatures were tried: half the ablation temperature and room te
 
 Setting the voxel temperature to either half the ablation temperature or to room temperature has a large effect on the ablation depth, with a difference of $\approx 0.1~mm$.
 However, there is a small difference between setting the voxel temperature to room temperature and to half of the ablation temperature though.
+This suggests that if there is some energy expended in ablating tissue, it will only have an effect if the energy required to ablate the tissue is of the order of $cm\Delta T$ with $\Delta T$ being equal to at least half of the ablation temperature.
 
 \section{Application of Model for Spy Disposal}
 

@@ -4,8 +4,8 @@
 
 The work in this thesis, has shown the \gls*{mcrt} method is a powerful technique that can be used to calculate the transport of light (as particles or quasi-wave/particles) through turbid media, whilst modelling multiple anisotropic scattering alongside a variety of microphysics.
 The only major downsides to the \gls*{mcrt} method noted in the literature (as well as discussed at length in this thesis) are the computational load required for some problems, and the selection of optical properties.
-With the growing power of computational devices, and in refinement and developments in coding efficiency, the computational load of \gls*{mcrt} becomes less of a factor.
-Likewise the optical properties of various biological tissues, are now increasingly being measured with greater precision and accuracy.
+With the growing power of computational devices and in refinement and developments in coding efficiency, the computational load of \gls*{mcrt} becomes less of a factor.
+Likewise the optical properties of various biological tissues are now increasingly being measured with greater precision and accuracy.
 
 \medskip
 
@@ -43,11 +43,11 @@ The \gls*{mcrt} algorithm was also coupled to an optimisation technique to deter
 The technique chosen was the Nelder-Mead method.
 The \gls*{nm} method uses simplices in order to move around the search space and find global minima.
 The method was coupled to the MCRT algorithm and validated against toy models.
-Finally details of how autofluorescent data from collaborators was analysed using these techniques was presented.
+Finally, details of how autofluorescent data from collaborators was analysed using these techniques was presented.
 
 \section{Future Prospects}
 
-The code developed as part of the tissue ablation chapter, could easily be adapted for use in modelling photothermal therapy.
+The code developed as part of the tissue ablation chapter could easily be adapted for use in modelling photothermal therapy.
 Photothermal therapy is the use of light to selectively heat up nanoscale materials that have been inserted into tumours.
 The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually near infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells~\cite{singh2016application,gallina2016aptamer}.
 This could be easily modelled within the code developed as part of chapter 3, with little to no major changes.
@@ -71,7 +71,7 @@ Modelling both the laser tissue ablation process and drug diffusion process in o
 The algorithm developed as part of chapter 4's work, $\varphi$MC, also has several avenues of future research.
 It should be fairly easy to extend the algorithm to model other beams, such as an Airy beam.
 It should also be trivial to implement a spatial light modulator (SLM)\@.
-An SLM is a device that can modulate light that is incident on it including imparting phase to different parts of the incident beam.
+A SLM is a device that can modulate light that is incident on it including imparting phase to different parts of the incident beam.
 This allows arbitrary complex beams to be created.
 The ability to model an SLM would open up the ability to model complex experiments in such things as wavefront shaping.
 Other types of experiments the algorithm could be used for include: laser speckle imaging, focusing light though turbid media, and complex micromanipulation~\cite{vellekoop2007focusing,horstmeyer2015guidestar,vcivzmar2010situ}.

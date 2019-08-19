@@ -118,14 +118,14 @@ The Huygens principle was first postulated in 1678 and states~\cite{huygens2012t
 The principle is illustrated in~\cref{fig:huygensillis}.
 The principle allowed Huygens to derive laws of refraction and reflection, but it failed to describe diffraction effects.
 This led to Augustin-Jean Fresnel in 1818, combining the Huygens principle with his own theory of interference~\cite{fresnel1819memoire,huygens1900wave}.
-This Huygens-Fresnel principle, gave an accurate description of the propagation of light and diffraction effects.
+This Huygens-Fresnel principle gave an accurate description of the propagation of light and diffraction effects.
 This was achieved by allowing the secondary wavelets to self interfere, giving rise to an accurate description of the physical phenomena.
 Later, Gustav Kirchhoff gave a rigours mathematical description of the Huygens-Fresnel principle, which is the basis of diffraction theory~\cite{kirchhoff1883ann,born2000principles}. 
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{huygens.pdf}
-    \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle. Dashed lines illustrate the wavefront position at the previous time step, and is the source of the Huygens-Fresnel wavelets.}
+    \caption{Illustration of the Huygens-Fresnel principle. At $t_0$ a wave is incident on an aperture. Times $t_1,\ t_2,\ \text{and}\ t_3$ show the evolution of the wavefront using the Huygens-Fresnel principle. Dashed lines illustrate the wavefront position at the previous time step and is the source of the Huygens-Fresnel wavelets.}
     \label{fig:huygensillis}
 \end{figure}
 
@@ -156,7 +156,7 @@ u(\mathbf{r_1})=\frac{1}{i\lambda}\int\int u(\mathbf{r_0})\frac{\mathbf{\hat{s_0
 \medskip
 
 The Huygens-Fresnel principle is implemented by sampling the light source on the surface of any lens or in a slit.
-In practise this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
+In practice this means when for example, a plane wave is incident on a slit width \textit{a}, and length \textit{b}, the slit area is uniformly sampled for the initial position of the photon packets.
 The packets are then given a random direction, sampled toward the detector thus avoiding the non-existent ``backward'' waves.
 For the case of modelling propagation through a lens, the usual geometric optics approach is taken to propagate the packets through the lens.
 When the packet lies on the surface of the lens, the Huygens-Fresnel principle is invoked, and the packet is given a random direction (in the direction of the medium) and propagated as usual.
@@ -173,7 +173,7 @@ These two concepts underpin the algorithm that allows various complex beams, and
 \subsubsection*{Double Slit Experiment}
 
 The first test of our quasi-wave/particle MCRT algorithm\footnote{Though this example is not strictly MCRT, but rather ray tracing, as it involves no scattering. The full MCRT method will be used in later sections.}, $\varphi MC$, is to compare our simulation to a double slit experiment.
-The double slit experiment, is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field (the so called Fraunhofer regime).
+The double slit experiment is a simple experiment where a monochromatic plane wave of light is incident on two slits distance apart $d$, and width $b$, and an interference pattern is observed on a screen a distance $L$ away from the slits. The experiment is usually carried out with the detector screen in the far field (the so called Fraunhofer regime).
 The intensity pattern on the detector screen is as in~\cref{eqn:doubleslit}:
 
 \begin{equation}
@@ -313,7 +313,7 @@ The distance between the detector screen and the aperture is varied and the inte
 For \textit{Fresnel numbers} greater than 1.0, the number of bins is 300, covering a distance of 600~$\mu m$. 
 For the case of Fraunhofer diffraction, the number of bins is 100 covering a distance of 6000~$\mu m$.
 The simulations take $\sim$ 3 minutes for $10^{10}$ packets to be run on an Intel Xeon E3--1245 v5, 8 cores @ 3.5GHz machine.
-The number of bins, and photons packets simulated had to be increased for the cases where the Fresnel number was large (i.e the detector screen was near the aperture).
+The number of bins and photons packets simulated had to be increased for the cases where the Fresnel number was large (i.e the detector screen was near the aperture).
 This is due to the diffraction pattern becoming ``noisy'' and thus needs a higher resolution to accurately simulate.
 \cref{fig:frescompare} shows the comparison between the theory and the $\varphi MC$ simulations.
 
@@ -395,7 +395,7 @@ Using~\cref{eqn:beamwaist} yields the size of the focal spot as $3.1~\mu m$.
     \label{fig:gausssetup}
 \end{figure}
 
-To model the lens in $\varphi MC$ the photons initial z position is set just in front of the lens.
+To model the lens in $\varphi MC$ the photons initial $z$ position is set just in front of the lens.
 The $x$ and $y$ are randomly sampled from a Gaussian distribution with a waist of $\sqrt{2}w_0$.
 The factor of $\sqrt{2}$ accounts for the conversion from intensity to electric field beam waist.
 This is because the electric field is $\propto \exp{\left(\tfrac{-r^2}{4\sigma'^2}\right)}$, and the intensity is $\propto \exp{\left(\tfrac{-r^2}{2\sigma^2}\right)}$.
@@ -405,8 +405,8 @@ The packet is given an electric field of the form~\cref{eqn:initefield}, with $P
 The packet is then propagated to the surface of the convex side of the lens.
 This is achieved by finding the intersection of a sphere, which represents the convex side of the lens, and the packets path.
 With the packet on the surface of the lens, Fresnel coefficients are calculated to determine if the packet is reflected or refracted.
-If the packet is reflected the packet is killed and the process starts again.
-If the packet is refracted, and moved into a new direction to the planar surface of the lens.
+If the packet is reflected, the packet is killed and the process starts again.
+If the packet is refracted, the packet is moved into a new direction on the planar surface of the lens.
 The new direction vector is calculated using a vector version of Snell's law (see~\cref{app:fresnelappend} for a discussion of this).
 The packets are then uniformly sampled onto the surface of the voxel medium and the usual~\gls*{mcrt} method is used to propagate the packet whilst tracking the phase.
 
@@ -528,7 +528,7 @@ All the simulations of Bessel beams in this thesis use the axicon method of gene
 Using simple geometry and Snell's law the following equations can be derived to describe various properties of a Bessel beam formed by an axicon~\cite{merola2012characterization}.
 
 The propagation depth of a Bessel beam is defined as the distance from the tip of the axicon to the end of the ``Bessel region''. However, in reality the Bessel beam will continue to propagate slightly passed this depth.
-~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function ($\cot x = \tfrac{1}{\tan x}$).
+~\Cref{eqn:besselzmax} shows the propagation depth of a Bessel beam where $cot$ is the cotangent function ($cot x = \tfrac{1}{\tan x}$).
 \begin{equation}
 z_{max}=R\left(cot\left(\beta\right) - tan\left(\alpha\right)\right)
 \label{eqn:besselzmax}
@@ -748,9 +748,9 @@ This test has shown that shrinking the medium allows accurate modelling of the p
 
 \section{Higher Order Bessel Beams}
 
-Higher order Bessel beams (HOBBs), are Bessel beams where the electric field has an extra term of $e^{-il\varphi}$, as shown in~\cref{eqn:hobb}, and $l \neq 0$.
-\Gls*{hobb} have found a use for optical trapping targets that are reflective/low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}.
-Our technique outlined in the preceding sections, can also be applied to arbitrary higher order Bessel beams. 
+Higher order Bessel beams (HOBBs) are Bessel beams where the electric field has an extra term of $e^{-il\varphi}$, as shown in~\cref{eqn:hobb}, and $l \neq 0$.
+\Gls*{hobb} have found a use for optical trapping targets that are reflective or have a low refractive index, and optical manipulation~\cite{garces2002transfer,garces2003observation}.
+Our technique outlined in the preceding sections can also be applied to arbitrary higher order Bessel beams. 
 
 As before, the electric field of a $l^{th}$ order Bessel beam is:
 
@@ -761,7 +761,7 @@ E(r,\varphi,z)=E_0J_l(k_r r)e^{-i k_z z}e^{-i l \varphi}
 
 \noindent Where:
 
-\indent l is the order of the beam [-];
+\indent $l$ is the order of the beam [-];
 
 \indent $k_{z}^{2} + k_{r}^{2} =k^2$, where $k^2$ is the wavevector [$m^{-1}$];
 
@@ -912,11 +912,11 @@ These results show as expected that the Bessel beam now performs comparably with
 \subsection{Discussion}
 
 For equal power beams in the previous section, Gaussian beams perform ``better'' in the highly scattering mediums.
-Though this is expected due to the Bessel beams property that the power in the beam is spread evenly over its rings.
-Thus, the power in the central lobe is much less than that of the Gaussian beam.
+Though this is expected as the power in a Bessel beam is spread evenly over its rings.
+Thus, the power in the central lobe of a Bessel beam is much less than that of the Gaussian beam.
 
 To give a slightly more fair comparison of intensity in the central lobes of the beams, the Bessel beam was given $15\times$ more power than the Gaussian beam. 
-This allows a better comparison between the Gaussian beams' core and the Bessel beam's core and gives a more comparable intensity between the beams at the location of the Gaussian beams focus.
+This allows a better comparison between the Gaussian beam's core and the Bessel beam's core and gives a more comparable intensity between the beam's at the location of the Gaussian beams focus.
 In this case, the Bessel beam appears to perform better in a highly scattering medium, as shown in~\cref{fig:2ncompbottom}.
 The Bessel beam shows comparable intensity with the Gaussian beam in the first three mediums, though the Gaussian beam out performs the Bessel beam in the higher scattering media.
 It would appear that the Bessel beams self-healing property does not help a Bessel beam propagate through a highly scattering medium.

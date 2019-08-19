@@ -27,7 +27,7 @@ Irradiance is defined as the spectral irradiance over a small frequency range $[
 
 \indent $\vec{r}$ is the position;
 
-\indent $\hat{s}$ is the unit normal vector;
+\indent $\hat{s}$ is a unit normal vector;
 
 \indent $t$ is the time;
 
@@ -98,7 +98,7 @@ With the irradiance defined, as well as the other quantities that follow, the \g
 The total change in energy, $dP$, in the volume element within the solid angle $d\Omega$ is equal to:
 
 \begin{equation}
-	dP=\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t}\ dA\ ds\ d\Omega
+	dP=\frac{1}{c}\frac{\partial L(\vec{r},\hat{s},t)}{\partial t}\ dV\ d\Omega
 	\label{eqn:p}
 \end{equation}
 
@@ -235,7 +235,7 @@ Thus, for Rayleigh and isotropic scattering, their phase functions are:
 
 \begin{align}
 	\Phi_{isotropic}(\theta,\phi)&=\frac{1}{4\pi}\\
-	\Phi_{Rayleigh}(\theta,\phi)&=\frac{3}{8\pi}(1+cos^2(\theta))
+	\Phi_{Rayleigh}(\theta,\phi)&=\frac{3}{16\pi}(1+cos^2(\theta))
 \end{align}
 
 For simplicity, the phase function is usually cast as the anisotropy value g, which is defined as the average angle of deflection:
@@ -522,9 +522,10 @@ However, this is not the case for anisotropic scattering, as the centre of mass 
 Where $\mathbf{n}=(n_x,n_y,n_z)$, $\mathbf{n_s}=(n_{x}^{new},n_{y}^{new},n_{z}^{new})$, $\theta_s$ is chosen from the phase function~\cref{eqn:henyeysample}, and $\varphi_s=2\pi \xi$ with $\xi$ being a random number in the range 0 to 1.
 \begin{equation}
 	\begin{aligned}
-		n_{x}^{new} &= \frac{sin\theta_s}{sin\theta} \left(n_x\ n_y\ cos\varphi_s - n_y\ sin\phi_s\right) + n_x\ cos\theta_s \\
-		n_{y}^{new} &= \frac{sin\theta_s}{sin\theta} \left(n_y\ n_z\ cos\varphi_s + n_x\ sin\phi_s\right) + n_y\ cos\theta_s \\
-		n_{z}^{new} &= -sin\theta_s\ cos\varphi_s + n_z\ cos\theta_s
+		n_{x}^{new} &= \frac{\sin\theta_s}{T} \left(n_x\ n_z\ \cos\varphi_s - n_y\ \sin\phi_s\right) + n_x\ \cos\theta_s \\
+		n_{y}^{new} &= \frac{\sin\theta_s}{T} \left(n_y\ n_z\ \cos\varphi_s + n_x\ \sin\phi_s\right) + n_y\ \cos\theta_s \\
+		n_{z}^{new} &= -\sin\theta_s\ \cos\varphi_s T + n_z\ \cos\theta_s\\
+		T &= \sqrt{1-n_z^2}
 	\end{aligned}
 	\label{eqn:scatrotate}
 \end{equation}

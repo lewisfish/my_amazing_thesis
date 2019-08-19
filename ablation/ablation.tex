@@ -161,8 +161,8 @@ Thus, the linear heat equation~\cref{eqn:heat}, in 1D, taking a $1^{st}$ order f
 
 \begin{subequations}
 \begin{align}
-\frac{T^{n+1}_i-T^{n}_i}{\Delta t} &= \alpha\frac{T^n_{i-1}-T^n_{i}+T^n_{i+1}}{\Delta x^2}  + \frac{\dot{q}}{\rho c_p}\\
-T_{i}^{n+1} &=  \alpha\Delta t \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + \frac{\Delta t\dot{q}}{\rho c_p}
+\frac{T^{n+1}_i-T^{n}_i}{\Delta t} &= \alpha\frac{T^n_{i-1}-2T^n_{i}+T^n_{i+1}}{\Delta x^2}  + \frac{\dot{q}}{\rho c_p}\\
+T_{i}^{n+1} &=  T_i^n + \alpha\Delta t \frac{T_{i-1}^n-2T_i^n+T_{i+1}^n}{\Delta x^2} + \frac{\Delta t\dot{q}}{\rho c_p}
 \label{eqn:simplefdm}
 \end{align}
 \end{subequations}

@@ -10,7 +10,7 @@ Likewise the optical properties of various biological tissues are now increasing
 \medskip
 
 Chapter 1 introduced the concept at the heart of this thesis, the Monte Carlo method.
-The chapter gave examples of how the Monte Carlo method can be used to sample from spectra, and how it is can be used to model various physical events.
+The chapter gave examples of how the Monte Carlo method can be used to sample from spectra, and how it can be used to model various physical events.
 Chapter 2 followed on from chapter 1's explanation of the Monte Carlo method, by introducing \gls*{mcrt} used in all subsequent chapters.
 Chapter 2 also covered the theory behind the method and presented details of the implementation of the method into code as well as various computational speedups utilised.
 
@@ -29,7 +29,7 @@ Chapter 4 presented the modification of the \gls*{mcrt} method, such that it wou
 This was achieved via a few small changes within the code, based upon well understood theoretical models namely the Fresnel-Huygens principle.
 The method was thoroughly validated against several theoretical expressions.
 The method was also validated against experimental results from collaborators at the University of Dundee.
-The new method was then used to compare Bessel and Gaussian beams performance in highly turbid media, to see which beam preformed ``better''.
+The new method was then used to compare Bessel and Gaussian beams performance in highly turbid media, to see which beam performed ``better''.
 \medskip
 
 Chapter 5 presented a model of skin autofluorescence using \gls*{mcrt}.
@@ -49,7 +49,7 @@ Finally, details of how autofluorescent data from collaborators was analysed usi
 
 The code developed as part of the tissue ablation chapter could easily be adapted for use in modelling photothermal therapy.
 Photothermal therapy is the use of light to selectively heat up nanoscale materials that have been inserted into tumours.
-The nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually near infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells~\cite{singh2016application,gallina2016aptamer}.
+Nanoscale materials, such as gold nanorods, are targeted with a specific wavelength of light (usually near infra-red) which heats up the rods and thus the surrounding tissue, eventually killing the adjacent cells~\cite{singh2016application,gallina2016aptamer}.
 This could be easily modelled within the code developed as part of chapter 3, with little to no major changes.
 The code could be used to help optimise photothermal treatment modalities and predict treatment outcomes.
 
@@ -68,13 +68,13 @@ Modelling both the laser tissue ablation process and drug diffusion process in o
 
 \medskip
 
-The algorithm developed as part of chapter 4's work, $\varphi$MC, also has several avenues of future research.
+The algorithm developed as part of chapter 4's work, $\varphi$MC, also has several avenues for future research.
 It should be fairly easy to extend the algorithm to model other beams, such as an Airy beam.
 It should also be trivial to implement a spatial light modulator (SLM)\@.
 A SLM is a device that can modulate light that is incident on it including imparting phase to different parts of the incident beam.
 This allows arbitrary complex beams to be created.
 The ability to model an SLM would open up the ability to model complex experiments in such things as wavefront shaping.
-Other types of experiments the algorithm could be used for include: laser speckle imaging, focusing light though turbid media, and complex micromanipulation~\cite{vellekoop2007focusing,horstmeyer2015guidestar,vcivzmar2010situ}.
+Other types of experiments the algorithm could be used for include: laser speckle imaging, focusing light through turbid media, and complex micromanipulation~\cite{vellekoop2007focusing,horstmeyer2015guidestar,vcivzmar2010situ}.
 
 \medskip
 
@@ -97,7 +97,7 @@ Due to time constraints this was abandoned for this thesis before a fully workin
     \label{fig:mesh}
 \end{figure}
 
-A meshed skin model would allow objects like hairs, blood vessels, sweat glands, and the uneven boundaries between skin layers greatly increasing the accuracy of the simulations.
+A meshed skin model would allow objects like hair, blood vessels, sweat glands, and the uneven boundaries between skin layers greatly increasing the accuracy of the simulations.
 
 Finally as the data from our collaborators equipment was not of a quality such that it could be reproduced using amoebaMCRT, this data could be taken again with better equipment, or other authors could be found that have the requisite data. 
 AmoebaMCRT would then be run on this data to determine the amount that each fluorophore contributes to the signal.
@@ -108,9 +108,9 @@ It could also be possible for our \gls*{mcrt} code to be used to create a ``bank
 \section*{Conclusion}
 
 This thesis has explored how MCRT can be used in a myriad of different applications. 
-The power that MCRT has in modelling the transport of light though media, is that the media can be tailored to each individual problem.
+The power that MCRT has in modelling the transport of light through media, is that the media can be tailored to each individual problem.
 This can allow ``digital twins'' of patients to be created which can then be experimented on with no little to no ethical dilemmas.
-We used this in the work we presented on the our numerical model of tissue ablation.
+We used this in the work we presented on our numerical model of tissue ablation.
 We showed that various laser and environmental variables can be modelled to predict outcomes.
 We also presented a five layer skin model that can also be tailored to individual patients.
 This model was used to attempt to quantify the concentration of flurophores in the skin form an autofluorescent signal.
@@ -119,7 +119,7 @@ Finally, we showed that the MCRT method can be adapted to model quasi-wave/parti
 
 
 This thesis has added to the body of evidence that the MCRT method is the ``gold standard'' when it comes to modelling light transport through 3D geometries.
-This thesis has also shown that Monte Carlo method is a flexible technique that can be adapted or used in conjunction with other techniques to model complex phenomena, with out having to ``gamble'' on other techniques.
+This thesis has also shown that Monte Carlo method is a flexible technique that can be adapted or used in conjunction with other techniques to model complex phenomena, without having to ``gamble'' on other techniques.
 
 %to finish
 %shit pun, why is world different now cause of this work

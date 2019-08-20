@@ -106,25 +106,25 @@ Date\dotfill \hspace{1cm} Signature of supervisor \dotfill
 % then chap by chapter
 % \lipsum[1-2]
 The Monte Carlo radiation transfer (MCRT) method can simulate the transport of light through turbid media.
-MCRT allows the modelling of multiple anisotropic scattering events, as well as a range of microphysics such as polarisation, and fluorescence.
-This thesis concerns the development of several MCRT algorithms to solve various biophotonic and medically-related problems including modelling of tissue ablation, autofluorescent signals.
-An extension of the MCRT method through a theoretical quasi-wave/particle model is also demonstrated allowing beam shapes with arbitrary phase profiles to be propagated.
+MCRT allows the modelling of multiple anisotropic scattering events, as well as a range of microphysics such as polarisation and fluorescence.
+This thesis concerns the development of several MCRT algorithms to solve various biophotonic and medically-related problems including modelling of tissue ablation and autofluorescent signals.
+An extension of the MCRT method through a theoretical quasi-wave/particle model is also demonstrated, allowing beam shapes with arbitrary phase profiles to be propagated.
 
-Tissue ablation can be used to treat acne scarring and Rhinophyma, it can also be used to help enhance topical drug delivery.
-Currently depth of ablation is not easily elucidated from a given laser or laser power setting.
+Tissue ablation can be used to treat acne scarring, Rhinophyma, and it can also be used to help enhance topical drug delivery.
+Currently the depth of ablation is not easily elucidated from a given laser or laser power setting.
 Therefore, a numerical tissue ablation model is developed using a combination of MCRT, a heat diffusion model, and a numerical tissue damage model to assess ablation crater depth and thermal damage to the surrounding tissue.
 
 Autofluorescence is the natural fluorescence of biological structures in tissue.
-Autofluorescence can be used as a biomarker of several diseases including: cardiovascular diseases, Alzheimers and diabetes.
-However, the origin of the signal is not completely clear.
-The effect of tissue optics on the signal, which fluorophores contribute to the signal and by how much, and how different locations on the body can effect the signal are all not well understood.
+Autofluorescence can be used as a biomarker of several diseases including: cardiovascular diseases, Alzheimers, and diabetes.
+However, the origin of the autofluorescence signal is not completely clear.
+The effect of tissue optics on the signal, which fluorophores contribute to the signal and by how much, and how different locations on the body can affect the signal are not well understood.
 This thesis presents a study of the effect of tissue optics on the autofluorescent signal.
-As part of this study AmoebaMCRT was created to determine the relative concentrations of fluorophores for a given autofluorescent signal.
+As part of this study, AmoebaMCRT was created to determine the relative concentrations of fluorophores for a given autofluorescent signal.
 
-Finally, we developed an extension to the MCRT method that allows the simulation of quasi-wave/particles.
+Finally, we developed an extension to the MCRT method which allows the simulation of quasi-wave/particles.
 This method relies on the Huygens-Fresnel principle and the tracking of the phase of each individual photon packet.
-The extension, $\varphi$MC, allows the modelling of complex beams that require the wave properties of light such as arbitrary order Bessel beams, and Gaussian beams.
-We then use $\varphi$MC to predict which beam, Bessel or Gaussian, preforms ``better'' in a highly turbid medium.
+The extension, $\varphi$MC, allows the modelling of complex beams that require the wave properties of light such as arbitrary order Bessel beams and Gaussian beams.
+We then use $\varphi$MC to predict which beam, Bessel or Gaussian, performs ``better'' in a highly turbid medium.
 
 
 \chapter{Acknowledgements}
@@ -153,11 +153,11 @@ Thank you also to the thesis fairy for the much needed Haribo as I was writing u
 
 A huge thank you to my Mum, Rachel, Eilidh, Allan, Caroline, and Archie, for all the support you have given to me over my last nine years at St Andrews.
 All your frequent messages on the family chat have been a source of entertainment and much needed distraction.
-I can't begin to list everything you have done for me, but I really appreciate knowing that you all are always there for me.
+I can't begin to list everything you have done for me, but I really appreciate knowing that you are always there for me.
 \medskip
 
 Finally, last but certainly not least, to Kathleen.
-This thesis would never had been completed if it wasn't for your constant love and support.
+This thesis would never have been completed if it wasn't for your constant love and support.
 Thank you for understanding when I got stressed or chose to work weekends and nights on my PhD, and even on the occasions where I never noticed the time and forgot to meet you.
 \noindent Consider reading this as the favour repaid for when I read your \textbf{two} dissertations!
 
@@ -194,13 +194,13 @@ Research data underpinning this thesis are available at
 %arabic numbers
 \mainmatter
 
-% \include{introduction/intro}
-% \include{MCRT/mcrt}
-% \include{ablation/ablation}
+\include{introduction/intro}
+\include{MCRT/mcrt}
+\include{ablation/ablation}
 \include{bessel/bessel}
-% \include{fluro/salvo}
-% \include{conc/conclusion}
-% \include{appendix/append}
+\include{fluro/salvo}
+\include{conc/conclusion}
+\include{appendix/append}
 
 \bibliography{./introduction/intro,./ablation/ablation,./MCRT/mcrt,./bessel/bessel,./fluro/salvo,./conc/conclusion}
 \bibliographystyle{unsrt}

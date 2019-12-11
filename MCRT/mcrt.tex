@@ -16,7 +16,7 @@ Before describing~\gls*{mcrt}, which is a numerical simulation of the~\gls*{rte}
 Transport of radiant energy through turbid media can be modelled analytically using the \gls*{rte}. The \gls*{rte} models the radiative losses and gains by a beam of radiation as it propagates, including: loss of energy due to absorption, loss/gain of energy due to scattering, and energy gain due to emission. Before deriving the \gls*{rte}, definitions of some terms and physical quantities is required.
 
 
-The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction $\mathbf{\hat{n}}$, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
+The first term is spectral irradiance, $L_\nu$. Spectral irradiance is defined as the energy flow in a direction $\mathbf{\hat{s}}$, for a solid angle $d\Omega$, per unit time per unit temporal frequency bandwidth.	
 Irradiance is defined as the spectral irradiance over a small frequency range $[\nu, \nu+\Delta \nu]$:
 
 \begin{equation}
@@ -68,7 +68,7 @@ Irradiance can also be used to determine the fluence rate, $\phi$, which is defi
 
 \medskip
 
-Solving the \gls*{rte} yields the irradiance which gives the distribution of light in the medium, information on the state of the system, and all the physical properties of it.
+Solving the \gls*{rte} yields the irradiance which gives the distribution of light in the medium, and information on the state of the system.
 
 With the irradiance defined, as well as the other quantities that follow, the \gls*{rte} can be derived~\cite{chandrasekhar2013radiative,wang2012biomedical}. First considering the conservation of energy, as shown in~\cref{eqn:enegyconvo}.
 
@@ -148,7 +148,7 @@ The second energy gain term, and final term, is due to the incident energy on th
 
 \noindent Where:
 
-\indent $N_s$ is the number density of scatterers [$\#m^{-3}$];
+\indent $N_s$ is the number density of scatterers [Number of scatterers $m^{-3}$];
 
 \indent $P(\hat{s}',\hat{s})$ is the scattering phase function (see~\cref{sec:optprop} for further discussion);
 
@@ -175,11 +175,11 @@ The \gls*{km} was originally developed to calculate the light distribution in th
 
 These assumptions make \gls*{km} theory poor for modelling light-tissue interactions.
 This is because in tissue, scattering is not isotropic but rather forward biased (see~\cref{sec:optprop}). 
-Tissue is rarely, planar and infinitely wide. 
+Tissue is rarely planar and infinitely wide. 
 Tissue also has some reflections at its external and internal boundaries, due to changes in refractive indices. 
-Many medical and biophotonic treatments or methods use laser light which is not diffuse. Finally, tissue can also exhibit fluorescence, which the \gls*{km} theory is not able to model, along with polarisation. 
-\gls*{km} theory does have some positive aspects.
-\Gls*{km} theory is good at calculating the diffuse reflectance of simple media, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications~\cite{prahl1990light}.
+Many medical and biophotonic treatments or methods use laser light which is not diffuse. Finally, tissue can also exhibit fluorescence, which the \gls*{km} is not able to model, along with polarisation. 
+\gls*{km} does have some positive aspects.
+\Gls*{km} is good at calculating the diffuse reflectance of simple media, and can be used to roughly estimate calculations. Though it is not well suited for modelling light-tissue applications~\cite{prahl1990light}.
 
 \subsubsection*{Diffusion Approximation}
 \label{sec:diffusionapprox}
@@ -195,7 +195,7 @@ The diffusion approximation is computationally fast and simple to implement. How
 
 \subsubsection*{MCRT}
 The final method, \gls*{mcrt}, is numerically equivalent to the \gls*{rte}~\cite{wang2012biomedical}. \gls*{mcrt} is a flexible method. 
-\Gls*{mcrt} can model arbitrary 3D geometries, various microphysics including fluorescence and polarisation.
+\Gls*{mcrt} can model arbitrary 3D geometries, and various microphysics including fluorescence and polarisation.
 \Gls*{mcrt} can also model various different light sources, from collimated laser beams to diffuse light sources. The only downside noted in the literature is that the \gls*{mcrt} can be expensive computationally. However, with computational power growing faster with time, this is less of a problem going forward. 
 
 The next several sections give an in-depth description of the \gls*{mcrt} method and its flexibility, along with a description of the code used in this thesis to solve various medical and biophotonic problems.
@@ -218,7 +218,7 @@ The scattering of light within tissue is usually defined as $\mu_s$ or $\mu_s'$:
 \begin{equation}
 	T=e^{-\mu_sL}
 \end{equation}
-This gives units of inverse length for the scattering coefficient (usually measured in $cm^{-1}$ in medical applications). The reduced scattering coefficient is often given in place of the scattering coefficient, as the reduced coefficient is more easily measured then the ``normal'' coefficient~\cite{jacques2013optical}.
+This gives units of inverse length for the scattering coefficient (usually measured in $cm^{-1}$ in medical applications). The reduced scattering coefficient is often given in place of the scattering coefficient, as the reduced coefficient is more easily measured than the ``normal'' coefficient~\cite{jacques2013optical}.
 
 
 
@@ -715,11 +715,11 @@ This expression has also been fitted to by other~\gls*{mcrt} simulations~\cite{j
 
 \indent $C_n$ and $k_n$ are fitted coefficients [-];
 
-\indent and $\delta$ is the optical penetration depth, defined as $\delta=1/\sqrt{3\mu_a(\mu_a+\mu_s(1-g))}$, [$cm$].
+\indent and $\delta$ is the optical penetration depth, defined as $\delta=1/\sqrt{3\mu_a(\mu_a+\mu_s(1-g))}$ [$cm$].
 
 \medskip
 
-Jacques \textit{et al.}, in their simulation used two different wavelengths, 420~nm and 630~nm.
+Jacques \textit{et al.} in their simulation used two different wavelengths, 420~nm and 630~nm.
 The medium in the simulation is an infinitely wide slab with a depth of 1~cm, with uniform optical properties. 
 The medium has a refractive index of 1.38.
 The $g$ value is in the range 0.7 --- 0.9, and the optical properties are as in~\cref{tab:jacqprops}.
@@ -758,6 +758,6 @@ There are various methods available to model the radiative transport equation.
 \Gls*{mcrt} is the most flexible of the methods available, allowing arbitrary geometries, light sources, multiple anisotropic scattering, and various microphysics to be modelled.
 This chapter presented an overview of the \gls*{mcrt} algorithm that will be the basis of the results presented in the following chapters.
 The code described in this chapter is based upon K. Wood's \gls*{mcrt} code for light propagation in galactic dust clouds.
-It has been rewritten in modern Fortran and adapted so the code can model biological tissue so that the code can be applied to various medical and biophotonic problems.
+It has been rewritten in modern Fortran and adapted so the code can model biological tissue and can be applied to various medical and biophotonic problems.
 The optical properties required in a \gls*{mcrt} simulation have been discussed and will be utilised to subsequent chapters.
 A description of how the code has been parallelised and validated against a standard literature code has also been presented.

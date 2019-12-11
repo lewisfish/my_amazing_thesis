@@ -319,7 +319,7 @@ The next stage in the tissue damage process is the vaporisation of water. As the
 The third stage of tissue damage is carbonisation of the tissue. This occurs when most of the water has boiled off, leaving the remaining tissue to heat up and reduce to its elemental carbon form. This carbonisation of tissue, when it occurs, is generally only a thin layer of 5-20~$\mu m$~\cite{welch2011optical,verdaasdonk1990explosive}.
 
 The final stage of tissue damage is the removal of the remaining tissue, i.e tissue ablation. There is no agreement in the literature how tissue undergoes ablation with several methods proposed. The three main methods are: photochemical, thermal, and explosive~\cite{husinsky1990mechanisms,kitai1991physics,oraevsky1991pulsed}. 
-Photochemical ablation is when the energy of a photon from the irradiating laser, is sufficient enough that it excites the electronic state of the tissues molecules into an anti-boding state, leading to broken bonds and conversion from electronic energy into kinetic energy, and thus ablation.
+Photochemical ablation is when the energy of a photon from the irradiating laser is sufficient enough that it excites the electronic state of the tissues molecules into an anti-boding state, leading to broken bonds and conversion from electronic energy into kinetic energy, and thus ablation.
 Thermal ablation is where tissue is heated sufficiently so that tissue vaporisation takes place. 
 Finally, explosive ablation is an extreme version of thermal ablation. Explosive ablation occurs when large amounts of energy is deposited in a small time scale, so that none of the energy can thermally diffuse away, resulting in explosive ablation.
 Photochemical ablation, is usually applied to UV laser ablation, whereas thermal and explosive ablation regimes are the more likely candidates for IR ablation which is considered here.
@@ -506,7 +506,7 @@ A slice through the middle of the cube, $L=50~cm$,  yields \cref{fig:validation-
 \subsubsection*{MCRT and heat transport validation}
 
 
-As a first test of the code, both the \gls*{mcrt} and the heat simulation are compared to a simple analytical model of ablation. The simple model of ablation is as: the ablation energy ($E_a$), is defined as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus, in one dimension~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of intensity, P ($Wcm^{-2}$), this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged to give an ablation front velocity, \cref{eqn:ablationvelo}.
+As a first test of the code, both the \gls*{mcrt} and the heat simulation are compared to a simple analytical model of ablation. The simple model of ablation is as: the ablation energy ($E_a$) is defined as the minimum energy required to raise the temperature of the medium to 100~$^{\circ}$C, and then boil off the water in a volume dV, mass M. Thus, in one dimension~\cref{eqn:ablationenergy}, where the symbols have their usual meanings. If the energy for ablation is delivered in a time \textit{dt} by a laser of intensity, P ($Wcm^{-2}$), this gives \cref{eqn:midequationablation}.~\Cref{eqn:midequationablation} can be rearranged to give an ablation front velocity, \cref{eqn:ablationvelo}.
 
 
 \begin{align}
@@ -561,7 +561,7 @@ Tissue & $\rho \cdot (6.28\cdot 10^{-4}\cdot W + 1.17\cdot 10^{-4} \cdot P)$ & $
 Air & $a e^{-b(T-273.15)} +c$  & $\tfrac{p_{atm}}{R_{spec} T}$ & 1006 \\ 
 \hline 
 \end{tabular}
-\caption{Optical and thermal properties for porcine tissue and air. W and P are the percentage of water and protein respectively. $\rho$ is the density of the skin, $p_{atm}$ is the pressure of air at 1 atmosphere, and $R_{spec}$ is the gas constant. $a$, $b$, and c are constants.}
+\caption{Thermal properties for porcine tissue and air. W and P are the percentage of water and protein respectively. $\rho$ is the density of the skin, $p_{atm}$ is the pressure of air at 1 atmosphere, and $R_{spec}$ is the gas constant. $a$, $b$, and c are constants.}
 \label{table:values}
 \end{table}  
 
@@ -707,17 +707,17 @@ The reason that there is almost no time between $1^{st}$ and $2^{nd}$, and $3^{r
 \subsubsection*{Investigating laser pulse profile}
 
 Pulsed lasers have a variety of pulse profiles.
-The pulse profiles are usually modelled as triangular, tophat, or Gaussian.
+The pulse profiles are usually modelled as triangular, top hat, or Gaussian.
 However, the pulse profiles in reality are normally less well defined, and rather the pulse profile is something in between these perfect models.
 
 The laser used in the above experiments, the Pixel CO$_2$, states that is has a triangular pulse profile for the laser pulses.
 Thus, in this section the effect of the laser pulse profile has on ablation and the surrounding thermal injury is investigated.
 
-Three different laser pulses profiles are investigated: tophat, triangular, and a Gaussian profiles.
+Three different laser pulses profiles are investigated: top hat, triangular, and a Gaussian profiles.
 The Gaussian profile used has approximately the same area as the two other pulses.
 
 \Cref{fig:pulseprofiles} show the pulse profiles for a pulselength of $0.2~s$.
-From \cref{fig:comparepulsetypes} the tophat pulse profile causes the most ablation, where as the Gaussian pulse causes the least.
+From \cref{fig:comparepulsetypes} the top hat pulse profile causes the most ablation, where as the Gaussian pulse causes the least.
 This can be explained by the fact that the Gaussian pulse delivers energy over a longer time span, thus letting heat diffuse away before it can ``build'' up and cause damage, and thus ablation.
 
 \begin{figure}[!htbp]
@@ -741,11 +741,11 @@ This can be explained by the fact that the Gaussian pulse delivers energy over a
 \Cref{fig:pulsetypeburn} shows the difference between the pulse types with respect to the time it takes to reach a type of burn.
 There is a large difference in profiles for each of the pulse types.
 The Gaussian pulse type takes approximately 0.7~s to inflict a burn of any type.
-Whereas the tophat pulse almost immediately inflict tissue damage, with the triangular pulse type takes approximately 0.05~s.
+Whereas the top hat pulse almost immediately inflict tissue damage, with the triangular pulse type takes approximately 0.05~s.
 The profiles of the lines in~\cref{fig:pulsetypeburn} are also different when compared.
-Both the Gaussian and triangular pulses have broadly the same shape, whereas the tophat beam has a gradual increasing curve.
+Both the Gaussian and triangular pulses have broadly the same shape, whereas the top hat beam has a gradual increasing curve.
 This is due to the shape of the beams and their energy delivered per second.
-The tophat beam delivers constant energy at $70~W$, where the other two beams peak output is $70~W$.
+The top hat beam delivers constant energy at $70~W$, where the other two beams peak output is $70~W$.
 
 \begin{figure}[!htbp]
 	\squeezeup{2.5}
@@ -849,7 +849,7 @@ The model can also be applied to help optimise laser assisted drug delivery.
 Laser assisted drug delivery uses lasers to drill holes into the skin to help promote topical drug diffusion into the skin.
 Our model can help predict the laser parameters needed to reach a certain hole depth, thus minimising thermal damage and pain to patients.
 
-There are many avenues available with regards to future work on this model. The model presented here in this chapter was on an initially homogeneous skin model. In reality skin is composed of several distinct layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores. However, as the laser used in these studies is an infra-red laser, water is the highest absorbing chromophore, meaning that a physically accurate model, with various chromophores is not need for this application.
+There are many avenues available with regards to future work on this model. The model presented here in this chapter was on an initially homogeneous skin model. In reality skin is composed of several distinct layers, with each layer containing varying amounts of different chromophores. Our model can easily incorporate an multi-layered skin model complete with various fractions of chromophores. However, as the laser used in these studies is an infra-red laser, water is the highest absorbing chromophore, meaning that a physically accurate model, with various chromophores is not needed for this application.
 The current model is a voxel based model, where all the voxels are the same size. This allows the model presented in this chapter to be easily set-up, with regards to parallelisation, optical and thermal properties and ease of programming. However, voxel models, where all the voxels are the same size, are not computationally efficient. To achieve good resolution, many voxels are needed, which requires large amounts of RAM, due to a $\sim n^3$ scaling of voxels to memory in 3D. A more efficient way, would be to allow different sizes of voxels, depending on parts of the model which need high resolution, and parts that do not need high resolution. Such a voxel model is called an \gls*{amr}. There are downsides to \gls*{amr}: complex implementation for parallelisation and set-up of optical and thermal properties, and slower optical depth integration routines due to more computationally intensive voxel calculations.
 
 

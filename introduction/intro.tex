@@ -82,22 +82,36 @@ P=\int_0^{\frac{\pi}{2}}\int_0^{\frac{l}{2}sin\theta}\frac{4}{s\pi}\ dx\ d\theta
 
 There are various different approaches to using the Monte Carlo method to obtain randomly sampled variables.
 One analytical way of achieving this is the inverted sampling method.
+The inversion method allows the mapping of one or more uniform random variables to the random variables from the desired distribution~\cite{pharr2016physically}.
 The inverted sampling method can be summarised by the following steps for drawing a sample $X_i$ from an arbitrary PDF $p(x)$:
 
 \medskip
 
 1. Compute the \gls*{cdf} $P(x)=\int^{x}_{0}p(x')dx'$
 
-2. Compute the inverse $P^{-1}(x)$
+2. Obtain a uniformly distributed random number $\xi$ in the range [0.,1.)
 
-3. Obtain a uniformly distributed random number $\xi$ in the range [0.,1.)
+3. Compute the inverse $P^{-1}(x)$
 
 4. Finally, compute $X_i = P^{-1}(\xi)$
 
 \medskip
 
+For example, taking $P(x)=\cos x$, we want to map $\xi$ to $x$:
+
+\begin{align}
+\xi_i&=\int_{0}^{x_i}P(x)dx=\sin\theta_i\\
+\therefore x_i&=\sin^{-1}\xi_i
+\end{align}
+
+
+
+If a given problem cannot use the inverted sampling method, as it may not be possible to get a PDF or analytically invert the CDF, then the rejection method can be used.
+The rejection method is essentially a dart throwing method.
+This means that points are randomly chosen and compared to the function.
+If the point lies under the function then the point is accepted, if it lies above the function then it is rejected.
 \begin{figure}[!hbp]
-    \squeezeup{5.5}
+    \squeezeup{4}
     \centering
     \includegraphics[width=.5\textwidth]{buffon.pdf}
     \caption{Sample Buffon needle experiment. 100 needles are dropped on a 10 $\times$ 10 cm area with lines spaced 1.5~cm apart. If a needle lands on a line it is recorded and coloured blue, if it does not land on a line it is coloured red. This simulation gave a value of $\pi$ $\approx$ 3.10.}
@@ -105,11 +119,6 @@ The inverted sampling method can be summarised by the following steps for drawin
     \squeezeup{3.5}
 \end{figure}
 \FloatBarrier
-
-If a given problem cannot use the inverted sampling method, as it may not be possible to get a PDF or analytically invert the CDF, then the rejection method can be used.
-The rejection method is essentially a dart throwing method.
-This means that points are randomly chosen and compared to the function.
-If the point lies under the function then the point is accepted, if it lies above the function then it is rejected.
 For example, if a function, $f(x)$ does not have an analytical PDF, we can use a PDF $p(x)$ such that $f(x) < cp(x)$ where c is a constant.
 Therefore, if we sample from $p(x)$ and if the point lies under $f(x)$ then it is accepted, else it is rejected.
 ~\Cref{fig:picircle} shows an example of this process.

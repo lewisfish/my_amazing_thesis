@@ -585,7 +585,10 @@ Various literature sources report the ablation temperature ranging widely from 1
 Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage to the surrounding tissue. Decreasing the ablation temperature has the converse effect and allows the ablation crater to become deeper.
 
 Over the full range of \gls*{ta}, as the energy per pixel beam increases, there is a trend that at higher energies the crater depth begins to taper off. This is potentially due to several reasons. As the ablation craters grows the volume of tissue that is ablated is replaced with air, allowing more heat loss from the tissue to the environment. As well as heat loss to the environment, more heat is diffused away into the surrounding tissue as the crater grows, due to the availability of more tissue for the heat to diffuse into.
-
+Finally, there is the appearance of ``kinks'' in what should be smooth data.
+The cause of these ``kinks'' is due to a couple of voxels not fully ablating around the bottom of the crater.
+Why this occurs is unknown, but believed to be due to the numerical error in that particular run of the simulation.
+For example in~\cref{fig:tacirc} $T_a=300$ the data is smooth, whilst in $T_a=350$ there are two unexplained ``kinks''.
 
 \begin{figure}[!htbp]
 	\centering

@@ -7,8 +7,8 @@ This chapter uses \gls*{mcrt} techniques coupled to a heat transfer simulation, 
 
 \medskip
 
-Ablative lasers are used in a wide variety of medical procedures including: coagulating scalpels, port wine stain removal, tattoo removal, hair removal, and skin rejuvenation~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser,hardaway2002nonablative}.
-One class of laser used in these procedures are ablative lasers. Ablative lasers are usually high powered lasers ($>$30~W) targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls*{pdt}. The ablative laser ``drills'' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}.
+Lasers are used in a wide variety of medical procedures.
+One class of laser used in these many of these procedures are ablative lasers. Ablative lasers are usually high powered lasers ($>$30~W) targeted at a specific chromophore in the skin, to partially or fully remove layers of skin. These types of lasers are commonly used for aesthetic procedures such as: skin rejuvenation~\cite{hardaway2002nonablative}, and removal of various diseases such as Rhinophyma~\cite{shapshay1980removal} or lesions/nodules~\cite{valcavi2010percutaneous}. Ablative lasers have also been recently investigated as a means of better drug penetration into the skin for various therapies such as \gls*{pdt}. The ablative laser ``drills'' holes in the skin, which allows topical treatments to better diffuse into the skin~\cite{haedersdal2010fractional}. Ablative lasers are also used as/in: coagulating scalpels, port wine stain removal, tattoo removal, and hair removal~\cite{amini2010ultrafast, tan1989treatment,kuperman2001laser,liew2002laser}.
 
 One downside to using lasers to remove tissue is, that unlike a scalpel where the surgeon has full control of the depth of the incision, ablative lasers are not as predictable. Lasers can cause thermal damage to the surrounding areas, leading to potentially  unwanted effects, though some applications of ablative lasers utilise the thermal damage, particularly aesthetic procedures~\cite{alexiades2008spectrum}.
 
@@ -341,7 +341,7 @@ Due to the above mentioned reasons, there is no defined ablation temperature. Th
 	\vspace{-10pt}
 \end{figure}
 
-To model all these tissue damage processes the tissue damage model is split into two sections: coagulation damage and ``physical'' damage. Coagulation damage has no effect on the tissue's bulk optical or thermal properties. ``Physical'' damage changes the tissue optical and thermal properties.
+To model all these tissue damage processes the tissue damage model is split into two sections: coagulation damage and ``physical'' damage. ``Physical'' damage changes the tissue optical and thermal properties.
 
 \subsubsection*{Modelling coagulation damage}\label{sec:coagdamage}
 With the description of the various processes that tissue undergoes during ablation, a numerical model of these processes can be created.
@@ -534,7 +534,7 @@ Results from these \textit{in silico} experiments are presented in this section 
 
 \subsubsection*{Optical \& thermal properties}
 \label{sec:opticalprops}
-The thermal and optical properties of porcine tissue are not known exactly for any given tissue sample. As such the thermal and optical properties used in this section are taken from various literature sources.
+The thermal and optical properties of porcine tissue are not known exactly for any given tissue sample. As such the thermal and optical properties used in this section are taken from various literature sources~\cite{}.
 
 The laser used in the experimental work is an CO$_2$ laser operating at $10.6\ \mu m$. This means the optical properties of the tissue are dominated by water absorption. The laser used in the experiment is the Pixel CO$_2$\cite{pixelco2}. The Pixel CO$_2$ laser has a wavelength 10.6$~\mu m$ which corresponds to an absorption coefficient in water of $\sim 850~cm^{-1}$. As the absorption coefficient is large, it is assumed that scattering is negligible at these wavelengths.
 \Cref{table:values} summarises the thermal properties for tissue and air used in the simulations.  
@@ -580,7 +580,7 @@ As a check to ensure that no physical phenomena are omitted by focusing on just 
 
 \subsubsection*{Investigating ablation temperature, \texorpdfstring{$T_a$}{Ta}}
 
-Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the \gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta}, and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, the upper limit of \gls*{ta} from the literature.
+Various literature sources report the ablation temperature ranging widely from 177$^{\circ}$ to 500$^{\circ}$~\cite{gerstmann1994char,mckenzie1986three,sagi1992heating}. Thus, several models are run over this range to establish the \gls*{ta} which fits the experimental results. \Cref{fig:tacirc,fig:tagauss} show how \gls*{ta} and beam profile affect the crater depth as a function of pixel beam energy for the CO$_2$ laser. The data suggests that a \gls*{ta} around $T_a=500~^{\circ}C$ is appropriate for the studies carried out, and is within upper limit of \gls*{ta} found in the literature the literature.
 
 Increasing the ablation temperature has the obvious effect of requiring more energy to be deposited by the laser before ablation takes place. This also allows more heat to diffuse away from the ablation crater increasing the thermal damage to the surrounding tissue. Decreasing the ablation temperature has the converse effect and allows the ablation crater to become deeper.
 
@@ -589,6 +589,7 @@ Finally, there is the appearance of ``kinks'' in what should be smooth data.
 The cause of these ``kinks'' is due to a couple of voxels not fully ablating around the bottom of the crater.
 Why this occurs is unknown, but believed to be due to the numerical error in that particular run of the simulation.
 For example in~\cref{fig:tacirc} $T_a=300$ the data is smooth, whilst in $T_a=350$ there are two unexplained ``kinks''.
+These could be fixed if the simulations were rerun, but due to time pressures, available computing power, and the small effect of these kinks the simulations were not rerun.
 
 \begin{figure}[!htbp]
 	\centering

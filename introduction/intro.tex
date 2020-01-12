@@ -64,7 +64,7 @@ The earliest use of the method is in Buffon's needle experiment of the 18$^{\tex
 
 \medskip
 
-The solution to this for a needle of length \textit{l}, a strip separation \textit{s}, $\theta$ is the angle of the needle with respect to the wood strips, and where \textit{x} is the distance from the needle to the closest line,. Then, using a simple geometrical argument, a needle crosses a strip if $x \leq \tfrac{l}{2} sin \theta$.
+For a needle of length \textit{l}, strip separation \textit{s}, $\theta$ is the angle of the needle with respect to the wood strips, and where \textit{x} is the distance from the needle to the closest line. Then, using a simple geometrical argument, a needle crosses a strip if $x \leq \tfrac{l}{2} sin \theta$.
 
 $x$ is distributed uniformly in [0, $\tfrac{s}{2}$], and $\theta$ in [0, $\tfrac{\pi}{2}$]. Therefore the probability density function for $x$ is $p(x)=\tfrac{2}{s}$, and $\theta$ is $p(\theta) = \tfrac{2}{\pi}$. The \gls*{pdf} is a function of a variable that gives the probability for a variable to take a given value. The \gls*{pdf} is normalised over the whole range of the variable, in this case $x$, and $\theta$.
 Thus, as $x$ and $\theta$ are independent variables, giving a joint probability of $p(x,\theta) = \tfrac{4}{s \pi}$.
@@ -87,7 +87,7 @@ The inverted sampling method can be summarised by the following steps for drawin
 
 \medskip
 
-1. Compute the \gls*{cdf} $P(x)=\int^{x}_{0}p(x')dx'$
+1. Compute the \gls*{cdf}\footnote{The \gls*{cdf} P(x), is the a function that gives the probability that a value from the variables distribution is less that or equal to some value x: $P(x)=Pr\{X \leq x\}$. The CDF is equal to the integral of the PDF over the range of some value x.} $P(x)=\int^{x}_{0}p(x')dx'$
 
 2. Obtain a uniformly distributed random number $\xi$ in the range [0.,1.)
 
@@ -104,6 +104,7 @@ For example, taking $P(x)=\cos x$, we want to map $\xi$ to $x$:
 \therefore x_i&=\sin^{-1}\xi_i
 \end{align}
 
+Thus, if we take random numbers in the range [0, 1.) and calculate $\sin^{-1}$ of the random number we will eventually build up $\cos x$.\\
 
 
 If a given problem cannot use the inverted sampling method, as it may not be possible to get a PDF or analytically invert the CDF, then the rejection method can be used.
@@ -189,7 +190,7 @@ Finally the algorithm is used to compare Bessel beams and Gaussian beams in high
 Chapter 5 details the modelling of a novel biomarker for cardiovascular disease, autofluorescence.
 The theoretical groundwork for the biomarker is presented along with discussion of how \gls*{mcrt} can model fluorescence.
 Presented alongside this is ameombaMCRT, a Monte Carlo radiation transfer simplex algorithm used to determine concentrations of fluorophores in different layers of tissue for a given spectrum.
-Finally, a study of how tissue optics affect the autofluorescent signal is presented. This study investigates the effect of blood, melanin, and skin thickness can have on the autofluorescent signal.
+Finally, a study of how tissue optics affect the autofluorescent signal is presented. This study investigates the effect of blood, melanin, and skin thickness can have on the autofluorescent signal.\\
 
 
 Finally, chapter 6 concludes this thesis and presents possible future avenues of research which could be undertaken.

@@ -141,7 +141,7 @@ This is done as the absorption coefficient differs between the two types of bloo
 
 
 \begin{equation}
-\mu_{a,Oxy/DeOxy}=150\ \ln10\ \frac{\varepsilon_{Oxy/DeOxy}}{64458}
+\mu_{a,Oxy/DeOxy}=150\ \ln10\ \frac{\varepsilon_{Oxy/DeOxy}}{64458}\quad cm^{-1}
 \label{eqn:oxy}
 \end{equation}
 
@@ -332,7 +332,8 @@ As the scattering properties do not vary from layer to layer by too much, we use
 \medskip
 
 This equation mixes both Mie and Rayleigh scattering into one equation.
-The first term represents the Rayleigh scattering terms, whilst the second represents the Mie scattering term.
+The first term represents the Rayleigh scattering terms ($f_{ray}$), whilst the second represents the Mie scattering term ($1-f_{ray}$).
+Essentially the Rayleigh term allows the treatment of scattering by particles smaller than the incident wavelength, and the Mie terms accounts for scattering by particles larger than the incident wavelength.
 \Cref{fig:scatplot} shows the reduced scattering coefficients for the different layers of the skin.
 \Cref{tab:valscat} show the values used in the model for the scattering equation for the different layers.
 
@@ -400,7 +401,7 @@ g(\lambda)=0.62+0.29\lambda\times10^{-3}
   \label{tab:refindex}
 \end{table}
 
-As information on wavelength dependent refractive indices is not readily available, we assume that the refractive indices are the same for all wavelengths used in this chapter.
+As information on wavelength dependent refractive indices is not readily available, we assume that the refractive indices are the same for all wavelengths used in this chapter. This means that the fluence near the boundaries of the skin layers will either be over or underestimated depending on how close these assumed values are to reality.
 
 \subsection{Fluorophores in the Skin}
 
@@ -556,15 +557,16 @@ The algorithm presented above gave a good fit to the experimental data.
 
 To determine the contribution of individual fluorophores and their concentrations, emission profiles of these fluorophores cannot simply be fitted to autofluorescence signals.
 This is due to the nonlinear effect that tissue optics have on the emission profiles.
-Therefore, \gls*{mcrt} can be used to compute this effect.
-This leaves the problem as an optimisation problem.
+The effect of tissue optics on a given signal is not easily elucidated, and thus \gls*{mcrt} must be used to compute this.
+This leaves the problem as an optimisation problem of finding the optimal fluorophore confrontations, locations and types.
 The Nelder-Mead method is an algorithm for unconstrained optimisation~\cite{nelder1965simplex}. 
 The algorithm is based upon iteratively updating a simplex. 
 A simplex is a structure in $n$-$dimensional$ space, consisting of $n+1$ points. 
 Therefore in 1D, the simplex is a line, in 2D a triangle, in 3D a tetrahedron, etc. 
 The Nelder-Mead method is a gradient free method, meaning that it does not require derivatives to be calculated and that the search space does not need to be smooth.
-This makes it ideal for problems where derivatives are not able to be computed easily, or the search space is not smooth.
+This makes it ideal for problems where derivatives can not be computed easily, or the search space is not smooth.
 However, the NM method can also get stuck at local minima so care must be taken to avoid this.
+This is done by running the Nelder-Mead multiple times with different starting points and testing to see if they arrive at the same answer.
 Genetic algorithms, which do not easily get stuck in local minima, were trialled but the computational cost of using them made it unfeasible. 
 
 The NM algorithm works by removing the worst vertex of the simplex and replacing it with a ``better'' vertex calculated via a number of different operations.
@@ -806,7 +808,6 @@ How the micro-vascular system responds to this test can be indicative of various
 
 S. Smirni collected around 27 spectra at the rate of 1 per minute over a period of 27 minutes as the \gls*{porh} test was undertaken, 11 for a baseline before inflation of the cuff, 5 during occlusion and 11 post occlusion.
 Spectra were taken at each of the possible wavelengths (635~nm, 532~nm, and 365~nm) that the LAKK-M provides, yielding a total of 81 autofluorescence spectra per volunteer.
-S. Smirni also collected laser Doppler flowmetry data during this period, however as this work only concerns the modelling of autofluorescence, we restrict the analysis to that of the UV (365~nm) autofluorescence spectra.
 \Cref{fig:slavodataexample} shows an example of a raw spectrum taken during the baseline portion of the experiment.
 
 \begin{figure}[!htpb]
@@ -886,13 +887,6 @@ However, for FAD the maximum in fluorescence does not coincide with the largest 
 This is because light at the maximal absorption peak ($\sim$300~nm) is highly absorbed by tissue, especially in layers such as the epidermis.
 Therefore, light at a longer wavelength is more likely to escape the tissue due to the tissue optical properties.
 
-\begin{figure}[!htpb]
-    \centering
-    \includegraphics[width=0.75\textwidth]{show-eps-and-fluro-out.pdf}
-    \caption{NADH and FAD absorption and emission spectra.}
-    \label{fig:epsfluro}
-\end{figure}
-
 
 The layer with the strongest autofluorescent signal for elastin is the papillary dermis, this is the same for collagen.
 This is not unexpected as the papillary dermis is the layer of skin closest to the surface which contains these two fluorophores, therefore is expected to have the strongest signal.
@@ -923,6 +917,12 @@ The cause of the multiple peaks is due to the absorption spectrum of blood, whic
     Right) Excitation-emission matrix for collagen. Figure shows that the fluorescent signal from collagen is strongest in the papillary dermis.}%
     \label{fig:elastineem}%
     \squeezeup{3.5}
+\end{figure}
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{show-eps-and-fluro-out.pdf}
+    \caption{NADH and FAD absorption and emission spectra.}
+    \label{fig:epsfluro}
 \end{figure}
 
 
@@ -1090,8 +1090,8 @@ Each layer has its own concentration of the fluorophores giving $n$ for the \gls
 An initial guess of the concentration of the fluorophores is made, and the \gls*{nm} method is allowed to run until it stagnates.
 The target spectrum for the \gls*{nm} is taken from S. Smirni experimental data.
 Before the target spectrum could be used it was first ``cleaned up''.
-This ``cleaning'' process was required as the spectrum was shifted by $20~nm$ into longer wavelengths.
-The cause of this systematic shift is unknown.
+This ``cleaning'' process was required as the whole spectrum was shifted by $20~nm$ into longer wavelengths with respect to the included backscatter peak.
+The cause of this systematic shift is unknown, but is most likely due to mis calibrated or faulty equipment.
 As a backscatter peak is included within the spectrum, the spectrum can be moved to its correct position.
 The next step in the ``cleaning'' process is to filter out spectra that are ``defective''.
 Several of the autofluorescence spectra have artificial peaks caused by various experimental errors or machine faults.
@@ -1099,7 +1099,7 @@ The final stage of the ``cleaning'' process, is to smooth the data out and remov
 Now the spectra can be used as a target spectrum for the \gls*{nm} method.
 
 \Cref{fig:NMupdate} shows the output of the \gls*{nm} method during a run with the above parameters.
-The figure shows that as the simplex iterates, the average fitness improves, the average number of calls to the \gls*{mcrt} algorithm tends to $\sim 1.4$.
+The figure shows that as the simplex iterates, the average fitness improves, and the average number of calls to the \gls*{mcrt} algorithm tends to $\sim 1.4$.
 This suggests that the \gls*{nm} keeps the reflected point more often than not.
 The size of the simplex fluctuates as the simplex tries to find the global minima.
 This happens as the simplex moves over the search space it sometimes needs to grow in size, then when it finds a minimum it shrinks around it.
@@ -1131,7 +1131,7 @@ This causes a dip in the emission of collagen, giving it the multi-peaked profil
 
 \section{Discussion}
 
-There are several probable reasons why the spectrum generated by the \gls*{mcrt} and \gls*{nm} does not match the experimental data exactly.
+There are several probable reasons why the spectrum generated by the \gls*{mcrt} and \gls*{nm} does not match the experimental data exactly (see~\cref{fig:bestNMresult}).
 A first possible reason for the mismatch is that the optical properties of the fluorophores are not accurately known.
 Optical properties of the fluorophores used in the work are not readily available.
 There are various sources that have measured them, but they are usually confined to several wavelengths of the authors interest and not a full spectrum.

@@ -21,12 +21,12 @@ def tophat(x, a, plength):
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
 plt.rc('axes', labelsize=12)
 
 fig, ax = plt.subplots()
-plt.subplots_adjust(right=.99, left=.08, top=.99, bottom=.1)
+plt.subplots_adjust(right=.97, left=.08, top=.99, bottom=.12)
 
 width = 6.510  # inches
 height = width / 1.618

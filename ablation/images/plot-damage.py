@@ -12,11 +12,11 @@ plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
 plt.rc('xtick', labelsize=12)
 plt.rc('ytick', labelsize=12)
-plt.rc('axes', labelsize=20)
+plt.rc('axes', labelsize=12)
 
 fig, ax = plt.subplots()
 # stylize_axes(ax)
-fig.subplots_adjust(left=.10, bottom=.15, right=.99, top=.97)
+fig.subplots_adjust(left=.10, bottom=.15, right=.99, top=.92)
 
 voxels = 80
 shape = (voxels, voxels, voxels)
@@ -53,7 +53,7 @@ vres = zmax2
 # ticks = ticker.FuncFormatter(lambda y, pos: '{0:g}'.format(y * vres))
 # ax.yaxis.set_major_formatter(ticks)
 
-
+ax.set_title(r"P=70, $T_a$=338, $E_p$=400")
 fig.set_size_inches(width, height)
-fig.savefig("poster-tissue.pdf")
+fig.savefig("damage-slice.pdf")
 plt.show()

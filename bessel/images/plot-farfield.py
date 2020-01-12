@@ -8,8 +8,8 @@ height = width
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
 plt.rc('axes', labelsize=12)
 
 xmax = 1.5

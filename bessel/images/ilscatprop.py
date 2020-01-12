@@ -12,12 +12,12 @@ height = width / 1.618
 
 plt.rc('font', family='serif', serif='Times')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
 plt.rc('axes', labelsize=12)
 
 fig, ax = plt.subplots()
-fig.subplots_adjust(left=.08, bottom=.09, right=.985, top=.99)
+fig.subplots_adjust(left=.1, bottom=.12, right=.98, top=.99)
 
 ws = np.linspace(400, 900, 10000)
 ys = pwrLaw(ws, 3.873e9, -2.397)

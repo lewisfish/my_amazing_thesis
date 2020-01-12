@@ -15,16 +15,16 @@ height = width / 1.618
 
 plt.rc('font', family='serif')
 plt.rc('text', usetex=True)
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=10)
+plt.rc('xtick', labelsize=12)
+plt.rc('ytick', labelsize=12)
+plt.rc('axes', labelsize=12)
 
 file = "/home/lewis/phdshizz/bessel beam/bin/double-slit.dat"
 data = np.fromfile(file, sep="", dtype=np.float64)
 data = data.reshape((2051, 2051))
 
 fig, axs = plt.subplots(2, 1)
-fig.subplots_adjust(left=.08, bottom=.1, right=.99, top=.99, hspace=0.)
+fig.subplots_adjust(left=.11, bottom=.12, right=.99, top=.99, hspace=0.)
 
 
 wave = 488e-9
